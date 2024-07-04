@@ -1,5 +1,3 @@
-import * as React from "react";
-
 const SocialIcon = ({ src }) => (
   <img loading="lazy" src={src} className="shrink-0 aspect-square w-[45px]" alt="Social media icon" />
 );
@@ -19,7 +17,7 @@ const FooterSection = ({ title, links }) => (
   </div>
 );
 
-function MyComponent() {
+function Footer() {
   return (
     <div className="flex flex-col justify-center">
       <div className="flex flex-col w-full bg-slate-50 max-md:max-w-full">
@@ -61,4 +59,4 @@ function MyComponent() {
   );
 }
 
-export default MyComponent;
+export default Footer;

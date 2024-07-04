@@ -19,6 +19,7 @@
     "prettier": "^3.3.2",
     "react": "^18",
     "react-dom": "^18",
+    "redux": "^5.0.1",
     "swiper": "^11.1.4"
   },
   "devDependencies": {
