@@ -9,8 +9,8 @@ const FooterLink = ({ text }) => (
 );
 
 const FooterSection = ({ title, links }) => (
-  <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
-    <nav className="flex flex-col grow text-xl text-neutral-900 max-md:mt-10">
+  <div className="flex flex-col slg:w-6/12 max-md:ml-0 max-md:w-full">
+    <nav className="flex flex-col grow text-xl text-neutral-900  max-slg:mt-10">
       <h3>{title}</h3>
       {links.map((link, index) => (
         <FooterLink key={index} text={link} />
@@ -24,7 +24,7 @@ function MyComponent() {
     <div className="flex flex-col justify-center">
       <div className="flex flex-col w-full bg-slate-50 max-md:max-w-full">
         <header className="flex justify-center items-center px-16 py-10 w-full bg-slate-50 max-md:px-5 max-md:max-w-full">
-          <div className="flex gap-5 w-full max-w-[1434px] max-md:flex-wrap max-md:max-w-full">
+          <div className="flex justify-between gap-5 w-full max-w-[1434px] max-slg:flex-wrap max-md:max-w-full">
             <div className="flex flex-col self-start">
               <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/604506ca9fb5f43eea55e3238ed5f23c1f55c1340299778968841854431be548?apiKey=e791e0f42eab4556ac944da69358f29b&" className="self-center aspect-[3.7] w-[223px]" alt="Company logo" />
               <div className="flex gap-3 pr-16 mt-8 max-md:pr-5">
@@ -33,8 +33,8 @@ function MyComponent() {
                 <SocialIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/9936081e82166164b2f73874d6ae5898bda1496a1b28684a3a9060ca27906cc3?apiKey=e791e0f42eab4556ac944da69358f29b&" />
               </div>
             </div>
-            <div className="flex-auto max-md:max-w-full">
-              <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+            <div className="flex-auto max-w-full lg:flex lg:justify-end">
+              <div className="flex lg:w-2/3 gap-5 max-mdl:flex-col max-md:gap-0">
                 <FooterSection
                   title="О нас"
                   links={["Сертификаты", "Оборудование", "Прайслист - узнать цены"]}

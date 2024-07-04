@@ -16,6 +16,9 @@ module.exports = {
       'mdx': '650px',
       // => @media (min-width: 650px) { ... }
 
+      'mdl': '750px',
+      // => @media (min-width: 750px) { ... }
+
       'slg': '900px',
       // => @media (min-width: 900px) { ...
       

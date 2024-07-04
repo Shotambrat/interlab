@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.1",
     "@tanstack/react-query": "^5.49.2",
     "axios": "^1.7.2",
     "eslint-config-prettier": "^9.1.0",
@@ -17,7 +18,8 @@
     "next": "14.2.4",
     "prettier": "^3.3.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "swiper": "^11.1.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",

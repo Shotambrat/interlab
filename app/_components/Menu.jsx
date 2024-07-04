@@ -48,39 +48,39 @@ const Menu = ({menu, closeMenu}) => {
         </div>
       </div>
       <nav className="flex flex-col font-semibold">
-        <a href="#ckdl" className="py-4 border-b">
+        <a href="/ckdl" className="py-4 border-b">
           <div className="flex justify-between mx-4">
             <p>ЦКДЛ</p>
             <RightIcon />
           </div>
         </a>
-        <a href="#ckdl" className="py-4 border-b">
+        <a href="/analyze" className="py-4 border-b">
           <div className="flex justify-between mx-4">
-            <p>ЦКДЛ</p>
+            <p>Анализы</p>
             <RightIcon />
           </div>
         </a>
-        <a href="#ckdl" className="py-4 border-b">
+        <a href="/services" className="py-4 border-b">
           <div className="flex justify-between mx-4">
-            <p>ЦКДЛ</p>
+            <p>Услуги</p>
             <RightIcon />
           </div>
         </a>
-        <a href="#ckdl" className="py-4 border-b">
+        <a href="/doctors" className="py-4 border-b">
           <div className="flex justify-between mx-4">
-            <p>ЦКДЛ</p>
+            <p>Врачи</p>
             <RightIcon />
           </div>
         </a>
-        <a href="#ckdl" className="py-4 border-b">
+        <a href="/addresses" className="py-4 border-b">
           <div className="flex justify-between mx-4">
-            <p>ЦКДЛ</p>
+            <p>Адреса</p>
             <RightIcon />
           </div>
         </a>
-        <a href="#ckdl" className="py-4">
+        <a href="/about" className="py-4">
           <div className="flex justify-between mx-4">
-            <p>ЦКДЛ</p>
+            <p>О нас</p>
             <RightIcon />
           </div>
         </a>
