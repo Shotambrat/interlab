@@ -1,9 +1,10 @@
-import Main from "@/app/_components/Main"
+import Main from "@/app/_components/Main";
 
 export default function HomePage() {
 
   return (
     <div>
+
       <Main />
     </div>
   );
