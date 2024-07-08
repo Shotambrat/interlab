@@ -20,7 +20,8 @@
     "react": "^18",
     "react-dom": "^18",
     "redux": "^5.0.1",
-    "swiper": "^11.1.4"
+    "swiper": "^11.1.4",
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
