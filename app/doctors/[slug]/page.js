@@ -25,13 +25,13 @@ export default function page() {
 
   return (
     <div className="px-2 w-full bg-white">
-      <div className="w-full max-w-[1440px] flex flex-col gap-48">
-        <div className="w-full flex flex-col items-center slg:flex-row slg:justify-start">
+      <div className="w-full max-w-[1400px] flex flex-col gap-48 mx-auto">
+        <div className="w-full flex flex-col items-center slg:flex-row slg:justify-start gap-8">
           <Image
             src={data.imageSrc}
             width={1000}
             height={1000}
-            className="w-full h-full max-w-[320px]"
+            className="w-full h-full max-w-[320px] rounded-3xl"
             alt="Ava"
           />
           <div className="flex flex-col justify-between">

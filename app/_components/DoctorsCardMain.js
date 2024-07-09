@@ -1,6 +1,7 @@
 import Image from "next/image";
+import LinkYakor from "@/app/_components/LinkYakor";
 
-const DoctorCardMain = ({ name, specialty, imageSrc }) => (
+const DoctorCardMain = ({ name, specialty, imageSrc, slug }) => (
     <article className="flex flex-col grow pb-2 max-md:mt-5">
       <div className="flex h-full flex-col pb-5 bg-white shadow-lg md:shadow-2xl rounded-[30px]">
         <div className="flex overflow-hidden relative flex-col rounded-3xl items-end px-16 pt-20 pb-3 w-full aspect-[0.84] max-md:pl-5">
@@ -13,6 +14,7 @@ const DoctorCardMain = ({ name, specialty, imageSrc }) => (
             height={300}
             quality={100}
           />
+          <LinkYakor slug={slug} />
         </div>
         <div className="flex flex-col mx-5 mt-5 max-md:mx-2.5">
           <h3 className="text-2xl font-bold text-neutral-900">{name}</h3>

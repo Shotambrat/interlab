@@ -9,7 +9,7 @@ import MenuIcon from "@/app/_components/MenuIcon";
 import Menu from '@/app/_components/Menu'
 import {useState} from 'react';
 
-export default function Tools() {
+export default function Tools( {navOptions} ) {
   const [menu, setMenu] = useState(false);
 
   const handleOpenMenu = () => {
@@ -68,7 +68,7 @@ export default function Tools() {
           <MenuIcon />
         </div>
       </div>
-      {menu ? <Menu menu={menu} closeMenu={handleCloseMenu} /> : <></>}
+      {menu ? <Menu menu={menu} closeMenu={handleCloseMenu} navOptions={navOptions} /> : <></>}
     </div>
   );
 }

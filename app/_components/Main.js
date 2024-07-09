@@ -13,6 +13,9 @@ import SwiperCore, { Navigation, Pagination } from "swiper";
 import Application from "@/app/_components/Application";
 import Blog from "@/app/_components/Blog";
 import DoctorCard from "@/app/_components/DoctorsCardMain";
+import ContactWithUs from "@/app/_components/Modals/ContactWithUs";
+import OnlineReq from "@/app/_components/Modals/OnlineReq";
+import PopularAnalyze from "./PopularAnalyze";
 
 // Install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
@@ -22,10 +25,14 @@ const ServiceCard = ({
   description,
   imageSrc,
   bgColor,
-  bgHoverColor,
+  slug
 }) => (
-  <section
-    className={`flex flex-col h-[300px] overflow-hidden grow rounded-[30px] max-w-full relative transition-all duration-300 ${bgColor} hover:${bgHoverColor} cursor-pointer`}
+  <a
+    href={slug}
+    style={{
+      backgroundColor: bgColor
+    }}
+    className={`flex flex-col h-[300px] overflow-hidden grow rounded-[30px] max-w-full relative transition-all duration-300 cursor-pointer`}
   >
     <div className="rounded-[30px] pl-4 w-[76%]">
       <div className="flex gap-2 max-md:flex-col ">
@@ -50,12 +57,15 @@ const ServiceCard = ({
         </div>
       </div>
     </div>
-  </section>
+  </a>
 );
 
 function Main() {
   const [bannerData, setBannerData] = useState(null);
   const [services, setServices] = useState([]);
+  const [contactWithUs, setContactWithUs] = useState(false);
+  const [onlineReq, setOnlineReq] = useState(false);
+  const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
     // Функция для получения данных из API
@@ -90,10 +100,20 @@ function Main() {
       } catch (error) {
         console.error("Error fetching banner data:", error);
       }
+
+      const doctors = await fetch('http://localhost:3000/api/users')
+      .then(response => response.json())
+      .catch(error => {
+        console.error('Error fetching users:', error);
+        return [];
+      });
+
+      setDoctors(doctors);
     };
 
     fetchData();
   }, []);
+
 
   if (!bannerData) {
     return <div>Loading...</div>;
@@ -101,6 +121,8 @@ function Main() {
 
   return (
     <>
+      {contactWithUs ? <ContactWithUs setState={setContactWithUs} /> : <></>}
+      {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
       <div className="flex flex-col bg-white px-2 lg:px-16">
         <main className="flex flex-col self-center w-full max-w-[1414px] max-md:max-w-full">
           <section className="max-md:max-w-full">
@@ -154,12 +176,18 @@ function Main() {
             </div>
           </section>
           <div className="flex gap-5 self-end mt-4 text-xs font-semibold text-center uppercase">
-            <button className="flex justify-center">
+            <button
+              onClick={() => setContactWithUs(true)}
+              className="flex justify-center"
+            >
               <div className="flex justify-center items-center px-3 bg-white rounded-full h-[90px] w-[90px] text-red-400 hover:text-red-600 hover:shadow-xl transition-all duration-300 shadow-lg">
-                ПОЛУЧИТЬ РЕЗУЛЬТАТ
+                СВЯЗАТЬСЯ
               </div>
             </button>
-            <button className="flex justify-center text-white">
+            <button
+              onClick={() => setOnlineReq(true)}
+              className="flex justify-center text-white"
+            >
               <div className="flex justify-center items-center px-5 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-full h-[90px] w-[90px] max-md:px-5">
                 ОНЛАЙН ЗАПИСЬ
               </div>
@@ -169,8 +197,8 @@ function Main() {
 
         <div className="flex flex-col self-center mdx:px-5 mt-60 w-full max-w-[1440px] max-md:mt-10 max-md:max-w-full">
           <div className="max-md:max-w-full">
-            <div className="flex gap-5 flex-col slg:flex-row max-md:gap-0">
-              <div className="flex flex-col w-full slg:w-6/12 max-md:ml-0 max-md:w-full">
+            <div className="flex slg:gap-20 flex-col slg:flex-row gap-0">
+              <div className="flex flex-col w-full slg:w-2/5 max-md:ml-0 max-md:w-full">
                 <div className="flex flex-col max-md:mt-5 max-md:max-w-full">
                   <div className="flex flex-col max-md:max-w-full">
                     <h2 className="text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
@@ -184,22 +212,28 @@ function Main() {
                     </p>
                   </div>
                   <div className="hidden slg:flex gap-5 mt-11 max-w-full text-base font-bold text-center w-[466px] max-md:flex-wrap max-md:mt-10">
-                    <button className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px] max-md:px-5">
+                    <a
+                      href="tel:+9989898898"
+                      className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px] max-md:px-5"
+                    >
                       Позвонить
-                    </button>
-                    <button className="justify-center px-6 py-2 text-red-400 border border-red-400 hover:border-red-600 hover:text-red-600 transition-all duration-300 border-solid rounded-[100px] max-md:px-5">
+                    </a>
+                    <a
+                      href="/results"
+                      className="justify-center px-6 py-2 text-red-400 border border-red-400 hover:border-red-600 hover:text-red-600 transition-all duration-300 border-solid rounded-[100px] max-md:px-5"
+                    >
                       Получить результаты
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
               <div className="flex slg:ml-5 w-full slg:w-6/12 max-md:ml-0 max-md:w-full">
                 <div className="flex flex-col justify-between grow max-md:mt-5 max-md:max-w-full">
                   <div className="flex flex-col pt-1.5 max-md:max-w-full mb-2 md:mb-0">
-                    <div className="md:text-2xl text-lg text-neutral-900 font-semibold max-md:max-w-full">
+                    <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
                       1) 1156
                     </div>
-                    <div className="md:text-2xl text-lg text-neutral-900 font-semibold max-md:max-w-full">
+                    <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
                       2) 998 (78) 148 22 88
                     </div>
                     <div className="md:text-xl text-sm text-zinc-500 max-md:max-w-full">
@@ -208,8 +242,8 @@ function Main() {
                   </div>
                   <hr />
                   <div className="flex flex-col pt-1.5 pb-2 mt-2 border-neutral-200 max-md:max-w-full">
-                    <div className="md:text-2xl text-lg text-neutral-900 font-semibold max-md:max-w-full">
-                      г. Ташкент, ул. Ахмад Яссави, д. 1
+                    <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
+                      Юнусабадский район, ул. Чинобод 10A
                     </div>
                     <div className="md:text-xl text-sm text-red-400 max-md:max-w-full">
                       открыть в яндекс картах
@@ -217,10 +251,10 @@ function Main() {
                   </div>
                   <hr />
                   <div className="flex flex-col max-md:max-w-full">
-                    <div className="md:text-2xl text-lg text-neutral-900 font-semibold max-md:max-w-full">
+                    <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
                       7:00 - 23:00 пн - сб
                     </div>
-                    <div className="md:text-2xl text-lg text-neutral-900 font-semibold max-md:max-w-full">
+                    <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
                       7:00 - 17:00 вс
                     </div>
                     <div className="mt-2 md:text-xl text-sm text-zinc-500 max-md:max-w-full">
@@ -230,18 +264,23 @@ function Main() {
                 </div>
               </div>
               <div className="flex slg:hidden gap-2 mt-11 max-w-full text-sm font-bold text-center w-[466px] max-md:flex-wrap max-md:mt-10">
-                <button className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400  rounded-[100px] max-md:px-5">
+                <a
+                  href="tel:+9989898898"
+                  className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400  rounded-[100px] max-md:px-5"
+                >
                   Позвонить
-                </button>
+                </a>
                 <button className="justify-center px-2 py-2 text-red-400 border border-red-400 border-solid rounded-[100px]">
                   Получить результаты
                 </button>
               </div>
             </div>
           </div>
-          <h2 className="lg:mt-52 mt-10 text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
-            Медицинские услуги
-          </h2>
+          <a href="/services">
+            <h2 className="lg:mt-52 mt-10 text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
+              Медицинские услуги
+            </h2>
+          </a>
           <div className="flex flex-col items-center mdx:mt-10 w-full px-0">
             <div className="py-auto w-full mt-5">
               <div className="flex gap-5 flex-col mdl:flex-row w-full ">
@@ -256,8 +295,8 @@ function Main() {
                       title={service.name}
                       description={service.description}
                       imageSrc={service.iconUrl}
-                      bgColor="bg-sky-100"
-                      bgHoverColor="bg-sky-200"
+                      bgColor={service.colourCode}
+                      slug={service.slug}
                     />
                   </div>
                 ))}
@@ -271,8 +310,7 @@ function Main() {
                     title={service.name}
                     description={service.description}
                     imageSrc={service.iconUrl}
-                    bgColor="bg-sky-100" // Можете настроить разные цвета здесь
-                    bgHoverColor="bg-sky-200" // Можете настроить разные цвета здесь
+                    bgColor={service.colourCode} // Можете настроить разные цвета здесь
                   />
                 ))}
               </div>
@@ -282,16 +320,16 @@ function Main() {
           <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
             Акции
           </h2>
-            <Blog />
-          <button className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
-            <span className="my-auto">Все Акции</span>
+          <Blog />
+          <a href="/sale" className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
+            <span className="my-auto">Все акции</span>
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"
               className="shrink-0 aspect-square w-[23px]"
               alt="Arrow icon"
             />
-          </button>
+          </a>
           <div className="flex flex-col mt-20 mdx:mt-52 max-w-full w-[588px]">
             <h2 className="text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
               Наши врачи
@@ -303,6 +341,7 @@ function Main() {
           </div>
           <div className="mt-10 max-md:max-w-full">
             <div className="hidden mdx:flex gap-5 flex-wrap xl:flex-nowrap">
+              
               <DoctorCard
                 name="Туякова Гульмира Негмановна"
                 specialty="Гинеколог"
@@ -373,6 +412,7 @@ function Main() {
               alt="Arrow icon"
             />
           </button>
+          <PopularAnalyze />
           <div className="mt-52 max-md:mt-10">
             <Instruction />
           </div>

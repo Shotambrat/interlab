@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import backet from "@/public/svg/backet.svg";
 
-const Menu = ({menu, closeMenu}) => {
+const Menu = ({menu, closeMenu, navOptions}) => {
 
   return (
     <div
