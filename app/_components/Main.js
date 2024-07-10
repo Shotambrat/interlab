@@ -20,17 +20,11 @@ import PopularAnalyze from "./PopularAnalyze";
 // Install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
-const ServiceCard = ({
-  title,
-  description,
-  imageSrc,
-  bgColor,
-  slug
-}) => (
+const ServiceCard = ({ title, description, imageSrc, bgColor, slug }) => (
   <a
     href={`services/${slug}`}
     style={{
-      backgroundColor: bgColor
+      backgroundColor: bgColor,
     }}
     className={`flex flex-col h-[300px] overflow-hidden grow rounded-[30px] max-w-full relative transition-all duration-300 cursor-pointer`}
   >
@@ -60,12 +54,11 @@ const ServiceCard = ({
   </a>
 );
 
-function Main() {
+function Main({ doctors }) {
   const [bannerData, setBannerData] = useState(null);
   const [services, setServices] = useState([]);
   const [contactWithUs, setContactWithUs] = useState(false);
   const [onlineReq, setOnlineReq] = useState(false);
-  const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
     // Функция для получения данных из API
@@ -100,20 +93,10 @@ function Main() {
       } catch (error) {
         console.error("Error fetching banner data:", error);
       }
-
-      const doctors = await fetch('http://localhost:3000/api/users')
-      .then(response => response.json())
-      .catch(error => {
-        console.error('Error fetching users:', error);
-        return [];
-      });
-
-      setDoctors(doctors);
     };
 
     fetchData();
   }, []);
-
 
   if (!bannerData) {
     return <div>Loading...</div>;
@@ -310,7 +293,7 @@ function Main() {
                     title={service.name}
                     description={service.description}
                     imageSrc={service.iconUrl}
-                    bgColor={service.colourCode} 
+                    bgColor={service.colourCode}
                     slug={service.slug}
                   />
                 ))}
@@ -322,7 +305,10 @@ function Main() {
             Акции
           </h2>
           <Blog />
-          <a href="/sale" className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
+          <a
+            href="/blogs"
+            className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
+          >
             <span className="my-auto">Все акции</span>
             <img
               loading="lazy"
@@ -342,12 +328,23 @@ function Main() {
           </div>
           <div className="mt-10 max-md:max-w-full">
             <div className="hidden mdx:flex gap-5 flex-wrap xl:flex-nowrap">
-              <DoctorCard
-                name="Туякова Гульмира Негмановна"
-                specialty="Гинеколог"
-                imageSrc={Gulmira}
-              />
-              <DoctorCard
+              {
+              console.log(doctors)
+              // doctors && doctors.length > 0 ? (
+              //   doctors.map((doctor, index) => (
+              //     <DoctorCard
+              //       key={index}
+              //       name={doctor.fullName}
+              //       specialty={doctor.specialty}
+              //       imageSrc={doctor.photoUrl}
+              //     />
+              //   ))
+              // ) : (
+              //   <div>No doctors found</div>
+              // )
+              
+              }
+              {/* <DoctorCard
                 name="Усманова Сабиха Салижановна"
                 specialty="Педиатр-невропатолог"
                 imageSrc={Gulmira}
@@ -361,7 +358,7 @@ function Main() {
                 name="Хаджиева Зилола Улугбековна"
                 specialty="Гастроэнтеролог-Эндоскопист"
                 imageSrc={Gulmira}
-              />
+              /> */}
             </div>
             <div className="mdx:hidden">
               <Swiper
@@ -403,7 +400,10 @@ function Main() {
               </Swiper>
             </div>
           </div>
-          <button className="flex gap-2 justify-center self-center px-10 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
+          <a
+            href="/doctors"
+            className="flex gap-2 justify-center self-center px-10 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
+          >
             <span className="my-auto">Все врачи</span>
             <img
               loading="lazy"
@@ -411,7 +411,7 @@ function Main() {
               className="shrink-0 aspect-square w-[23px]"
               alt="Arrow icon"
             />
-          </button>
+          </a>
           <PopularAnalyze />
           <div className="mt-52 max-md:mt-10">
             <Instruction />
@@ -452,12 +452,18 @@ function Main() {
                   </p>
                 </div>
                 <div className="flex gap-3 mt-8 text-base text-center max-md:flex-wrap max-md:max-w-full">
-                  <button className="justify-center self-start  mdx:px-10 py-4 text-white bg-red-400 rounded-[100px] px-2">
+                  <a
+                    href="/about"
+                    className="justify-center self-start  mdx:px-10 py-4 text-white bg-red-400 rounded-[100px] px-2"
+                  >
                     Подробнее о нас
-                  </button>
-                  <button className="justify-center items-center px-10 py-4 text-red-400 whitespace-nowrap border border-red-400 border-solid rounded-[100px] max-md:px-5">
+                  </a>
+                  <a
+                    href="/about/licenses"
+                    className="justify-center items-center px-10 py-4 text-red-400 whitespace-nowrap border border-red-400 border-solid rounded-[100px] max-md:px-5"
+                  >
                     Лицензии
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -482,6 +488,25 @@ function Main() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  let doctors = [];
+  try {
+    const response = await fetch("http://localhost:3000/api/doctors");
+    if (response.ok) {
+      doctors = await response.json();
+    } else {
+      console.error("Error fetching doctors:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+  }
+  return {
+    props: {
+      doctors,
+    },
+  };
 }
 
 export default Main;
