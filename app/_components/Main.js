@@ -28,7 +28,7 @@ const ServiceCard = ({
   slug
 }) => (
   <a
-    href={slug}
+    href={`services/${slug}`}
     style={{
       backgroundColor: bgColor
     }}
@@ -310,7 +310,8 @@ function Main() {
                     title={service.name}
                     description={service.description}
                     imageSrc={service.iconUrl}
-                    bgColor={service.colourCode} // Можете настроить разные цвета здесь
+                    bgColor={service.colourCode} 
+                    slug={service.slug}
                   />
                 ))}
               </div>
@@ -341,7 +342,6 @@ function Main() {
           </div>
           <div className="mt-10 max-md:max-w-full">
             <div className="hidden mdx:flex gap-5 flex-wrap xl:flex-nowrap">
-              
               <DoctorCard
                 name="Туякова Гульмира Негмановна"
                 specialty="Гинеколог"
