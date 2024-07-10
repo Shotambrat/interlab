@@ -1,4 +1,4 @@
-"use client"
+
 import AnalyzeBanner from "@/app/_components/analyze/AnalyzeBanner";
 import Instuction from "@/app/_components/Instuction";
 import SearchBar from "@/app/_components/Search/SearchBar";

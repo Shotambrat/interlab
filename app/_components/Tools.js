@@ -64,7 +64,7 @@ export default function Tools( {navOptions} ) {
         <div className="hidden mdx:flex">
         <Profile />
         </div>
-        <div onClick={handleOpenMenu} className="block mdx:hidden">
+        <div onClick={handleOpenMenu} className="block lg:hidden">
           <MenuIcon />
         </div>
       </div>
