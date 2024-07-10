@@ -1,5 +1,5 @@
-import Image from "next/image"
-import lineForm from "@/public/svg/illustration.svg";
+// import Image from "next/image"
+// import lineForm from "@/public/svg/illustration.svg";
 
 export default function Application() {
   return (
@@ -61,7 +61,7 @@ export default function Application() {
         </form>
       </div>
     </div>
-    <Image
+    {/* <Image
       src={lineForm}
       className="absolute w-full left-0 bottom-36 size-1/4 lg:size-auto lg:-bottom-8 object-cover "
       alt="Line of Form"
@@ -70,7 +70,7 @@ export default function Application() {
       height={100}
       quality={100}
       style={{ zIndex: 1 }}
-    />
+    /> */}
   </div>
   )
 }
