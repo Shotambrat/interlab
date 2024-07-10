@@ -344,7 +344,12 @@ function Main({ doctors }) {
               // )
               
               }
-              {/* <DoctorCard
+              <DoctorCard
+                name="Усманова Сабиха Салижановна"
+                specialty="Педиатр-невропатолог"
+                imageSrc={Gulmira}
+              />
+              <DoctorCard
                 name="Усманова Сабиха Салижановна"
                 specialty="Педиатр-невропатолог"
                 imageSrc={Gulmira}
@@ -358,7 +363,7 @@ function Main({ doctors }) {
                 name="Хаджиева Зилола Улугбековна"
                 specialty="Гастроэнтеролог-Эндоскопист"
                 imageSrc={Gulmira}
-              /> */}
+              />
             </div>
             <div className="mdx:hidden">
               <Swiper
