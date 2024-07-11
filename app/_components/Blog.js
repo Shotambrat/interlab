@@ -1,7 +1,7 @@
 import LinkYakor from "@/app/_components/LinkYakor";
 
 const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
-  <article className="flex flex-col xl:w-1/4 w-1/3 max-md:ml-0 max-md:w-full">
+  <article className="flex flex-col xl:w-1/4 w-1/3 max-md:ml-0 max-mdx:w-full">
     <div className="flex flex-col grow pb-2 mt-10">
       <div className="flex overflow-hidden relative flex-col items-end px-16 pt-20 pb-3 w-full aspect-[0.99] max-md:pl-5">
         <img
@@ -26,8 +26,8 @@ const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
 
 export default function Blog() {
   return (
-    <div className="mt-2 mdx:mt-12 w-full">
-      <div className="flex justify-center gap-5 flex-col max-xl:flex-wrap md:flex-row max-md:gap-0">
+    <div className="mt-2 mdx:mt-12 w-full max-md:px-2">
+      <div className="flex justify-center gap-5 flex-col max-xl:flex-wrap mdx:flex-row max-md:gap-0">
         <BlogCard
           title="Работа возобновлена"
           excerpt="Мы работаем в штатном режиме"

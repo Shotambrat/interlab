@@ -16,7 +16,8 @@ import DoctorCard from "@/app/_components/DoctorsCardMain";
 import ContactWithUs from "@/app/_components/Modals/ContactWithUs";
 import OnlineReq from "@/app/_components/Modals/OnlineReq";
 import PopularAnalyze from "./PopularAnalyze";
-
+import BannerMain from "@/app/_components/BannerMain";
+import arrowDownRed from "@/public/svg/arrow-down-red.svg";
 // Install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
@@ -30,7 +31,7 @@ const ServiceCard = ({ title, description, imageSrc, bgColor, slug }) => (
   >
     <div className="rounded-[30px] pl-4 w-[76%]">
       <div className="flex gap-2 max-md:flex-col ">
-        <div className="flex flex-col w-[61%] max-md:ml-0 max-md:w-full">
+        <div className="flex flex-col w-[60%] max-md:ml-0 max-md:w-[80%]">
           <div className="flex flex-col mt-4 max-md:max-w-full">
             <h3 className="text-2xl font-bold leading-8 uppercase text-neutral-900 max-md:max-w-full">
               {title}
@@ -40,7 +41,7 @@ const ServiceCard = ({ title, description, imageSrc, bgColor, slug }) => (
             </p>
           </div>
         </div>
-        <div className="absolute bottom-0 right-0 ml-5 w-2/3 md:w-[39%] max-md:ml-0">
+        <div className="absolute bottom-0 right-0 ml-5 w-2/3 md:w-[40%] max-md:ml-0">
           <Image
             src={imageSrc}
             width={100}
@@ -59,6 +60,7 @@ function Main({ doctors }) {
   const [services, setServices] = useState([]);
   const [contactWithUs, setContactWithUs] = useState(false);
   const [onlineReq, setOnlineReq] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   useEffect(() => {
     // Функция для получения данных из API
@@ -73,9 +75,9 @@ function Main({ doctors }) {
           }
         );
         const dataOfBanner = banner.data;
-        console.log("Data", dataOfBanner);
+        console.log("DataBanner", dataOfBanner);
         if (dataOfBanner.data[0].active) {
-          setBannerData(dataOfBanner.data[0]);
+          setBannerData(dataOfBanner.data);
         }
 
         const services = await axios.get(
@@ -108,56 +110,7 @@ function Main({ doctors }) {
       {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
       <div className="flex flex-col bg-white px-2 lg:px-16">
         <main className="flex flex-col self-center w-full max-w-[1414px] max-md:max-w-full">
-          <section className="max-md:max-w-full">
-            <div className="flex gap-5 flex-col mdx:flex-row max-md:gap-0">
-              <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
-                <div className="flex flex-col items-start mt-5 mdx:mt-32 max-md:max-w-full">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/a46246547624be1066f45fd27ad506dcd1f470352806fdb1b4ec3914c5c32930?apiKey=e791e0f42eab4556ac944da69358f29b&"
-                    className="aspect-[33.33] w-[86px]"
-                    alt="Decorative element"
-                  />
-                  <div className="flex flex-col self-stretch mt-5 max-md:max-w-full">
-                    <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full leading-6 lg:leading-63">
-                      {bannerData.title.split("\n").map((line, index) => (
-                        <React.Fragment key={index}>
-                          {line}
-                          <br />
-                        </React.Fragment>
-                      ))}
-                    </h1>
-                    <p className="mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full">
-                      {bannerData.description.split("\n").map((line, index) => (
-                        <React.Fragment key={index}>
-                          {line}
-                          <br />
-                        </React.Fragment>
-                      ))}
-                    </p>
-                  </div>
-                  <a href={bannerData.navigateToUrl}>
-                    <button className="flex flex-col justify-center mt-5 max-w-full text-base font-bold text-center text-white whitespace-nowrap w-[236px]">
-                      <div className="justify-center items-center px-16 py-2 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px]">
-                        Подробнее
-                      </div>
-                    </button>
-                  </a>
-                </div>
-              </div>
-              <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
-                <Image
-                  src={bannerData.photoUrl}
-                  className="grow w-full rounded-none aspect-[1.01] max-md:mt-10 max-md:max-w-full"
-                  alt="Medical facility"
-                  priority
-                  width={1000}
-                  height={1000}
-                  quality={100}
-                />
-              </div>
-            </div>
-          </section>
+          <BannerMain bannerData={bannerData} />
           <div className="flex gap-5 self-end mt-4 text-xs font-semibold text-center uppercase">
             <button
               onClick={() => setContactWithUs(true)}
@@ -286,18 +239,45 @@ function Main({ doctors }) {
               </div>
             </div>
             <div className="container flex flex-col items-center mt-8 w-full">
-              <div className="grid grid-cols-1 mdl:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
-                {services.slice(2).map((service) => (
-                  <ServiceCard
-                    key={service.id}
-                    title={service.name}
-                    description={service.description}
-                    imageSrc={service.iconUrl}
-                    bgColor={service.colourCode}
-                    slug={service.slug}
-                  />
-                ))}
+              <div className="mdl:grid flex gap-5 flex-col mdl:grid-cols-2 xl:grid-cols-3 w-full transition-all duration-300">
+                {servicesOpen
+                  ? services.slice(2).map((service, index) => (
+                      <div key={index} className="w-full">
+                        <ServiceCard
+                          key={service.id}
+                          title={service.name}
+                          description={service.description}
+                          imageSrc={service.iconUrl}
+                          bgColor={service.colourCode}
+                          slug={service.slug}
+                        />
+                      </div>
+                    ))
+                  : services.slice(2, 3).map((service, index) => (
+                      <div key={index} className="w-full">
+                        <ServiceCard
+                          key={service.id}
+                          title={service.name}
+                          description={service.description}
+                          imageSrc={service.iconUrl}
+                          bgColor={service.colourCode}
+                          slug={service.slug}
+                        />
+                      </div>
+                    ))}
               </div>
+            </div>
+            <div className="w-full flex justify-center mdl:hidden mt-16">
+              <button onClick={() => setServicesOpen(prev, )} className="text-rose-400 text-xl font-semibold flex gap-3 items-center">
+                <p>Все услуги</p>
+                <Image
+                  src={arrowDownRed}
+                  height={100}
+                  width={100}
+                  alt="Down Icon Red"
+                  className="w-4 h-4"
+                />
+              </button>
             </div>
           </div>
 
@@ -329,20 +309,19 @@ function Main({ doctors }) {
           <div className="mt-10 max-md:max-w-full">
             <div className="hidden mdx:flex gap-5 flex-wrap xl:flex-nowrap">
               {
-              console.log(doctors)
-              // doctors && doctors.length > 0 ? (
-              //   doctors.map((doctor, index) => (
-              //     <DoctorCard
-              //       key={index}
-              //       name={doctor.fullName}
-              //       specialty={doctor.specialty}
-              //       imageSrc={doctor.photoUrl}
-              //     />
-              //   ))
-              // ) : (
-              //   <div>No doctors found</div>
-              // )
-              
+                console.log(doctors)
+                // doctors && doctors.length > 0 ? (
+                //   doctors.map((doctor, index) => (
+                //     <DoctorCard
+                //       key={index}
+                //       name={doctor.fullName}
+                //       specialty={doctor.specialty}
+                //       imageSrc={doctor.photoUrl}
+                //     />
+                //   ))
+                // ) : (
+                //   <div>No doctors found</div>
+                // )
               }
               <DoctorCard
                 name="Усманова Сабиха Салижановна"

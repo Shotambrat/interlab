@@ -12,7 +12,7 @@ import closeicon from "@/public/svg/closeicon.svg";
 export default function ContactWithUs({ setState }) {
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-50">
-      <div className="bg-white max-md:p-4 p-8 rounded-3xl shadow-lg max-mdx:w-[320px] w-[450px]">
+      <div className="bg-white max-md:p-4 p-8 rounded-3xl shadow-lg max-mdx:w-[90%] w-[450px]">
         <div className="flex w-full justify-between items-center">
           <h1 className="text-2xl font-semibold">Связаться с нами</h1>
           <button
