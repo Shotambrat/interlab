@@ -55,6 +55,8 @@ const ServiceCard = ({ title, description, imageSrc, bgColor, slug }) => (
   </a>
 );
 
+
+
 function Main({ doctors }) {
   const [bannerData, setBannerData] = useState(null);
   const [services, setServices] = useState([]);
@@ -213,73 +215,67 @@ function Main({ doctors }) {
             </div>
           </div>
           <a href="/services">
-            <h2 className="lg:mt-52 mt-10 text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
-              Медицинские услуги
-            </h2>
-          </a>
-          <div className="flex flex-col items-center mdx:mt-10 w-full px-0">
-            <div className="py-auto w-full mt-5">
-              <div className="flex gap-5 flex-col mdl:flex-row w-full ">
-                {services.slice(0, 2).map((service, index) => (
-                  <div
-                    key={service.id}
-                    className={
-                      index === 0 ? "slg:w-3/5 w-full" : "slg:w-2/5 w-full"
-                    }
-                  >
-                    <ServiceCard
-                      title={service.name}
-                      description={service.description}
-                      imageSrc={service.iconUrl}
-                      bgColor={service.colourCode}
-                      slug={service.slug}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="container flex flex-col items-center mt-8 w-full">
-              <div className="mdl:grid flex gap-5 flex-col mdl:grid-cols-2 xl:grid-cols-3 w-full transition-all duration-300">
-                {servicesOpen
-                  ? services.slice(2).map((service, index) => (
-                      <div key={index} className="w-full">
-                        <ServiceCard
-                          key={service.id}
-                          title={service.name}
-                          description={service.description}
-                          imageSrc={service.iconUrl}
-                          bgColor={service.colourCode}
-                          slug={service.slug}
-                        />
-                      </div>
-                    ))
-                  : services.slice(2, 3).map((service, index) => (
-                      <div key={index} className="w-full">
-                        <ServiceCard
-                          key={service.id}
-                          title={service.name}
-                          description={service.description}
-                          imageSrc={service.iconUrl}
-                          bgColor={service.colourCode}
-                          slug={service.slug}
-                        />
-                      </div>
-                    ))}
-              </div>
-            </div>
-            <div className="w-full flex justify-center mdl:hidden mt-16">
-              <button onClick={() => setServicesOpen(prev, )} className="text-rose-400 text-xl font-semibold flex gap-3 items-center">
-                <p>Все услуги</p>
-                <Image
-                  src={arrowDownRed}
-                  height={100}
-                  width={100}
-                  alt="Down Icon Red"
-                  className="w-4 h-4"
+        <h2 className="lg:mt-52 mt-10 text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
+          Медицинские услуги
+        </h2>
+      </a>
+      <div className="flex flex-col items-center mdx:mt-10 w-full px-0">
+        <div className="py-auto w-full mt-5">
+          <div className="flex gap-5 flex-col mdl:flex-row w-full ">
+            {services.slice(0, 2).map((service, index) => (
+              <div
+                key={service.id}
+                className={index === 0 ? "slg:w-3/5 w-full" : "slg:w-2/5 w-full"}
+              >
+                <ServiceCard
+                  title={service.name}
+                  description={service.description}
+                  imageSrc={service.iconUrl}
+                  bgColor={service.colourCode}
+                  slug={service.slug}
                 />
-              </button>
-            </div>
+              </div>
+            ))}
           </div>
+        </div>
+        <div className="container flex flex-col items-center mt-8 w-full">
+          <div
+            className={`mdl:grid flex gap-5 flex-col mdl:grid-cols-2 xl:grid-cols-3 w-full  ${
+              servicesOpen ? "max-h-full" : "max-h-[300px] overflow-hidden"
+            }`}
+          >
+            {services.slice(2).map((service, index) => (
+              <div key={index} className="w-full">
+                <ServiceCard
+                  key={service.id}
+                  title={service.name}
+                  description={service.description}
+                  imageSrc={service.iconUrl}
+                  bgColor={service.colourCode}
+                  slug={service.slug}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="w-full flex justify-center mdl:hidden mt-12">
+          <button
+            onClick={() => setServicesOpen((prev) => !prev)}
+            className="text-rose-400 text-xl font-semibold flex gap-3 items-center"
+          >
+            <p>{servicesOpen ? "Свернуть" : "Все услуги"}</p>
+            <Image
+              src={arrowDownRed}
+              height={100}
+              width={100}
+              alt="Down Icon Red"
+              className={`w-4 h-4 transition-transform duration-300 ${
+                servicesOpen ? "rotate-180" : "rotate-0"
+              }`}
+            />
+          </button>
+        </div>
+      </div>
 
           <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
             Акции
