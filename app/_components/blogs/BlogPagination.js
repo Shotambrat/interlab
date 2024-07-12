@@ -1,5 +1,6 @@
+"use client"
 import React, { useState, useEffect } from 'react';
-import { fetchBlogs } from '../lib/api';
+import { fetchBlogs } from '@/app/lib/api';
 
 const BlogPagination = () => {
   const [blogs, setBlogs] = useState([]);
@@ -9,6 +10,7 @@ const BlogPagination = () => {
   useEffect(() => {
     const getBlogs = async () => {
       const data = await fetchBlogs(currentPage);
+      console.log(data)
       setBlogs(data.data.content);
       setTotalPages(Math.ceil(30 / 12)); // Assuming there are 30 blogs in total, adjust if necessary
     };
