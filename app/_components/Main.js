@@ -18,6 +18,7 @@ import OnlineReq from "@/app/_components/Modals/OnlineReq";
 import PopularAnalyze from "./PopularAnalyze";
 import BannerMain from "@/app/_components/BannerMain";
 import arrowDownRed from "@/public/svg/arrow-down-red.svg";
+import MainMap from "@/app/_components/MainMap";
 // Install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
@@ -276,6 +277,8 @@ function Main({ doctors }) {
           </button>
         </div>
       </div>
+
+      <MainMap />
 
           <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
             Акции
