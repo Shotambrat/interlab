@@ -1,32 +1,8 @@
-import LinkYakor from "@/app/_components/LinkYakor";
-
-const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
-  <article className="flex flex-col xl:w-1/4 w-1/3 max-md:ml-0 max-mdx:w-full">
-    <div className="flex flex-col grow pb-2 mt-10">
-      <div className="flex overflow-hidden relative flex-col items-end px-16 pt-20 pb-3 w-full aspect-[0.99] max-md:pl-5">
-        <img
-          loading="lazy"
-          src={imageSrc}
-          className="object-cover absolute inset-0 size-full"
-          alt={title}
-        />
-        <LinkYakor slug={slug} />
-      </div>
-      <div className="flex flex-col mt-2">
-        <h3 className="text-xl mdx:text-3xl font-bold text-neutral-900 leading-6">
-          {title}
-        </h3>
-        <p className="mt-1 text-md text-ellipsis leading-4 text-zinc-500">
-          {excerpt}
-        </p>
-      </div>
-    </div>
-  </article>
-);
+import BlogCard from "@/app/_components/BlogCard"
 
 export default function Blog() {
   return (
-    <div className="mt-2 mdx:mt-12 w-full max-md:px-2">
+    <div className="w-full max-md:px-2">
       <div className="flex justify-center gap-5 flex-col max-xl:flex-wrap mdx:flex-row max-md:gap-0">
         <BlogCard
           title="Работа возобновлена"

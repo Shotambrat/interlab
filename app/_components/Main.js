@@ -455,7 +455,7 @@ function Main({ doctors }) {
             Блог
           </h2>
           <Blog />
-          <button className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
+          <a href="/blogs" className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
             <span className="my-auto">Все новости</span>
             <img
               loading="lazy"
@@ -463,7 +463,7 @@ function Main({ doctors }) {
               className="shrink-0 aspect-square w-[23px]"
               alt="Arrow icon"
             />
-          </button>
+          </a>
           <section className="flex flex-col justify-center mt-52 mb-52 rounded-[50px] max-md:mt-10 max-md:max-w-full">
             <Application />
           </section>
