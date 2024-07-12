@@ -1,4 +1,5 @@
 import Sale from "@/app/_components/Sale";
+import BlogPagination from "@/app/_components/blogs/BlogPagination";
 
 export default function page() {
   return (
@@ -10,6 +11,7 @@ export default function page() {
             <span className="text-red-500">Intermed</span>
           </h2>
           <Sale />
+          <BlogPagination />
         </div>
       </div>
     </div>
