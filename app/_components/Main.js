@@ -19,6 +19,8 @@ import PopularAnalyze from "./PopularAnalyze";
 import BannerMain from "@/app/_components/BannerMain";
 import arrowDownRed from "@/public/svg/arrow-down-red.svg";
 import MainMap from "@/app/_components/MainMap";
+// import HouseCallSuccess from "@/app/_components/Modals/HouseCallSuccess";
+// import HouseCall from "@/app/_components/Modals/HouseCall";
 // Install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
@@ -111,6 +113,8 @@ function Main({ doctors }) {
     <>
       {contactWithUs ? <ContactWithUs setState={setContactWithUs} /> : <></>}
       {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
+      {/* <HouseCallSuccess /> */}
+      {/* <HouseCall /> */}
       <div className="flex flex-col bg-white px-2 lg:px-16">
         <main className="flex flex-col self-center w-full max-w-[1414px] max-md:max-w-full">
           <BannerMain bannerData={bannerData} />

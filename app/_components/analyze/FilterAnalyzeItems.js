@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function FilterAnalyzeItems({title, description, price}) {
   return (
-    <div className='w-full flex flex-col gap-5'>
+    <a href='/analyze/kal' className='w-full flex flex-col gap-5'>
         <div className='flex justify-between items-start'>
             <div className='flex flex-col gap-4'>
                 <h2 className='text-xl font-bold'>
@@ -17,6 +17,6 @@ export default function FilterAnalyzeItems({title, description, price}) {
             </p>
         </div>
         <hr />
-    </div>
+    </a>
   )
 }

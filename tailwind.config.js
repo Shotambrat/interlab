@@ -35,6 +35,9 @@ module.exports = {
       fontFamily: {
         sans: ['Arial', 'sans-serif'],
       },
+      boxShadow: {
+        '3xl': '0 20px 100px -10px rgba(0, 0, 0, 0.1)',
+      }
     },
   },
   plugins: [
