@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import salePoster from "@/public/images/sale-poster.png";
 import Image from 'next/image';
+import LinkYakor from '@/app/_components/LinkYakor';
 
 const OffersSlider = () => {
     const settings = {
@@ -15,7 +16,7 @@ const OffersSlider = () => {
         autoplay: true,
         autoplaySpeed: 3000,
         centerMode: true,
-        centerPadding: '30px',
+        centerPadding: '5px',
         arrows: false, 
         responsive: [
           {
@@ -58,21 +59,26 @@ const OffersSlider = () => {
       <Slider {...settings}>
         {new Array(5).fill().map((_, index) => (
           <div key={index} className="px-2 h-full">
-            <div className={`p-4 bg-green-400 rounded-lg shadow-md h-full flex flex-col justify-between`}>
+            <div className={`p-4 rounded-lg h-full flex flex-col gap-4 justify-between`}>
+                <div className='w-full relative h-full'>
+
                 <Image 
                 src={salePoster}
                 height={500}
                 width={500}
                 alt='Poster'
-                className='h-full w-full'
+                className='h-full w-full rounded-3xl'
                 />
-              <div className="flex justify-end mt-4">
-                <button className="bg-white text-red-500 p-2 rounded-full shadow-md">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </button>
-              </div>
+                <div className=''>
+                  <LinkYakor />
+                </div>
+                </div>
+                <div className='flex flex-col gap-1'>
+                  <h2 className='text-2xl font-bold'>
+                    Скидки 30% на все анализы в эту пятницу
+                  </h2>
+                  <p className='text-neutral-400 text-sm'>5 июля 2024г.</p>
+                </div>
             </div>
           </div>
         ))}

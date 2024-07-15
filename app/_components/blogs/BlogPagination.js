@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { fetchBlogs } from '@/app/lib/api';
+import Blog from "@/app/_components/BlogCard"
 
 const BlogPagination = () => {
   const [blogs, setBlogs] = useState([]);
@@ -23,24 +24,20 @@ const BlogPagination = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {blogs.map((blog) => (
-          <div key={blog.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src={blog.photoUrl} alt={blog.title} className="w-full h-48 object-cover" />
-            <div className="p-4">
-              <h3 className="text-xl font-bold">{blog.title}</h3>
-              <p className="text-gray-600">{blog.description}</p>
-            </div>
+          <div key={blog.id}>
+            <Blog title={blog.title} excerpt={blog.description} slug={`blogs/${blog.slug}`} imageSrc={blog.photoUrl} />
           </div>
         ))}
       </div>
-      <div className="mt-6 flex justify-center">
+      <div className="mt-6 flex">
         <ul className="flex list-none">
           {[...Array(totalPages)].map((_, index) => (
             <li key={index}>
               <button
                 onClick={() => handlePageChange(index + 1)}
-                className={`px-3 py-2 border rounded-lg mx-1 ${currentPage === index + 1 ? 'bg-red-500 text-white' : 'bg-white text-gray-700'}`}
+                className={`px-4 py-2 rounded-lg mx-1 ${currentPage === index + 1 ? 'bg-red-400 text-white' : 'bg-white text-gray-700'}`}
               >
                 {index + 1}
               </button>

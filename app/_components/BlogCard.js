@@ -1,7 +1,7 @@
 import LinkYakor from "@/app/_components/LinkYakor";
 
 const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
-  <article className="flex flex-col xl:w-1/4 w-1/3 max-md:ml-0 max-mdx:w-full">
+  <article className="flex flex-col max-md:ml-0 max-mdx:w-full">
     <div className="flex flex-col grow pb-2 mt-10">
       <div className="flex overflow-hidden relative flex-col items-end px-16 pt-20 pb-3 w-full aspect-[0.99] max-md:pl-5">
         <img

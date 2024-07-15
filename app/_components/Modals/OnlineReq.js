@@ -40,7 +40,7 @@ export default function ContactWithUs({ setState }) {
                 <input
                   id="fullName"
                   type="text"
-                  className="justify-center items-start px-4 py-4 bg-white border-neutral-400 border rounded-xl max-md:pr-5 max-md:max-w-full"
+                  className="focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none justify-center items-start px-4 py-4 bg-white border-neutral-400 border rounded-xl max-md:pr-5 max-md:max-w-full"
                   placeholder="ФИО *"
                   required
                 />
@@ -50,24 +50,39 @@ export default function ContactWithUs({ setState }) {
                 <input
                   id="phoneNumber"
                   type="tel"
-                  className="justify-center items-start px-4 py-4 mt-4 bg-white border-neutral-400 border rounded-xl max-md:pr-5 max-md:max-w-full"
+                  className="focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none justify-center items-start px-4 py-4 mt-4 bg-white border-neutral-400 border rounded-xl max-md:pr-5 max-md:max-w-full"
                   placeholder="Номер телефона *"
                   required
                 />
-                <div className="flex gap-5 justify-center py-4 pr-20 pl-5 mt-4 bg-white border-neutral-400 border rounded-xl text-zinc-500 max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
+                <div className="relative">
                   <select
-                    id="service"
-                    className="appearance-none bg-transparent border-none"
+                    className="block text-neutral-400 focus:outline-none mt-4 py-4 focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none border-neutral-400 border w-full bg-white px-4 pr-8 rounded-xl"
+                    defaultValue=""
                   >
-                    <option value="">Интересующая услуга</option>
+                    <option value="" disabled>
+                      Интересующая услуга
+                    </option>
+                    <option value="mrt">МРТ</option>
+                    <option value="uzi">УЗИ</option>
+                    <option value="cardio">Кардиология</option>
+                    {/* Add more options as needed */}
                   </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg
+                      className="fill-current h-7 w-7"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                    </svg>
+                  </div>
                 </div>
                 <label htmlFor="comment" className="sr-only">
                   Ваш комментарий
                 </label>
                 <textarea
                   id="comment"
-                  className="justify-center border-neutral-400 border items-start px-4 py-4 mt-4 bg-white rounded-xl text-neutral-400 max-md:pr-5 max-md:max-w-full"
+                  className="focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none justify-center border-neutral-400 border items-start px-4 py-4 mt-4 bg-white rounded-xl text-neutral-400 max-md:pr-5 max-md:max-w-full"
                   placeholder="Ваш комментарий"
                 ></textarea>
               </div>

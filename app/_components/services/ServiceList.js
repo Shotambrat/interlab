@@ -157,7 +157,7 @@ export default function ServiceList() {
           </div>
           <hr className="w-full border-t-2 absolute bottom-0 border-slate-300" />
         </div>
-        <div className="flex flex-wrap gap-5 max-xl:justify-center">
+        <div className="w-full grid max-mdx:grid-cols-1 max-lg:grid-cols-2 grid-cols-3 gap-3">
           {filtered.map((item, index) => {
             return (
               <ServiceItems
