@@ -1,3 +1,4 @@
+"use client"
 import Search from "@/app/_components/Search";
 import arrowdown from "@/public/svg/arrow-down.svg";
 import phone from "@/public/svg/phone.svg";

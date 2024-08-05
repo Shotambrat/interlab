@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import ServiceNav from "@/app/_components/services/ServiceNav";
 import ServiceItems from "@/app/_components/services/ServiceItem";
