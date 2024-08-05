@@ -7,7 +7,7 @@ import ButtonLinkBorder from "@/app/_components/buttons/ButtonLinkBorder";
 import Link from "next/link";
 
 
-export default function page() {
+export default function Page() {
     const [blog, setBlog] = useState([]);
     const [parsedBody, setParsedBody] = useState([]);
   

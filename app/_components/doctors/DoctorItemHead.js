@@ -37,9 +37,12 @@ export default function DoctorItemHead() {
         <div className="flex flex-col gap-5">
           <h1 className="font-bold text-2xl mdl:text-4xl">{data.name}</h1>
           <div className="flex gap-2 flex-wrap xl:flex-nowrap">
-            {data.specialty.map((elem) => {
+            {data.specialty.map((elem, i) => {
               return (
-                <div className="px-4 py-2 bg-red-50 text-red-400 rounded-full">
+                <div
+                  key={i}
+                  className="px-4 py-2 bg-red-50 text-red-400 rounded-full"
+                >
                   {elem}
                 </div>
               );
@@ -49,8 +52,12 @@ export default function DoctorItemHead() {
           <div className="flex flex-col gap-3">
             <p className="text-neutral-600">График работы:</p>
             <div>
-              {data.graphic.map((elem) => {
-                return <div className="font-medium text-lg">{elem}</div>;
+              {data.graphic.map((elem, i) => {
+                return (
+                  <div key={i} className="font-medium text-lg">
+                    {elem}
+                  </div>
+                );
               })}
             </div>
           </div>
