@@ -4,6 +4,7 @@ import Advantages from "@/app/_components/autsorsing/Advantages";
 import BlockСontact from "@/app/_components/autsorsing/BlockContact";
 import Counter from "@/app/_components/autsorsing/Counter";
 import Form from "@/app/_components/autsorsing/ConnectForm";
+import ReviewSlider from "../_components/autsorsing/ReviewsSlider";
 
 export default function AboutPage() {
     return (
@@ -14,6 +15,7 @@ export default function AboutPage() {
                 <Advantages/>
                 <BlockСontact/>
                 <Counter/>
+                <ReviewSlider/>
                 <Form/>
             </div>
         </main>
