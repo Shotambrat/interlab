@@ -48,6 +48,12 @@ const Menu = ({menu, closeMenu, navOptions}) => {
         </div>
       </div>
       <nav className="flex flex-col font-semibold">
+      <a href="/autsorsing" className="py-4 border-b">
+          <div className="flex justify-between mx-4">
+            <p>Аутсорсинг</p>
+            <RightIcon />
+          </div>
+        </a>
         <a href="/ckdl" className="py-4 border-b">
           <div className="flex justify-between mx-4">
             <p>ЦКДЛ</p>
