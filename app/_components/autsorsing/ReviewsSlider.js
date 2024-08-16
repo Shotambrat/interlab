@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -7,22 +7,22 @@ import "slick-carousel/slick/slick-theme.css";
 import ReviewModal from '../Modals/Reviews';
 import ArrowRight from "@/public/svg/arrow-right.svg";
 import Right from "@/public/svg/right-contact-red.svg";
+import partner1 from "@/public/images/autsorsing/image1.png";
 
 
 const reviews = [
     {
-        review: "Азиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком РахматАзиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком РахматАзиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком РахматАзиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком РахматАзиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком РахматАзиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком РахматАзиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком Рахмат",
-        imageSrc: null,
+        review: "Азиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком РахматАзиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком Рахмат...Азиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком Рахмат...Азиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком Рахмат...Азиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком Рахмат...Азиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком Рахмат...Азиза Шахзадэевна Ассаламу алейкум опа сиз менин оймга йордам бергиндиз энди ойм узларини яхши сезвотила сизга котоком Рахмат...",
+        partnerImageSrc: partner1, // Ссылка на фото партнера
     },
     {
-        review: "Азиза Шахзадэевна врач понимающий, очень внимательно выслушала обо всех моих проблемах разъяснила и ответила на все мои вопросы. Назначила исследования и дала рекомендации. Я очень довольна врачём.",
-        imageSrc: null,
+        review: "Азиза Шахзадэевна врач понимающий, очень внимательно выслушала обо всех моих проблемах...",
+        partnerImageSrc: partner1,
     },
     {
-        review: "Спасибо вам Азизе Шахзадэевна за ваш точный диагноз и лечения, Я выздоравливаю ещё буду обращаться к вам снова.",
-        imageSrc: null,
+        review: "Спасибо вам Азизе Шахзадэевна за ваш точный диагноз и лечения...",
+        partnerImageSrc: partner1,
     },
-
 ];
 
 const ReviewSlider = () => {
@@ -98,7 +98,7 @@ const ReviewSlider = () => {
         const { truncatedText, isTruncated } = useTruncatedText(review.review, 258, 467);
         return (
             <>
-                <p className="text-gray-600 mt-[20px] font-semibold text-[15px] mdx:text-[15px] mdx:mt-[30px]">
+                <p className="text-[#151515] mt-[20px] text-[15px] md:text-[16.5px] mdx:text-[18px] mdx:mt-[30px]">
                     {truncatedText}
                 </p>
                 {isTruncated && (
@@ -120,37 +120,28 @@ const ReviewSlider = () => {
         );
     };
 
-    const renderImageOrInitial = (review) => {
-        if (review.imageSrc) {
-            return (
-                <Image
-                    src={review.imageSrc}
-                    height={100}
-                    width={100}
-                    alt={review.name}
-                    className="w-[50px] h-[50px] mdx:w-[60px] mdx:h-[60px] rounded-full"
-                />
-            );
-        } else {
-            const initial = review.name.charAt(0).toUpperCase();
-            return (
-                <div className="w-[50px] h-[50px] mdx:w-[60px] mdx:h-[60px] rounded-full bg-gray-300 flex items-center justify-center">
-                    <span className="text-[20px] mdx:text-[24px] font-semibold text-white">{initial}</span>
-                </div>
-            );
-        }
+    const renderPartnerImage = (review) => {
+        return (
+            <Image
+                src={review.partnerImageSrc}
+                height={100}
+                width={200}
+                alt={'Partner Image'}
+                className="w-[140px] h-[35px] mdx:max-w-[160px] mdx:max-h-[55px] object-contain"
+            />
+        );
     };
 
     return (
         <div className="container mx-auto p-4 mt-[100px] mdx:mt-[120px] xl:mt-[170px]">
-            <h2 id="reviews" className="font-bold text-[25px] mdx:text-[35px] xl:text-[40px] mb-[25px] mdx:mb-[30px]">Отзывы</h2>
+            <h2 id="reviews" className="font-bold text-[25px] mdx:text-[35px] xl:text-[40px] mb-[25px] mdx:mb-[30px]">Отзывы наших партнеров</h2>
             <Slider {...settings}>
                 {reviews.map((review, index) => (
                     <div key={index} className="p-2">
-                        <div className="p-4 bg-white rounded-xl ReviewsSlider min-h-[390px] mdx:min-h-[450px] relative">
+                        <div className="p-4 bg-white rounded-[20px] ReviewsSlider min-h-[390px] mdx:min-h-[450px] relative">
                             <div className="flex items-center mb-2 border-b pb-[25px]">
                                 <div className="mr-2">
-                                    {renderImageOrInitial(review)}
+                                    {renderPartnerImage(review)}
                                 </div>
                             </div>
                             <ReviewText review={review} />
@@ -167,7 +158,7 @@ const ReviewSlider = () => {
                         height={20}
                         width={20}
                         alt={'right icon'}
-                        className="w-[23px] h-[23px] mdx:w-[23px] mdx:h-[23px] "
+                        className="w-[23px] h-[23px] "
                     />
                 </button>
             </div>

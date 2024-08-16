@@ -7,18 +7,18 @@ const ReviewModal = ({ review, isOpen, onClose }) => {
     if (!isOpen) return null;
 
     const renderImageOrInitial = (review) => {
-        if (review.imageSrc) {
+        if (review.partnerImageSrc) {  // Изменено на partnerImageSrc
             return (
                 <Image
-                    src={review.imageSrc}
+                    src={review.partnerImageSrc}  // Изменено на partnerImageSrc
                     height={70}
                     width={70}
                     alt={review.name}
-                    className="w-[50px] h-[50px] mdx:w-[69px] mdx:h-[69px] rounded-full"
+                    className="w-[50px] h-[50px] mdx:w-[69px] mdx:h-[69px] rounded-full object-contain"  // Добавлен object-contain
                 />
             );
         } else {
-            const initial = review.name.charAt(0).toUpperCase();
+            const initial = review.name?.charAt(0).toUpperCase() || "A";  // Безопасная обработка имени
             return (
                 <div className="w-[50px] h-[50px] mdx:w-[69px] mdx:h-[69px] rounded-full bg-gray-300 flex items-center justify-center">
                     <span className="text-[20px] mdx:text-[24px] font-semibold text-white">{initial}</span>
@@ -46,9 +46,9 @@ const ReviewModal = ({ review, isOpen, onClose }) => {
                     <div className="flex items-center mb-4">
                         {renderImageOrInitial(review)}
                         <div className="ml-3">
-                            <h3 className="font-bold text-[18px] mdx:text-[20px]">{review.name}</h3>
+                            <h3 className="font-bold text-[18px] mdx:text-[20px]">{review.name || "Партнер"}</h3>
                             <div className="flex items-center">
-                                {Array(review.rating)
+                                {Array(review.rating || 5)  // Добавлен rating по умолчанию
                                     .fill()
                                     .map((_, i) => (
                                         <svg
@@ -65,7 +65,7 @@ const ReviewModal = ({ review, isOpen, onClose }) => {
                     </div>
                     <p className="text-[15px] mdx:text-[18px] mb-4">{review.review}</p>
                     <div className="absolute right-0 bottom-0 p-2">
-                        <p className="text-right text-[14px] mdx:text-[18px] text-[#B8B8B8] mr-4">{review.clinics}</p>
+                        <p className="text-right text-[14px] mdx:text-[18px] text-[#B8B8B8] mr-4">{review.clinics || "Не указано"}</p>  {/* Добавлен текст по умолчанию */}
                     </div>
                 </div>
             </div>
