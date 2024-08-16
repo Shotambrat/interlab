@@ -3,8 +3,8 @@ export default function AboutBanner() {
     return (
         <section className="mt-52 max-md:mt-10 w-full">
             <div className="flex gap-5 flex-col lg:flex-row max-md:gap-0">
-                <h2 className="text-2xl leading-6 font-bold lg:hidden block text-neutral-900 max-md:max-w-full">
-                    Interlab – современный медцентр в Ташкенте
+                <h2 className="text-[27px] md:text-[35px] mdx:text-[40px] lh font-bold lg:hidden block text-neutral-900 max-md:max-w-full">
+                    Interlab – современный<br/> медцентр в Ташкенте
                 </h2>
                 <div className="flex flex-col lg:w-6/12 w-full">
                     <img

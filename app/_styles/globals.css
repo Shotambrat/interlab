@@ -76,3 +76,15 @@ body {
 .no-spinner {
   -moz-appearance: textfield;
 }
+
+
+
+.custom-scrollbar {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Для Firefox */
+  -ms-overflow-style: none;  /* Для Internet Explorer и Edge */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none; /* Для Chrome, Safari и Opera */
+}
