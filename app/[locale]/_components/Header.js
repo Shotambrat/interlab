@@ -5,7 +5,36 @@ import Tools from "@/app/[locale]/_components/Tools";
 function Header() {
 
   const navOptions = [
-    
+    {
+      id: 1,
+      name: 'ЦКДЛ',
+      url: '/'
+    },
+    {
+      id: 2,
+      name: 'Анализы',
+      url: '/analyze'
+    },
+    {
+      id: 3,
+      name: 'Услуги',
+      url: '/services'
+    },
+    {
+      id: 4,
+      name: 'Врачи',
+      url: '/doctors'
+    },
+    {
+      id: 5,
+      name: 'Адреса',
+      url: '/addresses'
+    },
+    {
+      id: 6,
+      name: 'О нас',
+      url: '/about'
+    },
   ];
 
   return (

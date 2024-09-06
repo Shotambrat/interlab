@@ -104,9 +104,9 @@ function Main({ doctors }) {
 
   console.log(bannerData)
 
-  if (bannerData === null) {
-    return <div>Loading...</div>;
-  }
+  // if (bannerData === null) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <>
