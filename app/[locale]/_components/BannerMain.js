@@ -1,9 +1,26 @@
 "use client"
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import axios from "axios";
 
-const Slider = ({ bannerData }) => {
+const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [banners, setBanners] = useState([]);
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const response = await axios.get("https://interlab.uz/api/banner", {
+          headers: { "Accept-Language": "ru" },
+        });
+        setBanners(response.data.data);
+      } catch (error) {
+        console.error("Ошибка при загрузке баннеров:", error);
+      }
+    };
+    fetchBanners();
+  }, []);
+
   const slideRef = useRef(null);
 
   useEffect(() => {
@@ -46,6 +63,10 @@ const Slider = ({ bannerData }) => {
       slider.removeEventListener("touchend", handleSwipe);
     };
   }, []);
+
+  if (!banners.length) {
+    return <p>Загрузка баннеров...</p>;
+  }
 
   return (
     <section className="max-md:max-w-full" ref={slideRef}>

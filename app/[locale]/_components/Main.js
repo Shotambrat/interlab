@@ -21,7 +21,6 @@ import arrowDownRed from "@/public/svg/arrow-down-red.svg";
 import MainMap from "@/app/[locale]/_components/MainMap";
 // import HouseCallSuccess from "@/app/[locale]/_components/Modals/HouseCallSuccess";
 // import HouseCall from "@/app/[locale]/_components/Modals/HouseCall";
-// Install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
 const ServiceCard = ({ title, description, imageSrc, bgColor, slug }) => (

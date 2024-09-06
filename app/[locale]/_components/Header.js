@@ -4,7 +4,9 @@ import Tools from "@/app/[locale]/_components/Tools";
 
 function Header() {
 
-  const navOptions = [];
+  const navOptions = [
+    
+  ];
 
   return (
     <header className="flex justify-center items-center px-2 lg:px-16 py-3 bg-white max-md:px-5 z-10 relative">
