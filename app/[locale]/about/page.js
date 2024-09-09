@@ -1,9 +1,9 @@
-import AboutService from "@/app/[locale]/about/AboutService";
-import AboutInfo from "@/app/[locale]/about/AboutInfo";
-import AboutBanner from "@/app/[locale]/about/AboutBanner";
-import AboutAchiev from "@/app/[locale]/about/AboutAchiev";
-import AboutLicense from "@/app/[locale]/about/AboutLicense";
-import Blog from "@/app/[locale]/Blog";
+import AboutService from "@/app/[locale]/_components/about/AboutService";
+import AboutInfo from "@/app/[locale]/_components/about/AboutInfo";
+import AboutBanner from "@/app/[locale]/_components/about/AboutBanner";
+import AboutAchiev from "@/app/[locale]/_components/about/AboutAchiev";
+import AboutLicense from "@/app/[locale]/_components/about/AboutLicense";
+import Blog from "@/app/[locale]/_components/Blog";
 
 export default function AboutPage() {
   return (
