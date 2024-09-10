@@ -2,6 +2,7 @@ import book from "@/public/images/vacancies/why-book.png";
 import mrt from "@/public/images/vacancies/why-mrt.png";
 import fire from "@/public/images/vacancies/why-fire.png";
 import earth from "@/public/images/vacancies/why-earth.png";
+import WhyIntermedItem from "./WhyIntermedItem";
 
 const data = [
   {
@@ -33,8 +34,19 @@ export default function WhyIntermed() {
         <h2 className="text-4xl font-semibold">
             Почему Intermed?
         </h2>
-        <div className="w-full grid grid-cols-1">
-
+        <div className="w-full grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-4 gap-4">
+          {
+            data.map((item, index) => {
+              return (
+                <WhyIntermedItem
+                  key={index}
+                  title={item.title}
+                  description={item.description}
+                  photoSrc={item.photoSrc}
+                />
+              )
+            })
+          }
         </div>
     </div>
   )
