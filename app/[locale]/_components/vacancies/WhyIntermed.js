@@ -6,24 +6,24 @@ import WhyIntermedItem from "./WhyIntermedItem";
 
 const data = [
   {
-    title: '',
-    description: '',
-    photoSrc: ''
+    title: 'Профессиональный рост',
+    description: 'Мы поддерживаем развитие наших сотрудников, предоставляя возможности для обучения и повышения квалификации.',
+    photoSrc: book
   },
   {
-    title: '',
-    description: '',
-    photoSrc: ''
+    title: 'Современное оборудование',
+    description: 'Работа в клинике, оснащённой новейшими медицинскими технологиями.',
+    photoSrc: mrt
   },
   {
-    title: '',
-    description: '',
-    photoSrc: ''
+    title: 'Командный дух',
+    description: 'Мы поддерживаем развитие наших сотрудников, предоставляя возможности для обучения и повышения квалификации.',
+    photoSrc: fire
   },
   {
-    title: '',
-    description: '',
-    photoSrc: ''
+    title: 'Социальные гарантии',
+    description: 'Мы предлагаем конкурентоспособные условия труда и полный социальный пакет.',
+    photoSrc: earth
   },
 ]
 
