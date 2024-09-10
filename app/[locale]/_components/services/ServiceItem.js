@@ -10,7 +10,7 @@ export default function ServiceItems({key, title, description, url}) {
           <h2 className='font-bold text-2xl'>{title}</h2>
           <p className='text-neutral-400'>{description}</p>
         </div>
-        <a href={`services${url}`} className='flex gap-4 hover:gap-6 transition-all duration-150 w-auto'>
+        <a href={`${url}`} className='flex gap-4 hover:gap-6 transition-all duration-150 w-auto'>
           <p className='text-xl font-semibold text-rose-400'>Перейти</p>
           <Image 
             src={rightIcon}

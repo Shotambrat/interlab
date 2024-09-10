@@ -1,16 +1,17 @@
-import Banner from "@/app/[locale]/_components/licenses/Banner";
-import List from "@/app/[locale]/_components/licenses/List";
-import Info from "../../_components/licenses/Info";
-import Blog from "../../_components/Blog";
+import Banner from "../_components/instructions/Banner";
+import List from "../_components/instructions/List";
+import Rec from "../_components/instructions/Rec";
+import Blog from "../_components/Blog";
 import Link from "next/link";
+
 
 export default function page({params}) {
   return (
-    <div className="w-full bg-white flex flex-col gap-24 pb-24">
-      <Banner />
-      <List />
-      <Info />
-      <div className="w-full max-w-[1440px] px-2 mx-auto flex flex-col gap-8">
+    <div className="w-full flex flex-col gap-48 bg-white pb-48">
+        <Banner />
+        <Rec />
+        <List />
+        <div className="w-full max-w-[1440px] px-2 mx-auto flex flex-col gap-8">
         <h2 className="text-4xl font-semibold">Блоги</h2>
         <Blog />
         <div className="w-full flex justify-center">
@@ -20,5 +21,5 @@ export default function page({params}) {
         </div>
       </div>
     </div>
-  );
+  )
 }
