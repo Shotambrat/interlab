@@ -1,4 +1,5 @@
 import './_styles/globals.css'
+import 'antd/dist/reset.css';
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import Header from "@/app/[locale]/_components/Header";
