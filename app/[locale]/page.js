@@ -1,10 +1,10 @@
 import Main from "@/app/[locale]/_components/Main";
 
-export default function HomePage() {
+export default function HomePage({params}) {
 
   return (
     <div>
-      <Main />
+      <Main params={params} />
     </div>
   );
 }

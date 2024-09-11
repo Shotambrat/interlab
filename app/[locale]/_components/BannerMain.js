@@ -2,8 +2,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import axios from "axios";
+import {client} from "@/sanity/lib/client"
 
-const Slider = () => {
+const query = '*'
+
+const Slider = ({params}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [banners, setBanners] = useState([]);
 
@@ -11,7 +14,7 @@ const Slider = () => {
     const fetchBanners = async () => {
       try {
         const response = await axios.get("https://interlab.uz/api/banner", {
-          headers: { "Accept-Language": "ru" },
+          headers: { "Accept-Language": params.locale },
         });
         setBanners(response.data.data);
       } catch (error) {
@@ -32,35 +35,42 @@ const Slider = () => {
   }, [currentSlide]);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === bannerData.length - 1 ? 0 : prev + 1));
+    setCurrentSlide((prev) => (prev === banners.length - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? bannerData.length - 1 : prev - 1));
+    setCurrentSlide((prev) => (prev === 0 ? banners.length - 1 : prev - 1));
   };
 
   useEffect(() => {
     const handleSwipe = (e) => {
       const touchEndX = e.changedTouches[0].clientX;
-      const touchStartX = slideRef.current.startX;
+      const touchStartX = slideRef.current?.startX;
       if (touchEndX - touchStartX > 50) {
         prevSlide();
       } else if (touchStartX - touchEndX > 50) {
         nextSlide();
       }
     };
-
+  
     const handleTouchStart = (e) => {
-      slideRef.current.startX = e.touches[0].clientX;
+      if (slideRef.current) {
+        slideRef.current.startX = e.touches[0].clientX;
+      }
     };
-
+  
     const slider = slideRef.current;
-    slider.addEventListener("touchstart", handleTouchStart);
-    slider.addEventListener("touchend", handleSwipe);
-
+  
+    if (slider) {
+      slider.addEventListener("touchstart", handleTouchStart);
+      slider.addEventListener("touchend", handleSwipe);
+    }
+  
     return () => {
-      slider.removeEventListener("touchstart", handleTouchStart);
-      slider.removeEventListener("touchend", handleSwipe);
+      if (slider) {
+        slider.removeEventListener("touchstart", handleTouchStart);
+        slider.removeEventListener("touchend", handleSwipe);
+      }
     };
   }, []);
 
@@ -74,7 +84,7 @@ const Slider = () => {
         <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
           <div className="flex flex-col items-start mt-5 mdx:mt-32 max-md:max-w-full">
             <div className="flex justify-between items-center gap-3 mb-4">
-              {bannerData.map((_, index) => (
+              {banners.map((_, index) => (
                 <div
                   key={index}
                   className={`overflow-hidden relative bg-rose-200 h-[3px] transition-all duration-200 ${index === currentSlide ? "w-[40px]" : "w-[20px]"}`}
@@ -89,16 +99,16 @@ const Slider = () => {
             </div>
             <div className="flex flex-col self-stretch mt-5 max-md:max-w-full">
               <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full leading-6 lg:leading-63">
-                {bannerData[currentSlide].title}
+                {banners[currentSlide].title}
               </h1>
               <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full leading-6 lg:leading-63">
-                {bannerData[currentSlide].subtitle}
+                {banners[currentSlide].subtitle}
               </h1>
               <p className="mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full">
-                {bannerData[currentSlide].description}
+                {banners[currentSlide].description}
               </p>
             </div>
-            <a href={bannerData[currentSlide].navigateToUrl}>
+            <a href={banners[currentSlide].navigateToUrl}>
               <button className="flex flex-col justify-center mt-5 max-w-full text-base font-bold text-center text-white whitespace-nowrap w-[236px]">
                 <div className="justify-center items-center px-16 py-2 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px]">
                   Подробнее
@@ -109,7 +119,7 @@ const Slider = () => {
         </div>
         <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
           <Image
-            src={bannerData[currentSlide].photoUrl}
+            src={banners[currentSlide].photoUrl}
             className="grow w-full rounded-none aspect-[1.01] max-md:mt-10 max-md:max-w-full"
             alt="Medical facility"
             priority

@@ -59,7 +59,7 @@ const ServiceCard = ({ title, description, imageSrc, bgColor, slug }) => (
 
 
 
-function Main({ doctors }) {
+function Main({ doctors, params }) {
   const [bannerData, setBannerData] = useState(null);
   const [services, setServices] = useState([]);
   const [contactWithUs, setContactWithUs] = useState(false);
@@ -70,23 +70,11 @@ function Main({ doctors }) {
     // Функция для получения данных из API
     const fetchData = async () => {
       try {
-        const banner = await axios.get(
-          "https://interlab.uz/api/banner",
-          {
-            headers: {
-              "Accept-Language": "ru",
-            },
-          }
-        );
-        const dataOfBanner = banner.data;
-        console.log("DataBanner", dataOfBanner);
-          setBannerData(dataOfBanner.data); 
-
         const services = await axios.get(
           "http://213.230.91.55:8100/service/get-all",
           {
             headers: {
-              "Accept-Language": "ru",
+              "Accept-Language": params.locale,
             },
           }
         );
@@ -102,12 +90,6 @@ function Main({ doctors }) {
     fetchData();
   }, []);
 
-  console.log(bannerData)
-
-  // if (bannerData === null) {
-  //   return <div>Loading...</div>;
-  // }
-
   return (
     <>
       {contactWithUs ? <ContactWithUs setState={setContactWithUs} /> : <></>}
@@ -116,7 +98,7 @@ function Main({ doctors }) {
       {/* <HouseCall /> */}
       <div className="flex flex-col bg-white px-2 lg:px-16">
         <main className="flex flex-col self-center w-full max-w-[1414px] max-md:max-w-full">
-          {/* <BannerMain bannerData={bannerData} /> */}
+          <BannerMain params={params} />
           <div className="flex gap-5 self-end mt-4 text-xs font-semibold text-center uppercase">
             <button
               onClick={() => setContactWithUs(true)}
