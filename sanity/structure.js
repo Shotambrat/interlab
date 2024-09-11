@@ -1,6 +1,5 @@
-import S from "@sanity/desk-tool/structure-builder";
 
-export const structure = () =>
+export const structure = (S) =>
   S.list()
     .title("Content")
     .items([
