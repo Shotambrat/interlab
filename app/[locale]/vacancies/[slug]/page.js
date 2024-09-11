@@ -1,14 +1,21 @@
-import Banner from "../_components/vacancies/Banner";
-import Other from "../_components/vacancies/Other";
-import WhyIntermed from "../_components/vacancies/WhyIntermed";
+import React from "react";
+import ServiceBanner from "../../_components/vacancies/slug/Banner";
+import Info from "../../_components/vacancies/slug/Info";
+import Contacts from "../../_components/legal/Contacts";
+import Application from "../../_components/Application";
+import Other from "../../_components/vacancies/Other";
+import Blog from "../../_components/Blog";
 import Link from "next/link";
-import Blog from "../_components/Blog";
 
-export default function page({ params }) {
+export default function page({params}) {
   return (
     <div className="w-full flex flex-col gap-48 bg-white pb-48">
-      <Banner />
-      <WhyIntermed />
+      <ServiceBanner />
+      <Info />
+      <Contacts />
+      <div className="w-full max-w-[1440px] px-2 mx-auto">
+        <Application />
+      </div>
       <Other />
       <div className="w-full max-w-[1440px] px-2 mx-auto flex flex-col gap-8">
         <h2 className="text-4xl font-semibold">Блоги</h2>
