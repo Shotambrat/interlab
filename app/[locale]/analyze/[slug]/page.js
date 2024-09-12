@@ -1,7 +1,7 @@
-import Instuction from "@/app/[locale]/Instuction";
-import PopularAnalyze from "@/app/[locale]/PopularAnalyze";
-import AnalyzeHead from "@/app/[locale]/analyze/AnalyzeHead";
-import AnalyzeInfo from "@/app/[locale]/analyze/AnalyzeInfo";
+import Instuction from "@/app/[locale]/_components/Instuction";
+import PopularAnalyze from "@/app/[locale]/_components/PopularAnalyze";
+import AnalyzeHead from "@/app/[locale]/_components/analyze/AnalyzeHead";
+import AnalyzeInfo from "@/app/[locale]/_components/analyze/AnalyzeInfo";
 
 export default function HomePage() {
   return (

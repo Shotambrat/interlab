@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { fetchBlogs } from '@/app/lib/api';
+import { fetchBlogs } from '@/app/[locale]/lib/api';
 import Blog from "@/app/[locale]/_components/BlogCard"
 
 const BlogPagination = () => {
@@ -12,7 +12,7 @@ const BlogPagination = () => {
     const getBlogs = async () => {
       const data = await fetchBlogs(currentPage);
       console.log(data)
-      setBlogs(data.data.content);
+      setBlogs(data.data);
       setTotalPages(Math.ceil(30 / 12)); // Assuming there are 30 blogs in total, adjust if necessary
     };
     getBlogs();
@@ -27,7 +27,7 @@ const BlogPagination = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {blogs.map((blog) => (
           <div key={blog.id}>
-            <Blog title={blog.title} excerpt={blog.description} slug={`blogs/${blog.slug}`} imageSrc={blog.photoUrl} />
+            <Blog title={blog.headOption.title} excerpt={blog.headOption.body} slug={`blogs/${blog.slug}`} imageSrc={blog.headOption.photo.httpUrl} />
           </div>
         ))}
       </div>

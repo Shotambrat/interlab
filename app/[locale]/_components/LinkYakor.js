@@ -3,8 +3,7 @@ import arrowwhite from "@/public/svg/arrow-right-down-wht.svg";
 
 export default function LinkYakor({slug}) {
   return (
-    <a 
-    href={slug}
+    <div
     style={{
       backgroundColor: "rgba(255, 255, 255, 0.5)",
       width: "3rem",
@@ -19,6 +18,6 @@ export default function LinkYakor({slug}) {
       alt="Arrow Icon down right"
       className="w-8 h-8"
     />
-  </a>
+  </div>
   )
 }
