@@ -35,6 +35,8 @@ export default {
       type: "reference",
       to: [{ type: "serviceCategory" }],
       title: "Категория",
+      validation: (Rule) =>
+        Rule.required().error("Категория обязательна для выбора"),
     },
     {
       name: "icon",
@@ -48,12 +50,12 @@ export default {
       fields: [
         {
           name: "ru",
-          type: "blockContent", // Поддержка редактируемой разметки на русском
+          type: "blockContent",
           title: "Детали на русском",
         },
         {
           name: "uz",
-          type: "blockContent", // Поддержка редактируемой разметки на узбекском
+          type: "blockContent",
           title: "Детали на узбекском",
         },
       ],
