@@ -57,8 +57,6 @@ const ServiceCard = ({ title, description, imageSrc, bgColor, slug }) => (
   </a>
 );
 
-
-
 function Main({ doctors, params }) {
   const [bannerData, setBannerData] = useState(null);
   const [services, setServices] = useState([]);
@@ -137,13 +135,13 @@ function Main({ doctors, params }) {
                   </div>
                   <div className="hidden slg:flex gap-5 mt-11 max-w-full text-base font-bold text-center w-[466px] max-md:flex-wrap max-md:mt-10">
                     <a
-                      href="tel:+9989898898"
+                      href="tel:+998781482288"
                       className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px] max-md:px-5"
                     >
                       Позвонить
                     </a>
                     <a
-                      href="/results"
+                      href={`/${params.locale}/results`}
                       className="justify-center px-6 py-2 text-red-400 border border-red-400 hover:border-red-600 hover:text-red-600 transition-all duration-300 border-solid rounded-[100px] max-md:px-5"
                     >
                       Получить результаты
@@ -155,10 +153,10 @@ function Main({ doctors, params }) {
                 <div className="flex flex-col justify-between grow max-md:mt-5 max-md:max-w-full">
                   <div className="flex flex-col pt-1.5 max-md:max-w-full mb-2 md:mb-0">
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
-                      1) 1156
+                      1) <a href="tel:1156">1156</a>
                     </div>
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
-                      2) 998 (78) 148 22 88
+                      2) <a href="tel:+998781482288">998 (78) 148 22 88</a>
                     </div>
                     <div className="md:text-xl text-sm text-zinc-500 max-md:max-w-full">
                       телефон для связи
@@ -189,81 +187,86 @@ function Main({ doctors, params }) {
               </div>
               <div className="flex slg:hidden gap-2 mt-11 max-w-full text-sm font-bold text-center w-[466px] max-md:flex-wrap max-md:mt-10">
                 <a
-                  href="tel:+9989898898"
+                  href="tel:+998781482288"
                   className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400  rounded-[100px] max-md:px-5"
                 >
                   Позвонить
                 </a>
-                <button className="justify-center px-2 py-2 text-red-400 border border-red-400 border-solid rounded-[100px]">
+                <a
+                  href={`/${params.locale}/results`}
+                  className="justify-center px-2 py-2 text-red-400 border border-red-400 border-solid rounded-[100px]"
+                >
                   Получить результаты
-                </button>
+                </a>
               </div>
             </div>
           </div>
           <a href="/services">
-        <h2 className="lg:mt-52 mt-10 text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
-          Медицинские услуги
-        </h2>
-      </a>
-      <div className="flex flex-col items-center mdx:mt-10 w-full px-0">
-        <div className="py-auto w-full mt-5">
-          <div className="flex gap-5 flex-col mdl:flex-row w-full ">
-            {services.slice(0, 2).map((service, index) => (
+            <h2 className="lg:mt-52 mt-10 text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
+              Медицинские услуги
+            </h2>
+          </a>
+          <div className="flex flex-col items-center mdx:mt-10 w-full px-0">
+            <div className="py-auto w-full mt-5">
+              <div className="flex gap-5 flex-col mdl:flex-row w-full ">
+                {services.slice(0, 2).map((service, index) => (
+                  <div
+                    key={service.id}
+                    className={
+                      index === 0 ? "slg:w-3/5 w-full" : "slg:w-2/5 w-full"
+                    }
+                  >
+                    <ServiceCard
+                      title={service.name}
+                      description={service.description}
+                      imageSrc={service.iconUrl}
+                      bgColor={service.colourCode}
+                      slug={service.slug}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="container flex flex-col items-center mt-8 w-full">
               <div
-                key={service.id}
-                className={index === 0 ? "slg:w-3/5 w-full" : "slg:w-2/5 w-full"}
+                className={`mdl:grid flex gap-5 flex-col mdl:grid-cols-2 xl:grid-cols-3 w-full  ${
+                  servicesOpen ? "max-h-full" : "max-h-[300px] overflow-hidden"
+                }`}
               >
-                <ServiceCard
-                  title={service.name}
-                  description={service.description}
-                  imageSrc={service.iconUrl}
-                  bgColor={service.colourCode}
-                  slug={service.slug}
-                />
+                {services.slice(2).map((service, index) => (
+                  <div key={index} className="w-full">
+                    <ServiceCard
+                      key={service.id}
+                      title={service.name}
+                      description={service.description}
+                      imageSrc={service.iconUrl}
+                      bgColor={service.colourCode}
+                      slug={service.slug}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-        <div className="container flex flex-col items-center mt-8 w-full">
-          <div
-            className={`mdl:grid flex gap-5 flex-col mdl:grid-cols-2 xl:grid-cols-3 w-full  ${
-              servicesOpen ? "max-h-full" : "max-h-[300px] overflow-hidden"
-            }`}
-          >
-            {services.slice(2).map((service, index) => (
-              <div key={index} className="w-full">
-                <ServiceCard
-                  key={service.id}
-                  title={service.name}
-                  description={service.description}
-                  imageSrc={service.iconUrl}
-                  bgColor={service.colourCode}
-                  slug={service.slug}
+            </div>
+            <div className="w-full flex justify-center mdl:hidden mt-12">
+              <button
+                onClick={() => setServicesOpen((prev) => !prev)}
+                className="text-rose-400 text-xl font-semibold flex gap-3 items-center"
+              >
+                <p>{servicesOpen ? "Свернуть" : "Все услуги"}</p>
+                <Image
+                  src={arrowDownRed}
+                  height={100}
+                  width={100}
+                  alt="Down Icon Red"
+                  className={`w-4 h-4 transition-transform duration-300 ${
+                    servicesOpen ? "rotate-180" : "rotate-0"
+                  }`}
                 />
-              </div>
-            ))}
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="w-full flex justify-center mdl:hidden mt-12">
-          <button
-            onClick={() => setServicesOpen((prev) => !prev)}
-            className="text-rose-400 text-xl font-semibold flex gap-3 items-center"
-          >
-            <p>{servicesOpen ? "Свернуть" : "Все услуги"}</p>
-            <Image
-              src={arrowDownRed}
-              height={100}
-              width={100}
-              alt="Down Icon Red"
-              className={`w-4 h-4 transition-transform duration-300 ${
-                servicesOpen ? "rotate-180" : "rotate-0"
-              }`}
-            />
-          </button>
-        </div>
-      </div>
 
-      <MainMap />
+          <MainMap />
 
           <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
             Акции
@@ -440,7 +443,10 @@ function Main({ doctors, params }) {
             Блог
           </h2>
           <Blog />
-          <a href="/blogs" className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
+          <a
+            href="/blogs"
+            className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
+          >
             <span className="my-auto">Все новости</span>
             <img
               loading="lazy"

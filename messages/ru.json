@@ -1,6 +1,26 @@
 {
-    "HomePage": {
-      "title": "Hello world!",
-      "about": "Go to the about page"
+  "Header": {
+    "Navigation": {
+      "ckdl": "ЦКДЛ",
+      "analyze": "Анализы",
+      "services": "Услуги",
+      "doctors": "Врачи",
+      "addresses": "Адреса",
+      "about": "О нас"
+    },
+    "Login": {
+      "login": "Войти",
+      "profile": "Личный кабинет"
     }
-  }
+  },
+  "Main": {
+    "Banner": {
+      "more": "Подробнее"
+    },
+    "ContactUs" : {
+
+    }
+  },
+  "connect": "Связаться",
+  "online-application": "Онлайн запись"
+}

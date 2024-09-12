@@ -1,5 +1,8 @@
 import banner from './banner';
+import service from './service';
+import serviceCategory from './serviceCategory';
+import blockContent from './blockContent';
 
 export const schema = {
-  types: [banner],
+  types: [banner, service, serviceCategory, blockContent],
 };
