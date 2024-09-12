@@ -4,7 +4,7 @@ import logo from "@/public/images/header-logo-interlab.png";
 
 function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-4 border border-green-700">
+    <Link href="/" className="flex items-center gap-4">
       <div className="hidden mdx:flex">
         <Image
           priority

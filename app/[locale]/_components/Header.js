@@ -38,8 +38,8 @@ function Header() {
   ];
 
   return (
-    <header className="flex justify-center items-center px-2 lg:px-16 py-3 bg-white max-md:px-5 z-10 relative border">
-      <div className="flex gap-1 justify-between items-center w-full max-w-[1440px] border border-red-900 relative">
+    <header className="flex justify-center items-center px-2 lg:px-16 py-3 bg-white max-md:px-5 z-10 relative">
+      <div className="flex gap-1 justify-between items-center w-full max-w-[1440px]">
         <Logo />
         <Navigation navOptions={navOptions} />
         <Tools navOptions={navOptions} />

@@ -2,7 +2,7 @@
 import AnalyzeBanner from "@/app/[locale]/_components/analyze/AnalyzeBanner";
 import Instuction from "@/app/[locale]/_components/Instuction";
 import SearchBar from "@/app/[locale]/_components/Search/SearchBar";
-import Filter from "@/app/[locale]_components/analyze/Filter";
+import Filter from "@/app/[locale]/_components/analyze/Filter";
 
 export default function HomePage() {
   return (
