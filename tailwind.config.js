@@ -8,36 +8,25 @@ module.exports = {
   theme: {
     screens: {
       'sm': '360px',
-      // => @media (min-width: 360px) { ... }
-
       'md': '450px',
-      // => @media (min-width: 400px) { ... }
-
       'mdx': '650px',
-      // => @media (min-width: 650px) { ... }
-
       'mdl': '750px',
-      // => @media (min-width: 750px) { ... }
-
       'slg': '900px',
-      // => @media (min-width: 900px) { ...
-      
       'lg': '1100px',
-      // => @media (min-width: 1100px) { ... }
-
       'xl': '1280px',
-      // => @media (min-width: 1280px) { ... }
-
       '2xl': '1536px',
-      // => @media (min-width: 1536px) { ... }
     },
     extend: {
       fontFamily: {
         sans: ['Arial', 'sans-serif'],
       },
+      colors: {
+        modalBg: 'rgba(0, 0, 0, 0.5)',
+      },
       boxShadow: {
         '3xl': '0 20px 100px -10px rgba(0, 0, 0, 0.1)',
-      }
+        'custom': '-1px 2px 16px 0px rgba(189, 189, 189, 1)', // Custom shadow
+      },
     },
   },
   plugins: [

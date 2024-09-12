@@ -8,15 +8,18 @@ import backet from "@/public/svg/backet.svg";
 import MenuIcon from "@/app/[locale]/_components/MenuIcon";
 import Menu from "@/app/[locale]/_components/Menu";
 import { useState } from "react";
-import {useTranslations} from 'next-intl';
-import {Link} from '@/i18n/routing';
-
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
+import ruFlag from "@/public/svg/flags/flag-for-russia-svgrepo-com.svg"
+import uzFlag from "@/public/svg/flags/flag-for-uzbekistan-svgrepo-com.svg"
+import SearchBar from "./Search/SearchBar";
 
 export default function Tools({ navOptions, locale }) {
-  const availableLocales = ['uz', 'ru'];
+  const availableLocales = ["uz", "ru"];
   const [isOpen, setIsOpen] = useState(false);
-  const [defaultLang, setDefaultLang] = useState("RU");
+  const [defaultLang, setDefaultLang] = useState(locale);
   const [menu, setMenu] = useState(false);
+  const [search, setSearch] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -37,8 +40,11 @@ export default function Tools({ navOptions, locale }) {
 
   return (
     <div className="flex gap-5 justify-between self-stretch my-auto">
+      {
+        search && <SearchBar setSearch={setSearch} />
+      }
       <div className="flex gap-4 my-auto">
-        <Search />
+        <Search setSearch={setSearch} />
         <a className="hidden md:block" href="tel:+998777777777">
           <Image
             priority
@@ -69,7 +75,7 @@ export default function Tools({ navOptions, locale }) {
                 className="inline-flex justify-center w-full rounded-md border-gray-300 bg-white text-sm font-medium text-gray-700"
                 onClick={toggleDropdown}
               >
-                {defaultLang}
+                {defaultLang.toUpperCase()}
                 <svg
                   className="-mr-1 ml-2 h-5 w-5"
                   xmlns="http://www.w3.org/2000/svg"
@@ -88,43 +94,65 @@ export default function Tools({ navOptions, locale }) {
 
             {isOpen && (
               <div
-                className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                className="origin-top-right absolute right-0 mt-2 w-24 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"
                 tabIndex="-1"
               >
-                <div className="py-1" role="none">
-                {availableLocales.map((lng) => (
-          <Link
-            key={lng}
-            href="/"
-            locale={lng}
-            style={{
-              marginLeft: 10,
-              textDecoration: locale === lng ? 'underline' : 'none',
-            }}
-          >
-            {lng.toUpperCase()}
-          </Link>
-        ))}
+                <div className="py-1 flex flex-col gap-2 ml-3 w-full" role="none">
+                  {availableLocales.map((lng) => (
+                    <Link
+                      key={lng}
+                      href="/"
+                      locale={lng}
+                      style={{
+                        marginLeft: 10,
+                        color: locale === lng ? "red" : "black",
+                      }}
+                      className="hover:font-bold transition-all duration-300  flex gap-2 items-center"
+                    >
+                      {
+                        lng == 'uz' ? (
+                          <Image
+                          src={uzFlag}
+                          height={100}
+                          width={100}
+                          quality={100}
+                          alt="Uz Flag"
+                          className="w-4 h-4"
+                          />
+                        ) : (
+                          <Image
+                          src={ruFlag}
+                          height={100}
+                          width={100}
+                          quality={100}
+                          alt="Ru Flag"
+                          className="w-4 h-4"
+                          />
+                        )
+                      }
+                      {lng.toUpperCase()}
+                    </Link>
+                  ))}
                 </div>
               </div>
             )}
           </div>
         </div>
-        <Link href={'/auth'} className="hidden mdx:flex ">
+        <Link href={"/auth"} className="hidden mdx:flex ">
           <Profile />
         </Link>
         <div onClick={handleOpenMenu} className="block lg:hidden">
           <MenuIcon />
         </div>
       </div>
-      {/* {menu ? (
+      {menu ? (
         <Menu menu={menu} closeMenu={handleCloseMenu} navOptions={navOptions} />
       ) : (
         <></>
-      )} */}
+      )}
     </div>
   );
 }

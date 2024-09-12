@@ -4,22 +4,22 @@ import logo from "@/public/images/header-logo-interlab.png";
 
 function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-4">
-      <div className="hidden mdx:flex">
+    <Link href="/" className="flex items-center gap-4 transition-all duration-150">
+      <div className="hidden mdx:flex transition-all duration-150">
         <Image
           priority
           src={logo}
-          width={150}
-          height={100}
+          width={220}
+          height={150}
           alt="The Wild Oasis logo"
           quality={100}
         />
       </div>
-      <div className="flex mdx:hidden">
+      <div className="flex mdx:hidden transition-all duration-150">
         <Image
           priority
           src={logo}
-          width={100}
+          width={130}
           height={70}
           alt="The Wild Oasis logo"
           quality={100}

@@ -2,7 +2,7 @@ import Navigation from "@/app/[locale]/_components/Navigation";
 import Logo from "@/app/[locale]/_components/Logo";
 import Tools from "@/app/[locale]/_components/Tools";
 
-function Header() {
+function Header({locale}) {
 
   const navOptions = [
     {
@@ -38,11 +38,11 @@ function Header() {
   ];
 
   return (
-    <header className="flex justify-center items-center px-2 lg:px-16 py-3 bg-white max-md:px-5 z-10 relative">
-      <div className="flex gap-1 justify-between items-center w-full max-w-[1440px]">
+    <header className="flex justify-center h-[90px] max-mdx:h-[70px] border items-center pr-2 lg:px-16 py-3 bg-white z-10 relative transition-all duration-150">
+      <div className="flex gap-5 justify-between items-center w-full  max-w-[1440px] relative transition-all duration-150">
         <Logo />
-        <Navigation navOptions={navOptions} />
-        <Tools navOptions={navOptions} />
+        <Navigation locale={locale} navOptions={navOptions} />
+        <Tools locale={locale} navOptions={navOptions} />
       </div>
     </header>
   );

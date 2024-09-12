@@ -1,22 +1,32 @@
-"use client"
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import axios from "axios";
-import {client} from "@/sanity/lib/client"
+import { client } from "@/sanity/lib/client";
+import imageUrlBuilder from "@sanity/image-url";
+import { motion, AnimatePresence } from "framer-motion";
 
-const query = '*'
+// Создание builder для URL изображений
+const builder = imageUrlBuilder(client);
 
-const Slider = ({params}) => {
+function urlFor(source) {
+  return builder.image(source);
+}
+
+const Slider = ({ params }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [banners, setBanners] = useState([]);
+  const { locale } = params;
 
   useEffect(() => {
     const fetchBanners = async () => {
       try {
-        const response = await axios.get("https://interlab.uz/api/banner", {
-          headers: { "Accept-Language": params.locale },
-        });
-        setBanners(response.data.data);
+        const banners = await client.fetch(`*[_type == 'banner' && active == true] {
+          title,
+          subtitle,
+          description,
+          photo
+        }`);
+        setBanners(banners);
       } catch (error) {
         console.error("Ошибка при загрузке баннеров:", error);
       }
@@ -52,20 +62,20 @@ const Slider = ({params}) => {
         nextSlide();
       }
     };
-  
+
     const handleTouchStart = (e) => {
       if (slideRef.current) {
         slideRef.current.startX = e.touches[0].clientX;
       }
     };
-  
+
     const slider = slideRef.current;
-  
+
     if (slider) {
       slider.addEventListener("touchstart", handleTouchStart);
       slider.addEventListener("touchend", handleSwipe);
     }
-  
+
     return () => {
       if (slider) {
         slider.removeEventListener("touchstart", handleTouchStart);
@@ -77,6 +87,14 @@ const Slider = ({params}) => {
   if (!banners.length) {
     return <p>Загрузка баннеров...</p>;
   }
+
+  // Анимация для слайдов
+  const slideAnimation = {
+    initial: { opacity: 0, x: 100 },
+    animate: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -100 },
+    transition: { duration: 0.5 },
+  };
 
   return (
     <section className="max-md:max-w-full" ref={slideRef}>
@@ -97,17 +115,30 @@ const Slider = ({params}) => {
                 </div>
               ))}
             </div>
-            <div className="flex flex-col self-stretch mt-5 max-md:max-w-full">
-              <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full leading-6 lg:leading-63">
-                {banners[currentSlide].title}
-              </h1>
-              <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full leading-6 lg:leading-63">
-                {banners[currentSlide].subtitle}
-              </h1>
-              <p className="mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full">
-                {banners[currentSlide].description}
-              </p>
-            </div>
+
+            {/* Добавляем анимацию для текста */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide} // Обновляем key на каждый слайд
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition="transition"
+                variants={slideAnimation}
+                className="flex flex-col self-stretch mt-5 max-md:max-w-full"
+              >
+                <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full leading-6 lg:leading-63">
+                  {banners[currentSlide].title[locale]}
+                </h1>
+                <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full leading-6 lg:leading-63">
+                  {banners[currentSlide].subtitle[locale]}
+                </h1>
+                <p className="mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full">
+                  {banners[currentSlide].description[locale]}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
             <a href={banners[currentSlide].navigateToUrl}>
               <button className="flex flex-col justify-center mt-5 max-w-full text-base font-bold text-center text-white whitespace-nowrap w-[236px]">
                 <div className="justify-center items-center px-16 py-2 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px]">
@@ -117,16 +148,29 @@ const Slider = ({params}) => {
             </a>
           </div>
         </div>
+
         <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
-          <Image
-            src={banners[currentSlide].photoUrl}
-            className="grow w-full rounded-none aspect-[1.01] max-md:mt-10 max-md:max-w-full"
-            alt="Medical facility"
-            priority
-            width={1000}
-            height={1000}
-            quality={100}
-          />
+          {/* Анимация для изображения */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide} // Обновляем key на каждый слайд
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition="transition"
+              variants={slideAnimation}
+            >
+              <Image
+                src={urlFor(banners[currentSlide].photo).url()}
+                className="grow w-full rounded-none aspect-[1.01] max-md:mt-10 max-md:max-w-full"
+                alt="Medical facility"
+                priority
+                width={1000}
+                height={1000}
+                quality={100}
+              />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>

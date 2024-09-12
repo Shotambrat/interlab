@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import close from "@/public/svg/search/close.svg";
+import Image from "next/image";
 
-export default function SearchBar() {
+export default function SearchBar({ setSearch }) {
   const [query, setQuery] = useState("");
 
   const handleInputChange = (e) => {
@@ -11,48 +13,74 @@ export default function SearchBar() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Add search functionality here
     console.log(`Searching for: ${query}`);
   };
 
+  const handleOutsideClick = (e) => {
+    // Закрытие модалки при клике на фон
+    setSearch(false);
+  };
+
+  const handleContentClick = (e) => {
+    // Остановка всплытия события клика для контентной области
+    e.stopPropagation();
+  };
+
   return (
-    <div className="bg-white w-full px-4 lg:px-0">
-      <div className="max-w-[1440px] w-full mx-auto flex flex-col mdl:flex-row overflow-hidden mdl:py-10 mdl:px-5 max-mdl:py-10">
-        <div className="relative rounded-lg w-full max-w-[1440px] shadow-xl">
-          <input
-            type="text"
-            value={query}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-red-300 focus:border-red-500"
-            placeholder="Введите название анализа"
-          />
-          <button
-            onClick={handleSearch}
-            className="absolute top-0 right-0 rounded-lg bg-red-500 hover:bg-red-600 text-white p-1.5 mt-1 mr-1"
-          >
-            <svg
-              width="21"
-              height="21"
-              viewBox="0 0 21 21"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+    <div
+      className="w-full lg:px-0 fixed h-screen inset-0 top-[90px] max-mdx:top-[70px] bg-modalBg z-50"
+      onClick={handleOutsideClick} // Закрытие при клике на фон
+    >
+      <div
+        className="bg-white h-[100px]"
+        onClick={handleContentClick} // Предотвращаем закрытие при клике на контент
+      >
+        <div className="max-w-[1440px] mx-auto h-full flex items-center">
+          <div className="relative rounded-lg w-full max-w-[1440px] flex justify-between items-center">
+            <button onClick={() => setSearch(false)} className="pl-4">
+              <Image
+                src={close}
+                height={100}
+                width={100}
+                alt="Close Icon"
+                className="h-8 w-8 max-mdx:h-4 max-mdx:w-4"
+              />
+            </button>
+            <input
+              type="text"
+              value={query}
+              onChange={handleInputChange}
+              className="w-full text-3xl max-mdx:text-xl px-4 py-2 rounded-lg focus:outline-none focus:none"
+              placeholder="Введите название услуги, анализа и т.д."
+            />
+            <button
+              onClick={handleSearch}
+              className="rounded-lg bg-red-500 hover:bg-red-600 text-white p-3"
             >
-              <path
-                d="M9.45833 17.7917C14.0607 17.7917 17.7917 14.0607 17.7917 9.45833C17.7917 4.85596 14.0607 1.125 9.45833 1.125C4.85596 1.125 1.125 4.85596 1.125 9.45833C1.125 14.0607 4.85596 17.7917 9.45833 17.7917Z"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M19.8737 19.875L15.3945 15.3959"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
+              <svg
+                width="21"
+                height="21"
+                viewBox="0 0 21 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.45833 17.7917C14.0607 17.7917 17.7917 14.0607 17.7917 9.45833C17.7917 4.85596 14.0607 1.125 9.45833 1.125C4.85596 1.125 1.125 4.85596 1.125 9.45833C1.125 14.0607 4.85596 17.7917 9.45833 17.7917Z"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M19.8737 19.875L15.3945 15.3959"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
