@@ -1,10 +1,13 @@
-import createImageUrlBuilder from '@sanity/image-url'
+// Пример использования в компоненте
 
-import { dataset, projectId } from '../env'
+import imageUrlBuilder from '@sanity/image-url';
+import { client } from '@/sanity/lib/client';
 
-// https://www.sanity.io/docs/image-url
-const builder = createImageUrlBuilder({ projectId, dataset })
+const builder = imageUrlBuilder(client);
 
-export const urlFor = (source) => {
-  return builder.image(source)
+function urlFor(source) {
+  return builder.image(source);
 }
+
+// В вашем компоненте
+<img src={urlFor(service.icon).url()} alt={service.name[locale]} />

@@ -19,74 +19,53 @@ import PopularAnalyze from "./PopularAnalyze";
 import BannerMain from "@/app/[locale]/_components/BannerMain";
 import arrowDownRed from "@/public/svg/arrow-down-red.svg";
 import MainMap from "@/app/[locale]/_components/MainMap";
+import ServiceCard from "@/app/[locale]/_components/ServiceCard";
+import imageUrlBuilder from "@sanity/image-url";
+import { client } from "@/sanity/lib/client";
 // import HouseCallSuccess from "@/app/[locale]/_components/Modals/HouseCallSuccess";
 // import HouseCall from "@/app/[locale]/_components/Modals/HouseCall";
 SwiperCore.use([Navigation, Pagination]);
 
-const ServiceCard = ({ title, description, imageSrc, bgColor, slug }) => (
-  <a
-    href={`services/${slug}`}
-    style={{
-      backgroundColor: bgColor,
-    }}
-    className={`flex flex-col h-[300px] overflow-hidden grow rounded-[30px] max-w-full relative transition-all duration-300 cursor-pointer`}
-  >
-    <div className="rounded-[30px] pl-4 w-[76%]">
-      <div className="flex gap-2 max-md:flex-col ">
-        <div className="flex flex-col w-[60%] max-md:ml-0 max-md:w-[80%]">
-          <div className="flex flex-col mt-4 max-md:max-w-full">
-            <h3 className="text-2xl font-bold leading-8 uppercase text-neutral-900 max-md:max-w-full">
-              {title}
-            </h3>
-            <p className="mt-2 leading-4 text-sm text-zinc-500 max-md:max-w-full">
-              {description}
-            </p>
-          </div>
-        </div>
-        <div className="absolute bottom-0 right-0 ml-5 w-2/3 md:w-[40%] max-md:ml-0">
-          <Image
-            src={imageSrc}
-            width={100}
-            height={100}
-            className="grow mt-11 w-full aspect-[1.27] max-md:mt-10"
-            alt={title}
-          />
-        </div>
-      </div>
-    </div>
-  </a>
-);
+const builder = imageUrlBuilder(client);
+
+function urlFor(source) {
+  return builder.image(source);
+}
 
 function Main({ doctors, params }) {
-  const [bannerData, setBannerData] = useState(null);
   const [services, setServices] = useState([]);
   const [contactWithUs, setContactWithUs] = useState(false);
   const [onlineReq, setOnlineReq] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
-  useEffect(() => {
-    // Функция для получения данных из API
-    const fetchData = async () => {
-      try {
-        const services = await axios.get(
-          "http://213.230.91.55:8100/service/get-all",
-          {
-            headers: {
-              "Accept-Language": params.locale,
-            },
-          }
-        );
-        const dataOfServices = services.data;
-        console.log("Data", dataOfServices);
+  const { locale } = params;
 
-        setServices(dataOfServices.data.filter((service) => service.active));
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const servicesData = await client.fetch(`
+          *[_type == "service"]{
+            _id,
+            name,
+            slug,
+            description,
+            icon,
+            colourCode
+          }
+        `);
+        setServices(servicesData);
       } catch (error) {
-        console.error("Error fetching banner data:", error);
+        console.error("Ошибка при загрузке услуг:", error);
       }
     };
 
-    fetchData();
+    fetchServices();
   }, []);
+
+  const getRandomColor = () => {
+    const colors = ["#FFC0CB", "#ADD8E6", "#90EE90", "#FFD700", "#FFA07A"];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
 
   return (
     <>
@@ -207,46 +186,76 @@ function Main({ doctors, params }) {
             </h2>
           </a>
           <div className="flex flex-col items-center mdx:mt-10 w-full px-0">
-            <div className="py-auto w-full mt-5">
-              <div className="flex gap-5 flex-col mdl:flex-row w-full ">
-                {services.slice(0, 2).map((service, index) => (
-                  <div
-                    key={service.id}
-                    className={
-                      index === 0 ? "slg:w-3/5 w-full" : "slg:w-2/5 w-full"
-                    }
-                  >
-                    <ServiceCard
-                      title={service.name}
-                      description={service.description}
-                      imageSrc={service.iconUrl}
-                      bgColor={service.colourCode}
-                      slug={service.slug}
-                    />
+            {services.length === 0 ? (
+              <p>Нет доступных услуг</p>
+            ) : (
+              <>
+                {services.length > 2 ? (
+                  <>
+                    {/* Первая секция с первыми двумя услугами */}
+                    <div className="flex gap-5 flex-col mdl:flex-row w-full mt-5">
+                      {services.slice(0, 2).map((service, index) => (
+                        <div
+                          key={service._id}
+                          className={
+                            index === 0
+                              ? "slg:w-3/5 w-full"
+                              : "slg:w-2/5 w-full"
+                          }
+                        >
+                          <ServiceCard
+                            title={service.name[locale]}
+                            description={service.description[locale]}
+                            imageSrc={urlFor(service.icon).url()}
+                            bgColor={getRandomColor()}
+                            slug={service.slug.current}
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Вторая секция с оставшимися услугами */}
+                    <div className="container flex flex-col items-center mt-8 w-full">
+                      <div
+                        className={`mdl:grid flex gap-5 flex-col mdl:grid-cols-2 xl:grid-cols-3 w-full`}
+                      >
+                        {services.slice(2).map((service) => (
+                          <div key={service._id} className="w-full">
+                            <ServiceCard
+                              title={service.name[locale]}
+                              description={service.description[locale]}
+                              imageSrc={urlFor(service.icon).url()}
+                              bgColor={getRandomColor()}
+                              slug={service.slug.current}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  // Если услуг 2 или меньше, отображаем их в одной секции
+                  <div className="flex gap-5 flex-col mdl:flex-row w-full mt-5">
+                    {services.map((service, index) => (
+                      <div
+                        key={service._id}
+                        className={
+                          index === 0 ? "slg:w-3/5 w-full" : "slg:w-2/5 w-full"
+                        }
+                      >
+                        <ServiceCard
+                          title={service.name[locale]}
+                          description={service.description[locale]}
+                          imageSrc={urlFor(service.icon).url()}
+                          bgColor={getRandomColor()}
+                          slug={service.slug.current}
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="container flex flex-col items-center mt-8 w-full">
-              <div
-                className={`mdl:grid flex gap-5 flex-col mdl:grid-cols-2 xl:grid-cols-3 w-full  ${
-                  servicesOpen ? "max-h-full" : "max-h-[300px] overflow-hidden"
-                }`}
-              >
-                {services.slice(2).map((service, index) => (
-                  <div key={index} className="w-full">
-                    <ServiceCard
-                      key={service.id}
-                      title={service.name}
-                      description={service.description}
-                      imageSrc={service.iconUrl}
-                      bgColor={service.colourCode}
-                      slug={service.slug}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+                )}
+              </>
+            )}
             <div className="w-full flex justify-center mdl:hidden mt-12">
               <button
                 onClick={() => setServicesOpen((prev) => !prev)}
@@ -383,7 +392,7 @@ function Main({ doctors, params }) {
               alt="Arrow icon"
             />
           </a>
-          <PopularAnalyze />
+          <PopularAnalyze params={params} />
           <div className="mt-52 max-md:mt-10">
             <Instruction />
           </div>

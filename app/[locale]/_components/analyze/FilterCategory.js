@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 export default function FilterCategory({ title, catname, handleFilter, active }) {
   return (
@@ -6,4 +6,4 @@ export default function FilterCategory({ title, catname, handleFilter, active })
       <h2 className={`text-left ${active === catname ? 'text-white font-semibold' : 'text-black'}`}>{title}</h2>
     </button>
   );
-};
+}

@@ -1,300 +1,89 @@
-"use client";
+"use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FilterCategory from "@/app/[locale]/_components/analyze/FilterCategory";
 import FilterAnalyzeItems from "./FilterAnalyzeItems";
+import { client } from "@/sanity/lib/client";
 
-export default function Filter() {
-  const data = [
-    {
-      title: "Акутальные анализы",
-      category: "actual-analyze",
-      data: [
-        {
-          title: "Общий анализ мочи с микроскопией, ОАМ",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "35 000 cум",
-        },
-        {
-          title: "Кал на яйца глистов",
-          description:
-            "Исследование, использующееся в диагностике паразитарных заболеваний кишечника",
-          price: "56 000 cум",
-        },
-        {
-          title: "Мочевина в крови",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "38 000 cум",
-        },
-        {
-          title: "Глюкоза",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "25 000 cум",
-        },
-        {
-          title: "Коагулограмма стандартная (ПВ, ПТТ, МНО, АЧТВ, Фибриноген)",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "146 000 cум",
-        },
-        {
-          title: "Креатинин в крови",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "34 000 cум",
-        },
-        {
-          title: "Антистрептолизин-О (АСО, АСЛ-О, ASO) количественный",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "50 000 cум",
-        },
-        {
-          title:
-            "Ревматоидный фактор - количественный (RF - Rheumatoid Factor)",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "45 000 cум",
-        },
-        {
-          title: "С-реактивный белок (C-Reactive Protein) количественный",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "62 000 cум",
-        },
-      ],
-    },
-    {
-      title: "Общеклинические иследования",
-      category: "overclinical-testing",
-      data: [
-        {
-          title: " ОАМ",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "35 000 cум",
-        },
-        {
-          title: "яйца ",
-          description:
-            "Исследование, использующееся в диагностике паразитарных заболеваний кишечника",
-          price: "56 000 cум",
-        },
-        {
-          title: "Мочевина",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "38 000 cум",
-        },
-        {
-          title: "Глюкоза",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "25 000 cум",
-        },
-        {
-          title: "Коагулограмма стандартная (ПВ, ПТТ, МНО, АЧТВ, Фибриноген)",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "146 000 cум",
-        },
-        {
-          title: "Креатинин в крови",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "34 000 cум",
-        },
-        {
-          title: "Антистрептолизин-О (АСО, АСЛ-О, ASO) количественный",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "50 000 cум",
-        },
-        {
-          title:
-            "Ревматоидный фактор - количественный (RF - Rheumatoid Factor)",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "45 000 cум",
-        },
-        {
-          title: "С-реактивный белок (C-Reactive Protein) количественный",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "62 000 cум",
-        },
-      ],
-    },
-    {
-      title: "Экспресс тесты",
-      category: "express-test",
-      data: [
-        {
-          title: "Общий анализ мочи с микроскопией, ОАМ",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "99999 000 cум",
-        },
-        {
-          title: "Кал на яйца глистов",
-          description:
-            "Исследование, использующееся в диагностике паразитарных заболеваний кишечника",
-          price: "56 000 cум",
-        },
-        {
-          title: "Мочевина в крови",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "38 000 cум",
-        },
-        {
-          title: "Глюкоза",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "25 000 cум",
-        },
-        {
-          title: "Коагулограмма стандартная (ПВ, ПТТ, МНО, АЧТВ, Фибриноген)",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "146 000 cум",
-        },
-        {
-          title: "Креатинин в крови",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "34 000 cум",
-        },
-        {
-          title: "Антистрептолизин-О (АСО, АСЛ-О, ASO) количественный",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "50 000 cум",
-        },
-        {
-          title:
-            "Ревматоидный фактор - количественный (RF - Rheumatoid Factor)",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "45 000 cум",
-        },
-        {
-          title: "С-реактивный белок (C-Reactive Protein) количественный",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "62 000 cум",
-        },
-      ],
-    },
-    {
-      title: "Витамины",
-      category: "vitamins",
-      data: [
-        {
-          title: "Общий анализ мочи с микроскопией, ОАМ",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "35 000 cум",
-        },
-        {
-          title: "Кал на яйца глистов",
-          description:
-            "Исследование, использующееся в диагностике паразитарных заболеваний кишечника",
-          price: "56 000 cум",
-        },
-        {
-          title: "Мочевина в крови",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "38 000 cум",
-        },
-        {
-          title: "Глюкоза",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "25 000 cум",
-        },
-        {
-          title: "Коагулограмма стандартная (ПВ, ПТТ, МНО, АЧТВ, Фибриноген)",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "146 000 cум",
-        },
-        {
-          title: "Креатинин в крови",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "34 000 cум",
-        },
-        {
-          title: "Антистрептолизин-О (АСО, АСЛ-О, ASO) количественный",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "50 000 cум",
-        },
-        {
-          title:
-            "Ревматоидный фактор - количественный (RF - Rheumatoid Factor)",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "45 000 cум",
-        },
-        {
-          title: "С-реактивный белок (C-Reactive Protein) количественный",
-          description:
-            "Исследование, использующееся для оценки мочеобразования, и оценке общего состояния организма человека",
-          price: "62 000 cум",
-        },
-      ],
-    },
-  ];
+export default function Filter({ params }) {
+  const { locale } = params;
+  const [categories, setCategories] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [tests, setTests] = useState([]);
 
-  const [active, setActive] = useState(data[0].category);
-  const [filter, setFilter] = useState(data[0].data);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoriesData = await client.fetch(`
+          *[_type == "testCategory"]{
+            _id,
+            name,
+            slug
+          }
+        `);
+        setCategories(categoriesData);
+        if (categoriesData.length > 0) {
+          setActiveCategory(categoriesData[0].slug.current);
+        }
+      } catch (error) {
+        console.error("Ошибка при загрузке категорий:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
-  const handleFilter = (catname) => {
-    setActive(catname);
-    let filteredArr = data
-      .filter((item) => item.category === catname)
-      .map((item) => item.data)
-      .flat();
-    setFilter(filteredArr);
+  useEffect(() => {
+    const fetchTests = async () => {
+      if (!activeCategory) return;
+      try {
+        const testsData = await client.fetch(
+          `*[_type == "test" && category->slug.current == $categorySlug]{
+            _id,
+            name,
+            shortDescription,
+            price,
+            slug
+          }`,
+          { categorySlug: activeCategory }
+        );
+        setTests(testsData);
+      } catch (error) {
+        console.error("Ошибка при загрузке анализов:", error);
+      }
+    };
+    fetchTests();
+  }, [activeCategory]);
+
+  const handleFilter = (categorySlug) => {
+    setActiveCategory(categorySlug);
   };
+
+  console.log(tests)
 
   return (
     <div className="w-full h-auto bg-white max-mdl:px-4">
       <div className="w-full max-w-[1440px] mx-auto h-auto flex max-mdl:flex-col gap-10">
         <div className="w-full mdl:max-w-1/3 mdl:w-1/3 flex flex-col gap-3 h-auto">
-          {data.map((elem) => {
-            return (
-              <>
-                <FilterCategory
-                  key={elem.category}
-                  title={elem.title}
-                  catname={elem.category}
-                  handleFilter={handleFilter}
-                  active={active}
-                />
-              </>
-            );
-          })}
+          {categories.map((category) => (
+            <FilterCategory
+              key={category._id}
+              title={category.name[locale]}
+              catname={category.slug.current}
+              handleFilter={handleFilter}
+              active={activeCategory}
+            />
+          ))}
         </div>
         <div className="w-full mdl:max-w-2/3 mdl:w-2/3 flex flex-col gap-3 h-auto">
-          {filter.map((elem) => {
-            return (
-              <>
-                <FilterAnalyzeItems
-                  key={elem.title}
-                  title={elem.title}
-                  description={elem.description}
-                  price={elem.price}
-                />
-              </>
-            );
-          })}
+          {tests.map((test) => (
+            <FilterAnalyzeItems
+              key={test._id}
+              title={test.name[locale]}
+              shortDescription={test.shortDescription[locale]}
+              price={test.price}
+              slug={test.slug.current}
+            />
+          ))}
         </div>
       </div>
     </div>

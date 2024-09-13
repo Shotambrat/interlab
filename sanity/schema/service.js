@@ -44,6 +44,12 @@ export default {
       title: "Иконка сервиса",
     },
     {
+      name: "colourCode",
+      type: "string",
+      title: "Цвет карточки",
+      description: "Цвет в формате HEX, например, #FFA07A",
+    },
+    {
       name: "details",
       type: "object",
       title: "Детали сервиса",
