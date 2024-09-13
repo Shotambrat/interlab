@@ -9,6 +9,25 @@ import list from "@/public/svg/list.svg";
 import tgbot from "@/public/svg/tgbot.svg";
 import closeicon from "@/public/svg/closeicon.svg";
 
+const ContactButton = ({ href, onClick, icon, bgColor, borderColor, textColor, text, rightIcon }) => (
+  <a
+    href={href}
+    onClick={onClick}
+    className={`px-4 border ${borderColor} ${bgColor} py-4 rounded-lg flex justify-between items-center`}
+  >
+    <div className="flex items-center">
+      <div className="mr-4">
+        <Image priority className="w-6 h-6" src={icon} width={100} height={100} alt={text} />
+      </div>
+      {/* <p className={`${textColor} font-semibold text-lg`}>{text}</p> */}
+      {text}
+    </div>
+    <div>
+      <Image priority className="w-4 h-4" src={rightIcon} width={100} height={100} alt={text} />
+    </div>
+  </a>
+);
+
 export default function ContactWithUs({ setState }) {
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-50">
@@ -26,124 +45,48 @@ export default function ContactWithUs({ setState }) {
               src={closeicon}
               width={100}
               height={100}
-              alt="The Wild Oasis logo"
+              alt="Закрыть"
               quality={100}
             />
           </button>
         </div>
         <div className="mt-5 flex flex-col gap-4">
-          <a href="tel:+9998998989" className="px-4 border border-rose-500 bg-rose-100 py-4 rounded-lg flex justify-between items-center">
-            <div className="flex items-center">
-              <div className="mr-4 ml-2">
-                <Image
-                  priority
-                  className="w-4 h-4"
-                  src={redcallcontact}
-                  width={100}
-                  height={100}
-                  alt="The Wild Oasis logo"
-                  quality={100}
-                />
-              </div>
-              <p className="text-rose-500 font-semibold text-lg">Позвонить</p>
-            </div>
-            <div>
-              <Image
-                priority
-                className="w-4 h-4"
-                src={redIcon}
-                width={100}
-                height={100}
-                alt="The Wild Oasis logo"
-                quality={100}
-              />
-            </div>
-          </a>
-          <a href="https://telegraph.com" className="px-4 border border-blue-500 bg-blue-100 py-4 rounded-lg flex justify-between items-center">
-            <div className="flex items-center">
-              <div className="mr-4">
-                <Image
-                  priority
-                  className="w-6 h-6"
-                  src={telegram}
-                  width={100}
-                  height={100}
-                  alt="The Wild Oasis logo"
-                  quality={100}
-                />
-              </div>
-              <p className="text-blue-500 font-semibold text-lg">
-                Написать в Telegram
-              </p>
-            </div>
-            <div>
-              <Image
-                priority
-                className="w-4 h-4"
-                src={blueIcon}
-                width={100}
-                height={100}
-                alt="The Wild Oasis logo"
-                quality={100}
-              />
-            </div>
-          </a>
-          <button className="px-4 border border-indigo-500 bg-indigo-100 py-4 rounded-lg flex justify-between items-center">
-            <div className="flex items-center">
-              <div className="mr-4">
-                <Image
-                  priority
-                  className="w-6 h-6"
-                  src={list}
-                  width={100}
-                  height={100}
-                  alt="The Wild Oasis logo"
-                  quality={100}
-                />
-              </div>
-              <p className="text-indigo-500 font-semibold text-lg">
-                Оставить заявку
-              </p>
-            </div>
-            <div>
-              <Image
-                priority
-                className="w-4 h-4"
-                src={indigoIcon}
-                width={100}
-                height={100}
-                alt="The Wild Oasis logo"
-                quality={100}
-              />
-            </div>
-          </button>
-          <button className="px-4 border border-emerald-500 bg-emerald-100 py-4 rounded-lg flex justify-between items-center">
-            <div className="flex items-center">
-              <div className="mr-4">
-                <Image
-                  priority
-                  className="w-6 h-6"
-                  src={tgbot}
-                  width={100}
-                  height={100}
-                  alt="The Wild Oasis logo"
-                  quality={100}
-                />
-              </div>
-              <p className="text-emerald-500 font-semibold text-lg">TG-бот</p>
-            </div>
-            <div>
-              <Image
-                priority
-                className="w-4 h-4"
-                src={emberIcon}
-                width={100}
-                height={100}
-                alt="The Wild Oasis logo"
-                quality={100}
-              />
-            </div>
-          </button>
+          <ContactButton
+            href="tel:+9998998989"
+            icon={redcallcontact}
+            bgColor="bg-rose-100"
+            borderColor="border-rose-500"
+            textColor="text-rose-500"
+            text="Позвонить"
+            rightIcon={redIcon}
+          />
+          <ContactButton
+            href="https://telegraph.com"
+            icon={telegram}
+            bgColor="bg-blue-100"
+            borderColor="border-blue-500"
+            textColor="text-blue-500"
+            text="Написать в Telegram"
+            rightIcon={blueIcon}
+          />
+          <ContactButton
+            onClick={() => alert("Оставить заявку")}
+            icon={list}
+            bgColor="bg-indigo-100"
+            borderColor="border-indigo-500"
+            textColor="text-indigo-500"
+            text="Оставить заявку"
+            rightIcon={indigoIcon}
+          />
+          <ContactButton
+            onClick={() => alert("TG-бот")}
+            icon={tgbot}
+            bgColor="bg-emerald-100"
+            borderColor="border-emerald-500"
+            textColor="text-emerald-500"
+            text="TG-бот"
+            rightIcon={emberIcon}
+          />
         </div>
       </div>
     </div>

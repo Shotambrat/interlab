@@ -266,7 +266,7 @@ function Main({ doctors, params }) {
             </div>
           </div>
 
-          <MainMap />
+          {/* <MainMap /> */}
 
           <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
             Акции
