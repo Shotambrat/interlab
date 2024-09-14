@@ -1,23 +1,27 @@
 "use client";
 
-import { Input, Button, DatePicker, Form } from 'antd';
-import dayjs from 'dayjs';
-import 'dayjs/locale/ru';
-import { PhoneOutlined, LockOutlined, CalendarOutlined } from '@ant-design/icons';
+import { Input, Button, DatePicker, Form } from "antd";
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
+import {
+  PhoneOutlined,
+  LockOutlined,
+  CalendarOutlined,
+} from "@ant-design/icons";
 
 export default function Info() {
   const [form] = Form.useForm();
 
   const initialValues = {
-    fullName: 'Иванов Иван Иванович',
-    phoneNumber: '+998 99 999 99 99',
-    birthDate: dayjs('2001-01-01'),
-    password: '',
-    confirmPassword: '',
+    fullName: "Иванов Иван Иванович",
+    phoneNumber: "+998 99 999 99 99",
+    birthDate: dayjs("2001-01-01"),
+    password: "",
+    confirmPassword: "",
   };
 
   const onFinish = (values) => {
-    console.log('Form data:', values);
+    console.log("Form data:", values);
   };
 
   return (
@@ -33,16 +37,19 @@ export default function Info() {
         <Form.Item
           label={<span className="text-sm font-medium">ФИО</span>}
           name="fullName"
-          rules={[{ required: true, message: 'Введите ваше ФИО' }]}
+          rules={[{ required: true, message: "Введите ваше ФИО" }]}
           className="block"
         >
-          <Input className="h-10 px-4 text-sm rounded border-gray-300" placeholder="Иванов Иван Иванович" />
+          <Input
+            className="h-10 px-4 text-sm rounded border-gray-300"
+            placeholder="Иванов Иван Иванович"
+          />
         </Form.Item>
 
         <Form.Item
           label={<span className="text-sm font-medium">Номер телефона</span>}
           name="phoneNumber"
-          rules={[{ required: true, message: 'Введите номер телефона' }]}
+          rules={[{ required: true, message: "Введите номер телефона" }]}
           className="block"
         >
           <Input
@@ -55,12 +62,12 @@ export default function Info() {
         <Form.Item
           label={<span className="text-sm font-medium">Дата рождения</span>}
           name="birthDate"
-          rules={[{ required: true, message: 'Выберите дату рождения' }]}
+          rules={[{ required: true, message: "Выберите дату рождения" }]}
           className="block"
         >
           <DatePicker
             format="DD.MM.YYYY"
-            locale={'ru'}
+            locale={"ru"}
             className="w-full h-10 px-4 text-sm rounded border-gray-300"
             suffixIcon={<CalendarOutlined className="text-gray-400" />}
           />
@@ -69,7 +76,7 @@ export default function Info() {
         <Form.Item
           label={<span className="text-sm font-medium">Новый пароль</span>}
           name="password"
-          rules={[{ required: true, message: 'Введите новый пароль' }]}
+          rules={[{ required: true, message: "Введите новый пароль" }]}
           className="block"
         >
           <Input.Password
@@ -82,15 +89,15 @@ export default function Info() {
         <Form.Item
           label={<span className="text-sm font-medium">Повторите пароль</span>}
           name="confirmPassword"
-          dependencies={['password']}
-          rules={[ 
-            { required: true, message: 'Повторите пароль' },
+          dependencies={["password"]}
+          rules={[
+            { required: true, message: "Повторите пароль" },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
+                if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(new Error('Пароли не совпадают'));
+                return Promise.reject(new Error("Пароли не совпадают"));
               },
             }),
           ]}
