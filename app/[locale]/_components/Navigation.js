@@ -1,9 +1,7 @@
-"use client"
+"use client";
 import Link from "next/link";
 
-
-export default function Navigation({locale, navOptions}) {
-
+export default function Navigation({ locale, navOptions }) {
   return (
     <nav className="z-10 text-xl hidden lg:flex flex-grow justify-center transition-all duration-150">
       <ul className="flex gap-1 justify-between self-stretch my-auto text-lg text-neutral-900 max-md:flex-wrap w-full max-w-[650px] transition-all duration-150">
@@ -16,4 +14,3 @@ export default function Navigation({locale, navOptions}) {
     </nav>
   );
 }
-

@@ -1,6 +1,95 @@
 {
-  "HomePage": {
-    "title": "Salom o'zbeklar",
-    "about": "Go to the about page"
-  }
+  "Header": {
+    "Navigation": {
+      "ckdl": "CKDL",
+      "analyze": "Tahlillar",
+      "services": "Xizmatlar",
+      "doctors": "Shifokorlar",
+      "addresses": "Manzillar",
+      "about": "Biz haqimizda"
+    },
+    "Login": {
+      "login": "Kirish",
+      "profile": "Shaxsiy kabinet"
+    }
+  },
+  "Main": {
+    "Banner": {
+      "more": "Batafsil"
+    },
+    "ContactUs" : {
+      "title": "Aniq tashxis – sifatli davolash",
+      "description": "Interlab – zamonaviy tibbiyot markazi \nMarkazning asosiy vazifasi – bemorda aniq kasallikni aniqlash va muvozanatni tiklash uchun samarali davolash kursini tavsiya qilish",
+      "phone-for-call": "aloqa uchun telefon",
+      "open-in-ya": "Yandeks xaritalarida ochish",
+      "mon-fri": "Du - Sha",
+      "sun": "Yak",
+      "graphic": "Ish vaqti",
+      "addresses": "Yunusobod tumani, Chinoobod ko'chasi, 10A"
+    },
+    "Services": {
+      "title": "Tibbiy xizmatlar",
+      "all": "Barcha xizmatlar"
+    },
+    "Sales": {
+      "title": "Aksiya",
+      "all": "Barcha aksiyalar"
+    },
+    "Doctors": {
+      "title": "Bizning shifokorlarimiz",
+      "description": "Interlab klinikasi barcha shifokorlari oliy maʼlumotga ega, shuningdek, muntazam ravishda malaka oshirish kurslarida qatnashadilar",
+      "all": "Barcha shifokorlar"
+    },
+    "Popular-analyze": {
+      "title": "Ommabop tahlillar",
+      "description": "Tahlil natijasini bir kunda onlayn oling! \n(ko'pchilik tahlillarga nisbatan amal qiladi)",
+      "graphic": "Tahlillarni qabul qilish 07:00 dan 16:00 gacha",
+      "all": "Barchasini ko'rish"
+    },
+    "Instruction": {
+      "title": "Tahlil topshirish bo‘yicha ko‘rsatmalar",
+      "description": "Interlab klinikasida uyga chaqirish xizmatidan foydalanib, tahlil topshirish uchun klinikaga tashrif buyurishingiz shart emas",
+      "call-for-home": "Uyga chaqirish"
+    },
+    "About": {
+      "title": "Interlab – Toshkentdagi zamonaviy tibbiyot markazi",
+      "description": "«INTERMED Leasing» – bu yuqori aniqlikdagi ekspert klassdagi jihozlar bilan to‘liq diagnostika va aniq tashxis qo‘yish uchun jihozlangan zamonaviy tibbiyot markazi \n\nYetakchi jahon ishlab chiqaruvchilarning eng yangi raqamli rentgenografik uskunasi minimal nurlanish yuklamasi bilan yuqori sifatli tasvirlarni olish imkonini beradi. Grafiya, skopiya va flyurografiyani o‘z ichiga oladi \n\n«INTERMED Leasing» – bu dunyo diagnostika va davolash standarti. Oxirgi avlod fizioterapevtik uskunalarining to‘liq to‘plami. To‘lqin terapiyasi, elektroforez, infraqizil lazer terapiyasi, miostimulyatsiya",
+      "more": "Biz haqimizda batafsil",
+      "license": "Litsenziyalar"
+    },
+    "Blogs": {
+      "title": "Bloglar",
+      "more": "Barcha yangiliklar"
+    }
+  },
+  "Application": {
+    "title": "Ariza qoldiring va biz yaqin orada sizga qo'ng'iroq qilamiz",
+    "placeholders": {
+      "fullname": "F.I.Sh *",
+      "phone": "Telefon raqami *",
+      "services": {
+        "default": "Qiziqayotgan xizmat",
+        "MRI": "MRT",
+        "UZI": "UZI",
+        "cardiology": "Kardiologiya",
+        "commentary": "Sizning izohingiz",
+        "request": "Ariza qoldirish"
+      }
+    }
+  },
+  "Footer": {
+    "about": "Biz haqimizda",
+    "sertificates": "Sertifikatlar",
+    "equipments": "Uskunalar",
+    "pricelist": "Narxlar ro'yxati - bilib olish",
+    "for-legal": "Yuridik shaxslar uchun",
+    "preparation": "Tahlillarni topshirishga qanday tayyorgarlik ko‘rish kerak",
+    "feedback": "Takliflar va shikoyatlar",
+    "rights": "Interlab Barcha huquqlar himoyalangan"
+  },
+  "connect": "Aloqa",
+  "online-application": "Onlayn yozilish",
+  "call": "Qo'ng'iroq qilish",
+  "get-result": "Natijalarni olish",
+  "collapse": "Qisqartirish"
 }

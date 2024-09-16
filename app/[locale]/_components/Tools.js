@@ -1,6 +1,5 @@
 "use client";
 import Search from "@/app/[locale]/_components/Search";
-import arrowdown from "@/public/svg/arrow-down.svg";
 import phone from "@/public/svg/phone.svg";
 import Image from "next/image";
 import Profile from "@/app/[locale]/_components/Profile";
@@ -8,26 +7,21 @@ import backet from "@/public/svg/backet.svg";
 import MenuIcon from "@/app/[locale]/_components/MenuIcon";
 import Menu from "@/app/[locale]/_components/Menu";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
-import ruFlag from "@/public/svg/flags/flag-for-russia-svgrepo-com.svg"
-import uzFlag from "@/public/svg/flags/flag-for-uzbekistan-svgrepo-com.svg"
+import { Link, usePathname } from "@/i18n/routing"; // Импортируем usePathname отсюда
+import ruFlag from "@/public/svg/flags/flag-for-russia-svgrepo-com.svg";
+import uzFlag from "@/public/svg/flags/flag-for-uzbekistan-svgrepo-com.svg";
 import SearchBar from "./Search/SearchBar";
 
 export default function Tools({ navOptions, locale }) {
   const availableLocales = ["uz", "ru"];
   const [isOpen, setIsOpen] = useState(false);
-  const [defaultLang, setDefaultLang] = useState(locale);
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState(false);
 
+  const pathname = usePathname(); // Получаем текущий путь без префикса локали
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
-  };
-
-  const selectLanguage = (Language) => {
-    setDefaultLang(Language);
-    setIsOpen(false);
   };
 
   const handleOpenMenu = () => {
@@ -40,9 +34,7 @@ export default function Tools({ navOptions, locale }) {
 
   return (
     <div className="flex gap-5 justify-between self-stretch my-auto">
-      {
-        search && <SearchBar setSearch={setSearch} />
-      }
+      {search && <SearchBar setSearch={setSearch} />}
       <div className="flex gap-4 my-auto">
         <Search setSearch={setSearch} />
         <a className="hidden md:block" href="tel:+998777777777">
@@ -51,7 +43,7 @@ export default function Tools({ navOptions, locale }) {
             src={phone}
             width={25}
             height={25}
-            alt="The Wild Oasis logo"
+            alt="Phone icon"
             quality={100}
           />
         </a>
@@ -61,7 +53,7 @@ export default function Tools({ navOptions, locale }) {
             src={backet}
             width={25}
             height={25}
-            alt="The Wild Oasis logo"
+            alt="Basket icon"
             quality={100}
           />
         </Link>
@@ -75,7 +67,7 @@ export default function Tools({ navOptions, locale }) {
                 className="inline-flex justify-center w-full rounded-md border-gray-300 bg-white text-sm font-medium text-gray-700"
                 onClick={toggleDropdown}
               >
-                {defaultLang.toUpperCase()}
+                {locale.toUpperCase()}
                 <svg
                   className="-mr-1 ml-2 h-5 w-5"
                   xmlns="http://www.w3.org/2000/svg"
@@ -104,35 +96,33 @@ export default function Tools({ navOptions, locale }) {
                   {availableLocales.map((lng) => (
                     <Link
                       key={lng}
-                      href="/"
-                      locale={lng}
+                      href={pathname} // Используем текущий путь
+                      locale={lng} // Устанавливаем новую локаль
                       style={{
                         marginLeft: 10,
                         color: locale === lng ? "red" : "black",
                       }}
-                      className="hover:font-bold transition-all duration-300  flex gap-2 items-center"
+                      className="hover:font-bold transition-all duration-300 flex gap-2 items-center"
                     >
-                      {
-                        lng == 'uz' ? (
-                          <Image
+                      {lng === 'uz' ? (
+                        <Image
                           src={uzFlag}
                           height={100}
                           width={100}
                           quality={100}
                           alt="Uz Flag"
                           className="w-4 h-4"
-                          />
-                        ) : (
-                          <Image
+                        />
+                      ) : (
+                        <Image
                           src={ruFlag}
                           height={100}
                           width={100}
                           quality={100}
                           alt="Ru Flag"
                           className="w-4 h-4"
-                          />
-                        )
-                      }
+                        />
+                      )}
                       {lng.toUpperCase()}
                     </Link>
                   ))}
@@ -150,9 +140,7 @@ export default function Tools({ navOptions, locale }) {
       </div>
       {menu ? (
         <Menu menu={menu} closeMenu={handleCloseMenu} navOptions={navOptions} />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </div>
   );
 }

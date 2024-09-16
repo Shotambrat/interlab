@@ -1,14 +1,18 @@
 // import Image from "next/image"
 // import lineForm from "@/public/svg/illustration.svg";
+import { useTranslations } from 'next-intl';
+
 
 export default function Application() {
+  const t = useTranslations('Application');
+
   return (
     <div className="relative overflow-hidden py-5 lg:py-10 px-4 lg:px-10 bg-rose-50 rounded-[30px] mdx:rounded-[50px] max-md:max-w-full">
       <div className="relative z-10 flex lg:justify-around gap-5 max-slg:flex-col max-md:gap-0">
         <div className="flex flex-col w-[50%] lg:w-[50%] xl:w-[30%] max-md:ml-0 max-slg:w-full">
           <div className="flex flex-col grow text-2xl mdx:text-4xl font-bold text-red-400 max-slg:max-w-full">
             <h2 className="justify-center self-end max-w-full w-[814px] max-md:max-w-full">
-              Оставьте заявку и мы перезвоним вам в ближайшее время
+              {t('title')}
             </h2>
           </div>
         </div>
@@ -16,23 +20,23 @@ export default function Application() {
           <form className="flex flex-col text-base max-md:mt-10 max-md:max-w-full">
             <div className="flex flex-col text-red-400 max-md:max-w-full">
               <label htmlFor="fullName" className="sr-only">
-                ФИО
+                {t('placeholders.fullname')}
               </label>
               <input
                 id="fullName"
                 type="text"
                 className="focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none justify-center items-start px-4 py-4 bg-white rounded-xl max-md:pr-5 max-md:max-w-full"
-                placeholder="ФИО *"
+                placeholder={t('placeholders.fullname')}
                 required
               />
               <label htmlFor="phoneNumber" className="sr-only">
-                Номер телефона
+              {t('placeholders.phone')}
               </label>
               <input
                 id="phoneNumber"
                 type="tel"
                 className="focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none justify-center items-start px-4 py-4 mt-4 bg-white rounded-xl max-md:pr-5 max-md:max-w-full"
-                placeholder="Номер телефона *"
+                placeholder={t('placeholders.phone')}
                 required
               />
               <div className="relative">
@@ -41,11 +45,11 @@ export default function Application() {
                   defaultValue=""
                 >
                   <option value="" disabled>
-                    Интересующая услуга
+                  {t('placeholders.services.default')}
                   </option>
-                  <option value="mrt">МРТ</option>
-                  <option value="uzi">УЗИ</option>
-                  <option value="cardio">Кардиология</option>
+                  <option value="mrt">{t('placeholders.services.MRI')}</option>
+                  <option value="uzi">{t('placeholders.services.UZI')}</option>
+                  <option value="cardio">{t('placeholders.services.cardiology')}</option>
                   {/* Add more options as needed */}
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -59,19 +63,19 @@ export default function Application() {
                 </div>
               </div>
               <label htmlFor="comment" className="sr-only">
-                Ваш комментарий
+              {t('placeholders.services.commentary')}
               </label>
               <textarea
                 id="comment"
                 className="focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none justify-center items-start px-4 py-4 mt-4 bg-white rounded-xl text-neutral-400 max-md:pr-5 max-md:max-w-full"
-                placeholder="Ваш комментарий"
+                placeholder={t('placeholders.services.commentary')}
               ></textarea>
             </div>
             <button
               type="submit"
               className="justify-center px-10 py-4 mt-6 font-bold text-center text-white bg-red-400 rounded-[100px] max-md:px-5 mdx:w-[300px] lg:w-[250px] max-w-full"
             >
-              Оставить заявку
+              {t('placeholders.services.request')}
             </button>
           </form>
         </div>

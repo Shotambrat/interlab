@@ -1,15 +1,13 @@
-import './_styles/globals.css'
+import './_styles/globals.css';
 import 'antd/dist/reset.css';
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import Header from "@/app/[locale]/_components/Header";
 import Footer from "@/app/[locale]/_components/Footer";
 
-export default async function LocaleLayout({children, params}) {
-  const { locale } = params; // Получаем текущую локаль
-  const messages = await getMessages();
-
-  console.log(locale)
+export default async function LocaleLayout({ children, params }) {
+  const { locale } = params;
+  const messages = await getMessages(locale);
 
   return (
     <html lang={locale}>
