@@ -27,7 +27,7 @@ export default function Contacts() {
           <a className="text-2xl font-medium" href="tel:+998971504747">
             +998 (97) 150 47 47
           </a>
-          <p className="text-neutral-400">Телефон для связи 1</p>
+          <p className="text-neutral-400">Телефон для связи 2</p>
         </div>
         <hr />
       </div>

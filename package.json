@@ -35,6 +35,7 @@
     "redux": "^5.0.1",
     "sanity": "^3.57.0",
     "slick-carousel": "^1.8.1",
+    "slugify": "^1.6.6",
     "styled-components": "^6.1.13",
     "swiper": "^11.1.12",
     "tailwind-scrollbar-hide": "^1.1.7"

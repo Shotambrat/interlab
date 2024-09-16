@@ -4,6 +4,7 @@
   import { client } from "@/sanity/lib/client";
   import imageUrlBuilder from "@sanity/image-url";
   import { motion, AnimatePresence } from "framer-motion";
+  import { useTranslations } from "next-intl";
 
   // Создание builder для URL изображений
   const builder = imageUrlBuilder(client);
@@ -16,6 +17,7 @@
     const [currentSlide, setCurrentSlide] = useState(0);
     const [banners, setBanners] = useState([]);
     const { locale } = params;
+    const t = useTranslations();
 
     useEffect(() => {
       const fetchBanners = async () => {
@@ -163,7 +165,7 @@
               <a href={banners[currentSlide].navigateToUrl}>
                 <button className="flex flex-col justify-center mt-5 max-w-full text-base font-bold text-center text-white whitespace-nowrap w-[236px]">
                   <div className="justify-center items-center px-16 py-2 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px]">
-                    Подробнее
+                    {t('Main.Banner.more')}
                   </div>
                 </button>
               </a>

@@ -17,7 +17,7 @@
     "Banner": {
       "more": "Batafsil"
     },
-    "ContactUs" : {
+    "ContactUs": {
       "title": "Aniq tashxis – sifatli davolash",
       "description": "Interlab – zamonaviy tibbiyot markazi \nMarkazning asosiy vazifasi – bemorda aniq kasallikni aniqlash va muvozanatni tiklash uchun samarali davolash kursini tavsiya qilish",
       "phone-for-call": "aloqa uchun telefon",
@@ -85,11 +85,283 @@
     "for-legal": "Yuridik shaxslar uchun",
     "preparation": "Tahlillarni topshirishga qanday tayyorgarlik ko‘rish kerak",
     "feedback": "Takliflar va shikoyatlar",
-    "rights": "Interlab Barcha huquqlar himoyalangan"
+    "rights": "Interlab Barcha huquqlar himoyalangan",
+    "partners": "Partnyorlar",
+    "vacancy": "Vakansiyalar"
+  },
+  "Analyze": {
+    "title": "Tahlillar",
+    "description": "Tahlillar sahifasida siz bizning laboratoriya xizmatlarimiz bilan tanishib, dolzarb narxlar haqida ma'lumot olishingiz mumkin. Oddiy qon tahlillaridan tortib maxsus genetik testlargacha – barcha tadqiqotlarimiz zamonaviy uskunalar yordamida, qat'iy sifat nazorati ostida o'tkaziladi va natijalarning aniqligi va ishonchliligini kafolatlaydi.",
+    "searchPlaceholder": "Tahlil nomini kiriting"
+  },
+  "Services": {
+    "title": "Intermed klinikasi xizmatlari",
+    "description": "Biz yuqori malakali mutaxassislar bilan maslahatlar, zamonaviy diagnostika jarayonlari va laboratoriya tadqiqotlarini o'z ichiga olgan keng ko'lamli tibbiy xizmatlarni taklif etamiz. Shifokorlarimiz sizning sog'lig'ingizga g'amxo'rlik qiladi va davolanishning har bir bosqichida sizga yordam berishga tayyor.",
+    "desc": "Tavsif",
+    "also": "Sizni qiziqtirishi mumkin"
+  },
+  "Doctors": {
+    "title": "Bizning shifokorlarimiz - faxrimiz",
+    "description": "Intermed klinikasining shifokorlari har doim yordam berishga tayyor mutaxassislar. Shifokorlarimiz chuqur bilim va tajribaga ega bo'lib, turli kasalliklarni samarali tashxislash va davolash imkoniyatiga ega. Biz ishonamizki, siz bizning klinikamizda sog'lig'ingizni ishonib topshiradigan shifokorni topasiz.",
+    "sign-up": "Ro'yxatdan o'tish",
+    "searchPlaceholder": "Shifokor ismi yoki familiyasini kiriting",
+    "information": "Mutaxassis haqida ma'lumot",
+    "graphic": "Ish jadvali"
+  },
+  "About": {
+    "title": "Biz haqimizda",
+    "description": "Intermed klinikasi – bu tibbiyotdagi an'ana va innovatsiyalar uyg'unligi. Biz ko'p yillik tajriba va so'nggi tibbiy yutuqlar asosida xizmatlar taklif qilamiz.",
+    "more-info": {
+      "title": "Klinika",
+      "subtitle": "Intermed",
+      "description": "Intermed klinikasi – bu zamonaviy tibbiyot markazi bo'lib, kasalliklarni diagnostika qilish, davolash va oldini olish uchun keng ko'lamli xizmatlarni taqdim etadi.\n\nBiz xizmatlarimiz sifatini yuqori darajada ta'minlashga intilamiz va bemorlarimizning sog'lig'iga g'amxo'rlik qilamiz, ilg'or tibbiy texnologiyalar va individual yondashuvni taklif etamiz."
+    },
+    "services": {
+      "title": "Bizning xizmatlarimiz",
+      "title1": "LABORATORIYA TAHLILLARI",
+      "description1": "Intermed 1000 dan ortiq laboratoriya tahlillarini, jumladan biokimyoviy, gematologik, immunologik va genetik tadqiqotlarni taklif etadi. Bizning laboratoriyalarimiz eng zamonaviy avtomatik analizatorlar bilan jihozlangan, bu natijalarning aniqligi va ishonchliligini ta'minlaydi.",
+      "title2": "DIAGNOSTIKA XIZMATLARI",
+      "description2": "Biz yuqori texnologiyali diagnostika xizmatlarini taklif qilamiz, jumladan ultratovush tekshiruvi (UZT), raqamli rentgenografiya, endoskopiya, EKG va dopplerografiya. Zamonaviy uskunalar kasalliklarni erta bosqichda aniqlash va davolash jarayonini samarali nazorat qilish imkonini beradi.",
+      "title3": "MUTAXASSIS MASLAHATLARI",
+      "description3": "Bizning klinikamizda yuqori malakali kardiologlar, nevropatologlar, endokrinologlar, gastroenterologlar, pulmonologlar va boshqa mutaxassislar ishlaydi. Biz aniq tashxis qo'yish va samarali davolash uchun kompleks maslahatlar va tekshiruvlarni taklif etamiz.",
+      "title4": "FIZIOTERAPIYA",
+      "description4": "Intermed ilg'or fizioterapevtik uskunalar bilan jihozlangan. Biz to'lqinli terapiya, elektroforez, infraqizil lazer terapiyasi va miostimulyatsiya kabi keng turdagi protseduralarni taklif etamiz. Ushbu usullar turli kasalliklarni davolash va reabilitatsiya qilishda yordam beradi, bemorlarning umumiy sog'lig'ini yaxshilaydi."
+    },
+    "achievements": {
+      "title": "Yutuqlar",
+      "title1": "TSKDL",
+      "description1": "Toshkent shahri bo'ylab har bir oilaviy poliklinikada namunaviy punktlar",
+      "title2": "Funksional diagnostika",
+      "description2": "Ko'plab diagnostika xizmatlari, batafsil tekshiruv o'tkazish imkonini beradi",
+      "title3": "Tibbiyot uskunalari",
+      "description3": "Intermed klinikasida xalqaro standartlarga javob beradigan eng yaxshi uskunalar ishlatiladi",
+      "title4": "Tajriba va mutaxassislar",
+      "description4": "Bizning shifokorlarimiz ko'p yillik tajribaga ega va o'z sohalarida malakalarini doimiy ravishda oshirib boradilar"
+    },
+    "licences": "Litsenziyalar"
+  },
+  "Results": {
+    "title": "Tahlil natijalarini klinikaga bormasdan onlayn tarzda oling",
+    "sertificates": "Sifat sertifikatlari",
+    "placeholders": {
+      "card": "Tibbiyot kartasi",
+      "sign": "Ro'yxatdan o'tish",
+      "choose-lang": "Tilni tanlang",
+      "ru": "Ruscha",
+      "uz": "O'zbekcha"
+    },
+    "warning": "Tahlil natijalari ro'yxatdan o'tishda ko'rsatilgan telefon raqamiga yuboriladi. Natijalarni uchinchi shaxslar tomonidan olishni oldini olish uchun shaxsiy telefon raqamingizni ko'rsatishingizni tavsiya qilamiz.",
+    "get": "Olish",
+    "instruction": "Ko'rsatma",
+    "how-get-online": "Intermed tahlil natijalarini masofadan qanday olish mumkin?"
+  },
+  "Blog": {
+    "prom-title": "Intermed klinikasining foydali maslahatlari va qulay takliflari",
+    "sub-prom-title": "Intermed",
+    "promotions": {
+      "other": "Boshqa aksiyalar"
+    },
+    "title": "Blog",
+    "other": "Boshqa yangiliklar"
+  },
+  "Licencies": {
+    "title": "Intermed klinikasining litsenziyalari",
+    "subtitle": "Intermed",
+    "description": "Sifat kafolati: Bizning litsenziya va sertifikatlarimiz",
+    "about": {
+      "title": "Litsenziyalar haqida",
+      "data": [
+        {
+          "title": "RIQAS",
+          "description": "RIQAS (Randox International Quality Assessment Scheme) - dunyodagi laboratoriyalarni tashqi sifat nazorati dasturlaridan biri. RIQAS sifat nazorati dasturlari milliy va xalqaro sertifikatlash tashkilotlari tomonidan tan olingan.\n\nBu dasturlarda dunyoning 123 mamlakatida 32 000 dan ortiq laboratoriyalar ishtirok etadi.\n\nTashqi sifat nazorati natijalarining ishonchliligi va aniqligini tasdiqlovchi yagona obyektiv usuldir.\n\nRIQAS xalqaro tashqi sifat nazorati dasturi bo'yicha sertifikatlashdan muvaffaqiyatli o'tish laboratoriyalar va uning xodimlarining yuqori ish sifati va bemorlarni o'z vaqtida, to'g'ri davolashini kafolatlaydi."
+        },
+        {
+          "title": "FSVOK",
+          "description": "FSVOKning maqsadi klinik-diagnostika laboratoriyalariga tadqiqotlarning sifatini ta'minlashda yordam berishdir. Tekshiruv namunalari natijalarining to'g'riligini aniqlash bo'yicha ma'lumot va foydalanishdagi usullarga o'zgartirish kiritish tavsiyalarini beradi.\n\nFSVOK, laboratoriyalarni tekshiruv natijalarining ob'yektivligini ta'minlash uchun sertifikatlarni almashish va ma'muriy choralarni qo'llashdan voz kechadi.\n\nYil oxirida FSVOK ishtirokchilari, laboratoriyaning qaysi tahlillarda ishtirok etganligi ko'rsatilgan guvohnoma olishadi."
+        }
+      ]
+    },
+    "blogs": "Bloglar"
+  },
+  "Legal": {
+    "title": "Yuridik shaxslar uchun yechimlar: ",
+    "subtitle": "hamkorlik dasturlari va korporativ xizmat ko'rsatish",
+    "description": "Biz korporativ xizmat ko'rsatish va boshqa tibbiyot muassasalari bilan hamkorlik uchun kompleks yechimlarni taklif qilamiz. Bizning xizmatlarimiz xodimlaringiz va hamkorlaringiz sog'lig'ini eng yuqori darajada ta'minlashga qaratilgan.",
+    "info": {
+      "title1": "Korporativ xizmat ko'rsatish",
+      "description1": "Biz kompaniyalar uchun keng qamrovli tibbiy xizmatlarni taqdim etamiz, jumladan profilaktik ko'riklar, diagnostika, emlash va davolash. \n\nBizning korporativ salomatlik dasturlarimiz xodimlaringizning farovonligini yaxshilash va ularning mahsuldorligini oshirish uchun ishlab chiqilgan.",
+      "title2": "Klinikalar bilan hamkorlik",
+      "description2": "Intermed klinikasi bemorlarga sifatli va o'z vaqtida xizmat ko'rsatishni ta'minlash uchun yetakchi tibbiy muassasalar bilan hamkorlik qiladi. \n\nBiz hamkorlik uchun qulay shart-sharoitlarni taklif etamiz, jumladan tajriba almashish, qo'shma tibbiy loyihalar va bemorlarni o'zaro yuborish."
+    },
+    "benefits": {
+      "title": "Afzalliklar",
+      "data": [
+        "Har bir hamkor uchun individual yondashuv",
+        "Tibbiy xizmat ko'rsatishning yuqori darajasi",
+        "Zamonaviy uskunalar va ilg'or texnologiyalar",
+        "Hamkorlik va korporativ xizmat ko'rsatish uchun moslashuvchan shartlar"
+      ]
+    },
+    "contacts": {
+      "title": "Biz bilan bog'laning",
+      "description": "Yuridik shaxslar uchun xizmatlarimiz haqida ko'proq bilish va hamkorlik shartlarini muhokama qilish uchun biz bilan bog'laning",
+      "phone-for-call": "Aloqa uchun telefon"
+    }
+  },
+  "Instructions": {
+    "title": "Tahlillar uchun ko'rsatmalar",
+    "description": "Intermed klinikasi ushbu qoidalarga rioya qilinmasa, tahlillar natijalarining to'g'riligi uchun javobgar emas.",
+    "overall": "Umumiy tavsiyalar",
+    "data": [
+      "Agar kerak bo'lsa, tahlildan 8-12 soat oldin ovqat yemang (och qoringa bo'lishi kerak).",
+      "Tahlil qilishdan oldin jismoniy faollikdan saqlaning (agar zarur bo'lsa).",
+      "Qonni topshirishdan 1-2 soat oldin chekishdan saqlaning, sharbat, choy, qahva ichmang.",
+      "Jismoniy zo'riqishni bartaraf eting (yugurish, zinadan tez ko'tarilish)."
+    ],
+    "instruction": "Ko'rsatmalar",
+    "blog": "Bloglar",
+    "other": "Boshqa ko'rsatmalar",
+    "all": "Barcha ko'rsatmalar"
+  },
+  "Vacancies": {
+    "title": "Mutaxassislar jamoasiga qo'shiling",
+    "subtitle": "Intermed",
+    "description": "Biz har doim jamoamizga qo'shilishga tayyor yangi iqtidorli mutaxassislarni kutib olamiz. Intermed'da biz martaba rivoji, professional o'sish va samimiy jamoada ishlash uchun noyob imkoniyatlarni taklif etamiz.",
+    "whyus": "Nega Intermed?",
+    "data": [
+      {
+        "title": "Professional rivojlanish",
+        "description": "Biz xodimlarimizning rivojlanishini qo'llab-quvvatlaymiz, o'qish va malaka oshirish imkoniyatlarini taqdim etamiz.",
+        "photoSrc": "book"
+      },
+      {
+        "title": "Zamonaviy uskunalar",
+        "description": "Eng yangi tibbiy texnologiyalar bilan jihozlangan klinikada ishlash.",
+        "photoSrc": "mrt"
+      },
+      {
+        "title": "Jamoaviy ruh",
+        "description": "Biz xodimlarimizning rivojlanishini qo'llab-quvvatlaymiz, o'qish va malaka oshirish imkoniyatlarini taqdim etamiz.",
+        "photoSrc": "fire"
+      },
+      {
+        "title": "Ijtimoiy kafolatlar",
+        "description": "Biz raqobatbardosh mehnat sharoitlari va to'liq ijtimoiy paketni taklif etamiz.",
+        "photoSrc": "earth"
+      }
+    ],
+    "vacansies": "Vakansiyalar",
+    "more": "Batafsil",
+    "blogs": "Bloglar",
+    "others": "Boshqa vakansiyalar",
+    "all": "Barcha vakansiyalar"
+  },
+  "Profile": {
+    "private": "Shaxsiy ma'lumotlar",
+    "fullname": "To'liq ismi",
+    "phone": "Telefon raqami",
+    "birth": "Tug'ilgan sanasi",
+    "new-password": "Yangi parol",
+    "try-password": "Parolni qaytaring",
+    "save": "O'zgartirishlarni saqlash",
+    "backet": "Savatcha",
+    "navigate": "Savatchaga o'tish",
+    "addresses": "Mening manzillarim"
+  },
+  "Backet": {
+    "title": "Savatcha",
+    "total": "Jami:",
+    "regiter": "Buyurtma berish",
+    "continue": "Xarid qilishni davom ettirish",
+    "register-page": {
+      "title": "Buyurtmani rasmiylashtirish",
+      "steps": [
+        {
+          "title": "Savatchadagi mahsulotlarni tekshirish",
+          "description": "Barcha kerakli mahsulotlar qo'shilganligiga ishonch hosil qiling \n\nZarurat bo'lsa miqdorni tahrirlang \n\nKeraksiz mahsulotlarni o'chirib tashlang"
+        },
+        {
+          "title": "Umumiy summani tekshirish",
+          "description": "Yakuniy summa to'g'riligiga ishonch hosil qiling \n\nSoliqlar va chegirmalar mavjudligini tekshiring"
+        },
+        {
+          "title": "Buyurtmani rasmiylashtirish",
+          "description": "\"Buyurtma berish\" tugmasini bosing"
+        }
+      ],
+      "input-info": {
+        "title": "Yetkazib berish ma'lumotlarini kiriting",
+        "biomaterial": "Biomaterial topshirish usulini tanlang",
+        "addresse": "Yetkazib berish manzili",
+        "pay": "To'lov usulini tanlang",
+        "warning": "Barcha kiritilgan ma'lumotlarni tekshiring va buyurtmani tasdiqlang",
+        "accept": "Buyurtmani tasdiqlash"
+      }
+    }
+  },
+  "Login": {
+    "signin": "Kirish",
+    "signup": "Ro'yxatdan o'tish",
+    "phone": "Telefon raqami",
+    "password": "Parol",
+    "try-password": "Parolni qaytaring",
+    "fullname": "To'liq ismi",
+    "birthdate": "Tug'ilgan sana",
+    "continue": "Davom etish",
+    "signin-button": "Kirish",
+    "cant": "Kira olmaysizmi?",
+    "reset-password": "Parolni tiklash"
+  },
+  "Addresses": {
+    "search-near": "Yaqin poliklinikani qidirish",
+    "search-placeholders": "Poliklinika nomini kiriting",
+    "all": "Barchasini ko'rish"
+  },
+  "Partners": {
+    "title": "Laboratoriya xizmatlarini outsourcing qilish",
+    "subtitle": "Intermed Innovation",
+    "description": "Yuqori sifat, iqtisodiy foyda va tahlillarni tezkor qayta ishlash",
+    "solve": "Tejamni hisoblang",
+    "benefits": {
+      "title": "Afzalliklar",
+      "data": [
+        "Iqtisodiy samaradorlik",
+        "Sifat va aniqlik",
+        "Xizmatlarning keng qamrovi",
+        "Moslashuvchanlik va kengaytiriluvchanlik"
+      ]
+    },
+    "price": {
+      "title": "Narxlar va tariflar so'rov bo'yicha mavjud",
+      "description": "Hamkorlik tafsilotlarini muhokama qilish va foydali hamkorlikni boshlash uchun biz bilan bog'laning"
+    },
+    "solve-block": {
+      "title": "Tejamni hisoblang",
+      "placeholders": {
+        "title1": "Hozirgi laboratoriya xizmatlari xarajatlari (oyiga)",
+        "input1": "Xarajatlar / oy.",
+        "title2": "Oyiga o'tkazilgan tahlillar soni",
+        "input2": "Tahlillar soni / oy."
+      },
+      "button": "Hisoblash",
+      "info": {
+        "title1": "~ 15 mln so'm",
+        "description1": "Tejangan mablag'",
+        "title2": "~ 30%",
+        "description2": "Yillik tejash"
+      },
+      "reviews": {
+        "title": "Hamkorlarimizning sharhlari",
+        "all": "Barcha sharhlar",
+        "full": "To'liq sharh"
+      }
+    }
   },
   "connect": "Aloqa",
   "online-application": "Onlayn yozilish",
   "call": "Qo'ng'iroq qilish",
   "get-result": "Natijalarni olish",
-  "collapse": "Qisqartirish"
+  "collapse": "Qisqartirish",
+  "from-home": "Uydan topshirish",
+  "valute": "so'm"
 }

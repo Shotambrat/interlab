@@ -15,7 +15,7 @@ export default function ServiceItems({ title, description, url }) {
           href={url}
           className="flex gap-4 hover:gap-6 transition-all duration-150 w-auto"
         >
-          <p className="text-xl font-semibold text-rose-400">Перейти</p>
+          <p className="text-xl h-full flex items-center font-semibold text-rose-400">Перейти</p>
           <Image src={rightIcon} width={8} height={8} alt="Right Icon" />
         </a>
       </div>

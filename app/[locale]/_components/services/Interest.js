@@ -1,6 +1,6 @@
 // app/[locale]/components/Interest.js
 
-import ServiceItems from './ServiceItems';
+import ServiceItems from './ServiceItem';
 import { client } from '@/sanity/lib/client';
 
 export default async function Interest({ currentService, locale }) {

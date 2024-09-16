@@ -8,7 +8,11 @@ import featuredTests from './featuredTests';
 import promotion from './promotion';
 import doctor from './doctor';
 import instruction from './instruction';
+import license from './license';
+import news from './news';
+import partnerReview from './partnerReview';
+import vacancy from './vacancy';
 
 export const schema = {
-  types: [banner, service, serviceCategory, blockContent, test, testCategory, featuredTests, promotion, doctor, instruction],
+  types: [banner, service, serviceCategory, blockContent, test, testCategory, featuredTests, promotion, doctor, instruction, license, news, partnerReview, vacancy],
 };

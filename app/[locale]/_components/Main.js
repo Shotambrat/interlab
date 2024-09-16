@@ -23,6 +23,7 @@ import ServiceCard from "@/app/[locale]/_components/ServiceCard";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/lib/client";
 import { useTranslations } from 'next-intl';
+import Sale from "@/app/[locale]/_components/Sale"
 // import HouseCallSuccess from "@/app/[locale]/_components/Modals/HouseCallSuccess";
 // import HouseCall from "@/app/[locale]/_components/Modals/HouseCall";
 SwiperCore.use([Navigation, Pagination]);
@@ -280,7 +281,7 @@ function Main({ doctors, params }) {
           <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
             {t('Main.Sales.title')}
           </h2>
-          <Blog />
+          <Sale />
           <a
             href="/blogs"
             className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"

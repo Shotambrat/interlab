@@ -4,6 +4,8 @@ import ServiceNav from './ServiceNav';
 import ServiceItems from './ServiceItem';
 import Application from '@/app/[locale]/_components/Application';
 import Blog from '@/app/[locale]/_components/Blog';
+import Image from 'next/image';
+import arrowRightRed from "@/public/svg/arrow-right-red.svg";
 
 export default function ServiceList({ services, locale }) {
   // Получаем уникальные категории
@@ -58,13 +60,15 @@ export default function ServiceList({ services, locale }) {
           Блоги
         </h2>
         <Blog />
-        <button className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
+        <button className="flex gap-2 justify-center items-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
           <span className="my-auto">Все Блоги</span>
-          <img
-            loading="lazy"
-            src="/path/to/arrow-icon.svg"
-            className="shrink-0 aspect-square w-[23px]"
-            alt="Arrow icon"
+          <Image
+          src={arrowRightRed}
+          width={100}
+          height={100}
+          alt='Arrow Right Red'
+          quality={100}
+          className='h-4 w-auto'
           />
         </button>
       </div>
