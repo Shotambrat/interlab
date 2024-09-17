@@ -1,95 +1,117 @@
-// import Image from "next/image"
-// import lineForm from "@/public/svg/illustration.svg";
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import lineForm from '@/public/svg/illustration.svg';
 import { useTranslations } from 'next-intl';
+import { Form, Input, Button, Select, message } from 'antd';
+import InputMask from 'react-input-mask';
 
+const { Option } = Select;
 
-export default function Application() {
+const Application = () => {
   const t = useTranslations('Application');
 
+  // Функция для проверки корректности номера телефона
+  const isPhoneNumberValid = (phoneNumber) => {
+    const cleanNumber = phoneNumber.replace(/[^0-9]/g, ''); // Убираем все символы, кроме цифр
+    return cleanNumber.length === 12; // Должно быть ровно 12 цифр (+998 и еще 9 цифр)
+  };
+
+  const handleFinish = (values) => {
+    // Проверка номера телефона
+    if (!isPhoneNumberValid(values.phoneNumber)) {
+      message.error('Введите корректный номер телефона');
+      return;
+    }
+
+    console.log('Form values:', values);
+    // Логика отправки формы
+  };
+
   return (
-    <div className="relative overflow-hidden py-5 lg:py-10 px-4 lg:px-10 bg-rose-50 rounded-[30px] mdx:rounded-[50px] max-md:max-w-full">
+    <div className="relative overflow-hidden py-5 lg:py-10 px-4 lg:pr-10 bg-rose-50 rounded-[30px] mdx:rounded-[50px] max-md:max-w-full">
+      {/* SVG Illustration at the top */}
+      <Image
+        src={lineForm}
+        width={1000}
+        height={1000}
+        alt="Line Svg"
+        quality={100}
+        className="w-auto max-slg:w-[200%] max-slg:h-full absolute -left-12 -bottom-8 h-1/2"
+      />
       <div className="relative z-10 flex lg:justify-around gap-5 max-slg:flex-col max-md:gap-0">
-        <div className="flex flex-col w-[50%] lg:w-[50%] xl:w-[30%] max-md:ml-0 max-slg:w-full">
-          <div className="flex flex-col grow text-2xl mdx:text-4xl font-bold text-red-400 max-slg:max-w-full">
-            <h2 className="justify-center self-end max-w-full w-[814px] max-md:max-w-full">
+        <div className="flex flex-col w-[50%] lg:w-[50%] xl:w-[50%] max-md:ml-0 max-slg:w-full">
+          <div className="flex flex-col grow max-slg:max-w-full">
+            <h2 className="justify-center self-end max-w-full max-md:max-w-full text-2xl mdx:text-4xl font-bold text-red-400">
               {t('title')}
             </h2>
+            <p className='text-lg text-neutral-400'>{t('description')}</p>
+            <p className='px-6 py-3 rounded-3xl bg-red-400 self-start font-medium mt-4 text-white'>{t('sale-info')}</p>
           </div>
         </div>
         <div className="flex flex-col w-[32%] max-md:ml-0 max-slg:w-full">
-          <form className="flex flex-col text-base max-md:mt-10 max-md:max-w-full">
-            <div className="flex flex-col text-red-400 max-md:max-w-full">
-              <label htmlFor="fullName" className="sr-only">
-                {t('placeholders.fullname')}
-              </label>
-              <input
-                id="fullName"
-                type="text"
-                className="focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none justify-center items-start px-4 py-4 bg-white rounded-xl max-md:pr-5 max-md:max-w-full"
+          <Form
+            className="flex flex-col text-base max-md:mt-10 max-md:max-w-full"
+            onFinish={handleFinish}
+            layout="vertical"
+          >
+            <Form.Item
+              name="fullname"
+              rules={[{ required: true, message: t('placeholders.fullname') }]}
+            >
+              <Input
                 placeholder={t('placeholders.fullname')}
-                required
+                className="rounded-xl py-2 text-xl"
               />
-              <label htmlFor="phoneNumber" className="sr-only">
-              {t('placeholders.phone')}
-              </label>
-              <input
-                id="phoneNumber"
-                type="tel"
-                className="focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none justify-center items-start px-4 py-4 mt-4 bg-white rounded-xl max-md:pr-5 max-md:max-w-full"
-                placeholder={t('placeholders.phone')}
-                required
-              />
-              <div className="relative">
-                <select
-                  className="block text-neutral-400 mt-4 py-4 focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none w-full bg-white px-4 pr-8 rounded-xl"
-                  defaultValue=""
-                >
-                  <option value="" disabled>
-                  {t('placeholders.services.default')}
-                  </option>
-                  <option value="mrt">{t('placeholders.services.MRI')}</option>
-                  <option value="uzi">{t('placeholders.services.UZI')}</option>
-                  <option value="cardio">{t('placeholders.services.cardiology')}</option>
-                  {/* Add more options as needed */}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    className="fill-current h-7 w-7"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                  </svg>
-                </div>
-              </div>
-              <label htmlFor="comment" className="sr-only">
-              {t('placeholders.services.commentary')}
-              </label>
-              <textarea
-                id="comment"
-                className="focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none justify-center items-start px-4 py-4 mt-4 bg-white rounded-xl text-neutral-400 max-md:pr-5 max-md:max-w-full"
+            </Form.Item>
+
+            <Form.Item
+              name="phoneNumber"
+              rules={[{ required: true, message: t('placeholders.phone') }]}
+            >
+              <InputMask
+                mask="+998(99)-999-99-99"
+                maskChar="_"
+                className="rounded-xl py-2 text-xl w-full"
+              >
+                {(inputProps) => (
+                  <Input {...inputProps} type="tel" placeholder="+998(__)-___-__-__" />
+                )}
+              </InputMask>
+            </Form.Item>
+
+            <Form.Item name="service" rules={[{ required: true }]}>
+              <Select
+                placeholder={t('placeholders.services.default')}
+                className="rounded-xl h-12"
+              >
+                <Option value="mrt">{t('placeholders.services.MRI')}</Option>
+                <Option value="uzi">{t('placeholders.services.UZI')}</Option>
+                <Option value="cardio">
+                  {t('placeholders.services.cardiology')}
+                </Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item name="comment">
+              <Input.TextArea
                 placeholder={t('placeholders.services.commentary')}
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="justify-center px-10 py-4 mt-6 font-bold text-center text-white bg-red-400 rounded-[100px] max-md:px-5 mdx:w-[300px] lg:w-[250px] max-w-full"
+                className="rounded-xl py-2 text-xl"
+              />
+            </Form.Item>
+
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="rounded-[100px] px-10 py-6 text-lg font-bold text-white bg-red-400 self-start"
             >
               {t('placeholders.services.request')}
-            </button>
-          </form>
+            </Button>
+          </Form>
         </div>
       </div>
-      {/* <Image
-      src={lineForm}
-      className="absolute w-full left-0 bottom-36 size-1/4 lg:size-auto lg:-bottom-8 object-cover "
-      alt="Line of Form"
-      priority
-      width={100}
-      height={100}
-      quality={100}
-      style={{ zIndex: 1 }}
-    /> */}
     </div>
   );
-}
+};
+
+// Если возникают проблемы на сервере, можно использовать динамический импорт без SSR:
+export default dynamic(() => Promise.resolve(Application), { ssr: false });

@@ -22,12 +22,11 @@ import MainMap from "@/app/[locale]/_components/MainMap";
 import ServiceCard from "@/app/[locale]/_components/ServiceCard";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/lib/client";
-import { useTranslations } from 'next-intl';
-import Sale from "@/app/[locale]/_components/Sale"
+import { useTranslations } from "next-intl";
+import Sale from "@/app/[locale]/_components/Sale";
 // import HouseCallSuccess from "@/app/[locale]/_components/Modals/HouseCallSuccess";
 // import HouseCall from "@/app/[locale]/_components/Modals/HouseCall";
 SwiperCore.use([Navigation, Pagination]);
-
 
 const builder = imageUrlBuilder(client);
 
@@ -43,6 +42,12 @@ function Main({ doctors, params }) {
   const t = useTranslations();
 
   const { locale } = params;
+
+  const formatText = (text) => {
+    if (!text) return "";
+    return text.replace(/\n/g, "<br />");
+  };
+  
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -66,6 +71,7 @@ function Main({ doctors, params }) {
     fetchServices();
   }, []);
 
+  console.log("services", services)
   const getRandomColor = () => {
     const colors = ["#FFC0CB", "#ADD8E6", "#90EE90", "#FFD700", "#FFA07A"];
     return colors[Math.floor(Math.random() * colors.length)];
@@ -86,7 +92,7 @@ function Main({ doctors, params }) {
               className="flex justify-center"
             >
               <div className="flex justify-center items-center px-3 uppercase bg-white rounded-full h-[90px] w-[90px] text-red-400 hover:text-red-600 hover:shadow-xl transition-all duration-300 shadow-lg">
-                {t('connect')}
+                {t("connect")}
               </div>
             </button>
             <button
@@ -94,7 +100,7 @@ function Main({ doctors, params }) {
               className="flex justify-center text-white"
             >
               <div className="flex justify-center items-center uppercase px-5 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-full h-[90px] w-[90px] max-md:px-5">
-              {t('online-application')}
+                {t("online-application")}
               </div>
             </button>
           </div>
@@ -107,24 +113,27 @@ function Main({ doctors, params }) {
                 <div className="flex flex-col max-md:mt-5 max-md:max-w-full">
                   <div className="flex flex-col max-md:max-w-full">
                     <h2 className="text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
-                      {t('Main.ContactUs.title')}
+                      {t("Main.ContactUs.title")}
                     </h2>
-                    <p className="mt-5 text-sm mdx:text-xl w-4/5 text-zinc-500 max-md:max-w-full leading-5">
-                    {t('Main.ContactUs.description')}
-                    </p>
+                    <p
+                      className="mt-5 text-sm mdx:text-xl w-4/5 text-zinc-500 max-md:max-w-full leading-5"
+                      dangerouslySetInnerHTML={{
+                        __html: formatText(t("Main.ContactUs.description")),
+                      }}
+                    />
                   </div>
                   <div className="hidden slg:flex gap-5 mt-11 max-w-full text-base font-bold text-center w-[466px] max-md:flex-wrap max-md:mt-10">
                     <a
                       href="tel:+998781482288"
                       className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px] max-md:px-5"
                     >
-                      {t('call')}
+                      {t("call")}
                     </a>
                     <a
                       href={`/${params.locale}/results`}
                       className="justify-center px-6 py-2 text-red-400 border border-red-400 hover:border-red-600 hover:text-red-600 transition-all duration-300 border-solid rounded-[100px] max-md:px-5"
                     >
-                      {t('get-result')}
+                      {t("get-result")}
                     </a>
                   </div>
                 </div>
@@ -139,51 +148,55 @@ function Main({ doctors, params }) {
                       2) <a href="tel:+998781482288">998 (78) 148 22 88</a>
                     </div>
                     <div className="md:text-xl text-sm text-zinc-500 max-md:max-w-full">
-                      {t('Main.ContactUs.phone-for-call')}
+                      {t("Main.ContactUs.phone-for-call")}
                     </div>
                   </div>
                   <hr />
                   <div className="flex flex-col pt-1.5 pb-2 mt-2 border-neutral-200 max-md:max-w-full">
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
-                    {t('Main.ContactUs.addresses')}
+                      {t("Main.ContactUs.addresses")}
                     </div>
                     <div className="md:text-xl text-sm text-red-400 max-md:max-w-full">
-                    {t('Main.ContactUs.open-in-ya')}
+                      {t("Main.ContactUs.open-in-ya")}
                     </div>
                   </div>
                   <hr />
                   <div className="flex flex-col max-md:max-w-full">
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
-                      7:00 - 23:00 {t('Main.ContactUs.mon-fri')}
+                      7:00 - 23:00 {t("Main.ContactUs.mon-fri")}
                     </div>
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
-                      7:00 - 17:00 {t('Main.ContactUs.sun')}
+                      7:00 - 17:00 {t("Main.ContactUs.sun")}
                     </div>
-                    <div className="mt-2 md:text-xl text-sm text-zinc-500 max-md:max-w-full">
-                    {t('Main.ContactUs.graphic')}
-                    </div>
+                    <div
+                      className="mt-2 md:text-xl text-sm text-zinc-500 max-md:max-w-full"
+                      dangerouslySetInnerHTML={{
+                        __html: formatText(t("Main.ContactUs.graphic")),
+                      }}
+                    />
                   </div>
                 </div>
               </div>
               <div className="flex slg:hidden gap-2 mt-11 max-w-full text-sm font-bold text-center w-[466px] max-md:flex-wrap max-md:mt-10">
                 <a
                   href="tel:+998781482288"
-                  className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400  rounded-[100px] max-md:px-5"
+                  className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400 rounded-[100px] max-md:px-5"
                 >
-                  {t('call')}
+                  {t("call")}
                 </a>
                 <a
                   href={`/${params.locale}/results`}
                   className="justify-center px-2 py-2 text-red-400 border border-red-400 border-solid rounded-[100px]"
                 >
-                  {t('get-result')}
+                  {t("get-result")}
                 </a>
               </div>
             </div>
           </div>
+
           <a href="/services">
             <h2 className="lg:mt-52 mt-10 text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
-              {t('Main.Services.title')}
+              {t("Main.Services.title")}
             </h2>
           </a>
           <div className="flex flex-col items-center mdx:mt-10 w-full px-0">
@@ -205,10 +218,11 @@ function Main({ doctors, params }) {
                           }
                         >
                           <ServiceCard
+                          locale={params.locale}
                             title={service.name[locale]}
                             description={service.description[locale]}
                             imageSrc={urlFor(service.icon).url()}
-                            bgColor={getRandomColor()}
+                            bgColor={service.colourCode ? service.colourCode : getRandomColor()}
                             slug={service.slug.current}
                           />
                         </div>
@@ -223,10 +237,11 @@ function Main({ doctors, params }) {
                         {services.slice(2).map((service) => (
                           <div key={service._id} className="w-full">
                             <ServiceCard
+                              locale={params.locale}
                               title={service.name[locale]}
                               description={service.description[locale]}
                               imageSrc={urlFor(service.icon).url()}
-                              bgColor={getRandomColor()}
+                              bgColor={service.colourCode ? service.colourCode : getRandomColor()}
                               slug={service.slug.current}
                             />
                           </div>
@@ -245,10 +260,11 @@ function Main({ doctors, params }) {
                         }
                       >
                         <ServiceCard
+                        locale={params.locale}
                           title={service.name[locale]}
                           description={service.description[locale]}
                           imageSrc={urlFor(service.icon).url()}
-                          bgColor={getRandomColor()}
+                          bgColor={service.colourCode ? service.colourCode : getRandomColor()}
                           slug={service.slug.current}
                         />
                       </div>
@@ -262,7 +278,7 @@ function Main({ doctors, params }) {
                 onClick={() => setServicesOpen((prev) => !prev)}
                 className="text-rose-400 text-xl font-semibold flex gap-3 items-center"
               >
-                <p>{servicesOpen ? t('collapse') : t('Main.Services.all')}</p>
+                <p>{servicesOpen ? t("collapse") : t("Main.Services.all")}</p>
                 <Image
                   src={arrowDownRed}
                   height={100}
@@ -279,14 +295,14 @@ function Main({ doctors, params }) {
           {/* <MainMap /> */}
 
           <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
-            {t('Main.Sales.title')}
+            {t("Main.Sales.title")}
           </h2>
-          <Sale />
+          <Sale locale={params.locale} />
           <a
             href="/blogs"
             className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
           >
-            <span className="my-auto">{t('Main.Sales.all')}</span>
+            <span className="my-auto">{t("Main.Sales.all")}</span>
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"
@@ -296,10 +312,10 @@ function Main({ doctors, params }) {
           </a>
           <div className="flex flex-col mt-20 mdx:mt-52 max-w-full w-[588px]">
             <h2 className="text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
-            {t('Main.Doctors.title')}
+              {t("Main.Doctors.title")}
             </h2>
             <p className="mt-3 text-sm mdx:text-lg text-neutral-400 w-full leading-4">
-            {t('Main.Doctors.description')}
+              {t("Main.Doctors.description")}
             </p>
           </div>
           <div className="mt-10 max-md:max-w-full">
@@ -384,7 +400,7 @@ function Main({ doctors, params }) {
             href="/doctors"
             className="flex gap-2 justify-center self-center px-10 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
           >
-            <span className="my-auto">{t('Main.Doctors.all')}</span>
+            <span className="my-auto">{t("Main.Doctors.all")}</span>
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"
@@ -399,7 +415,7 @@ function Main({ doctors, params }) {
           <section className="mt-52 max-md:mt-10 w-full">
             <div className="flex gap-5 flex-col lg:flex-row max-md:gap-0 ">
               <h2 className="text-2xl leading-6 font-bold lg:hidden block text-neutral-900 max-md:max-w-full">
-              {t('Main.About.title')}
+                {t("Main.About.title")}
               </h2>
               <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
                 <img
@@ -412,10 +428,10 @@ function Main({ doctors, params }) {
               <div className="flex flex-col justify-between ml-5 lg:w-6/12 max-md:ml-0 w-full">
                 <div className="flex flex-col font-bold max-md:mt-10 max-md:max-w-full">
                   <h2 className="text-4xl hidden lg:block text-neutral-900 max-md:max-w-full">
-                  {t('Main.About.title')}
+                    {t("Main.About.title")}
                   </h2>
                   <p className="text-lg mt-5 text-zinc-600 font-medium max-md:max-w-full leading-5">
-                  {t('Main.About.description')}
+                    {t("Main.About.description")}
                   </p>
                 </div>
                 <div className="flex gap-3 mt-8 text-base text-center max-md:flex-wrap max-md:max-w-full">
@@ -423,27 +439,27 @@ function Main({ doctors, params }) {
                     href="/about"
                     className="justify-center self-start  mdx:px-10 py-4 text-white bg-red-400 rounded-[100px] px-2"
                   >
-                    {t('Main.About.more')}
+                    {t("Main.About.more")}
                   </a>
                   <a
                     href="/about/licenses"
                     className="justify-center items-center px-10 py-4 text-red-400 whitespace-nowrap border border-red-400 border-solid rounded-[100px] max-md:px-5"
                   >
-                    {t('Main.About.license')}
+                    {t("Main.About.license")}
                   </a>
                 </div>
               </div>
             </div>
           </section>
           <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
-          {t('Main.Blogs.title')}
+            {t("Main.Blogs.title")}
           </h2>
           <Blog />
           <a
             href="/blogs"
             className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
           >
-            <span className="my-auto">{t('Main.Blogs.more')}</span>
+            <span className="my-auto">{t("Main.Blogs.more")}</span>
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"

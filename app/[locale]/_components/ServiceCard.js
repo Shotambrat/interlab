@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function ServiceCard({
+  locale,
   title,
   description,
   imageSrc,
@@ -10,7 +11,7 @@ export default function ServiceCard({
 }) {
   return (
     <Link
-      href={`/services/${slug}`}
+      href={`${locale}/services/${slug}`}
       style={{
         backgroundColor: bgColor,
       }}

@@ -33,7 +33,8 @@
     },
     "Sales": {
       "title": "Aksiya",
-      "all": "Barcha aksiyalar"
+      "all": "Barcha aksiyalar",
+      "other": "Boshqa aksiyalar"
     },
     "Doctors": {
       "title": "Bizning shifokorlarimiz",
@@ -63,7 +64,9 @@
     }
   },
   "Application": {
-    "title": "Ariza qoldiring va biz yaqin orada sizga qo'ng'iroq qilamiz",
+    "title": "Onlayn qabulga yoziling va navbat kutmasdan xizmatdan foydalaning",
+    "description": "Sizga 5 daqiqa ichida qayta qo'ng'iroq qilinadi, shundan so'ng ariza faol bo'ladi.",
+    "sale-info": "Shifokor 15 daqiqadan ko'proq kechiksa, 5% chegirma.",
     "placeholders": {
       "fullname": "F.I.Sh *",
       "phone": "Telefon raqami *",

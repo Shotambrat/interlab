@@ -1,10 +1,10 @@
-// app/services/[slug]/page.js
-
 import { client } from '@/sanity/lib/client';
 import ServiceItemBanner from '@/app/[locale]/_components/services/ServiceItemBanner';
 import ServiceItemInfo from '@/app/[locale]/_components/services/ServiceItemInfo';
 import Interest from '@/app/[locale]/_components/services/Interest';
-import Application from '@/app/[locale]/_components/Application';
+import dynamic from 'next/dynamic';
+
+const Application = dynamic(() => import('../../_components/Application'), { ssr: false });
 
 export default async function ServiceDetailPage({ params }) {
   const { slug, locale } = params;
@@ -25,7 +25,6 @@ export default async function ServiceDetailPage({ params }) {
   );
 
   if (!service) {
-    // Обработка случая, если сервис не найден
     return <div>Сервис не найден</div>;
   }
 

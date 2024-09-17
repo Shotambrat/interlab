@@ -15,7 +15,7 @@ const ContactButton = ({ href, onClick, icon, bgColor, borderColor, textColor, t
     onClick={onClick}
     className={`px-4 border ${borderColor} ${bgColor} py-4 rounded-lg flex justify-between items-center`}
   >
-    <div className="flex items-center">
+    <div className="flex items-center font-bold">
       <div className="mr-4">
         <Image priority className="w-6 h-6" src={icon} width={100} height={100} alt={text} />
       </div>

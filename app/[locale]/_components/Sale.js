@@ -15,7 +15,7 @@ function urlFor(source) {
   return builder.image(source);
 }
 
-const OffersSlider = () => {
+const OffersSlider = ({ locale }) => {
   const [promotions, setPromotions] = useState([]);
 
   useEffect(() => {
@@ -39,15 +39,25 @@ const OffersSlider = () => {
     return <p>Нет доступных акций</p>;
   }
 
+  const getIcon = (promotion) => {
+    // Возвращаем иконку для выбранного языка, по умолчанию русскую
+    return promotion.icon[locale] || promotion.icon['ru'];
+  };
+
+  const getTitle = (promotion) => {
+    // Если заголовок для данного языка не найден, возвращаем заголовок на русском по умолчанию
+    return promotion.title[locale] || promotion.title['ru'];
+  };
+
   if (promotions.length === 1) {
     const promotion = promotions[0];
     return (
-      <Link href={promotion.slug.current} className="w-full px-2 h-full">
-        <div className="p-4 rounded-lg h-full flex flex-col gap-4 justify-between max-w-[300px] ">
+      <Link href={`/${locale}/sales/${promotion.slug.current}`} className="w-full px-2 h-full">
+        <div className="p-4 rounded-lg h-full flex flex-col gap-4 justify-between max-w-[300px]">
           <div className='w-full relative h-full'>
             {promotion.icon && (
               <Image 
-                src={urlFor(promotion.icon).url()}
+                src={urlFor(getIcon(promotion)).url()}
                 height={500}
                 width={500}
                 alt='Icon'
@@ -59,11 +69,11 @@ const OffersSlider = () => {
             </div>
           </div>
           <div className='flex flex-col gap-1'>
-            <h2 className='text-2xl font-bold'>
-              {promotion.title.ru}
+            <h2 className='text-2xl font-bold line-clamp-2'>
+              {getTitle(promotion)}
             </h2>
             <p className='text-neutral-400 text-sm'>
-              {new Date(promotion.date).toLocaleDateString('ru-RU', {
+              {new Date(promotion.date).toLocaleDateString(locale === 'uz' ? 'uz-UZ' : 'ru-RU', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric'
@@ -123,18 +133,18 @@ const OffersSlider = () => {
 
   return (
     <div className="w-full">
-      <Slider {...settings}>
+      <Slider {...settings} className="grid grid-rows-1">
         {promotions.map((promotion, index) => (
-          <div key={index} className="px-2 h-full">
+          <Link href={`/${locale}/sales/${promotion.slug.current}`} key={index} className="px-2 h-full">
             <div className="p-4 rounded-lg h-full flex flex-col gap-4 justify-between">
               <div className='w-full relative h-full'>
                 {promotion.icon && (
                   <Image 
-                    src={urlFor(promotion.icon).url()}
+                    src={urlFor(getIcon(promotion)).url()}
                     height={500}
                     width={500}
                     alt='Icon'
-                    className='h-full w-full rounded-3xl'
+                    className='h-[230px] object-cover w-full rounded-3xl'
                   />
                 )}
                 <div className=''>
@@ -142,11 +152,11 @@ const OffersSlider = () => {
                 </div>
               </div>
               <div className='flex flex-col gap-1'>
-                <h2 className='text-2xl font-bold'>
-                  {promotion.title.ru}
+                <h2 className='text-2xl font-bold line-clamp-2'>
+                  {getTitle(promotion)}
                 </h2>
                 <p className='text-neutral-400 text-sm'>
-                  {new Date(promotion.date).toLocaleDateString('ru-RU', {
+                  {new Date(promotion.date).toLocaleDateString(locale === 'uz' ? 'uz-UZ' : 'ru-RU', {
                     day: 'numeric',
                     month: 'long',
                     year: 'numeric'
@@ -154,7 +164,7 @@ const OffersSlider = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </Slider>
     </div>
