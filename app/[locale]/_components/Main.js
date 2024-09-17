@@ -34,11 +34,12 @@ function urlFor(source) {
   return builder.image(source);
 }
 
-function Main({ doctors, params }) {
+function Main({ params }) {
   const [services, setServices] = useState([]);
   const [contactWithUs, setContactWithUs] = useState(false);
   const [onlineReq, setOnlineReq] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [doctors, setDoctors] = useState([]);
   const t = useTranslations();
 
   const { locale } = params;
@@ -47,7 +48,31 @@ function Main({ doctors, params }) {
     if (!text) return "";
     return text.replace(/\n/g, "<br />");
   };
-  
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const doctorsData = await client.fetch(
+          `*[_type == "doctor" && isActive == true][0...4]{
+            name,
+            slug,
+            position,
+            photo {
+              asset->{
+                _id,
+                url
+              }
+            }
+          }`
+        );
+        setDoctors(doctorsData);
+      } catch (error) {
+        console.error("Ошибка при загрузке данных о докторах:", error);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -71,7 +96,7 @@ function Main({ doctors, params }) {
     fetchServices();
   }, []);
 
-  console.log("services", services)
+  console.log("services", services);
   const getRandomColor = () => {
     const colors = ["#FFC0CB", "#ADD8E6", "#90EE90", "#FFD700", "#FFA07A"];
     return colors[Math.floor(Math.random() * colors.length)];
@@ -218,11 +243,15 @@ function Main({ doctors, params }) {
                           }
                         >
                           <ServiceCard
-                          locale={params.locale}
+                            locale={params.locale}
                             title={service.name[locale]}
                             description={service.description[locale]}
                             imageSrc={urlFor(service.icon).url()}
-                            bgColor={service.colourCode ? service.colourCode : getRandomColor()}
+                            bgColor={
+                              service.colourCode
+                                ? service.colourCode
+                                : getRandomColor()
+                            }
                             slug={service.slug.current}
                           />
                         </div>
@@ -241,7 +270,11 @@ function Main({ doctors, params }) {
                               title={service.name[locale]}
                               description={service.description[locale]}
                               imageSrc={urlFor(service.icon).url()}
-                              bgColor={service.colourCode ? service.colourCode : getRandomColor()}
+                              bgColor={
+                                service.colourCode
+                                  ? service.colourCode
+                                  : getRandomColor()
+                              }
                               slug={service.slug.current}
                             />
                           </div>
@@ -260,11 +293,15 @@ function Main({ doctors, params }) {
                         }
                       >
                         <ServiceCard
-                        locale={params.locale}
+                          locale={params.locale}
                           title={service.name[locale]}
                           description={service.description[locale]}
                           imageSrc={urlFor(service.icon).url()}
-                          bgColor={service.colourCode ? service.colourCode : getRandomColor()}
+                          bgColor={
+                            service.colourCode
+                              ? service.colourCode
+                              : getRandomColor()
+                          }
                           slug={service.slug.current}
                         />
                       </div>
@@ -299,7 +336,7 @@ function Main({ doctors, params }) {
           </h2>
           <Sale locale={params.locale} />
           <a
-            href="/blogs"
+            href={`/${params.locale}/blogs`}
             className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
           >
             <span className="my-auto">{t("Main.Sales.all")}</span>
@@ -319,43 +356,18 @@ function Main({ doctors, params }) {
             </p>
           </div>
           <div className="mt-10 max-md:max-w-full">
-            <div className="hidden mdx:flex gap-5 flex-wrap xl:flex-nowrap">
-              {
-                console.log(doctors)
-                // doctors && doctors.length > 0 ? (
-                //   doctors.map((doctor, index) => (
-                //     <DoctorCard
-                //       key={index}
-                //       name={doctor.fullName}
-                //       specialty={doctor.specialty}
-                //       imageSrc={doctor.photoUrl}
-                //     />
-                //   ))
-                // ) : (
-                //   <div>No doctors found</div>
-                // )
-              }
-              <DoctorCard
-                name="Усманова Сабиха Салижановна"
-                specialty="Педиатр-невропатолог"
-                imageSrc={Gulmira}
-              />
-              <DoctorCard
-                name="Усманова Сабиха Салижановна"
-                specialty="Педиатр-невропатолог"
-                imageSrc={Gulmira}
-              />
-              <DoctorCard
-                name="Эргашева Шахноза Шухратовна"
-                specialty="УЗД - врач"
-                imageSrc={Gulmira}
-              />
-              <DoctorCard
-                name="Хаджиева Зилола Улугбековна"
-                specialty="Гастроэнтеролог-Эндоскопист"
-                imageSrc={Gulmira}
-              />
+            <div className="hidden mdx:grid gap-5 grid-cols-4 max-lg:grid-cols-3 max-slg:grid-cols-2">
+              {doctors.map((doctor, index) => (
+                <DoctorCard
+                  key={index}
+                  name={doctor.name[locale] || doctor.name.ru}
+                  specialty={doctor.position[locale] || doctor.position.ru}
+                  imageSrc={urlFor(doctor.photo).url()}
+                  slug={doctor.slug.current}
+                />
+              ))}
             </div>
+
             <div className="mdx:hidden">
               <Swiper
                 slidesPerView={1.2}
@@ -365,39 +377,21 @@ function Main({ doctors, params }) {
                   clickable: true,
                 }}
               >
-                <SwiperSlide>
-                  <DoctorCard
-                    name="Туякова Гульмира Негмановна"
-                    specialty="Гинеколог"
-                    imageSrc={Gulmira}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <DoctorCard
-                    name="Усманова Сабиха Салижановна"
-                    specialty="Педиатр-невропатолог"
-                    imageSrc={Gulmira}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <DoctorCard
-                    name="Эргашева Шахноза Шухратовна"
-                    specialty="УЗД - врач"
-                    imageSrc={Gulmira}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <DoctorCard
-                    name="Хаджиева Зилола Улугбековна"
-                    specialty="Гастроэнтеролог-Эндоскопист"
-                    imageSrc={Gulmira}
-                  />
-                </SwiperSlide>
+                {doctors.map((doctor, index) => (
+                  <SwiperSlide key={index}>
+                    <DoctorCard
+                      name={doctor.name[locale] || doctor.name.ru}
+                      specialty={doctor.position[locale] || doctor.position.ru}
+                      imageSrc={urlFor(doctor.photo).url()}
+                      slug={doctor.slug.current}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>
           <a
-            href="/doctors"
+            href={`/${params.locale}/doctors`}
             className="flex gap-2 justify-center self-center px-10 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
           >
             <span className="my-auto">{t("Main.Doctors.all")}</span>

@@ -53,7 +53,7 @@ export default {
         Rule.required().error("Категория обязательна для выбора"),
     },
     {
-      name: "isFeatured",
+      name: "isPopular",
       type: "boolean",
       title: "Популярный анализ",
       initialValue: false,

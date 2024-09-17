@@ -1,24 +1,43 @@
+"use client"
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import lineForm from '@/public/svg/illustration.svg';
 import { useTranslations } from 'next-intl';
 import { Form, Input, Button, Select, message } from 'antd';
-import InputMask from 'react-input-mask';
+import { useState } from 'react';
 
 const { Option } = Select;
 
 const Application = () => {
   const t = useTranslations('Application');
+  const [phone, setPhone] = useState('');
 
-  // Функция для проверки корректности номера телефона
-  const isPhoneNumberValid = (phoneNumber) => {
-    const cleanNumber = phoneNumber.replace(/[^0-9]/g, ''); // Убираем все символы, кроме цифр
-    return cleanNumber.length === 12; // Должно быть ровно 12 цифр (+998 и еще 9 цифр)
+  // Функция для добавления маски номера телефона
+  const handlePhoneChange = (e) => {
+    let input = e.target.value.replace(/\D/g, ''); // Удаляем все символы, кроме цифр
+    if (input.length > 12) input = input.slice(0, 12); // Ограничиваем до 12 символов
+
+    let formattedPhone = '+998(';
+
+    if (input.length >= 2) {
+      formattedPhone += input.slice(0, 2) + ')-';
+    }
+    if (input.length >= 5) {
+      formattedPhone += input.slice(2, 5) + '-';
+    }
+    if (input.length >= 7) {
+      formattedPhone += input.slice(5, 7) + '-';
+    }
+    if (input.length >= 9) {
+      formattedPhone += input.slice(7, 9);
+    }
+    
+    setPhone(formattedPhone); // Обновляем значение телефона
   };
 
   const handleFinish = (values) => {
     // Проверка номера телефона
-    if (!isPhoneNumberValid(values.phoneNumber)) {
+    if (phone.replace(/\D/g, '').length !== 12) {
       message.error('Введите корректный номер телефона');
       return;
     }
@@ -68,15 +87,12 @@ const Application = () => {
               name="phoneNumber"
               rules={[{ required: true, message: t('placeholders.phone') }]}
             >
-              <InputMask
-                mask="+998(99)-999-99-99"
-                maskChar="_"
-                className="rounded-xl py-2 text-xl w-full"
-              >
-                {(inputProps) => (
-                  <Input {...inputProps} type="tel" placeholder="+998(__)-___-__-__" />
-                )}
-              </InputMask>
+              <Input
+                value={phone}
+                onChange={handlePhoneChange}
+                placeholder="+998(__)-___-__-__"
+                className="rounded-xl py-2 text-xl"
+              />
             </Form.Item>
 
             <Form.Item name="service" rules={[{ required: true }]}>
@@ -113,5 +129,5 @@ const Application = () => {
   );
 };
 
-// Если возникают проблемы на сервере, можно использовать динамический импорт без SSR:
+// Динамический импорт без SSR
 export default dynamic(() => Promise.resolve(Application), { ssr: false });
