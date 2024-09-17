@@ -1,90 +1,76 @@
 "use client";
 import Image from "next/image";
-import { fetchBlogBySlug } from "@/app/[locale]/lib/api";
 import { useState, useEffect } from "react";
+import { client } from "@/sanity/lib/client";
 import Blog from "@/app/[locale]/_components/Blog";
 import ButtonLinkBorder from "@/app/[locale]/_components/buttons/ButtonLinkBorder";
 import Link from "next/link";
+import BlockContent from "@sanity/block-content-to-react";
 
-export default function Page({params}) {
-  const [blog, setBlog] = useState([]);
-  const [parsedBody, setParsedBody] = useState([]);
+export default function Page({ params }) {
+  const [blog, setBlog] = useState(null);
 
-  console.log(params.slug)
   useEffect(() => {
+    const fetchBlogBySlug = async (slug) => {
+      const query = `
+        *[_type == "news" && slug.current == $slug][0]{
+          title,
+          content,
+          photo{
+            asset->{
+              url
+            }
+          },
+          publishedAt,
+          relatedNews[]->{
+            title,
+            slug
+          }
+        }
+      `;
+
+      const data = await client.fetch(query, { slug });
+      return data;
+    };
+
     const getBlog = async () => {
       const data = await fetchBlogBySlug(params.slug);
-      console.log(data)
-      setBlog(data.data);
-      // const parsed = parseBlogContent(data.data.body);
-      // setParsedBody(parsed);
+      setBlog(data);
     };
+
     getBlog();
-  }, []);
+  }, [params.slug]);
 
-  console.log(blog)
-
-  // const parseBlogContent = (content) => {
-  //   const sections = content.split("\n\n");
-  //   return sections.map((section) => {
-  //     if (section.includes("\n")) {
-  //       const items = section.split("\n");
-  //       return {
-  //         type: "list",
-  //         items,
-  //       };
-  //     } else {
-  //       return {
-  //         type: "paragraph",
-  //         text: section,
-  //       };
-  //     }
-  //   });
-  // };
-
-
+  if (!blog) {
+    return <p>Загрузка...</p>;
+  }
 
   return (
     <div className="w-full bg-white px-2">
       <div className="w-full max-w-[1440px] mx-auto flex flex-col gap-32 pb-32 pt-12">
         <div className="flex flex-col gap-5 w-full">
           <h1 className="text-4xl max-mdx:text-3xl font-bold ">
-            Важность сдачи анализа на холестерин
+            {blog.title.ru || blog.title.uz}
           </h1>
           <Image
-            src={blog.photoUrl}
+            src={blog.photo.asset.url}
             width={1500}
             height={1500}
             alt="Banner Blog's"
             className="w-full h-[350px] mdx:h-[600px] object-cover rounded-[40px]"
           />
           <div className="flex flex-col gap-5">
-            {/* {parsedBody.map((section, index) => {
-              if (section.type === "paragraph") {
-                return (
-                  <p key={index} className="text-lg">
-                    {section.text}
-                  </p>
-                );
-              }
-              if (section.type === "list") {
-                return (
-                  <ul key={index} className="list-disc pl-5">
-                    {section.items.map((item, idx) => (
-                      <li key={idx} className="text-lg">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                );
-              }
-            })} */}
+            {/* Использование BlockContent для рендеринга текста */}
+            <BlockContent
+              blocks={blog.content.ru || blog.content.uz}
+              imageOptions={{ w: 320, h: 240, fit: "max" }}
+              projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
+              dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-10">
-          <h2 className="text-4xl max-mdx:text-3xl font-bold">
-            Другие новости
-          </h2>
+          <h2 className="text-4xl max-mdx:text-3xl font-bold">Другие новости</h2>
           <Blog />
           <div className="w-full flex justify-center">
             <Link href="/blogs">

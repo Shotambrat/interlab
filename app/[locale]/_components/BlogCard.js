@@ -9,16 +9,16 @@ const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
           <img
             loading="lazy"
             src={imageSrc}
-            className="object-cover absolute inset-0 size-full"
+            className="object-cover absolute inset-0 size-full rounded-3xl"
             alt={title}
           />
           <LinkYakor slug={slug} />
         </div>
         <div className="flex flex-col mt-2">
-          <h3 className="text-xl mdx:text-3xl font-bold text-neutral-900 leading-6">
+          <h3 className="text-xl mdx:text-3xl font-bold text-neutral-900 leading-4">
             {title}
           </h3>
-          <p className="mt-1 text-md text-ellipsis leading-4 text-zinc-500">
+          <p className="mt-1 text-md text-ellipsis leading-4 text-zinc-500 line-clamp-2">
             {excerpt}
           </p>
         </div>

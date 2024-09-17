@@ -109,7 +109,11 @@
     "sign-up": "Ro'yxatdan o'tish",
     "searchPlaceholder": "Shifokor ismi yoki familiyasini kiriting",
     "information": "Mutaxassis haqida ma'lumot",
-    "graphic": "Ish jadvali"
+    "graphic": "Ish jadvali",
+    "experience": "Ish tajribasi",
+    "achievements": "Yutuqlar",
+    "languages": "Til bilimi",
+    "edu": "Ta'lim"
   },
   "About": {
     "title": "Biz haqimizda",

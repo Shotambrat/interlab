@@ -359,6 +359,7 @@ function Main({ params }) {
             <div className="hidden mdx:grid gap-5 grid-cols-4 max-lg:grid-cols-3 max-slg:grid-cols-2">
               {doctors.map((doctor, index) => (
                 <DoctorCard
+                  locale={params.locale}
                   key={index}
                   name={doctor.name[locale] || doctor.name.ru}
                   specialty={doctor.position[locale] || doctor.position.ru}
@@ -380,6 +381,7 @@ function Main({ params }) {
                 {doctors.map((doctor, index) => (
                   <SwiperSlide key={index}>
                     <DoctorCard
+                      locale={params.locale}
                       name={doctor.name[locale] || doctor.name.ru}
                       specialty={doctor.position[locale] || doctor.position.ru}
                       imageSrc={urlFor(doctor.photo).url()}
@@ -425,18 +427,25 @@ function Main({ params }) {
                     {t("Main.About.title")}
                   </h2>
                   <p className="text-lg mt-5 text-zinc-600 font-medium max-md:max-w-full leading-5">
-                    {t("Main.About.description")}
+                    {t("Main.About.description")
+                      .split("\n")
+                      .map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
                   </p>
                 </div>
                 <div className="flex gap-3 mt-8 text-base text-center max-md:flex-wrap max-md:max-w-full">
                   <a
-                    href="/about"
-                    className="justify-center self-start  mdx:px-10 py-4 text-white bg-red-400 rounded-[100px] px-2"
+                    href={`/${params.locale}/about`}
+                    className="justify-center self-start mdx:px-10 py-4 text-white bg-red-400 rounded-[100px] px-2"
                   >
                     {t("Main.About.more")}
                   </a>
                   <a
-                    href="/about/licenses"
+                    href={`/${params.locale}/about/licenses`}
                     className="justify-center items-center px-10 py-4 text-red-400 whitespace-nowrap border border-red-400 border-solid rounded-[100px] max-md:px-5"
                   >
                     {t("Main.About.license")}
@@ -448,7 +457,7 @@ function Main({ params }) {
           <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
             {t("Main.Blogs.title")}
           </h2>
-          <Blog />
+          <Blog locale={params.locale} />
           <a
             href="/blogs"
             className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"

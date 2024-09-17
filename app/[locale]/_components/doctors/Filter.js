@@ -1,70 +1,29 @@
+// app/[locale]/_components/doctors/Filter.js
 "use client";
-
 import DoctorCard from "@/app/[locale]/_components/doctors/DoctorCard";
-import aziz from "@/public/images/aziz.png";
-import gulmira from "@/public/images/gulmira-doctor.png";
 import Application from "@/app/[locale]/_components/Application";
 import Blog from "@/app/[locale]/_components/Blog";
+import imageUrlBuilder from "@sanity/image-url";
+import { client } from "@/sanity/lib/client";
 
-export default function Filter() {
-  const data = [
-    {
-      name: "Туякова Гульмира Негматовна",
-      speciality: ["Гинеколог", "эндокринолог", "педиатр"],
-      slug: "tuyakova-gulmira-negmatovna",
-      imageSrc: gulmira
-    },
-    {
-        name: "Ниязов Азиз Набиевич",
-        speciality: ["Врач УЗИ"],
-        slug: "nabiyev-aziz",
-        imageSrc: aziz
-    },
-    {
-        name: "Эргашева Шахноза Шухратовна",
-        speciality: ["УЗД-Врач"],
-        slug: "ergashevna-shakhnoza",
-        imageSrc: gulmira
-    },
-    {
-        name: "Усманова Сабиха Салижановна",
-        speciality: ["Педиатр-невропотолог"],
-        slug: "usmanova-sabixa",
-        imageSrc: gulmira
-    },
-    {
-        name: "Ачилова Нигора Уктамовна",
-        speciality: ["Гинеколог"],
-        slug: "achilova-nigora",
-        imageSrc: gulmira
-    },
-    {
-        name: "Айдарова Равшаной Тургуновна",
-        speciality: ["Эндокринолог"],
-        slug: "aydorova-ravshanoy",
-        imageSrc: gulmira
-    },
-    {
-        name: "Раззаков Сарвар Абдумурадович",
-        speciality: ["Детский пульмонолог аллерголог"],
-        slug: "razzakov-sarvar",
-        imageSrc: aziz
-    },
-  ];
+const builder = imageUrlBuilder(client);
+function urlFor(source) {
+  return builder.image(source);
+}
 
+export default function Filter({ doctors, locale }) {
   return (
     <div className="w-full h-auto bg-white max-mdl:px-4 py-24">
       <div className="w-full max-w-[1440px] mx-auto h-auto flex flex-wrap gap-10">
-        {data.map((elem, index) => {
-          return (
-            <DoctorCard
-              key={index}
-              name={elem.name}
-              specialty={elem.speciality}
-              imageSrc={elem.imageSrc}
-            />
-          );
-        })}
+        {doctors.map((doctor, index) => (
+          <DoctorCard
+            key={index}
+            name={doctor.name[locale] || doctor.name.ru}
+            specialty={doctor.position[locale].join(", ") || doctor.position.ru.join(", ")}
+            imageSrc={urlFor(doctor.photo).url()}
+            slug={doctor.slug.current}
+          />
+        ))}
       </div>
       <div className="w-full max-w-[1440px] mx-auto">
         <section className="flex flex-col justify-center mt-52 mb-52 rounded-[50px] max-md:mt-10 max-md:max-w-full">
