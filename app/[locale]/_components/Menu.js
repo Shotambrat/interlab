@@ -6,8 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import backet from "@/public/svg/backet.svg";
 
-const Menu = ({menu, closeMenu, navOptions}) => {
-
+const Menu = ({ menu, closeMenu, navOptions }) => {
   return (
     <div
       className={`fixed z-10 top-0 right-0 w-3/4 bg-white h-full shadow-md transition-transform duration-300 ${
@@ -24,7 +23,7 @@ const Menu = ({menu, closeMenu, navOptions}) => {
                 src={phone}
                 width={20}
                 height={20}
-                alt="The Wild Oasis logo"
+                alt="Phone icon"
                 quality={100}
               />
             </a>
@@ -37,59 +36,28 @@ const Menu = ({menu, closeMenu, navOptions}) => {
                 src={backet}
                 width={20}
                 height={20}
-                alt="The Wild Oasis logo"
+                alt="Basket icon"
                 quality={100}
               />
             </Link>
             <div onClick={closeMenu}>
-            <Close />
+              <Close />
             </div>
           </div>
         </div>
       </div>
+      
       <nav className="flex flex-col font-semibold">
-      <a href="/autsorsing" className="py-4 border-b">
-          <div className="flex justify-between mx-4">
-            <p>Аутсорсинг</p>
-            <RightIcon />
-          </div>
-        </a>
-        <a href="/ckdl" className="py-4 border-b">
-          <div className="flex justify-between mx-4">
-            <p>ЦКДЛ</p>
-            <RightIcon />
-          </div>
-        </a>
-        <a href="/analyze" className="py-4 border-b">
-          <div className="flex justify-between mx-4">
-            <p>Анализы</p>
-            <RightIcon />
-          </div>
-        </a>
-        <a href="/services" className="py-4 border-b">
-          <div className="flex justify-between mx-4">
-            <p>Услуги</p>
-            <RightIcon />
-          </div>
-        </a>
-        <a href="/doctors" className="py-4 border-b">
-          <div className="flex justify-between mx-4">
-            <p>Врачи</p>
-            <RightIcon />
-          </div>
-        </a>
-        <a href="/addresses" className="py-4 border-b">
-          <div className="flex justify-between mx-4">
-            <p>Адреса</p>
-            <RightIcon />
-          </div>
-        </a>
-        <a href="/about" className="py-4">
-          <div className="flex justify-between mx-4">
-            <p>О нас</p>
-            <RightIcon />
-          </div>
-        </a>
+        {navOptions.map((option) => (
+          <Link key={option.id} href={option.url} onClick={closeMenu} passHref>
+            <a className="py-4 border-b">
+              <div className="flex justify-between mx-4">
+                <p>{option.name}</p>
+                <RightIcon />
+              </div>
+            </a>
+          </Link>
+        ))}
       </nav>
     </div>
   );
