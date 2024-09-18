@@ -1,13 +1,17 @@
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import Link from "next/link";
+import resultLogo from "@/public/svg/result-logo.svg";
 
-const SocialIcon = ({ src }) => (
-  <img
-    loading="lazy"
-    src={src}
-    className="shrink-0 aspect-square w-[45px]"
-    alt="Social media icon"
-  />
+const SocialIcon = ({ src, linkUrl }) => (
+  <Link href={linkUrl}>
+    <img
+      loading="lazy"
+      src={src}
+      className="shrink-0 aspect-square w-[45px]"
+      alt="Social media icon"
+    />
+  </Link>
 );
 
 const FooterLink = ({ text }) => <div className="mt-5">{text}</div>;
@@ -42,9 +46,18 @@ function Footer({ locale }) {
                 alt="Company logo"
               />
               <div className="flex gap-3 pr-16 mt-8 max-md:pr-5">
-                <SocialIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/9c71bc10c400533dd9fbac412ae42426654bb0fef5b1493037ca61e6bc831a43?apiKey=e791e0f42eab4556ac944da69358f29b&" />
-                <SocialIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/b8103f6fceeb51d89439e1b44b26a2540f94da390091b4ea7611417d4e44da97?apiKey=e791e0f42eab4556ac944da69358f29b&" />
-                <SocialIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/9936081e82166164b2f73874d6ae5898bda1496a1b28684a3a9060ca27906cc3?apiKey=e791e0f42eab4556ac944da69358f29b&" />
+                <SocialIcon
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/9c71bc10c400533dd9fbac412ae42426654bb0fef5b1493037ca61e6bc831a43?apiKey=e791e0f42eab4556ac944da69358f29b&"
+                  linkUrl={"https://www.facebook.com/intermeduz/"}
+                />
+                <SocialIcon
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b8103f6fceeb51d89439e1b44b26a2540f94da390091b4ea7611417d4e44da97?apiKey=e791e0f42eab4556ac944da69358f29b&"
+                  linkUrl={"https://www.instagram.com/intermed.centre/"}
+                />
+                <SocialIcon
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/9936081e82166164b2f73874d6ae5898bda1496a1b28684a3a9060ca27906cc3?apiKey=e791e0f42eab4556ac944da69358f29b&"
+                  linkUrl={"https://t.me/intermed_innovation_uz"}
+                />
               </div>
             </div>
             <div className="flex-auto max-w-full lg:flex lg:justify-end">
@@ -76,15 +89,19 @@ function Footer({ locale }) {
           <div className="flex flex-col w-full max-w-[1440px] max-md:max-w-full">
             <div className="shrink-0 h-px bg-neutral-200 max-md:max-w-full" />
             <div className="flex gap-5 mt-2.5 max-md:flex-wrap max-md:max-w-full">
-              <p className="flex-auto my-auto">
-                © 2024 {t('Footer.rights')}
-              </p>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/2e71e8e760feb8505dc11537647ee4a21c53f47f09a41e2305f569ebc14d6c36?apiKey=e791e0f42eab4556ac944da69358f29b&"
-                className="shrink-0 max-w-full aspect-[1.82] w-[130px]"
-                alt="Company certification"
-              />
+              <p className="flex-auto my-auto">© 2024 {t("Footer.rights")}</p>
+              <a
+                target="_blank"
+                href="https://result-me.uz/api/redirect?from=aW50ZXJsYWI="
+              >
+                <Image
+                  src={resultLogo}
+                  width={500}
+                  height={500}
+                  alt="Result logo"
+                  className="h-full max-h-10 w-auto"
+                />
+              </a>
             </div>
           </div>
         </footer>

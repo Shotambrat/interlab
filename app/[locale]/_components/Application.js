@@ -1,7 +1,7 @@
 "use client"
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import lineForm from '@/public/svg/illustration.svg';
+import lineForm from '@/public/svg/application/illustration.svg';
 import { useTranslations } from 'next-intl';
 import { Form, Input, Button, Select, message } from 'antd';
 import { useState } from 'react';
