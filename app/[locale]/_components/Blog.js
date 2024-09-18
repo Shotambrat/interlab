@@ -1,4 +1,5 @@
 // Import the client for Sanity
+"use client"
 import { client } from '@/sanity/lib/client';
 import BlogCard from '@/app/[locale]/_components/BlogCard';
 import { useEffect, useState } from 'react';

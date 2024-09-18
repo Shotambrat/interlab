@@ -1,5 +1,5 @@
 import Image from "next/image";
-import line from "@/public/svg/Illustration.svg";
+// import line from "@/public/svg/Illustration.svg";
 
 export default function Application() {
     return (
@@ -13,13 +13,13 @@ export default function Application() {
                             </h2>
                         </div>
                         <div className="absolute bottom-[-50px] left-0 z-[-2] w-full   slg:block hidden">
-                            <Image
+                            {/* <Image
                                 src={line}
                                 width={1000}
                                 height={1000}
                                 alt="Cost"
                                 className="h-auto w-full mdx:max-h-[189px] max-w-[540px]"
-                            />
+                            /> */}
                         </div>
                     </div>
                     <div className="flex flex-col w-[32%] max-md:ml-0 max-slg:w-full">
@@ -64,13 +64,13 @@ export default function Application() {
                                 ></input>
                             </div>
                             <div className="absolute bottom-[127px] left-0 z-[-2] w-full  mdx:bottom-[-160px] slg:hidden">
-                                <Image
+                                {/* <Image
                                     src={line}
                                     width={1000}
                                     height={1000}
                                     alt="Cost"
                                     className="h-auto w-full mdx:max-h-[189px] max-w-[540px]"
-                                />
+                                /> */}
                             </div>
                             <button
                                 type="submit"
