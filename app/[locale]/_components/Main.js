@@ -473,7 +473,7 @@ function Main({ params }) {
               alt="Arrow icon"
             />
           </a>
-          <section className="flex flex-col justify-center mt-52 mb-52 rounded-[50px] max-md:mt-10 max-md:max-w-full">
+          <section className="flex flex-col justify-center mt-52 mb-52 rounded-[50px] max-md:mt-24 max-md:max-w-full">
             <Application />
           </section>
         </div>

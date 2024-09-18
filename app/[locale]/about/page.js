@@ -17,7 +17,7 @@ export default function AboutPage({params}) {
       <AboutAchiev />
 
       </div>
-      <AboutLicense />
+      <AboutLicense locale={params.locale} />
       <div className="w-full max-w-[1440px] px-2 mx-auto">
         <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
           {t('Blog.title')}
