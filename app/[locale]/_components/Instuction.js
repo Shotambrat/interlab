@@ -66,7 +66,7 @@ export default function Instuction() {
     <section className="flex gap-5 justify-between slg:flex-nowrap flex-wrap max-md:max-w-full">
       <div className="flex flex-col self-start max-md:max-w-full">
         <div className="flex flex-col max-md:max-w-full">
-          <h2 className="text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full leading-7">
+          <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full leading-7">
             Инструкции по сдаче анализов
           </h2>
           <p className="mt-4 text-sm mdx:text-lg text-zinc-500 max-md:max-w-full leading-4">

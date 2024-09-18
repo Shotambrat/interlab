@@ -1,22 +1,42 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from 'react';
-import { fetchBlogs } from '@/app/[locale]/lib/api';
-import Blog from "@/app/[locale]/_components/BlogCard"
+import { client } from "@/sanity/lib/client"; // Подключаем клиента Sanity
+import Blog from "@/app/[locale]/_components/BlogCard";
 
-const BlogPagination = () => {
+const BlogPagination = ({ locale }) => {
   const [blogs, setBlogs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 12; // Количество элементов на странице
 
   useEffect(() => {
     const getBlogs = async () => {
-      const data = await fetchBlogs(currentPage);
-      console.log(data)
-      setBlogs(data.data);
-      setTotalPages(Math.ceil(30 / 12)); // Assuming there are 30 blogs in total, adjust if necessary
+      // Определяем язык для заголовков и краткого описания
+      const lang = locale === 'uz' ? 'uz' : 'ru';
+
+      // Запрос на получение общего количества блогов для расчета страниц
+      const countQuery = `count(*[_type == "news"])`;
+      const totalCount = await client.fetch(countQuery);
+
+      // Подсчет общего количества страниц
+      const calculatedTotalPages = Math.ceil(totalCount / itemsPerPage);
+      setTotalPages(calculatedTotalPages);
+
+      // Запрос для получения блогов для текущей страницы с учетом выбранного языка
+      const query = `
+        *[_type == "news"]{
+          title,
+          slug,
+          "imageSrc": photo.asset->url,
+          "excerpt": shortDescription.${lang}
+        } | order(publishedAt desc) [${(currentPage - 1) * itemsPerPage}...${currentPage * itemsPerPage}]
+      `;
+      const data = await client.fetch(query);
+      setBlogs(data);
     };
+
     getBlogs();
-  }, [currentPage]);
+  }, [currentPage, locale]); // Обновляем при изменении страницы или языка
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -24,14 +44,22 @@ const BlogPagination = () => {
 
   return (
     <div>
+      {/* Сетка блогов */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {blogs.map((blog) => (
-          <div key={blog.id}>
-            <Blog title={blog.headOption.title} excerpt={blog.headOption.body} slug={`blogs/${blog.slug}`} imageSrc={blog.headOption.photo.httpUrl} />
+          <div key={blog.slug.current}>
+            <Blog
+              title={blog.title[locale]} // Заголовок на нужном языке
+              excerpt={blog.excerpt}
+              slug={`blogs/${blog.slug.current}`}
+              imageSrc={blog.imageSrc}
+            />
           </div>
         ))}
       </div>
-      <div className="mt-6 flex">
+
+      {/* Пагинация */}
+      <div className="mt-6 flex justify-center">
         <ul className="flex list-none">
           {[...Array(totalPages)].map((_, index) => (
             <li key={index}>

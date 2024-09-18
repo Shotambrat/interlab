@@ -21,7 +21,7 @@ export default function Page({params}) {
           <h2  className="text-4xl max-md:text-2xl font-bold mdl:mb-8">
           {t('Blog.title')}
           </h2>
-          <BlogPagination />
+          <BlogPagination locale={params.locale} />
           </div>
         </div>
       </div>

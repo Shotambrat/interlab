@@ -22,7 +22,8 @@ const Slider = ({ params }) => {
   useEffect(() => {
     const fetchBanners = async () => {
       try {
-        const banners = await client.fetch(`*[_type == 'banner' && active == true] {
+        const banners =
+          await client.fetch(`*[_type == 'banner' && active == true] {
           title,
           subtitle,
           description,
@@ -93,9 +94,7 @@ const Slider = ({ params }) => {
   }, [banners]);
 
   if (!banners.length) {
-    return <p className="h-[674px] w-full">
-
-    </p>;
+    return <p className="h-[674px] w-full"></p>;
   }
 
   // Анимация для слайдов
@@ -148,30 +147,32 @@ const Slider = ({ params }) => {
                   variants={slideAnimation}
                   className="flex flex-col self-stretch mt-5 max-md:max-w-full"
                 >
-                  <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full leading-6 lg:leading-12">
+                  <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full lg:leading-12">
                     {banners[currentSlide].title[locale]}
                   </h1>
-                  <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full leading-6 lg:leading-12  ">
+                  <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full  lg:leading-12  ">
                     {banners[currentSlide].subtitle[locale]}
                   </h1>
                   <p
                     className="mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full"
                     dangerouslySetInnerHTML={{
-                      __html: formatText(banners[currentSlide].description[locale]),
+                      __html: formatText(
+                        banners[currentSlide].description[locale]
+                      ),
                     }}
                   />
                 </motion.div>
               </AnimatePresence>
             ) : (
-              <div className="flex flex-col self-stretch mt-5 max-md:max-w-full">
-                <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full leading-6 ">
+              <div className="flex flex-col self-stretch max-md:max-w-full">
+                <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full mb-0 leading-tight">
                   {banners[0].title[locale]}
                 </h1>
-                <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full leading-6 ">
+                <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full mt-0 mb-2 leading-tight">
                   {banners[0].subtitle[locale]}
                 </h1>
                 <p
-                  className="mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full"
+                  className="text-sm mt-5 mdx:text-lg text-zinc-600 max-md:max-w-full"
                   dangerouslySetInnerHTML={{
                     __html: formatText(banners[0].description[locale]),
                   }}

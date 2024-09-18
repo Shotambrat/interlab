@@ -6,9 +6,11 @@ import Blog from "@/app/[locale]/_components/Blog";
 import ButtonLinkBorder from "@/app/[locale]/_components/buttons/ButtonLinkBorder";
 import Link from "next/link";
 import BlockContent from "@sanity/block-content-to-react";
+import { useTranslations } from "next-intl";
 
 export default function Page({ params }) {
   const [blog, setBlog] = useState(null);
+  const t = useTranslations('')
 
   useEffect(() => {
     const fetchBlogBySlug = async (slug) => {
@@ -41,6 +43,8 @@ export default function Page({ params }) {
     getBlog();
   }, [params.slug]);
 
+  console.log(blog, params.slug)
+
   if (!blog) {
     return <p>Загрузка...</p>;
   }
@@ -70,11 +74,11 @@ export default function Page({ params }) {
           </div>
         </div>
         <div className="flex flex-col gap-10">
-          <h2 className="text-4xl max-mdx:text-3xl font-bold">Другие новости</h2>
+          <h2 className="text-4xl max-mdx:text-3xl font-bold">{t('Blog.other')}</h2>
           <Blog />
           <div className="w-full flex justify-center">
             <Link href={`/${params.locale}/blogs`}>
-              <ButtonLinkBorder title={"Все новости"} />
+              <ButtonLinkBorder title={t('Main.Blogs.more')} />
             </Link>
           </div>
         </div>

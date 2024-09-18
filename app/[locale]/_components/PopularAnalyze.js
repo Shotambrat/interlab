@@ -43,7 +43,7 @@ export default function PopularAnalyze({ params }) {
           {t('Main.Popular-analyze.graphic')}
         </p>
       </div>
-      <div className="w-full flex gap-4 flex-wrap">
+      <div className="w-full grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-3 gap-4">
         {popularTests.map((test) => (
           <PopularAnalyzeItem
             key={test.slug.current}
@@ -55,7 +55,7 @@ export default function PopularAnalyze({ params }) {
       </div>
       <div className="w-full flex justify-center">
         <a
-          href="/analyze"
+          href={`/${params.locale}/analyze`}
           className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
         >
           <span className="my-auto">{t('Main.Popular-analyze.all')}</span>

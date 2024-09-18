@@ -131,13 +131,13 @@ function Main({ params }) {
           </div>
         </main>
 
-        <div className="flex flex-col self-center mdx:px-5 mt-12 w-full max-w-[1440px] max-md:mt-10 max-md:max-w-full">
+        <div className="flex flex-col self-center mdx:px-5 mt-24 w-full max-w-[1440px] max-md:max-w-full">
           <div className="max-md:max-w-full">
             <div className="flex slg:gap-20 flex-col slg:flex-row gap-0">
               <div className="flex flex-col w-full slg:w-2/5 max-md:ml-0 max-md:w-full">
                 <div className="flex flex-col max-md:mt-5 max-md:max-w-full">
                   <div className="flex flex-col max-md:max-w-full">
-                    <h2 className="text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
+                    <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
                       {t("Main.ContactUs.title")}
                     </h2>
                     <p
@@ -220,7 +220,7 @@ function Main({ params }) {
           </div>
 
           <a href="/services">
-            <h2 className="lg:mt-52 mt-10 text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
+            <h2 className="lg:mt-52 mt-24 text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
               {t("Main.Services.title")}
             </h2>
           </a>
@@ -315,7 +315,7 @@ function Main({ params }) {
                 onClick={() => setServicesOpen((prev) => !prev)}
                 className="text-rose-400 text-xl font-semibold flex gap-3 items-center"
               >
-                <p>{servicesOpen ? t("collapse") : t("Main.Services.all")}</p>
+                {servicesOpen ? t("collapse") : t("Main.Services.all")}
                 <Image
                   src={arrowDownRed}
                   height={100}
@@ -331,7 +331,7 @@ function Main({ params }) {
 
           {/* <MainMap /> */}
 
-          <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
+          <h2 className="mt-24 text-3xl font-bold text-neutral-900 max-md:max-w-full">
             {t("Main.Sales.title")}
           </h2>
           <Sale locale={params.locale} />
@@ -347,8 +347,8 @@ function Main({ params }) {
               alt="Arrow icon"
             />
           </a>
-          <div className="flex flex-col mt-20 mdx:mt-52 max-w-full w-[588px]">
-            <h2 className="text-2xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
+          <div className="flex flex-col mt-24 mdx:mt-52 max-w-full w-[588px]">
+            <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
               {t("Main.Doctors.title")}
             </h2>
             <p className="mt-3 text-sm mdx:text-lg text-neutral-400 w-full leading-4">
@@ -404,13 +404,16 @@ function Main({ params }) {
               alt="Arrow icon"
             />
           </a>
+          <div className="mt-24">
           <PopularAnalyze params={params} />
-          <div className="mt-52 max-md:mt-10">
+
+          </div>
+          <div className="mt-52 max-md:mt-24">
             <Instruction />
           </div>
-          <section className="mt-52 max-md:mt-10 w-full">
+          <section className="mt-52 max-md:mt-24 w-full">
             <div className="flex gap-5 flex-col lg:flex-row max-md:gap-0 ">
-              <h2 className="text-2xl leading-6 font-bold lg:hidden block text-neutral-900 max-md:max-w-full">
+              <h2 className="text-3xl leading-6 font-bold lg:hidden block text-neutral-900 max-md:max-w-full">
                 {t("Main.About.title")}
               </h2>
               <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
@@ -454,7 +457,7 @@ function Main({ params }) {
               </div>
             </div>
           </section>
-          <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
+          <h2 className="mt-52 text-3xl font-bold text-neutral-900 max-md:mt-24 max-md:max-w-full">
             {t("Main.Blogs.title")}
           </h2>
           <Blog locale={params.locale} />
