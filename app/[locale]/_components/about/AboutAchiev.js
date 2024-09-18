@@ -1,37 +1,41 @@
+import { useTranslations } from "next-intl";
+
+
 const AboutService = () => {
+  const t = useTranslations('About.achievements');
     return (
         <div className="w-full max-w-[1440px] mx-auto mt-24">
           <div className="container mx-auto py-8">
-            <h2 className="text-3xl font-bold mb-6">Достижения</h2>
+            <h2 className="text-3xl font-bold mb-6">{t('title')}</h2>
             <div className="grid grid-cols-1 mdl:grid-cols-2 gap-5 text-rose-400">
               <div className="p-6 border bg-rose-100 rounded-3xl">
                 <h3 className="text-2xl font-semibold mb-4">
-                  ЦКДЛ
+                {t('title1')}
                 </h3>
                 <p className="text-neutral-400">
-                Заборные пункты в каждой семейной поликлинике по г. Ташкенту
+                {t('description1')}
                 </p>
               </div>
               <div className="p-6 border bg-rose-100 rounded-3xl">
                 <h3 className="text-2xl font-semibold mb-4">
-                Функциональная диагностика
+                {t('title2')}
                 </h3>
                 <p className="text-neutral-400">
-                Большой выбор диагностических услуг позволяющие провести детальное обследование
+                {t('description2')}
                 </p>
               </div>
               <div className="p-6 border bg-rose-100 rounded-3xl">
                 <h3 className="text-2xl font-semibold mb-4">
-                Медицинское оборудование
+                {t('title3')}
                 </h3>
                 <p className="text-neutral-400">
-                В клинике Intermed используется наилучшее оборудование отвечающее всем международным стандартам
+                {t('description3')}
                 </p>
               </div>
               <div className="p-6 border bg-rose-100 rounded-3xl">
-                <h3 className="text-2xl font-semibold mb-4">Опытные специалисты</h3>
+                <h3 className="text-2xl font-semibold mb-4">{t('title4')}</h3>
                 <p className="text-neutral-400">
-                Наши врачи имеют многолетний опыт и высокую квалификацию, постоянно совершенствуются в своей профессии
+                {t('description4')}
                 </p>
               </div>
             </div>

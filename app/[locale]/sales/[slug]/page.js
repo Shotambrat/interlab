@@ -90,7 +90,7 @@ export default function Page({ params }) {
           </h2>
           <Sale locale={params.locale} />
           <div className="w-full flex justify-center">
-            <Link href="/blogs">
+            <Link href={`/${params.locale}/blogs`}>
               <ButtonLinkBorder title={t('all')} />
             </Link>
           </div>

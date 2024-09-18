@@ -73,7 +73,7 @@ export default function Page({ params }) {
           <h2 className="text-4xl max-mdx:text-3xl font-bold">Другие новости</h2>
           <Blog />
           <div className="w-full flex justify-center">
-            <Link href="/blogs">
+            <Link href={`/${params.locale}/blogs`}>
               <ButtonLinkBorder title={"Все новости"} />
             </Link>
           </div>

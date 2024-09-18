@@ -1,53 +1,40 @@
+import { useTranslations } from "next-intl";
+
 const AboutService = () => {
+  const t = useTranslations('About.services')
   return (
       <div className="w-full max-w-[1440px] mx-auto mt-24">
         <div className="container mx-auto py-8">
-          <h2 className="text-3xl font-bold mb-6 ml-6">Наши услуги</h2>
+          <h2 className="text-3xl font-bold mb-6 ml-6">{t('title')}</h2>
           <div className="grid grid-cols-1 mdl:grid-cols-2 text-rose-400">
             <div className="p-6 border-b border-r border-gray-200">
-              <h3 className="text-2xl font-semibold mb-4">
-                ЛАБОРАТОРНЫЕ ИССЛЕДОВАНИЯ
+              <h3 className="text-2xl uppercase font-semibold mb-4">
+              {t('title1')}
               </h3>
               <p className="text-neutral-400">
-                Intermed предлагает более 1000 видов лабораторных анализов,
-                включая биохимические, гематологические, иммунологические и
-                генетические исследования. Наши лаборатории оснащены новейшими
-                автоматическими анализаторами, что обеспечивает точность и
-                надежность результатов.
+                {t('description1')}
               </p>
             </div>
             <div className="p-6 border-l border-b border-gray-200 ">
               <h3 className="text-2xl font-semibold mb-4">
-                ДИАГНОСТИЧЕСКИЕ УСЛУГИ
+              {t('title2')}
               </h3>
               <p className="text-neutral-400">
-                Мы предлагаем высокотехнологичную диагностику, включая УЗИ,
-                цифровую рентгенографию, эндоскопию, ЭКГ и доплерографию.
-                Современное оборудование позволяет выявлять заболевания на
-                ранних стадиях и эффективно контролировать процесс лечения.
+              {t('description2')}
               </p>
             </div>
             <div className="p-6 border-t border-r border-gray-200">
               <h3 className="text-2xl font-semibold mb-4">
-                КОНСУЛЬТАЦИИ СПЕЦИАЛИСТОВ
+              {t('title3')}
               </h3>
               <p className="text-neutral-400">
-                В нашей клинике работают высококвалифицированные врачи различных
-                специальностей, включая кардиологов, неврологов, эндокринологов,
-                гастроэнтерологов, пульмонологов и других специалистов. Мы
-                предлагаем консультации и комплексное обследование для точной
-                диагностики и эффективного лечения.
+              {t('description3')}
               </p>
             </div>
             <div className="p-6 border-t border-l border-gray-200">
-              <h3 className="text-2xl font-semibold mb-4">ФИЗИОТЕРАПИЯ</h3>
+              <h3 className="text-2xl font-semibold mb-4">{t('title4')}</h3>
               <p className="text-neutral-400">
-                Intermed оснащен передовым физиотерапевтическим оборудованием.
-                Мы предлагаем широкий спектр процедур, таких как ударно-волновая
-                терапия, электрофорез, инфракрасная лазеротерапия и
-                миостимуляция. Эти методы помогают в реабилитации и лечении
-                различных заболеваний, улучшая общее состояние здоровья
-                пациентов.
+              {t('description4')}
               </p>
             </div>
           </div>

@@ -1,7 +1,10 @@
 import Sale from "@/app/[locale]/_components/Sale";
 import BlogPagination from "@/app/[locale]/_components/blogs/BlogPagination";
+import { useTranslations } from "next-intl";
 
-export default function page() {
+export default function Page({params}) {
+  const t = useTranslations()
+
   return (
     <div>
       <div className="w-full bg-white ">
@@ -9,14 +12,14 @@ export default function page() {
           <div>
 
           <h2 className="text-4xl max-md:text-2xl font-bold mb-4 xl:w-[50%]">
-            Выгодные предложения и полезные советы от клиники{" "}
-            <span className="text-red-500">Intermed</span>
+            {t('Blog.prom-title')}{" "}
+            <span className="text-red-500">{t('Blog.sub-prom-title')}</span>
           </h2>
-          <Sale />
+          <Sale locale={params.locale} />
           </div>
           <div>
           <h2  className="text-4xl max-md:text-2xl font-bold mdl:mb-8">
-            Блог
+          {t('Blog.title')}
           </h2>
           <BlogPagination />
           </div>

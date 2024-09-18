@@ -6,8 +6,10 @@ import Application from '@/app/[locale]/_components/Application';
 import Blog from '@/app/[locale]/_components/Blog';
 import Image from 'next/image';
 import arrowRightRed from "@/public/svg/arrow-right-red.svg";
+import { useTranslations } from 'next-intl';
 
 export default function ServiceList({ services, locale }) {
+  const t = useTranslations()
   // Получаем уникальные категории
   const categories = Array.from(
     new Set(services.map((service) => service.category.slug.current))
@@ -57,11 +59,11 @@ export default function ServiceList({ services, locale }) {
           <Application />
         </section>
         <h2 className="text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
-          Блоги
+          {t('Licencies.blogs')}
         </h2>
         <Blog />
         <button className="flex gap-2 justify-center items-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
-          <span className="my-auto">Все Блоги</span>
+          <span className="my-auto">{t('Blog.other')}</span>
           <Image
           src={arrowRightRed}
           width={100}

@@ -1,8 +1,11 @@
 import Image from "next/image";
 import LinkYakor from "@/app/[locale]/_components/LinkYakor";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
-const DoctorCardMain = ({ name, specialty, imageSrc, slug, locale }) => (
+const DoctorCardMain = ({ name, specialty, imageSrc, slug, locale }) =>{
+  const t = useTranslations()
+  return (
   <Link href={`/${locale}/doctors/${slug}`}>
   <article className="flex flex-col w-full max-w-[320px] grow pb-2 max-md:mt-5">
     <div className="flex justify-between h-full flex-col pb-5 bg-white shadow-lg md:shadow-2xl rounded-[30px]">
@@ -26,11 +29,11 @@ const DoctorCardMain = ({ name, specialty, imageSrc, slug, locale }) => (
       </div>
       </div>
       <button className="w-[80%] mx-auto py-3 rounded-full text-center text-rose-400 hover:text-rose-500 hover:bg-rose-200 transition-all duration-200 border border-neutral-200 mt-4 text-lg font-semibold">
-        Записаться
+        {t('Doctors.sign-up')}
       </button>
     </div>
   </article>
   </Link>
-);
+)};
 
 export default DoctorCardMain;

@@ -4,10 +4,12 @@ import licenseImage from "@/public/images/license.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay } from "swiper";
 import "swiper/swiper-bundle.css";
+import { useTranslations } from "next-intl";
 
 SwiperCore.use([Autoplay]);
 
 const AboutLicense = () => {
+  const t = useTranslations("");
   const licenses = [
     licenseImage, // Replace with actual image paths
     licenseImage, // Replace with actual image paths
@@ -22,7 +24,7 @@ const AboutLicense = () => {
 
   return (
     <div className="w-full max-w-[1400px] mx-auto mt-24">
-      <h2 className="text-center text-2xl font-bold my-4">Лицензии</h2>
+      <h2 className="text-center text-2xl font-bold my-4">{t('About.licences')}</h2>
       <Swiper
         spaceBetween={10}
         slidesPerView={1}
@@ -57,7 +59,7 @@ const AboutLicense = () => {
       </Swiper>
       <div className="w-full flex justify-center">
       <button className="flex gap-2 justify-center self-center px-10 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
-        <span className="my-auto">Подробнее</span>
+        <span className="my-auto">{t('Main.Banner.more')}</span>
         <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"

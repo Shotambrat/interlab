@@ -102,10 +102,12 @@
     "subtitle": "xizmatlari",
     "description": "Biz yuqori malakali mutaxassislar bilan maslahatlar, zamonaviy diagnostika jarayonlari va laboratoriya tadqiqotlarini o'z ichiga olgan keng ko'lamli tibbiy xizmatlarni taklif etamiz. Shifokorlarimiz sizning sog'lig'ingizga g'amxo'rlik qiladi va davolanishning har bir bosqichida sizga yordam berishga tayyor.",
     "desc": "Tavsif",
-    "also": "Sizni qiziqtirishi mumkin"
+    "also": "Sizni qiziqtirishi mumkin",
+    "linkUp": "O`tish"
   },
   "Doctors": {
-    "title": "Bizning shifokorlarimiz - faxrimiz",
+    "title": "Bizning shifokorlarimiz -",
+    "subtitle": "faxrimiz",
     "description": "Intermed klinikasining shifokorlari har doim yordam berishga tayyor mutaxassislar. Shifokorlarimiz chuqur bilim va tajribaga ega bo'lib, turli kasalliklarni samarali tashxislash va davolash imkoniyatiga ega. Biz ishonamizki, siz bizning klinikamizda sog'lig'ingizni ishonib topshiradigan shifokorni topasiz.",
     "sign-up": "Ro'yxatdan o'tish",
     "searchPlaceholder": "Shifokor ismi yoki familiyasini kiriting",

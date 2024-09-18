@@ -5,6 +5,15 @@ import { getMessages } from 'next-intl/server';
 import Header from "@/app/[locale]/_components/Header";
 import Footer from "@/app/[locale]/_components/Footer";
 
+export const metadata = {
+  title: {
+    template: "%s",
+    default: "Interlab Innovation"
+  },
+  description: "Intermed Innovation by Intermed"
+}
+
+
 export default async function LocaleLayout({ children, params }) {
   const { locale } = params;
   const messages = await getMessages(locale);

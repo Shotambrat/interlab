@@ -1,21 +1,23 @@
 import Image from "next/image";
 import aboutFirstImage from "@/public/images/about-first-image.png";
+import { useTranslations } from "next-intl";
+
 
 function AboutInfo() {
+  const t = useTranslations('About.more-info');
+  function formatTextWithNewlines(text) {
+    // Заменим все вхождения \n на <br />
+    return text.replace(/\n/g, '<br />');
+  }
+  
   return (
     <section className="px-5 w-full max-w-[1440px] mx-auto flex flex-col gap-5 mt-24">
       <h2 className="text-3xl font-bold">
-        Клиника <span className="text-rose-400">Intermed</span>
+      {t('title')} <span className="text-rose-400">{t('subtitle')}</span>
       </h2>
-      <p className="text-neutral-600 w-full max-w-[700px]">
-        Клиника Intermed — это современный медицинский центр, предоставляющий
-        полный спектр услуг для диагностики, лечения и профилактики заболеваний
-      </p>
-      <p className="text-neutral-600 w-full max-w-[700px]">
-        Мы стремимся к высокому качеству обслуживания и заботимся о здоровье
-        наших пациентов, предлагая передовые медицинские технологии и
-        индивидуальный подход
-      </p>
+      <p className="text-neutral-600 w-full max-w-[700px]" dangerouslySetInnerHTML={{
+                    __html: formatTextWithNewlines(t('description')),
+                  }} />
       <div className="w-full flex justify-center">
         <div class="grid grid-cols-3 grid-rows-2 gap-4 max-lg:hidden w-full h-[500px]">
           <div className="row-span-2">
