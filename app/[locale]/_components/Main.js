@@ -108,7 +108,7 @@ function Main({ params }) {
       {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
       {/* <HouseCallSuccess /> */}
       {/* <HouseCall /> */}
-      <div className="flex flex-col bg-white px-2 lg:px-16">
+      <div className="flex flex-col bg-white gap-12 lg:gap-24 px-2 lg:px-16">
         <main className="flex flex-col self-center w-full max-w-[1414px] max-md:max-w-full">
           <BannerMain params={params} />
           <div className="flex gap-5 self-end mt-4 text-xs font-semibold text-center uppercase">
@@ -131,7 +131,7 @@ function Main({ params }) {
           </div>
         </main>
 
-        <div className="flex flex-col self-center mdx:px-5 mt-60 w-full max-w-[1440px] max-md:mt-10 max-md:max-w-full">
+        <div className="flex flex-col self-center mdx:px-5 mt-12 w-full max-w-[1440px] max-md:mt-10 max-md:max-w-full">
           <div className="max-md:max-w-full">
             <div className="flex slg:gap-20 flex-col slg:flex-row gap-0">
               <div className="flex flex-col w-full slg:w-2/5 max-md:ml-0 max-md:w-full">

@@ -4,14 +4,14 @@ import Link from "next/link";
 import resultLogo from "@/public/svg/result-logo.svg";
 
 const SocialIcon = ({ src, linkUrl }) => (
-  <Link href={linkUrl}>
+  <a target="_blank" href={linkUrl}>
     <img
       loading="lazy"
       src={src}
       className="shrink-0 aspect-square w-[45px]"
       alt="Social media icon"
     />
-  </Link>
+  </a>
 );
 
 const FooterLink = ({ text }) => <div className="mt-5">{text}</div>;

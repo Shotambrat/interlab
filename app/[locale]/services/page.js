@@ -21,7 +21,7 @@ export default async function ServicePage({ params }) {
 
   return (
     <div>
-      <ServiceBanner />
+      <ServiceBanner locale={locale} />
       <ServiceList services={services} locale={locale} />
     </div>
   );

@@ -98,7 +98,8 @@
     "searchPlaceholder": "Tahlil nomini kiriting"
   },
   "Services": {
-    "title": "Intermed klinikasi xizmatlari",
+    "title": "Intermed klinikasi",
+    "subtitle": "xizmatlari",
     "description": "Biz yuqori malakali mutaxassislar bilan maslahatlar, zamonaviy diagnostika jarayonlari va laboratoriya tadqiqotlarini o'z ichiga olgan keng ko'lamli tibbiy xizmatlarni taklif etamiz. Shifokorlarimiz sizning sog'lig'ingizga g'amxo'rlik qiladi va davolanishning har bir bosqichida sizga yordam berishga tayyor.",
     "desc": "Tavsif",
     "also": "Sizni qiziqtirishi mumkin"

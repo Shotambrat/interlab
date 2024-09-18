@@ -5,6 +5,7 @@ import Application from "@/app/[locale]/_components/Application";
 import Blog from "@/app/[locale]/_components/Blog";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/lib/client";
+import SearchComp from "../SearchComp";
 
 const builder = imageUrlBuilder(client);
 function urlFor(source) {
@@ -15,11 +16,18 @@ export default function Filter({ doctors, locale }) {
   return (
     <div className="w-full h-auto bg-white max-mdl:px-4 py-24">
       <div className="w-full max-w-[1440px] mx-auto h-auto flex flex-wrap gap-10">
+      <div className="w-full max-w-[1440px] mx-auto my-12">
+        <SearchComp />
+      </div>
         {doctors.map((doctor, index) => (
           <DoctorCard
+            locale={locale}
             key={index}
             name={doctor.name[locale] || doctor.name.ru}
-            specialty={doctor.position[locale].join(", ") || doctor.position.ru.join(", ")}
+            specialty={
+              doctor.position[locale].join(", ") ||
+              doctor.position.ru.join(", ")
+            }
             imageSrc={urlFor(doctor.photo).url()}
             slug={doctor.slug.current}
           />

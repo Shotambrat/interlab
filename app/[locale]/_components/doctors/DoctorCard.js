@@ -1,8 +1,10 @@
 import Image from "next/image";
 import LinkYakor from "@/app/[locale]/_components/LinkYakor";
+import Link from "next/link";
 
-const DoctorCardMain = ({ key, name, specialty, imageSrc, slug }) => (
-  <article key={key} className="flex flex-col w-full max-w-[320px] grow pb-2 max-md:mt-5">
+const DoctorCardMain = ({ name, specialty, imageSrc, slug, locale }) => (
+  <Link href={`/${locale}/doctors/${slug}`}>
+  <article className="flex flex-col w-full max-w-[320px] grow pb-2 max-md:mt-5">
     <div className="flex justify-between h-full flex-col pb-5 bg-white shadow-lg md:shadow-2xl rounded-[30px]">
       <div>
 
@@ -28,6 +30,7 @@ const DoctorCardMain = ({ key, name, specialty, imageSrc, slug }) => (
       </button>
     </div>
   </article>
+  </Link>
 );
 
 export default DoctorCardMain;

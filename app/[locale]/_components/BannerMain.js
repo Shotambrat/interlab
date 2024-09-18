@@ -93,7 +93,9 @@ const Slider = ({ params }) => {
   }, [banners]);
 
   if (!banners.length) {
-    return <p>Нет доступных баннеров</p>;
+    return <p className="h-[674px] w-full">
+
+    </p>;
   }
 
   // Анимация для слайдов
@@ -146,10 +148,10 @@ const Slider = ({ params }) => {
                   variants={slideAnimation}
                   className="flex flex-col self-stretch mt-5 max-md:max-w-full"
                 >
-                  <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full leading-6 lg:leading-63">
+                  <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full leading-6 lg:leading-12">
                     {banners[currentSlide].title[locale]}
                   </h1>
-                  <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full leading-6 lg:leading-63">
+                  <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full leading-6 lg:leading-12  ">
                     {banners[currentSlide].subtitle[locale]}
                   </h1>
                   <p
@@ -162,10 +164,10 @@ const Slider = ({ params }) => {
               </AnimatePresence>
             ) : (
               <div className="flex flex-col self-stretch mt-5 max-md:max-w-full">
-                <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full leading-6 lg:leading-63">
+                <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full leading-6 ">
                   {banners[0].title[locale]}
                 </h1>
-                <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full leading-6 lg:leading-63">
+                <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full leading-6 ">
                   {banners[0].subtitle[locale]}
                 </h1>
                 <p
