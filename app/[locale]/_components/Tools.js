@@ -15,6 +15,7 @@ import resultsRed from "@/public/svg/results/results-red.svg";
 import resultsHover from "@/public/svg/results/results-hover.svg";
 import { useTranslations } from "next-intl";
 
+
 export default function Tools({ navOptions, locale }) {
   const availableLocales = ["uz", "ru"];
   const [isOpen, setIsOpen] = useState(false);
@@ -37,12 +38,12 @@ export default function Tools({ navOptions, locale }) {
   };
 
   return (
-    <div className="flex gap-5 justify-between self-stretch my-auto">
+    <div className="flex gap-5 max-mdx:gap-2 justify-between self-stretch my-auto">
       {search && <SearchBar setSearch={setSearch} />}
-      <div className="flex items-center gap-4 my-auto">
+      <div className="flex items-center gap-4 max-mdx:gap-1 my-auto">
         <a href={`/${locale}/results`}>
-          <button className="py-1 group text-lg font-bold rounded-xl hover:shadow-none hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center gap-2 shadow-lg px-4">
-            <div className="relative w-10 h-10">
+          <button className="py-1 group max-mdx:text-sm  text-lg font-bold rounded-xl hover:shadow-none hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center gap-2 border px-4 max-mdx:px-1">
+            <div className="relative w-10 h-10 max-mdx:w-8 max-mdx:h-8">
               {/* Обычная иконка */}
               <Image
                 src={resultsRed}
@@ -65,8 +66,11 @@ export default function Tools({ navOptions, locale }) {
             {t("Header.results")}
           </button>
         </a>
+        <div className="max-mdx:hidden">
         <Search setSearch={setSearch} />
-        <a className="hidden md:block" href="tel:+998777777777">
+
+        </div>
+        <a  className="hidden mdx:block" href="tel:+998777777777">
           <Image
             priority
             src={phone}
@@ -88,7 +92,7 @@ export default function Tools({ navOptions, locale }) {
         </Link> */}
       </div>
       <div className="flex gap-2 text-base whitespace-nowrap my-1">
-        <div className="flex gap-0 justify-center px-2 mdx:px-3 py-2 mdx:py-2 border border-solid border-neutral-200 rounded-[100px] text-neutral-900">
+        <div className="flex max-mdx:hidden gap-0 justify-center px-2 mdx:px-3 py-2 mdx:py-2 border border-solid border-neutral-200 rounded-[100px] text-neutral-900">
           <div className="relative inline-block text-left">
             <div>
               <button
@@ -171,7 +175,7 @@ export default function Tools({ navOptions, locale }) {
         </div>
       </div>
       {menu ? (
-        <Menu menu={menu} closeMenu={handleCloseMenu} navOptions={navOptions} />
+        <Menu menu={menu} closeMenu={handleCloseMenu} navOptions={navOptions} locale={locale} setSearch={setSearch} />
       ) : null}
     </div>
   );
