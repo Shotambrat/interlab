@@ -2,22 +2,24 @@ import Image from "next/image";
 import aboutFirstImage from "@/public/images/about-first-image.png";
 import { useTranslations } from "next-intl";
 
-
 function AboutInfo() {
-  const t = useTranslations('About.more-info');
+  const t = useTranslations("About.more-info");
   function formatTextWithNewlines(text) {
     // Заменим все вхождения \n на <br />
-    return text.replace(/\n/g, '<br />');
+    return text.replace(/\n/g, "<br />");
   }
-  
+
   return (
     <section className="px-5 w-full max-w-[1440px] mx-auto flex flex-col gap-5 mt-24">
       <h2 className="text-3xl font-bold">
-      {t('title')} <span className="text-rose-400">{t('subtitle')}</span>
+        {t("title")} <span className="text-rose-400">{t("subtitle")}</span>
       </h2>
-      <p className="text-neutral-600 w-full max-w-[700px]" dangerouslySetInnerHTML={{
-                    __html: formatTextWithNewlines(t('description')),
-                  }} />
+      <p
+        className="text-neutral-600 w-full max-w-[700px]"
+        dangerouslySetInnerHTML={{
+          __html: formatTextWithNewlines(t("description")),
+        }}
+      />
       <div className="w-full flex justify-center">
         <div class="grid grid-cols-3 grid-rows-2 gap-4 max-lg:hidden w-full h-[500px]">
           <div className="row-span-2">
@@ -58,8 +60,6 @@ function AboutInfo() {
           </div>
         </div>
 
-
-
         <div class="grid grid-cols-2 grid-rows-5 gap-4 max-mdx:hidden lg:hidden w-full h-[600px]">
           <div className="row-span-3">
             <Image
@@ -98,8 +98,6 @@ function AboutInfo() {
             />
           </div>
         </div>
-
-
 
         <div class="grid grid-cols-1 grid-rows-10 gap-4 mdx:hidden w-full h-[800px]">
           <div className="row-span-3">

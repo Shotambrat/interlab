@@ -215,7 +215,8 @@
     "contacts": {
       "title": "Biz bilan bog'laning",
       "description": "Yuridik shaxslar uchun xizmatlarimiz haqida ko'proq bilish va hamkorlik shartlarini muhokama qilish uchun biz bilan bog'laning",
-      "phone-for-call": "Aloqa uchun telefon"
+      "phone-for-call": "Aloqa uchun telefon",
+      "call": "Qo`ngiroq qilish"
     }
   },
   "Instructions": {

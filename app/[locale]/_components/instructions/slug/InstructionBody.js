@@ -1,4 +1,4 @@
-
+import { useTranslations } from "next-intl"
 
 const data = [
     {
@@ -44,10 +44,11 @@ const data = [
 ]
 
 export default function InstructionBody() {
+    const t = useTranslations('Instructions')
   return (
     <div className="w-full max-w-[1440px] px-2 mx-auto flex flex-col gap-6">
         <h2 className="text-4xl font-semibold">
-            Инструкция
+            {t('instruction')}
         </h2>
         {
             data.map((item, index) => (

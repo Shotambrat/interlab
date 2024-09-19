@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const data = [
   {
@@ -16,9 +17,10 @@ const data = [
 ];
 
 export default function Other() {
+  const t = useTranslations('Vacancies')
   return (
     <div className="w-full max-w-[1440px] mx-auto px-2 flex flex-col gap-8">
-      <h2 className="text-4xl font-semibold">Вакансии</h2>
+      <h2 className="text-4xl font-semibold">{t('vacansies')}</h2>
       <div className="w-full grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.map((items, index) => {
           return (
@@ -29,7 +31,7 @@ export default function Other() {
             >
               <h4 className="text-xl font-semibold">{items.title}</h4>
               <div className="text-red-400 text-xl font-semibold">
-                Подробнее
+                {t('more')}
               </div>
             </Link>
           );

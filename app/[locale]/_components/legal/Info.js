@@ -1,37 +1,41 @@
+import { useTranslations } from "next-intl";
+
+
 export default function Info() {
+  const formatText = (text) => {
+    return text.replace(/\n/g, "<br />")
+  }
+  const t = useTranslations('Legal.info');
   return (
     <div className="w-full max-w-[1440px] flex flex-col gap-10 mx-auto px-2">
       <div className="flex w-full max-mdl:flex-col max-mdl:gap-8">
         <div className="flex-1">
           <h2 className="text-4xl max-mdx:text-3xl font-bold w-full max-w-[60%]">
-            Корпоротивное обслуживание
+            {t('title1')}
           </h2>
         </div>
         <div className="flex-1 flex flex-col gap-4 leading-5">
-          <p className="w-full slg:max-w-[70%]">
-            Мы предоставляем широкий спектр медицинских услуг для компаний,
-            включая профилактические осмотры, диагностику, вакцинацию и лечение.
-          </p>
-          <p className="w-full slg:max-w-[70%]">
-          Наши программы корпоративного здоровья разработаны для улучшения
-          благополучия ваших сотрудников и повышения их производительности.
-          </p>
+          <p className="w-full slg:max-w-[70%]"
+            dangerouslySetInnerHTML={{
+              __html: formatText(t("description1")),
+            }}
+          />
+           
         </div>
       </div>
       <hr />
       <div className="flex w-full max-mdl:flex-col max-mdl:gap-8">
         <div className="flex-1">
           <h2 className="text-4xl max-mdx:text-3xl font-bold w-full max-w-[60%]">
-            Партнерство с клиниками
+          {t('title2')}
           </h2>
         </div>
         <div className="flex-1 flex flex-col gap-4 leading-5">
-          <p className="w-full slg:max-w-[70%]">
-          Клиника Intermed сотрудничает с ведущими медицинскими учреждениями, чтобы обеспечить качественное и своевременное обслуживание пациентов.
-          </p>
-          <p className="w-full slg:max-w-[70%]">
-          Мы предлагаем выгодные условия партнёрства, включая обмен опытом, совместные медицинские проекты и взаимное направление пациентов.
-          </p>
+          <p className="w-full slg:max-w-[70%]" 
+              dangerouslySetInnerHTML={{
+                __html: formatText(t('description2'))
+              }}
+          />
         </div>
       </div>
     </div>

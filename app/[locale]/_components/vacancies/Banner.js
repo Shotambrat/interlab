@@ -1,16 +1,18 @@
-import doctorsBanner from "@/public/images/doctors-manner.png";
+import doctorsBanner from "@/public/images/vacancies/vacancies-banner.png";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function ServiceBanner() {
+  const t = useTranslations('Vacancies')
   return (
     <div className="relative bg-gray-50 pt-10 px-2">
       <div className="relative mx-auto w-full h-full xl:pb-[100px] pb-[40px] max-w-[1440px] flex max-mdx:flex-col justify-between items-center">
         <div className="flex flex-col gap-5 w-full xl:w-3/5">
           <h1 className="xl:text-5xl slg:text-4xl text-3xl font-bold text-center xl:text-left">
-          Присоединяйтесь к команде профессионалов <span className="text-red-400">Intermed</span>
+          {t('title')} <span className="text-red-400">{t('subtitle')}</span>
           </h1>
           <p className="text-neutral-600 leading-4 xl:leading-5 text-center xl:text-left">
-          Мы всегда рады новым талантливым специалистам, готовым присоединиться к нашей команде. В Intermed мы предлагаем уникальные возможности для карьерного роста, профессионального развития и работы в дружном коллективе.
+          {t('description')}
           </p>
         </div>
         <div className="hidden xl:block xl:absolute xl:w-1/3 right-0 bottom-0">
