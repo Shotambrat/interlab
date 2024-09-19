@@ -23,7 +23,7 @@ const FooterSection = ({ title, links, locale }) => (
         <h3>{title.title}</h3>
       </Link>
       {links.map((link, index) => (
-        <Link href={link.url} key={index}>
+        <Link href={`/${locale}/${link.url}`} key={index}>
           <FooterLink text={link.title} />
         </Link>
       ))}
@@ -69,7 +69,7 @@ function Footer({ locale }) {
                     { title: t("Footer.partners"), url: "partners" },
                     { title: t("Footer.sertificates"), url: "about/licences" },
                     { title: t("Footer.equipments"), url: "" },
-                    { title: t("Footer.pricelist"), url: "/analyze" },
+                    { title: t("Footer.pricelist"), url: "analyze" },
                   ]}
                 />
                 <FooterSection

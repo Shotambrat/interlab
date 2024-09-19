@@ -46,6 +46,7 @@ export default function PopularAnalyze({ params }) {
       <div className="w-full grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-3 gap-4">
         {popularTests.map((test) => (
           <PopularAnalyzeItem
+          locale={params.locale}
             key={test.slug.current}
             title={test.name[locale]}
             price={test.price}
