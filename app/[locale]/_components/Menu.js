@@ -15,8 +15,8 @@ const Menu = ({ menu, closeMenu, navOptions }) => {
     >
       <div className="border-b py-4 flex">
         <div className="w-full flex justify-between mx-4">
-          <Profile />
-          <div className="flex justify-between items-center w-[120px]">
+          {/* <Profile /> */}
+          <div className="flex justify-end gap-2 items-center w-full">
             <a className="block border p-[7px] rounded-full" href="tel:+998777777777">
               <Image
                 priority
@@ -27,7 +27,7 @@ const Menu = ({ menu, closeMenu, navOptions }) => {
                 quality={100}
               />
             </a>
-            <Link
+            {/* <Link
               href="/backet"
               className="items-center gap-4 z-10 flex rounded-full border p-[7px]"
             >
@@ -39,7 +39,7 @@ const Menu = ({ menu, closeMenu, navOptions }) => {
                 alt="Basket icon"
                 quality={100}
               />
-            </Link>
+            </Link> */}
             <div onClick={closeMenu}>
               <Close />
             </div>
@@ -50,12 +50,12 @@ const Menu = ({ menu, closeMenu, navOptions }) => {
       <nav className="flex flex-col font-semibold">
         {navOptions.map((option) => (
           <Link key={option.id} href={option.url} onClick={closeMenu} passHref>
-            <a className="py-4 border-b">
+            <div className="py-4 border-b">
               <div className="flex justify-between mx-4">
                 <p>{option.name}</p>
                 <RightIcon />
               </div>
-            </a>
+            </div>
           </Link>
         ))}
       </nav>

@@ -11,14 +11,18 @@ import { Link, usePathname } from "@/i18n/routing"; // Импортируем us
 import ruFlag from "@/public/svg/flags/flag-for-russia-svgrepo-com.svg";
 import uzFlag from "@/public/svg/flags/flag-for-uzbekistan-svgrepo-com.svg";
 import SearchBar from "./Search/SearchBar";
+import resultsRed from "@/public/svg/results/results-red.svg";
+import resultsHover from "@/public/svg/results/results-hover.svg";
+import { useTranslations } from "next-intl";
 
 export default function Tools({ navOptions, locale }) {
   const availableLocales = ["uz", "ru"];
   const [isOpen, setIsOpen] = useState(false);
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState(false);
+  const t = useTranslations();
 
-  const pathname = usePathname(); // Получаем текущий путь без префикса локали
+  const pathname = usePathname();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -35,7 +39,32 @@ export default function Tools({ navOptions, locale }) {
   return (
     <div className="flex gap-5 justify-between self-stretch my-auto">
       {search && <SearchBar setSearch={setSearch} />}
-      <div className="flex gap-4 my-auto">
+      <div className="flex items-center gap-4 my-auto">
+        <a href={`/${locale}/results`}>
+          <button className="py-1 group text-lg font-bold rounded-xl hover:shadow-none hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center gap-2 shadow-lg px-4">
+            <div className="relative w-10 h-10">
+              {/* Обычная иконка */}
+              <Image
+                src={resultsRed}
+                layout="fill"
+                objectFit="contain"
+                quality={100}
+                alt="Results Icon"
+                className="transition-opacity duration-300 ease-in-out opacity-100 group-hover:opacity-0"
+              />
+              {/* Иконка при ховере */}
+              <Image
+                src={resultsHover}
+                layout="fill"
+                objectFit="contain"
+                quality={100}
+                alt="Results Hover Icon"
+                className="absolute top-0 left-0 transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100"
+              />
+            </div>
+            {t("Header.results")}
+          </button>
+        </a>
         <Search setSearch={setSearch} />
         <a className="hidden md:block" href="tel:+998777777777">
           <Image
@@ -47,7 +76,7 @@ export default function Tools({ navOptions, locale }) {
             quality={100}
           />
         </a>
-        <Link href="/backet" className="items-center gap-4 z-10 hidden md:flex">
+        {/* <Link href="/backet" className="items-center gap-4 z-10 hidden md:flex">
           <Image
             priority
             src={backet}
@@ -56,7 +85,7 @@ export default function Tools({ navOptions, locale }) {
             alt="Basket icon"
             quality={100}
           />
-        </Link>
+        </Link> */}
       </div>
       <div className="flex gap-2 text-base whitespace-nowrap my-1">
         <div className="flex gap-0 justify-center px-2 mdx:px-3 py-2 mdx:py-2 border border-solid border-neutral-200 rounded-[100px] text-neutral-900">
@@ -92,7 +121,10 @@ export default function Tools({ navOptions, locale }) {
                 aria-labelledby="menu-button"
                 tabIndex="-1"
               >
-                <div className="py-1 flex flex-col gap-2 ml-3 w-full" role="none">
+                <div
+                  className="py-1 flex flex-col gap-2 ml-3 w-full"
+                  role="none"
+                >
                   {availableLocales.map((lng) => (
                     <Link
                       key={lng}
@@ -104,7 +136,7 @@ export default function Tools({ navOptions, locale }) {
                       }}
                       className="hover:font-bold transition-all duration-300 flex gap-2 items-center"
                     >
-                      {lng === 'uz' ? (
+                      {lng === "uz" ? (
                         <Image
                           src={uzFlag}
                           height={100}
@@ -131,9 +163,9 @@ export default function Tools({ navOptions, locale }) {
             )}
           </div>
         </div>
-        <Link href={"/auth"} className="hidden mdx:flex ">
+        {/* <Link href={"/auth"} className="hidden mdx:flex ">
           <Profile />
-        </Link>
+        </Link> */}
         <div onClick={handleOpenMenu} className="block lg:hidden">
           <MenuIcon />
         </div>
