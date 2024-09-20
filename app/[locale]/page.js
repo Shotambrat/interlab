@@ -1,6 +1,6 @@
 import Main from "@/app/[locale]/_components/Main";
 
-export default function HomePage({params}) {
+export default async function HomePage({params}) {
 
   return (
     <div>
