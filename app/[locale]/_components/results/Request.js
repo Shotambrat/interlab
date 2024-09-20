@@ -1,77 +1,149 @@
-import Image from "next/image";
-import warning from "@/public/svg/warning.svg";
+"use client";
+import { useState, useEffect } from "react";
+import { Input, Select, Button, Form, Alert } from "antd";
 import { useTranslations } from "next-intl";
+import { motion } from "framer-motion";
+
+// Функция для кодирования строки в Base64
+const toBase64 = (str) => {
+  return Buffer.from(str).toString("base64");
+};
+
+const { Option } = Select;
 
 export default function Request() {
-    const t = useTranslations('Results')
+  const t = useTranslations("Results");
+
+  // Стейты для пользовательского ввода
+  const [medNumber, setMedNumber] = useState("");
+  const [signNumber, setSignNumber] = useState("");
+  const [language, setLanguage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Сохраняем выбранный язык в сессии, если изменился
+  useEffect(() => {
+    if (language) {
+      sessionStorage.setItem('selectedLanguage', language);
+    }
+  }, [language]);
+
+  // При первой загрузке проверяем, есть ли сохраненный язык
+  useEffect(() => {
+    const savedLanguage = sessionStorage.getItem('selectedLanguage');
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
+
+  // Функция для генерации и редиректа
+  const handleGenerateLink = () => {
+    if (!medNumber || !signNumber || !language) {
+      // Проверяем все обязательные поля
+      let error = "";
+
+      if (!medNumber) error += t("placeholders.card") + " ";
+      if (!signNumber) error += t("placeholders.sign") + " ";
+      if (!language) error += t("placeholders.choose-lang");
+
+      setErrorMessage(`${t("error")} ${error}`);
+    } else {
+      const encodedMedNumber = toBase64(medNumber);
+      const encodedSignNumber = toBase64(signNumber);
+
+      // Генерация ссылки с параметрами
+      const link = `http://result.interlab.uz/ALISRESULT/HASTASONUC_HASTA.ASPX?OP=${encodedSignNumber}&HDN=${encodedMedNumber}&lang=${language}`;
+
+      // Открываем ссылку в новой вкладке
+      window.open(link, "_blank");
+      setErrorMessage(""); // Очищаем ошибку, если все прошло успешно
+    }
+  };
+
   return (
     <div className="w-full bg-white py-14 px-2">
       <div className="w-full max-w-[1440px] flex flex-col gap-10 mx-auto">
-        <div className="w-full flex flex-col gap-5">
-          <form className="grid lg:grid-cols-3 w-full gap-5 grid-cols-1">
-            <input
-              type="number"
-              placeholder={`№ ${t('placeholders.card')}`}
-              id="mednumber"
-              name="mednumber"
-              //   value={formData.name}
-              //   onChange={handleChange}
-              required
-              className="border border-neutral-300 px-4 rounded-xl py-3 focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400"
-            />
-            <input
-              type="number"
-              placeholder={`№ ${t('placeholders.sign')}`}
-              id="mednumber"
-              name="mednumber"
-              //   value={formData.name}
-              //   onChange={handleChange}
-              required
-              className="border border-neutral-300 px-4 rounded-xl py-3  focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400"
-            />
-            <div className="relative">
-              <select
-                className="block focus:outline-none focus:ring-1 focus:ring-red-400 focus:border-red-400 appearance-none border border-neutral-300 w-full  bg-white px-4 py-3 pr-8 rounded-xl"
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  {t('placeholders.choose-lang')}
-                </option>
-                <option value="ru">Русский</option>
-                <option value="uz">O`zbekcha</option>
-                {/* Add more options as needed */}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  className="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                </svg>
-              </div>
-            </div>
-          </form>
-          <div className="gap-4 px-4 py-4 flex rounded-2xl bg-red-100 md:items-center">
-            <Image
-              src={warning}
-              width={100}
-              height={100}
-              alt="Warniing Icon"
-              className="w-6 h-6"
-            />
-            <p className="text-red-400">
-              {t('warning')}
-            </p>
-          </div>
-        </div>
-        <div className="w-full flex justify-center">
-          <button
-            type="submit"
-            className="text-white bg-red-400 py-3 px-14 text-sm font-semibold rounded-full"
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full flex flex-col gap-5"
+        >
+          <Form
+            className="grid lg:grid-cols-3 w-full gap-5 grid-cols-1"
+            layout="vertical"
           >
-            {t('get')}
-          </button>
+            <Form.Item
+              name="mednumber"
+              rules={[{ required: true, message: t("placeholders.card") }]}
+            >
+              <Input
+                type="number"
+                placeholder={`№ ${t("placeholders.card")}`}
+                className="border-neutral-300 rounded-xl py-2"
+                value={medNumber}
+                onChange={(e) => setMedNumber(e.target.value)}
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="signnumber"
+              rules={[{ required: true, message: t("placeholders.sign") }]}>
+              <Input
+                type="number"
+                placeholder={`№ ${t("placeholders.sign")}`}
+                className="border-neutral-300 rounded-xl py-2"
+                value={signNumber}
+                onChange={(e) => setSignNumber(e.target.value)}
+              />
+            </Form.Item>
+
+            <Form.Item name="language" rules={[{ required: true }]}>
+              <Select
+                className="rounded-xl"
+                placeholder={t("placeholders.choose-lang")}
+                size="large"
+                value={language}
+                onChange={(value) => setLanguage(value)}
+              >
+                <Option value="ru">Русский</Option>
+                <Option value="en">English</Option>
+              </Select>
+            </Form.Item>
+          </Form>
+          {errorMessage && (
+            <Alert
+              message={t("error")}
+              description={errorMessage}
+              type="error"
+              showIcon
+              className="my-4"
+            />
+          )}
+
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="gap-4 px-4 py-4 flex rounded-2xl bg-red-100 md:items-center text-red-400"
+          >
+            {t("warning")}
+          </motion.div>
+        </motion.div>
+
+        <div className="w-full flex justify-center">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Button
+              type="primary"
+              onClick={handleGenerateLink}
+              className="bg-red-400 text-white py-5 px-14 text-sm font-semibold rounded-full"
+            >
+              {t("get")}
+            </Button>
+          </motion.div>
         </div>
       </div>
     </div>

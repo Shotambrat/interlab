@@ -70,7 +70,7 @@ export default function Tools({ navOptions, locale }) {
         <Search setSearch={setSearch} />
 
         </div>
-        <a  className="hidden mdx:block" href="tel:+998777777777">
+        <a  className="hidden mdx:block" href="tel:1156">
           <Image
             priority
             src={phone}
