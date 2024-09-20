@@ -4,35 +4,34 @@ import Instructions from "@/app/[locale]/_components/results/Instructions";
 import Blog from "@/app/[locale]/_components/Blog";
 import arrowRight from "@/public/svg/arrow-right.svg";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
-export default function HomePage() {
+export default function HomePage({params}) {
+  const t = useTranslations('Main.Blogs');
+
   return (
     <div className="">
-        <Banner />
-        <Request />
-        <Instructions />
-        <div className="w-full bg-white">
-            <div className="w-full max-w-[1440px] mx-auto py-12 flex flex-col gap-5">
-                <h2 className="text-4xl font-semibold">
-                    Блог
-                </h2>
-                <Blog />
-                <a href="/blogs" className="w-full flex justify-center">
-                    <button className="flex gap-5 px-8 py-2 rounded-full font-semibold text-sm items-center border text-red-400 border-red-400">
-                        <p>
-                            Все новости
-                        </p>
-                    <Image
-                     src={arrowRight}
-                     width={100}
-                     height={100}
-                     alt="Arrow right Red"
-                     className="h-6 w-6"
-                    />
-                    </button>
-                </a>
-            </div>
+      <Banner locale={params.locale} />
+      <Request locale={params.locale} />
+      <Instructions />
+      <div className="w-full bg-white">
+        <div className="w-full max-w-[1440px] mx-auto py-12 flex flex-col gap-5">
+          <h2 className="text-4xl font-semibold">{t('title')}</h2>
+          <Blog />
+          <a href={`/${params.locale}/blogs`} className="w-full flex justify-center">
+            <button className="flex gap-5 px-8 py-2 rounded-full font-semibold text-sm items-center border text-red-400 border-red-400">
+              {t('more')}
+              <Image
+                src={arrowRight}
+                width={100}
+                height={100}
+                alt="Arrow right Red"
+                className="h-6 w-6"
+              />
+            </button>
+          </a>
         </div>
+      </div>
     </div>
   );
 }

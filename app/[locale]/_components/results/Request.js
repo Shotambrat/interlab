@@ -1,7 +1,9 @@
 import Image from "next/image";
 import warning from "@/public/svg/warning.svg";
+import { useTranslations } from "next-intl";
 
 export default function Request() {
+    const t = useTranslations('Results')
   return (
     <div className="w-full bg-white py-14 px-2">
       <div className="w-full max-w-[1440px] flex flex-col gap-10 mx-auto">
@@ -9,7 +11,7 @@ export default function Request() {
           <form className="grid lg:grid-cols-3 w-full gap-5 grid-cols-1">
             <input
               type="number"
-              placeholder="№ Медецинской карты"
+              placeholder={`№ ${t('placeholders.card')}`}
               id="mednumber"
               name="mednumber"
               //   value={formData.name}
@@ -19,7 +21,7 @@ export default function Request() {
             />
             <input
               type="number"
-              placeholder="№ Регистрации"
+              placeholder={`№ ${t('placeholders.sign')}`}
               id="mednumber"
               name="mednumber"
               //   value={formData.name}
@@ -33,7 +35,7 @@ export default function Request() {
                 defaultValue=""
               >
                 <option value="" disabled>
-                  Выберите язык
+                  {t('placeholders.choose-lang')}
                 </option>
                 <option value="ru">Русский</option>
                 <option value="uz">O`zbekcha</option>
@@ -59,9 +61,7 @@ export default function Request() {
               className="w-6 h-6"
             />
             <p className="text-red-400">
-              Результаты анализов также отправляются на номер телефона,
-              указанный при регистрации. Настоятельно рекомендуем указывать свой
-              личный номер, во избежание получения результатов третьими лицами.
+              {t('warning')}
             </p>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function Request() {
             type="submit"
             className="text-white bg-red-400 py-3 px-14 text-sm font-semibold rounded-full"
           >
-            Получить
+            {t('get')}
           </button>
         </div>
       </div>
