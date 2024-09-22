@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import close from "@/public/svg/search/close.svg";
 import Image from "next/image";
 
@@ -16,24 +17,30 @@ export default function SearchBar({ setSearch }) {
     console.log(`Searching for: ${query}`);
   };
 
-  const handleOutsideClick = (e) => {
-    // Закрытие модалки при клике на фон
-    setSearch(false);
+  const handleOutsideClick = () => {
+    setSearch(false); // Закрываем SearchBar
   };
 
   const handleContentClick = (e) => {
-    // Остановка всплытия события клика для контентной области
-    e.stopPropagation();
+    e.stopPropagation(); // Останавливаем событие клика для контентной области
   };
 
   return (
-    <div
+    <motion.div
       className="w-full lg:px-0 fixed h-screen inset-0 top-[90px] max-mdx:top-[70px] bg-modalBg z-50"
-      onClick={handleOutsideClick} // Закрытие при клике на фон
+      onClick={handleOutsideClick}
+      initial={{ opacity: 0 }}   // Анимация появления
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}      // Анимация исчезновения
+      transition={{ duration: 0.3 }}
     >
-      <div
+      <motion.div
         className="bg-white h-[100px]"
-        onClick={handleContentClick} // Предотвращаем закрытие при клике на контент
+        onClick={handleContentClick}
+        initial={{ y: -100 }}  // Начальная позиция
+        animate={{ y: 0 }}     // Плавный сдвиг вниз
+        exit={{ y: -100 }}     // Сдвиг вверх при закрытии
+        transition={{ type: "tween", duration: 0.3 }}
       >
         <div className="max-w-[1440px] mx-auto h-full flex items-center">
           <div className="relative rounded-lg w-full max-w-[1440px] flex justify-between items-center">
@@ -82,7 +89,7 @@ export default function SearchBar({ setSearch }) {
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
