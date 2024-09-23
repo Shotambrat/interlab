@@ -10,7 +10,11 @@ export const metadata = {
     template: "%s",
     default: "Interlab Innovation"
   },
-  description: "Intermed Innovation by Intermed"
+  description: "Intermed Innovation by Intermed",
+  icons: {
+    icon: '/favicon.ico'
+  },
+  manifest: '/manifest.json'
 }
 
 
