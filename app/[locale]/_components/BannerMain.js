@@ -148,16 +148,16 @@ const Slider = ({ params }) => {
                   className="flex flex-col self-stretch mt-5 max-md:max-w-full"
                 >
                   <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full lg:leading-12">
-                    {banners[currentSlide].title[locale]}
+                    {banners[currentSlide].title?.[locale]}
                   </h1>
                   <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full  lg:leading-12  ">
-                    {banners[currentSlide].subtitle[locale]}
+                    {banners[currentSlide].subtitle?.[locale]}
                   </h1>
                   <p
                     className="mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full"
                     dangerouslySetInnerHTML={{
                       __html: formatText(
-                        banners[currentSlide].description[locale]
+                        banners[currentSlide].description?.[locale]
                       ),
                     }}
                   />

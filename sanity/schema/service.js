@@ -23,12 +23,8 @@ export default {
     },
     {
       name: "description",
-      type: "object",
+      type: "blockContent",
       title: "Описание сервиса",
-      fields: [
-        { name: "ru", type: "text", title: "Русский" },
-        { name: "uz", type: "text", title: "Узбекский" },
-      ],
     },
     {
       name: "category",
@@ -37,17 +33,6 @@ export default {
       title: "Категория",
       validation: (Rule) =>
         Rule.required().error("Категория обязательна для выбора"),
-    },
-    {
-      name: "icon",
-      type: "image",
-      title: "Иконка сервиса",
-    },
-    {
-      name: "colourCode",
-      type: "string",
-      title: "Цвет карточки",
-      description: "Цвет в формате HEX, например, #FFA07A",
     },
     {
       name: "details",

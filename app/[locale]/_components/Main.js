@@ -35,7 +35,7 @@ function urlFor(source) {
 }
 
 function Main({ params }) {
-  const [services, setServices] = useState([]);
+  const [serviceCategories, setServiceCategories] = useState([]);
   const [contactWithUs, setContactWithUs] = useState(false);
   const [onlineReq, setOnlineReq] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -77,8 +77,8 @@ function Main({ params }) {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const servicesData = await client.fetch(`
-          *[_type == "service"]{
+        const categoriesData = await client.fetch(`
+          *[_type == "serviceCategory" && isPopular == true] | order(order asc) {
             _id,
             name,
             slug,
@@ -87,7 +87,7 @@ function Main({ params }) {
             colourCode
           }
         `);
-        setServices(servicesData);
+        setServiceCategories(categoriesData);
       } catch (error) {
         console.error("Ошибка при загрузке услуг:", error);
       }
@@ -96,7 +96,7 @@ function Main({ params }) {
     fetchServices();
   }, []);
 
-  console.log("services", services);
+  console.log("services Категории", serviceCategories);
   const getRandomColor = () => {
     const colors = ["#FFC0CB", "#ADD8E6", "#90EE90", "#FFD700", "#FFA07A"];
     return colors[Math.floor(Math.random() * colors.length)];
@@ -224,90 +224,51 @@ function Main({ params }) {
               {t("Main.Services.title")}
             </h2>
           </a>
+
           <div className="flex flex-col items-center mdx:mt-10 w-full px-0">
-            {services.length === 0 ? (
-              <p>Нет доступных услуг</p>
+            {serviceCategories.length === 0 ? (
+              <p>Нет доступных категорий услуг</p>
             ) : (
               <>
-                {services.length > 2 ? (
-                  <>
-                    {/* Первая секция с первыми двумя услугами */}
-                    <div className="flex gap-5 flex-col mdl:flex-row w-full mt-5">
-                      {services.slice(0, 2).map((service, index) => (
-                        <div
-                          key={service._id}
-                          className={
-                            index === 0
-                              ? "slg:w-3/5 w-full"
-                              : "slg:w-2/5 w-full"
-                          }
-                        >
-                          <ServiceCard
-                            locale={params.locale}
-                            title={service.name[locale]}
-                            description={service.description[locale]}
-                            imageSrc={urlFor(service.icon).url()}
-                            bgColor={
-                              service.colourCode
-                                ? service.colourCode
-                                : getRandomColor()
-                            }
-                            slug={service.slug.current}
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Вторая секция с оставшимися услугами */}
-                    <div className="container flex flex-col items-center mt-8 w-full">
-                      <div
-                        className={`mdl:grid flex gap-5 flex-col mdl:grid-cols-2 xl:grid-cols-3 w-full`}
-                      >
-                        {services.slice(2).map((service) => (
-                          <div key={service._id} className="w-full">
-                            <ServiceCard
-                              locale={params.locale}
-                              title={service.name[locale]}
-                              description={service.description[locale]}
-                              imageSrc={urlFor(service.icon).url()}
-                              bgColor={
-                                service.colourCode
-                                  ? service.colourCode
-                                  : getRandomColor()
-                              }
-                              slug={service.slug.current}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  // Если услуг 2 или меньше, отображаем их в одной секции
-                  <div className="flex gap-5 flex-col mdl:flex-row w-full mt-5">
-                    {services.map((service, index) => (
-                      <div
-                        key={service._id}
-                        className={
-                          index === 0 ? "slg:w-3/5 w-full" : "slg:w-2/5 w-full"
+                {/* Первая строка с 2 колонками, где 1 элемент шире другого */}
+                <div className="grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-[60%,_40%] gap-5 w-full mt-5">
+                  {serviceCategories.slice(0, 2).map((service, index) => (
+                    <div key={service._id} className="w-full">
+                      <ServiceCard
+                        locale={params.locale}
+                        title={service.name[locale]}
+                        description={service.description[locale]}
+                        imageSrc={urlFor(service.icon).url()}
+                        bgColor={
+                          service.colourCode
+                            ? service.colourCode
+                            : getRandomColor()
                         }
-                      >
-                        <ServiceCard
-                          locale={params.locale}
-                          title={service.name[locale]}
-                          description={service.description[locale]}
-                          imageSrc={urlFor(service.icon).url()}
-                          bgColor={
-                            service.colourCode
-                              ? service.colourCode
-                              : getRandomColor()
-                          }
-                          slug={service.slug.current}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
+                        slug={service.slug.current}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Вторая и последующие строки с 3 колонками */}
+                <div className="grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-3 gap-5 w-full mt-5">
+                  {serviceCategories.slice(2).map((service) => (
+                    <div key={service._id} className="w-full">
+                      <ServiceCard
+                        locale={params.locale}
+                        title={service.name[locale]}
+                        description={service.description[locale]}
+                        imageSrc={urlFor(service.icon).url()}
+                        bgColor={
+                          service.colourCode
+                            ? service.colourCode
+                            : getRandomColor()
+                        }
+                        slug={service.slug.current}
+                      />
+                    </div>
+                  ))}
+                </div>
               </>
             )}
             <div className="w-full flex justify-center mdl:hidden mt-12">
@@ -405,8 +366,7 @@ function Main({ params }) {
             />
           </a>
           <div className="mt-24">
-          <PopularAnalyze params={params} />
-
+            <PopularAnalyze params={params} />
           </div>
           <div className="mt-52 max-md:mt-24">
             <Instruction />
@@ -480,25 +440,6 @@ function Main({ params }) {
       </div>
     </>
   );
-}
-
-export async function getServerSideProps() {
-  let doctors = [];
-  try {
-    const response = await fetch("http://localhost:3000/api/doctors");
-    if (response.ok) {
-      doctors = await response.json();
-    } else {
-      console.error("Error fetching doctors:", response.statusText);
-    }
-  } catch (error) {
-    console.error("Error fetching doctors:", error);
-  }
-  return {
-    props: {
-      doctors,
-    },
-  };
 }
 
 export default Main;

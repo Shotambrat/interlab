@@ -3,31 +3,20 @@ import { useState, useEffect } from "react";
 import { Input, Select, Button, Form, Alert } from "antd";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-
-// Функция для кодирования строки в Base64
-const toBase64 = (str) => {
-  return Buffer.from(str).toString("base64");
-};
+import axios from "axios";
+import { parseStringPromise } from "xml2js"; // Для парсинга SOAP-ответа
 
 const { Option } = Select;
 
 export default function Request() {
   const t = useTranslations("Results");
 
-  // Стейты для пользовательского ввода
   const [medNumber, setMedNumber] = useState("");
   const [signNumber, setSignNumber] = useState("");
   const [language, setLanguage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [files, setFiles] = useState([]);
 
-  // Сохраняем выбранный язык в сессии, если изменился
-  useEffect(() => {
-    if (language) {
-      sessionStorage.setItem('selectedLanguage', language);
-    }
-  }, [language]);
-
-  // При первой загрузке проверяем, есть ли сохраненный язык
   useEffect(() => {
     const savedLanguage = sessionStorage.getItem('selectedLanguage');
     if (savedLanguage) {
@@ -35,27 +24,78 @@ export default function Request() {
     }
   }, []);
 
-  // Функция для генерации и редиректа
-  const handleGenerateLink = () => {
+  const handleGenerateLink = async () => {
     if (!medNumber || !signNumber || !language) {
-      // Проверяем все обязательные поля
       let error = "";
-
       if (!medNumber) error += t("placeholders.card") + " ";
       if (!signNumber) error += t("placeholders.sign") + " ";
       if (!language) error += t("placeholders.choose-lang");
-
       setErrorMessage(`${t("error")} ${error}`);
     } else {
-      const encodedMedNumber = toBase64(medNumber);
-      const encodedSignNumber = toBase64(signNumber);
+      try {
+        const soapBody = `
+          <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <ResultReportRequest xmlns="http://tempuri.org/">
+                <userName>website</userName>
+                <password>website</password>
+                <hisFileNumber>${medNumber}</hisFileNumber>
+                <lisProtocolNumber>${signNumber}</lisProtocolNumber>
+                <lang>${language.toUpperCase()}</lang>
+              </ResultReportRequest>
+            </soap:Body>
+          </soap:Envelope>
+        `;
 
-      // Генерация ссылки с параметрами
-      const link = `http://result.interlab.uz/ALISRESULT/HASTASONUC_HASTA.ASPX?OP=${encodedSignNumber}&HDN=${encodedMedNumber}&lang=${language}`;
+        const response = await axios.post(
+          "http://result.interlab.uz/alisresult/alissonucws.asmx",
+          soapBody,
+          {
+            headers: {
+              "Content-Type": "text/xml",
+            },
+          }
+        );
 
-      // Открываем ссылку в новой вкладке
-      window.open(link, "_blank");
-      setErrorMessage(""); // Очищаем ошибку, если все прошло успешно
+        const parsedResponse = await parseStringPromise(response.data);
+
+        const result =
+          parsedResponse["soap:Envelope"]["soap:Body"][0]
+            .ResultReportRequestResponse[0].ResultReportRequestResult[0];
+
+        if (result.Success[0] !== "true") {
+          setErrorMessage(t("error") + ": " + t("failed_to_get_result"));
+          return;
+        }
+
+        // Если запрос успешен, получаем файлы
+        const mainFileContent = result.ResutFile[0].File[0];
+        const additionalFiles = result.AdditionalFiles[0].ResultFile || [];
+
+        const allFiles = [
+          { content: mainFileContent, name: `${medNumber}-${signNumber}.pdf` },
+        ];
+
+        additionalFiles.forEach((file, index) => {
+          allFiles.push({
+            content: file.File[0],
+            name: `${medNumber}-${signNumber}-additional-${index + 1}.pdf`,
+          });
+        });
+
+        setFiles(allFiles);
+        setErrorMessage("");
+
+        // Открываем файл в новой вкладке (пример)
+        allFiles.forEach((file) => {
+          const link = document.createElement("a");
+          link.href = `data:application/pdf;base64,${file.content}`;
+          link.download = file.name;
+          link.click();
+        });
+      } catch (error) {
+        setErrorMessage(t("error") + ": " + t("failed_to_get_result"));
+      }
     }
   };
 
@@ -87,7 +127,8 @@ export default function Request() {
 
             <Form.Item
               name="signnumber"
-              rules={[{ required: true, message: t("placeholders.sign") }]}>
+              rules={[{ required: true, message: t("placeholders.sign") }]}
+            >
               <Input
                 type="number"
                 placeholder={`№ ${t("placeholders.sign")}`}
@@ -119,15 +160,6 @@ export default function Request() {
               className="my-4"
             />
           )}
-
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="gap-4 px-4 py-4 flex rounded-2xl bg-red-100 md:items-center text-red-400"
-          >
-            {t("warning")}
-          </motion.div>
         </motion.div>
 
         <div className="w-full flex justify-center">
