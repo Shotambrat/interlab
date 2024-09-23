@@ -10,8 +10,8 @@ function AboutInfo() {
   }
 
   return (
-    <section className="px-5 w-full max-w-[1440px] mx-auto flex flex-col gap-5 mt-24">
-      <h2 className="text-3xl font-bold">
+    <section className="px-5 w-full max-w-[1440px] mx-auto flex flex-col gap-4 mt-20">
+      <h2 className="text-3xl font-bold mb-0">
         {t("title")} <span className="text-rose-400">{t("subtitle")}</span>
       </h2>
       <p
@@ -21,44 +21,53 @@ function AboutInfo() {
         }}
       />
       <div className="w-full flex justify-center">
-        <div class="grid grid-cols-3 grid-rows-2 gap-4 max-lg:hidden w-full h-[500px]">
+        <div className="grid grid-cols-3 grid-rows-2 gap-4 max-lg:hidden w-full h-[500px]">
           <div className="row-span-2">
             <Image
               src={aboutFirstImage}
               alt="Image 1"
+              quality={100}
               height={1000}
               width={1000}
               className="w-full h-full object-cover rounded-3xl"
+              style={{ aspectRatio: '1 / 1' }}
             />
           </div>
           <div>
             <Image
               src={aboutFirstImage}
               alt="Image 2"
+              quality={100}
               height={1000}
               width={1000}
               className="w-full h-full object-cover rounded-3xl"
+              style={{ aspectRatio: '1 / 1' }}
             />
           </div>
           <div className="col-start-2 row-start-2">
             <Image
               src={aboutFirstImage}
               alt="Image 3"
+              quality={100}
               height={1000}
               width={1000}
               className="w-full h-full object-cover rounded-3xl"
+              style={{ aspectRatio: '1 / 1' }}
             />
           </div>
           <div className="row-span-2 col-start-3 row-start-1">
             <Image
               src={aboutFirstImage}
               alt="Image 4"
+              quality={100}
               height={1000}
               width={1000}
               className="w-full h-full object-cover rounded-3xl"
+              style={{ aspectRatio: '1 / 1' }}
             />
           </div>
         </div>
+
 
         <div class="grid grid-cols-2 grid-rows-5 gap-4 max-mdx:hidden lg:hidden w-full h-[600px]">
           <div className="row-span-3">
@@ -99,12 +108,13 @@ function AboutInfo() {
           </div>
         </div>
 
-        <div class="grid grid-cols-1 grid-rows-10 gap-4 mdx:hidden w-full h-[800px]">
+        <div class="grid gap-4 mdx:hidden w-full ">
           <div className="row-span-3">
             <Image
               src={aboutFirstImage}
               alt="Image 1"
               height={1000}
+              quality={100}
               width={1000}
               className="w-full h-full object-cover rounded-3xl"
             />
@@ -114,6 +124,7 @@ function AboutInfo() {
               src={aboutFirstImage}
               alt="Image 2"
               height={1000}
+              quality={100}
               width={1000}
               className="w-full h-full object-cover rounded-3xl"
             />
@@ -122,6 +133,7 @@ function AboutInfo() {
             <Image
               src={aboutFirstImage}
               alt="Image 3"
+              quality={100}
               height={1000}
               width={1000}
               className="w-full h-full object-cover rounded-3xl"
@@ -131,6 +143,7 @@ function AboutInfo() {
             <Image
               src={aboutFirstImage}
               alt="Image 4"
+              quality={100}
               height={1000}
               width={1000}
               className="w-full h-full object-cover rounded-3xl"

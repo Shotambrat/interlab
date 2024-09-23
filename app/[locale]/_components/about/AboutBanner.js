@@ -15,7 +15,7 @@ export default function AboutBanner() {
       {contactWithUs ? <ContactWithUs setState={setContactWithUs} /> : <></>}
       {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
       <div className="w-full h-screen-70 mdx:h-screen-90 relative max-slg:gap-5 flex flex-col pt-10">
-        <div className="absolute max-slg:relative slg:top-1/3 left-4 lg:left-[7%] flex flex-col gap-4">
+        <div className="absolute max-slg:relative slg:top-1/3 lg:left-[7%] flex flex-col px-4 2xl:left-[12%]">
           <h1 className="text-5xl text-rose-400 font-bold">{t('About.title')}</h1>
           <p className="w-full max-w-[400px] leading-5">
           {t('About.description')}
@@ -30,7 +30,7 @@ export default function AboutBanner() {
             className="h-full w-full max-slg:rounded-3xl rounded-bl-3xl object-cover"
           />
         </div>
-        <div className="absolute bottom-20 right-4">
+        <div className="absolute bottom-4 slg:bottom-14 right-4 slg:right-24">
           <div className="flex gap-5 self-end text-xs font-semibold text-center uppercase">
             <button
               onClick={() => setContactWithUs(true)}

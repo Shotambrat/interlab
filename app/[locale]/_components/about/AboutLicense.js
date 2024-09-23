@@ -37,6 +37,7 @@ const AboutLicense = ({ locale }) => {
   if (!licenses) return <p>Загрузка...</p>;
 
   const settings = {
+    arrows:false,
     dots: false,
     infinite: true,
     speed: 500,
@@ -53,7 +54,7 @@ const AboutLicense = ({ locale }) => {
 
   return (
     <motion.div className="w-full max-w-[1440px] mx-auto mt-24">
-      <motion.h2 className="text-center text-3xl font-bold my-4">
+      <motion.h2 className="text-left text-3xl font-bold my-4 mx-2">
         {t("About.licences")}
       </motion.h2>
       <Slider {...settings}>
@@ -71,8 +72,14 @@ const AboutLicense = ({ locale }) => {
         ))}
       </Slider>
       <Link href={`/${locale}/about/licences`} className="w-full flex justify-center">
-        <motion.button className="flex gap-2 justify-center px-10 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 rounded-[100px]">
+        <motion.button className="flex gap-2 justify-center px-16 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 rounded-[100px]">
           <span>{t("Main.Banner.more")}</span>
+          <img
+            loading="lazy"
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"
+            className="shrink-0 aspect-square w-[23px]"
+            alt="Arrow icon"
+          />
         </motion.button>
       </Link>
     </motion.div>

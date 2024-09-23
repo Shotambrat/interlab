@@ -113,9 +113,9 @@ const Slider = ({ params }) => {
 
   return (
     <section className="max-md:max-w-full" ref={slideRef}>
-      <div className="flex gap-5 flex-col mdx:flex-row max-md:gap-0">
+      <div className="flex gap-5 flex-col mdx:flex-row max-md:gap-0 items-center">
         <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
-          <div className="flex flex-col items-start mt-5 mdx:mt-32 max-md:max-w-full">
+          <div className="flex flex-col items-start mt-5 max-md:max-w-full">
             {banners.length > 1 && (
               <div className="flex justify-between items-center gap-3 mb-4">
                 {banners.map((_, index) => (
@@ -165,14 +165,14 @@ const Slider = ({ params }) => {
               </AnimatePresence>
             ) : (
               <div className="flex flex-col self-stretch max-md:max-w-full">
-                <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full mb-0 leading-tight">
+                <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-[30px] text-[30px] font-bold text-black max-md:max-w-full mb-0 leading-tight">
                   {banners[0].title[locale]}
                 </h1>
-                <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full mt-0 mb-2 leading-tight">
+                <h1 className="lg:text-6xl md:text-4xl mdx:text-[30px] text-[30px] font-bold text-rose-400 max-md:max-w-full mt-0 leading-tight mb-0">
                   {banners[0].subtitle[locale]}
                 </h1>
                 <p
-                  className="text-sm mt-5 mdx:text-lg text-zinc-600 max-md:max-w-full"
+                  className="text-sm mt-3 mdx:text-lg text-[#5B5B5B] max-md:max-w-full"
                   dangerouslySetInnerHTML={{
                     __html: formatText(banners[0].description[locale]),
                   }}
@@ -181,8 +181,8 @@ const Slider = ({ params }) => {
             )}
 
             <a href={banners[currentSlide].navigateToUrl}>
-              <button className="flex flex-col justify-center mt-5 max-w-full text-base font-bold text-center text-white whitespace-nowrap w-[236px]">
-                <div className="justify-center items-center px-16 py-2 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px]">
+              <button className="flex flex-col justify-center mt-3 max-w-full text-base font-bold text-center text-white whitespace-nowrap w-[236px]">
+                <div className="justify-center items-center px-16 py-3 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px]">
                   {t("Main.Banner.more")}
                 </div>
               </button>

@@ -42,7 +42,7 @@ export default function Instructions() {
     <div className="w-full px-2 bg-white py-14">
       <div className="w-full max-w-[1440px] mx-auto">
         <div className=" flex flex-col gap-5">
-          <h1 className="text-3xl font-bold">{t('instruction')}</h1>
+          <h1 className="text-3xl font-bold ">{t('instruction')}</h1>
 
           <div className="relative bg-red-200 w-full rounded-lg overflow-hidden shadow-lg">
             <video

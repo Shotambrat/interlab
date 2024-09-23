@@ -141,7 +141,7 @@ function Main({ params }) {
                       {t("Main.ContactUs.title")}
                     </h2>
                     <p
-                      className="mt-5 text-sm mdx:text-xl w-4/5 text-zinc-500 max-md:max-w-full leading-5"
+                      className="mt-5 slg:mt-0 slg:mb-0 text-sm mdx:text-xl w-4/5 text-zinc-500 max-md:max-w-full leading-5"
                       dangerouslySetInnerHTML={{
                         __html: formatText(t("Main.ContactUs.description")),
                       }}
@@ -150,13 +150,13 @@ function Main({ params }) {
                   <div className="hidden slg:flex gap-5 mt-11 max-w-full text-base font-bold text-center w-[466px] max-md:flex-wrap max-md:mt-10">
                     <a
                       href="tel:+998781482288"
-                      className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px] max-md:px-5"
+                      className="justify-center items-center self-start px-16 py-3 text-white whitespace-nowrap bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px] max-md:px-5"
                     >
                       {t("call")}
                     </a>
                     <a
                       href={`/${params.locale}/results`}
-                      className="justify-center px-6 py-2 text-red-400 border border-red-400 hover:border-red-600 hover:text-red-600 transition-all duration-300 border-solid rounded-[100px] max-md:px-5"
+                      className="justify-center items-center px-6 py-3 text-red-400 border border-red-400 hover:border-red-600 hover:text-red-600 transition-all duration-300 border-solid rounded-[100px] max-md:px-5"
                     >
                       {t("get-result")}
                     </a>
@@ -165,7 +165,7 @@ function Main({ params }) {
               </div>
               <div className="flex slg:ml-5 w-full slg:w-6/12 max-md:ml-0 max-md:w-full">
                 <div className="flex flex-col justify-between grow max-md:mt-5 max-md:max-w-full">
-                  <div className="flex flex-col pt-1.5 max-md:max-w-full mb-2 md:mb-0">
+                  <div className="flex flex-col pt-1.5 max-md:max-w-full mb-2">
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
                       1) <a href="tel:1156">1156</a>
                     </div>
@@ -177,7 +177,7 @@ function Main({ params }) {
                     </div>
                   </div>
                   <hr />
-                  <div className="flex flex-col pt-1.5 pb-2 mt-2 border-neutral-200 max-md:max-w-full">
+                  <div className="flex flex-col pt-1.5 pb-3 mt-2 border-neutral-200 max-md:max-w-full">
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
                       {t("Main.ContactUs.addresses")}
                     </div>
@@ -186,7 +186,7 @@ function Main({ params }) {
                     </div>
                   </div>
                   <hr />
-                  <div className="flex flex-col max-md:max-w-full">
+                  <div className="flex flex-col max-md:max-w-full pt-4">
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
                       7:00 - 23:00 {t("Main.ContactUs.mon-fri")}
                     </div>
@@ -205,13 +205,13 @@ function Main({ params }) {
               <div className="flex slg:hidden gap-2 mt-11 max-w-full text-sm font-bold text-center w-[466px] max-md:flex-wrap max-md:mt-10">
                 <a
                   href="tel:+998781482288"
-                  className="justify-center items-center self-start px-10 py-2 text-white whitespace-nowrap bg-red-400 rounded-[100px] max-md:px-5"
+                  className="justify-center items-center self-start px-10 py-3 text-white whitespace-nowrap bg-red-400 rounded-[100px] "
                 >
                   {t("call")}
                 </a>
                 <a
                   href={`/${params.locale}/results`}
-                  className="justify-center px-2 py-2 text-red-400 border border-red-400 border-solid rounded-[100px]"
+                  className="justify-center px-2 py-3 text-red-400 border border-red-400 border-solid rounded-[100px]"
                 >
                   {t("get-result")}
                 </a>
@@ -321,9 +321,8 @@ function Main({ params }) {
                   height={100}
                   width={100}
                   alt="Down Icon Red"
-                  className={`w-4 h-4 transition-transform duration-300 ${
-                    servicesOpen ? "rotate-180" : "rotate-0"
-                  }`}
+                  className={`w-4 h-4 transition-transform duration-300 ${servicesOpen ? "rotate-180" : "rotate-0"
+                    }`}
                 />
               </button>
             </div>
@@ -337,7 +336,7 @@ function Main({ params }) {
           <Sale locale={params.locale} />
           <a
             href={`/${params.locale}/blogs`}
-            className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
+            className="flex gap-2 justify-center self-center px-16 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] "
           >
             <span className="my-auto">{t("Main.Sales.all")}</span>
             <img
@@ -348,14 +347,14 @@ function Main({ params }) {
             />
           </a>
           <div className="flex flex-col mt-24 mdx:mt-52 max-w-full w-[588px]">
-            <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
+            <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full mb-0">
               {t("Main.Doctors.title")}
             </h2>
             <p className="mt-3 text-sm mdx:text-lg text-neutral-400 w-full leading-4">
               {t("Main.Doctors.description")}
             </p>
           </div>
-          <div className="mt-10 max-md:max-w-full">
+          <div className="mt-4 max-md:max-w-full">
             <div className="hidden mdx:grid gap-5 grid-cols-4 max-lg:grid-cols-3 max-slg:grid-cols-2">
               {doctors.map((doctor, index) => (
                 <DoctorCard
@@ -394,7 +393,7 @@ function Main({ params }) {
           </div>
           <a
             href={`/${params.locale}/doctors`}
-            className="flex gap-2 justify-center self-center px-10 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
+            className="flex gap-2 justify-center self-center px-16 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px]"
           >
             <span className="my-auto">{t("Main.Doctors.all")}</span>
             <img
@@ -405,7 +404,7 @@ function Main({ params }) {
             />
           </a>
           <div className="mt-24">
-          <PopularAnalyze params={params} />
+            <PopularAnalyze params={params} />
 
           </div>
           <div className="mt-52 max-md:mt-24">
@@ -413,23 +412,23 @@ function Main({ params }) {
           </div>
           <section className="mt-52 max-md:mt-24 w-full">
             <div className="flex gap-5 flex-col lg:flex-row max-md:gap-0 ">
-              <h2 className="text-3xl leading-6 font-bold lg:hidden block text-neutral-900 max-md:max-w-full">
+              <h2 className="text-3xl font-bold lg:hidden block text-neutral-900 max-md:max-w-full">
                 {t("Main.About.title")}
               </h2>
               <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/62066623c2a9b716467d4a21bdfcc3f05d9aaddc81efd8d3850593ff5e45864b?apiKey=e791e0f42eab4556ac944da69358f29b&"
-                  className="grow w-full aspect-[1.2] max-md:mt-10 mdl:h-[500px]  rounded-3xl object-cover max-md:max-w-full"
+                  className="grow w-full aspect-[1.2] max-md:mt-7 mdl:h-[500px]  rounded-3xl object-cover max-md:max-w-full"
                   alt="Modern medical center"
                 />
               </div>
               <div className="flex flex-col justify-between ml-5 lg:w-6/12 max-md:ml-0 w-full">
-                <div className="flex flex-col font-bold max-md:mt-10 max-md:max-w-full">
-                  <h2 className="text-4xl hidden lg:block text-neutral-900 max-md:max-w-full">
+                <div className="flex flex-col font-bold max-md:mt-[25px] max-md:max-w-full slg:max-w-[568px]">
+                  <h2 className="text-4xl hidden lg:block text-neutral-900 max-md:max-w-full font-bold mb-0">
                     {t("Main.About.title")}
                   </h2>
-                  <p className="text-lg mt-5 text-zinc-600 font-medium max-md:max-w-full leading-5">
+                  <p className="text-lg mt-5 text-zinc-600 font-medium max-md:max-w-full leading-5 slg:max-w-[508px]">
                     {t("Main.About.description")
                       .split("\n")
                       .map((line, index) => (
@@ -443,13 +442,13 @@ function Main({ params }) {
                 <div className="flex gap-3 mt-8 text-base text-center max-md:flex-wrap max-md:max-w-full">
                   <a
                     href={`/${params.locale}/about`}
-                    className="justify-center self-start mdx:px-10 py-4 text-white bg-red-400 rounded-[100px] px-2"
+                    className="justify-center self-start mdx:px-10 py-4 text-white bg-red-400 rounded-[100px] px-6 font-bold"
                   >
                     {t("Main.About.more")}
                   </a>
                   <a
                     href={`/${params.locale}/about/licenses`}
-                    className="justify-center items-center px-10 py-4 text-red-400 whitespace-nowrap border border-red-400 border-solid rounded-[100px] max-md:px-5"
+                    className="justify-center items-center px-16 py-4 text-red-400 whitespace-nowrap border border-red-400 border-solid rounded-[100px] max-md:px-10 font-bold"
                   >
                     {t("Main.About.license")}
                   </a>
@@ -457,13 +456,13 @@ function Main({ params }) {
               </div>
             </div>
           </section>
-          <h2 className="mt-52 text-3xl font-bold text-neutral-900 max-md:mt-24 max-md:max-w-full">
+          <h2 className="mt-52 text-3xl font-bold text-neutral-900 max-md:mt-24 max-md:max-w-full mb-0">
             {t("Main.Blogs.title")}
           </h2>
           <Blog locale={params.locale} />
           <a
             href="/blogs"
-            className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5"
+            className="flex gap-2 justify-center self-center px-16 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-[52px]"
           >
             <span className="my-auto">{t("Main.Blogs.more")}</span>
             <img

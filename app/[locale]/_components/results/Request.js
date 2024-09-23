@@ -1,9 +1,11 @@
 "use client";
+import Image from 'next/image';
 import { useState, useEffect } from "react";
 import { Input, Select, Button, Form, Alert } from "antd";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-
+import warning from "@/public/svg/warning.svg";
+import Arrow_down from '@/public/svg/arrow-down.svg';
 // Функция для кодирования строки в Base64
 const toBase64 = (str) => {
   return Buffer.from(str).toString("base64");
@@ -69,9 +71,10 @@ export default function Request() {
           className="w-full flex flex-col gap-5"
         >
           <Form
-            className="grid lg:grid-cols-3 w-full gap-5 grid-cols-1"
+            className="grid lg:grid-cols-3 w-full gap-2 grid-cols-1"
             layout="vertical"
           >
+
             <Form.Item
               name="mednumber"
               rules={[{ required: true, message: t("placeholders.card") }]}
@@ -79,7 +82,7 @@ export default function Request() {
               <Input
                 type="number"
                 placeholder={`№ ${t("placeholders.card")}`}
-                className="border-neutral-300 rounded-xl py-2"
+                className="border-neutral-300 rounded-xl py-4 h-[60px]"  // Increased height to 60px
                 value={medNumber}
                 onChange={(e) => setMedNumber(e.target.value)}
               />
@@ -87,11 +90,12 @@ export default function Request() {
 
             <Form.Item
               name="signnumber"
-              rules={[{ required: true, message: t("placeholders.sign") }]}>
+              rules={[{ required: true, message: t("placeholders.sign") }]}
+            >
               <Input
                 type="number"
                 placeholder={`№ ${t("placeholders.sign")}`}
-                className="border-neutral-300 rounded-xl py-2"
+                className="border-neutral-300 rounded-xl py-4 h-[60px]"  // Increased height to 60px
                 value={signNumber}
                 onChange={(e) => setSignNumber(e.target.value)}
               />
@@ -99,16 +103,28 @@ export default function Request() {
 
             <Form.Item name="language" rules={[{ required: true }]}>
               <Select
-                className="rounded-xl"
+                className="rounded-xl h-[80px]"  // Увеличенная высота до 80px
                 placeholder={t("placeholders.choose-lang")}
                 size="large"
                 value={language}
                 onChange={(value) => setLanguage(value)}
+                suffixIcon={
+                  <Image
+                    src={Arrow_down}
+                    width={100}
+                    height={100}
+                    alt="Arrow Icon"
+                    quality={100}
+                    className="w-auto h-auto"
+                  />
+                }
+                style={{ height: '60px', lineHeight: '80px' }}  // Увеличиваем высоту и выравниваем текст по центру
               >
                 <Option value="ru">Русский</Option>
                 <Option value="en">English</Option>
               </Select>
             </Form.Item>
+
           </Form>
           {errorMessage && (
             <Alert
@@ -126,8 +142,16 @@ export default function Request() {
             transition={{ duration: 0.5 }}
             className="gap-4 px-4 py-4 flex rounded-2xl bg-red-100 md:items-center text-red-400"
           >
+            <Image
+              src={warning}
+              width={27}
+              height={27}
+              alt="Search Icon"
+              className='w-auto h-full'
+            />
             {t("warning")}
           </motion.div>
+
         </motion.div>
 
         <div className="w-full flex justify-center">
