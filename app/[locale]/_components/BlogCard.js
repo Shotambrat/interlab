@@ -4,7 +4,7 @@ import Link from "next/link";
 const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
   <article>
     <Link href={slug} className="flex flex-col max-md:ml-0 max-mdx:w-full">
-      <div className="flex flex-col grow pb-2 mt-10">
+      <div className="flex flex-col grow pb-2 mt-8">
         <div className="flex overflow-hidden relative flex-col items-end px-16 pt-20 pb-3 w-full aspect-[0.99] max-md:pl-5">
           <img
             loading="lazy"
@@ -14,7 +14,7 @@ const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
           />
           <LinkYakor slug={slug} />
         </div>
-        <div className="flex flex-col mt-2">
+        <div className="flex flex-col mt-3">
           <h3 className="text-xl mdx:text-3xl font-bold text-neutral-900 leading-4">
             {title}
           </h3>

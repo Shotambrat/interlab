@@ -66,15 +66,18 @@ export default function Instuction() {
     <section className="flex gap-5 justify-between slg:flex-nowrap flex-wrap max-md:max-w-full">
       <div className="flex flex-col self-start max-md:max-w-full">
         <div className="flex flex-col max-md:max-w-full">
-          <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full leading-7">
+          <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full leading-7 max-w-[467px]">
             Инструкции по сдаче анализов
           </h2>
-          <p className="mt-4 text-sm mdx:text-lg text-zinc-500 max-md:max-w-full leading-4">
+          <p className=" text-sm mdx:text-lg text-zinc-500 max-md:max-w-full leading-4">
             В клинике Interlab вы можете заказать вызов на дом для сдачи
             анализов, без необходимости посещения клиники
           </p>
+          <p className=" text-sm mdx:text-lg text-[#FB6A68] max-md:max-w-full leading-4">
+            *Клиника Intermed не несет ответственности за корректность результатов анализов при несоблюдении данных правил
+          </p>
         </div>
-        <button className="justify-center self-start px-10 py-2 mt-10 text-base font-bold text-center text-white bg-red-400 rounded-[100px]">
+        <button className="justify-center self-start px-16 py-4 mt-[20px] slg:mt-[40px] text-base font-bold text-center text-white bg-red-400 rounded-[100px]">
           Вызов на дом
         </button>
       </div>

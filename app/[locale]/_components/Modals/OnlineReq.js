@@ -30,7 +30,7 @@ export default function ContactWithUs({ setState }) {
           />
         </button>
         <div className="flex items-center flex-col slg:gap-5">
-          <div className="flex flex-col text-center px-8 lg:px-12">
+          <div className="flex flex-col text-center px-4 lg:px-12">
             <h3 className="text-rose-400 text-2xl font-semibold">
               Онлайн запись
             </h3>

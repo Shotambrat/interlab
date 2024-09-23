@@ -7,8 +7,6 @@
 
 body {
   @apply font-sans;
-
-
 }
 
 .scrollbar-hide::-webkit-scrollbar {

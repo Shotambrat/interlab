@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import lineForm from '@/public/svg/application/illustration.svg';
+import Arrow_down from '@/public/svg/arrow-down.svg';
 import { useTranslations } from 'next-intl';
 import { Form, Input, Button, Select, message } from 'antd';
 import { useState } from 'react';
@@ -31,7 +32,7 @@ const Application = () => {
     if (input.length >= 9) {
       formattedPhone += input.slice(7, 9);
     }
-    
+
     setPhone(formattedPhone); // Обновляем значение телефона
   };
 
@@ -99,14 +100,23 @@ const Application = () => {
               <Select
                 placeholder={t('placeholders.services.default')}
                 className="rounded-xl h-12"
+                suffixIcon={
+                  <Image
+                    src={Arrow_down}
+                    width={100}
+                    height={100}
+                    alt="Arrow Icon"
+                    quality={100}
+                    className="w-auto h-auto"
+                  />
+                }
               >
                 <Option value="mrt">{t('placeholders.services.MRI')}</Option>
                 <Option value="uzi">{t('placeholders.services.UZI')}</Option>
-                <Option value="cardio">
-                  {t('placeholders.services.cardiology')}
-                </Option>
+                <Option value="cardio">{t('placeholders.services.cardiology')}</Option>
               </Select>
             </Form.Item>
+
 
             <Form.Item name="comment">
               <Input.TextArea
