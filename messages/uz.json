@@ -164,7 +164,9 @@
     "warning": "Tahlil natijalari ro'yxatdan o'tishda ko'rsatilgan telefon raqamiga yuboriladi. Natijalarni uchinchi shaxslar tomonidan olishni oldini olish uchun shaxsiy telefon raqamingizni ko'rsatishingizni tavsiya qilamiz.",
     "get": "Olish",
     "instruction": "Ko'rsatma",
-    "how-get-online": "Intermed tahlil natijalarini masofadan qanday olish mumkin?"
+    "how-get-online": "Intermed tahlil natijalarini masofadan qanday olish mumkin?",
+    "error": "Xatolik yuz berdi",
+    "failed_to_get_result": "Tahlil natijalarini olishni iloji bo'lmadi"
   },
   "Blog": {
     "prom-title": "Intermed klinikasining foydali maslahatlari va qulay takliflari",
