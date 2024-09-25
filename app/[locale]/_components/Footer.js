@@ -2,28 +2,27 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import resultLogo from "@/public/svg/result-logo.svg";
+import LiveClock from "./LiveClock";
+import WeatherDisplay from "./WeatherDisplay";
 
 const SocialIcon = ({ src, linkUrl }) => (
-  <a target="_blank" href={linkUrl}>
+  <a target="_blank" href={linkUrl} rel="noopener noreferrer">
     <img
       loading="lazy"
       src={src}
-      className="shrink-0 aspect-square w-[45px]"
+      className="shrink-0 aspect-square w-[45px] hover:opacity-80 transition-opacity"
       alt="Social media icon"
     />
   </a>
 );
 
-const FooterLink = ({ text }) => <div className="mt-5">{text}</div>;
+const FooterLink = ({ text }) => <div className="mt-5 hover:text-gray-700 transition-colors">{text}</div>;
 
 const FooterSection = ({ title, links, locale }) => (
   <div className="flex flex-col slg:w-6/12 max-md:ml-0 max-md:w-full">
-    <nav className="flex flex-col grow text-xl text-neutral-900  max-slg:mt-10">
-      <Link href={`/${locale}/${title.url}`}>
-        <h3>{title.title}</h3>
-      </Link>
+    <nav className="flex flex-col grow text-xl text-neutral-900 max-slg:mt-10">
       {links.map((link, index) => (
-        <Link href={`/${locale}/${link.url}`} key={index}>
+        <Link href={`/${locale}/${link.url}`} className="hover:underline transition-all duration-150" key={index}>
           <FooterLink text={link.title} />
         </Link>
       ))}
@@ -34,18 +33,18 @@ const FooterSection = ({ title, links, locale }) => (
 function Footer({ locale }) {
   const t = useTranslations();
   return (
-    <div className="flex flex-col justify-center">
-      <div className="flex flex-col w-full bg-slate-50 max-md:max-w-full">
-        <header className="flex justify-center items-center px-16 py-10 w-full bg-slate-50 max-md:px-5 max-md:max-w-full">
-          <div className="flex justify-between gap-5 w-full max-w-[1434px] max-slg:flex-wrap max-md:max-w-full">
-            <div className="flex flex-col self-start">
+    <footer className="flex flex-col justify-center bg-slate-50">
+      <div className="flex flex-col w-full max-md:max-w-full">
+        <aside className="flex justify-center items-center px-16 py-10 bg-slate-50 max-md:px-5">
+          <div className="flex justify-between gap-5 w-full max-w-[1440px] max-slg:flex-wrap">
+            <div className="flex flex-col">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/604506ca9fb5f43eea55e3238ed5f23c1f55c1340299778968841854431be548?apiKey=e791e0f42eab4556ac944da69358f29b&"
-                className="self-center aspect-[3.7] w-[223px]"
+                className="self-center w-[223px] aspect-[3.7]"
                 alt="Company logo"
               />
-              <div className="flex gap-3 pr-16 mt-8 max-md:pr-5">
+              <div className="flex gap-3 mt-8">
                 <SocialIcon
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/9c71bc10c400533dd9fbac412ae42426654bb0fef5b1493037ca61e6bc831a43?apiKey=e791e0f42eab4556ac944da69358f29b&"
                   linkUrl={"https://www.facebook.com/intermeduz/"}
@@ -60,35 +59,38 @@ function Footer({ locale }) {
                 />
               </div>
             </div>
-            <div className="flex-auto max-w-full lg:flex lg:justify-end">
-              <div className="flex lg:w-2/3 gap-5 max-mdl:flex-col max-md:gap-0">
-                <FooterSection
-                  locale={locale}
-                  title={{ title: t("Footer.about"), url: "about" }}
-                  links={[
-                    { title: t("Footer.partners"), url: "partners" },
-                    { title: t("Footer.sertificates"), url: "about/licences" },
-                    { title: t("Footer.equipments"), url: "" },
-                    { title: t("Footer.pricelist"), url: "analyze" },
-                  ]}
-                />
-                <FooterSection
-                  locale={locale}
-                  title={{ title: t("Footer.for-legal"), url: "legal" }}
-                  links={[
-                    { title: t("Footer.preparation"), url: "instructions" },
-                    { title: t("Footer.feedback"), url: "" },
-                    { title: t("Footer.vacancy"), url: "vacancies" },
-                  ]}
-                />
-              </div>
+
+            <div className="lg:flex lg:justify-end w-full lg:w-2/3 gap-5 max-md:flex-col">
+              <FooterSection
+                locale={locale}
+                links={[
+                  { title: t("Footer.about"), url: "about" },
+                  { title: t("Footer.partners"), url: "partners" },
+                  { title: t("Footer.sertificates"), url: "about/licences" },
+                  { title: t("Footer.equipments"), url: "" },
+                  { title: t("Footer.pricelist"), url: "analyze" },
+                ]}
+              />
+              <FooterSection
+                locale={locale}
+                links={[
+                  { title: t("Footer.for-legal"), url: "legal" },
+                  { title: t("Footer.preparation"), url: "instructions" },
+                  { title: t("Footer.feedback"), url: "" },
+                  { title: t("Footer.vacancy"), url: "vacancies" },
+                ]}
+              />
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <LiveClock />
+              <WeatherDisplay />
             </div>
           </div>
-        </header>
-        <footer className="flex flex-col items-center px-16 pb-2.5 w-full text-base text-red-400 bg-slate-50 max-md:px-5 max-md:max-w-full">
-          <div className="flex flex-col w-full max-w-[1440px] max-md:max-w-full">
-            <div className="shrink-0 h-px bg-neutral-200 max-md:max-w-full" />
-            <div className="flex gap-5 mt-2.5 max-md:flex-wrap max-md:max-w-full">
+        </aside>
+        <section className="flex flex-col items-center px-16 pb-2.5 text-base text-red-400">
+          <div className="flex flex-col w-full max-w-[1440px]">
+            <div className="shrink-0 h-px bg-neutral-200" />
+            <div className="flex gap-5 mt-2.5 max-md:flex-wrap">
               <p className="flex-auto my-auto">© 2024 {t("Footer.rights")}</p>
               <a
                 target="_blank"
@@ -104,9 +106,9 @@ function Footer({ locale }) {
               </a>
             </div>
           </div>
-        </footer>
+        </section>
       </div>
-    </div>
+    </footer>
   );
 }
 

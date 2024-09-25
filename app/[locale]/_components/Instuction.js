@@ -5,34 +5,37 @@ import DownBlckIcon from "@/public/svg/arrow-right-down-blck.svg";
 import Image from "next/image";
 import { Transition } from "@headlessui/react";
 import { useState } from "react";
+import HouseCallSuccess from "@/app/[locale]/_components/Modals/HouseCallSuccess";
+import HouseCall from "@/app/[locale]/_components/Modals/HouseCall";
+import Link from "next/link";
 
 const AccordionItem = ({ title, isOpen, onClick, children }) => {
   return (
     <div className="border-t border-b border-solid border-neutral-200">
       <summary
         onClick={onClick}
-        className={`flex gap-5 justify-center py-7 ${isOpen ? "text-red-400" : "text-black"} text-xl max-md:flex-wrap max-md:max-w-full cursor-pointer`}
+        className={`flex gap-5 justify-center items-center py-7 ${isOpen ? "text-red-400" : "text-black"} text-xl max-md:flex-wrap max-md:max-w-full cursor-pointer`}
       >
         <span className="flex-auto">{title}</span>
         {isOpen ? (
           <Image
             src={UpRedIcon}
-            className=""
             alt={`Up icon red`}
             priority
             width={30}
             height={30}
             quality={100}
+            className="h-4 w-4 mdl:h-8 mdl:w-8"
           />
         ) : (
           <Image
             src={DownBlckIcon}
-            className=""
             alt={`Down icon black`}
             priority
             width={30}
             height={30}
             quality={100}
+            className="h-4 w-4 mdl:h-8 mdl:w-8"
           />
         )}
       </summary>
@@ -55,7 +58,8 @@ const AccordionContent = ({ children }) => {
   return <div className="py-5 px-4">{children}</div>;
 };
 
-export default function Instuction() {
+export default function Instuction({locale}) {
+  const [houseCall, setHouseCall] = useState(false);
   const [openSection, setOpenSection] = useState("general");
 
   const toggleSection = (section) => {
@@ -64,6 +68,7 @@ export default function Instuction() {
 
   return (
     <section className="flex gap-5 justify-between slg:flex-nowrap flex-wrap max-md:max-w-full">
+      {houseCall ? <HouseCall setState={setHouseCall} /> : <></>}
       <div className="flex flex-col self-start max-md:max-w-full">
         <div className="flex flex-col max-md:max-w-full">
           <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full leading-7 max-w-[467px]">
@@ -77,7 +82,7 @@ export default function Instuction() {
             *Клиника Intermed не несет ответственности за корректность результатов анализов при несоблюдении данных правил
           </p>
         </div>
-        <button className="justify-center self-start px-16 py-4 mt-[20px] slg:mt-[40px] text-base font-bold text-center text-white bg-red-400 rounded-[100px]">
+        <button onClick={() => setHouseCall(true)} className="justify-center self-start px-16 py-3 mdl:py-4 mt-[20px] slg:mt-[40px] text-base font-bold text-center text-white bg-red-400 rounded-[100px]">
           Вызов на дом
         </button>
       </div>
@@ -378,7 +383,7 @@ export default function Instuction() {
             </div>
           </AccordionContent>
         </AccordionItem>
-        <button className="flex flex-col justify-center py-px text-2xl text-red-400 border-т border-б border-solid border-neutral-200 max-md:max-w-full">
+        <Link href={`/${locale}/instructions`} className="flex flex-col justify-center py-px text-2xl text-red-400 border-т border-б border-solid border-neutral-200 max-md:max-w-full">
           <div className="flex gap-3.5 py-7 pr-20 max-md:flex-wrap max-md:pr-5">
             <span>Посмотреть все</span>
             <img
@@ -388,7 +393,7 @@ export default function Instuction() {
               alt="View all icon"
             />
           </div>
-        </button>
+        </Link>
       </div>
     </section>
   );

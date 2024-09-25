@@ -8,9 +8,9 @@ export default function ContactWithUs({ setState }) {
       <div className="bg-white max-md:p-4 px-8 py-8 rounded-3xl shadow-lg max-mdx:w-[90%] w-[450px] relative">
         <button
           className="absolute top-5 right-5"
-        //   onClick={() => {
-        //     setState(false);
-        //   }}
+          onClick={() => {
+            setState(false);
+          }}
         >
           <Image
             priority

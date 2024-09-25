@@ -13,7 +13,7 @@ export default function HomePage({ params }) {
     <div className="">
       <Banner locale={params.locale} />
       <Request locale={params.locale} />
-      <Instructions />
+      <Instructions locale={params.locale} />
       <div className="w-full bg-white">
         <div className="w-full max-w-[1440px] mx-auto py-12 flex flex-col gap-5">
           <h2 className="text-4xl font-semibold mb-0">{t('title')}</h2>

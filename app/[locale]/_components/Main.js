@@ -24,8 +24,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/lib/client";
 import { useTranslations } from "next-intl";
 import Sale from "@/app/[locale]/_components/Sale";
-// import HouseCallSuccess from "@/app/[locale]/_components/Modals/HouseCallSuccess";
-// import HouseCall from "@/app/[locale]/_components/Modals/HouseCall";
+
 SwiperCore.use([Navigation, Pagination]);
 
 const builder = imageUrlBuilder(client);
@@ -106,6 +105,7 @@ function Main({ params }) {
     <>
       {contactWithUs ? <ContactWithUs setState={setContactWithUs} /> : <></>}
       {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
+      
       {/* <HouseCallSuccess /> */}
       {/* <HouseCall /> */}
       <div className="flex flex-col bg-white gap-12 lg:gap-24 px-2 lg:px-16 overflow-x-hidden">
@@ -369,7 +369,7 @@ function Main({ params }) {
 
           </div>
           <div className="mt-52 max-md:mt-24">
-            <Instruction />
+            <Instruction locale={locale} />
           </div>
           <section className="mt-52 max-md:mt-24 w-full">
             <div className="flex gap-5 flex-col lg:flex-row max-md:gap-0 ">
