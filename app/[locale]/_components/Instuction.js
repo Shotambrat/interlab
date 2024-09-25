@@ -25,7 +25,7 @@ const AccordionItem = ({ title, isOpen, onClick, children }) => {
             width={30}
             height={30}
             quality={100}
-            className="h-4 w-4 mdl:h-8 mdl:w-8"
+            className="h-4 w-4"
           />
         ) : (
           <Image
@@ -35,7 +35,7 @@ const AccordionItem = ({ title, isOpen, onClick, children }) => {
             width={30}
             height={30}
             quality={100}
-            className="h-4 w-4 mdl:h-8 mdl:w-8"
+            className="h-4 w-4"
           />
         )}
       </summary>

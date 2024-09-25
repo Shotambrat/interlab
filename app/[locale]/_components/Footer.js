@@ -16,13 +16,19 @@ const SocialIcon = ({ src, linkUrl }) => (
   </a>
 );
 
-const FooterLink = ({ text }) => <div className="mt-5 hover:text-gray-700 transition-colors">{text}</div>;
+const FooterLink = ({ text }) => (
+  <div className="mt-5 hover:text-gray-700 transition-colors">{text}</div>
+);
 
 const FooterSection = ({ title, links, locale }) => (
-  <div className="flex flex-col slg:w-6/12 max-md:ml-0 max-md:w-full">
+  <div className="flex flex-col slg:w-6/12  max-md:ml-0 max-md:w-full">
     <nav className="flex flex-col grow text-xl text-neutral-900 max-slg:mt-10">
       {links.map((link, index) => (
-        <Link href={`/${locale}/${link.url}`} className="hover:underline transition-all duration-150" key={index}>
+        <Link
+          href={`/${locale}/${link.url}`}
+          className="hover:underline transition-all duration-150"
+          key={index}
+        >
           <FooterLink text={link.title} />
         </Link>
       ))}
@@ -35,32 +41,38 @@ function Footer({ locale }) {
   return (
     <footer className="flex flex-col justify-center bg-slate-50">
       <div className="flex flex-col w-full max-md:max-w-full">
-        <aside className="flex justify-center items-center px-16 py-10 bg-slate-50 max-md:px-5">
-          <div className="flex justify-between gap-5 w-full max-w-[1440px] max-slg:flex-wrap">
-            <div className="flex flex-col">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/604506ca9fb5f43eea55e3238ed5f23c1f55c1340299778968841854431be548?apiKey=e791e0f42eab4556ac944da69358f29b&"
-                className="self-center w-[223px] aspect-[3.7]"
-                alt="Company logo"
-              />
-              <div className="flex gap-3 mt-8">
-                <SocialIcon
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/9c71bc10c400533dd9fbac412ae42426654bb0fef5b1493037ca61e6bc831a43?apiKey=e791e0f42eab4556ac944da69358f29b&"
-                  linkUrl={"https://www.facebook.com/intermeduz/"}
+        <aside className="flex justify-center items-center px-2 py-10 bg-slate-50 ">
+          <div className="flex justify-between max-lg:flex-col gap-5 w-full max-w-[1440px] max-slg:flex-wrap">
+            <div className="max-lg:flex max-lg:justify-between max-lg:gap-4">
+              <div className="flex flex-col">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/604506ca9fb5f43eea55e3238ed5f23c1f55c1340299778968841854431be548?apiKey=e791e0f42eab4556ac944da69358f29b&"
+                  className="self-center w-[223px] aspect-[3.7]"
+                  alt="Company logo"
                 />
-                <SocialIcon
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b8103f6fceeb51d89439e1b44b26a2540f94da390091b4ea7611417d4e44da97?apiKey=e791e0f42eab4556ac944da69358f29b&"
-                  linkUrl={"https://www.instagram.com/intermed.centre/"}
-                />
-                <SocialIcon
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/9936081e82166164b2f73874d6ae5898bda1496a1b28684a3a9060ca27906cc3?apiKey=e791e0f42eab4556ac944da69358f29b&"
-                  linkUrl={"https://t.me/intermed_innovation_uz"}
-                />
+                <div className="flex gap-3 mt-8">
+                  <SocialIcon
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9c71bc10c400533dd9fbac412ae42426654bb0fef5b1493037ca61e6bc831a43?apiKey=e791e0f42eab4556ac944da69358f29b&"
+                    linkUrl={"https://www.facebook.com/intermeduz/"}
+                  />
+                  <SocialIcon
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/b8103f6fceeb51d89439e1b44b26a2540f94da390091b4ea7611417d4e44da97?apiKey=e791e0f42eab4556ac944da69358f29b&"
+                    linkUrl={"https://www.instagram.com/intermed.centre/"}
+                  />
+                  <SocialIcon
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9936081e82166164b2f73874d6ae5898bda1496a1b28684a3a9060ca27906cc3?apiKey=e791e0f42eab4556ac944da69358f29b&"
+                    linkUrl={"https://t.me/intermed_innovation_uz"}
+                  />
+                </div>
               </div>
+              <div className="flex lg:hidden flex-col items-center gap-2">
+              <LiveClock />
+              <WeatherDisplay />
+            </div>
             </div>
 
-            <div className="lg:flex lg:justify-end w-full lg:w-2/3 gap-5 max-md:flex-col">
+            <div className="flex w-full lg:w-2/3 gap-5 max-mdx:flex-col">
               <FooterSection
                 locale={locale}
                 links={[
@@ -81,16 +93,16 @@ function Footer({ locale }) {
                 ]}
               />
             </div>
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex max-lg:hidden flex-col items-center gap-2">
               <LiveClock />
               <WeatherDisplay />
             </div>
           </div>
         </aside>
-        <section className="flex flex-col items-center px-16 pb-2.5 text-base text-red-400">
+        <section className="flex flex-col items-center px-2 pb-2.5 text-base text-red-400">
           <div className="flex flex-col w-full max-w-[1440px]">
             <div className="shrink-0 h-px bg-neutral-200" />
-            <div className="flex gap-5 mt-2.5 max-md:flex-wrap">
+            <div className="flex gap-5 mt-2.5 max-mdx:flex-wrap">
               <p className="flex-auto my-auto">© 2024 {t("Footer.rights")}</p>
               <a
                 target="_blank"
