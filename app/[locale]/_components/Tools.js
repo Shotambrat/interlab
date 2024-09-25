@@ -56,8 +56,8 @@ export default function Tools({ navOptions, locale }) {
 
       <div className="flex items-center gap-4 max-mdx:gap-1 my-auto">
         <a href={`/${locale}/results`}>
-          <button className="py-1 group max-mdx:text-sm text-lg font-bold rounded-xl hover:shadow-none hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center gap-2 border px-4 max-mdx:px-1">
-            <div className="relative w-10 h-10 max-mdx:w-8 max-mdx:h-8">
+          <button className="py-1 group  mdx:text-lg bg-[#FEE9E8] font-medium rounded-full hover:shadow-none hover:bg-white hover:text-black text-[#FB6A68] transition-all duration-300 flex items-center gap-2 border px-4 max-mdx:px-2">
+            <div className="relative w-6 h-6 max-mdx:w-8 max-mdx:h-8">
               <Image
                 src={resultsRed}
                 layout="fill"
@@ -143,6 +143,9 @@ export default function Tools({ navOptions, locale }) {
       <AnimatePresence>
         {menu && (
           <Menu
+          toggleDropdown={toggleDropdown}
+          isOpen={isOpen}
+          availableLocales={availableLocales}
             menu={menu}
             closeMenu={handleCloseMenu}
             navOptions={navOptions}

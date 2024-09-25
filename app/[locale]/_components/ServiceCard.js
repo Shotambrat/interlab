@@ -29,7 +29,7 @@ export default function ServiceCard({
               </p>
             </div>
           </div>
-          <div className="absolute -bottom-4 right-0 w-2/3 md:w-[40%] max-md:ml-0">
+          <div className="absolute -bottom-4 right-0 w-1/2  md:w-[40%] max-md:ml-0">
             <Image
               quality={100}
               src={imageSrc}

@@ -108,10 +108,10 @@ function Main({ params }) {
       {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
       {/* <HouseCallSuccess /> */}
       {/* <HouseCall /> */}
-      <div className="flex flex-col bg-white gap-12 lg:gap-24 px-2 lg:px-16">
-        <main className="flex flex-col self-center w-full max-w-[1414px] max-md:max-w-full">
+      <div className="flex flex-col bg-white gap-12 lg:gap-24 px-2 lg:px-16 overflow-x-hidden">
+        <main className="flex flex-col justify-between relative self-center w-full max-w-[1414px] max-md:max-w-full  h-screen-70 slg:h-screen-90">
           <BannerMain params={params} />
-          <div className="flex gap-5 self-end mt-4 text-xs font-semibold text-center uppercase">
+          <div className="flex gap-5 absolute bottom-4 self-end text-xs font-semibold text-center uppercase">
             <button
               onClick={() => setContactWithUs(true)}
               className="flex justify-center"

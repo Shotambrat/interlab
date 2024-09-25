@@ -113,7 +113,7 @@ const Slider = ({ params }) => {
 
   return (
     <section className="max-md:max-w-full" ref={slideRef}>
-      <div className="flex gap-5 flex-col mdx:flex-row max-md:gap-0 items-center">
+      <div className="flex gap-5 flex-col mdl:flex-row max-md:gap-0 items-center">
         <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
           <div className="flex flex-col items-start mt-5 max-md:max-w-full">
             {banners.length > 1 && (
@@ -145,16 +145,17 @@ const Slider = ({ params }) => {
                   exit="exit"
                   transition="transition"
                   variants={slideAnimation}
-                  className="flex flex-col self-stretch mt-5 max-md:max-w-full"
+                  className="flex flex-col self-stretch mt-2 mdl:mt-5 max-md:max-w-full"
                 >
-                  <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-2xl text-2xl font-bold text-black max-md:max-w-full lg:leading-12">
+                  <h1 className="xl:text-6xl lg:text-5xl md:text-4xl text-3xl font-bold text-black max-md:max-w-full lg:leading-12">
                     {banners[currentSlide].title?.[locale]}
-                  </h1>
-                  <h1 className="lg:text-6xl md:text-4xl mdx:text-2xl text-2xl font-bold text-rose-400 max-md:max-w-full  lg:leading-12  ">
-                    {banners[currentSlide].subtitle?.[locale]}
+                    <br />
+                    <span className="text-rose-400">
+                      {banners[currentSlide].subtitle?.[locale]}
+                    </span>
                   </h1>
                   <p
-                    className="mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full"
+                    className="mdl:mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full"
                     dangerouslySetInnerHTML={{
                       __html: formatText(
                         banners[currentSlide].description?.[locale]
@@ -165,16 +166,19 @@ const Slider = ({ params }) => {
               </AnimatePresence>
             ) : (
               <div className="flex flex-col self-stretch max-md:max-w-full">
-                <h1 className="lg:text-6xl md:text-4xl transition-all duration-300 mdx:text-[30px] text-[30px] font-bold text-black max-md:max-w-full mb-0 leading-tight">
-                  {banners[0].title[locale]}
-                </h1>
-                <h1 className="lg:text-6xl md:text-4xl mdx:text-[30px] text-[30px] font-bold text-rose-400 max-md:max-w-full mt-0 leading-tight mb-0">
-                  {banners[0].subtitle[locale]}
+                <h1 className="xl:text-6xl lg:text-5xl md:text-4xl text-3xl font-bold text-black max-md:max-w-full lg:leading-12">
+                  {banners[currentSlide].title?.[locale]}
+                  <br />
+                  <span className="text-rose-400">
+                    {banners[currentSlide].subtitle?.[locale]}
+                  </span>
                 </h1>
                 <p
-                  className="text-sm mt-3 mdx:text-lg text-[#5B5B5B] max-md:max-w-full"
+                  className="mdl:mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full"
                   dangerouslySetInnerHTML={{
-                    __html: formatText(banners[0].description[locale]),
+                    __html: formatText(
+                      banners[currentSlide].description?.[locale]
+                    ),
                   }}
                 />
               </div>
@@ -204,7 +208,7 @@ const Slider = ({ params }) => {
               >
                 <Image
                   src={urlFor(banners[currentSlide].photo).url()}
-                  className="grow w-full rounded-none aspect-[1.01] max-md:mt-10 max-md:max-w-full"
+                  className="grow w-full max-mdl:max-w-[500px] rounded-none aspect-[1.01] max-md:mt-10 max-md:max-w-full"
                   alt="Medical facility"
                   priority
                   width={1000}
