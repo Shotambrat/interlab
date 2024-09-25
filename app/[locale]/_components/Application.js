@@ -1,51 +1,88 @@
-"use client"
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import lineForm from '@/public/svg/application/illustration.svg';
-import Arrow_down from '@/public/svg/arrow-down.svg';
-import { useTranslations } from 'next-intl';
-import { Form, Input, Button, Select, message } from 'antd';
-import { useState } from 'react';
+"use client";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import lineForm from "@/public/svg/application/illustration.svg";
+import Arrow_down from "@/public/svg/arrow-down.svg";
+import { useTranslations } from "next-intl";
+import { Form, Input, Button, Select, message } from "antd";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import PhoneInput from "react-phone-input-2";
+import { client } from '@/sanity/lib/client'; // Import the Sanity client
 
 const { Option } = Select;
 
 const Application = () => {
-  const t = useTranslations('Application');
-  const [phone, setPhone] = useState('');
+  const t = useTranslations("Application");
+  const [phone, setPhone] = useState("");
+  const [isValidPhone, setIsValidPhone] = useState(false); // State for phone validity
+  const [loading, setLoading] = useState(false); // State for button loading
+  const [services, setServices] = useState([]); // State to store the services from Sanity
 
-  // Функция для добавления маски номера телефона
-  const handlePhoneChange = (e) => {
-    let input = e.target.value.replace(/\D/g, ''); // Удаляем все символы, кроме цифр
-    if (input.length > 12) input = input.slice(0, 12); // Ограничиваем до 12 символов
+  // Fetch services from Sanity
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const query = `*[_type == "service"]{name, slug}`; // Adjust the query if needed
+        const data = await client.fetch(query);
+        setServices(data);
+      } catch (error) {
+        console.error("Failed to fetch services", error);
+      }
+    };
+    
+    fetchServices();
+  }, []);
 
-    let formattedPhone = '+998(';
-
-    if (input.length >= 2) {
-      formattedPhone += input.slice(0, 2) + ')-';
+  const handlePhoneChange = (value, country, e, formattedValue) => {
+    setPhone(value);
+    // Validate the phone number length based on the selected country
+    if (formattedValue.length === country.format.length) {
+      setIsValidPhone(true);
+    } else {
+      setIsValidPhone(false);
     }
-    if (input.length >= 5) {
-      formattedPhone += input.slice(2, 5) + '-';
-    }
-    if (input.length >= 7) {
-      formattedPhone += input.slice(5, 7) + '-';
-    }
-    if (input.length >= 9) {
-      formattedPhone += input.slice(7, 9);
-    }
-
-    setPhone(formattedPhone); // Обновляем значение телефона
   };
 
-  const handleFinish = (values) => {
-    // Проверка номера телефона
-    if (phone.replace(/\D/g, '').length !== 12) {
-      message.error('Введите корректный номер телефона');
+  const handleFinish = async (values) => {
+    // Check if the phone number is valid
+    if (!isValidPhone) {
+      message.error("Введите корректный номер телефона");
       return;
     }
 
-    console.log('Form values:', values);
-    // Логика отправки формы
+    setLoading(true); // Start loading state
+
+    const payload = {
+      name: values.fullname,
+      phone: phone,
+      service: values.service,
+      comment: values.comment,
+    };
+
+    try {
+      // Отправка данных на API
+      const response = await axios.post(
+        "https://interlab.uz/api/application/onlayn-zapis",
+        payload
+      );
+
+      if (response.status === 200) {
+        message.success("Заявка успешно отправлена!");
+        // Очистка формы после успешной отправки
+        setPhone("");
+        setLoading(false);
+        form.resetFields();
+      } else {
+        throw new Error("Ошибка при отправке");
+      }
+    } catch (error) {
+      message.error("Произошла ошибка при отправке. Попробуйте позже.");
+      setLoading(false); // Stop loading state
+    }
   };
+
+  const [form] = Form.useForm(); // Create form instance
 
   return (
     <div className="relative overflow-hidden py-5 lg:py-10 px-4 lg:pr-10 bg-rose-50 rounded-[30px] mdx:rounded-[50px] max-md:max-w-full">
@@ -62,44 +99,56 @@ const Application = () => {
         <div className="flex flex-col w-[50%] lg:w-[50%] xl:w-[50%] max-md:ml-0 max-slg:w-full">
           <div className="flex flex-col grow max-slg:max-w-full">
             <h2 className="justify-center self-end max-w-full max-md:max-w-full text-2xl mdx:text-4xl font-bold text-red-400">
-              {t('title')}
+              {t("title")}
             </h2>
-            <p className='text-lg text-neutral-400'>{t('description')}</p>
-            <p className='px-6 py-3 rounded-3xl bg-red-400 self-start font-medium mt-4 text-white'>{t('sale-info')}</p>
+            <p className="text-lg text-neutral-400">{t("description")}</p>
+            <p className="px-6 py-3 rounded-3xl bg-red-400 self-start font-medium mt-4 text-white">
+              {t("sale-info")}
+            </p>
           </div>
         </div>
         <div className="flex flex-col w-[32%] max-md:ml-0 max-slg:w-full">
           <Form
+            form={form}
             className="flex flex-col text-base max-md:mt-10 max-md:max-w-full"
             onFinish={handleFinish}
             layout="vertical"
           >
             <Form.Item
               name="fullname"
-              rules={[{ required: true, message: t('placeholders.fullname') }]}
+              rules={[{ required: true, message: t("placeholders.fullname") }]}
             >
               <Input
-                placeholder={t('placeholders.fullname')}
-                className="rounded-xl py-2 text-xl"
+                placeholder={t("placeholders.fullname")}
+                className="rounded-xl py-2 text-xl border border-gray-300 shadow-sm"
               />
             </Form.Item>
 
             <Form.Item
               name="phoneNumber"
-              rules={[{ required: true, message: t('placeholders.phone') }]}
+              rules={[{ required: true, message: t("placeholders.phone") }]}
             >
-              <Input
+              <PhoneInput
+                country={"uz"}
                 value={phone}
                 onChange={handlePhoneChange}
-                placeholder="+998(__)-___-__-__"
-                className="rounded-xl py-2 text-xl"
+                inputClass="rounded-xl py-2 pl-2 text-xl w-full border border-gray-300 shadow-sm"
+                inputProps={{
+                  name: "phoneNumber",
+                  required: true,
+                  autoFocus: true,
+                }}
+                placeholder="+998"
+                isValid={isValidPhone}
+                specialLabel=""
+                containerClass="phone-input w-full" // Apply custom class here
               />
             </Form.Item>
 
             <Form.Item name="service" rules={[{ required: true }]}>
               <Select
-                placeholder={t('placeholders.services.default')}
-                className="rounded-xl h-12"
+                placeholder={t("placeholders.services.default")}
+                className="rounded-xl h-12 border border-gray-300 shadow-sm"
                 suffixIcon={
                   <Image
                     src={Arrow_down}
@@ -111,26 +160,29 @@ const Application = () => {
                   />
                 }
               >
-                <Option value="mrt">{t('placeholders.services.MRI')}</Option>
-                <Option value="uzi">{t('placeholders.services.UZI')}</Option>
-                <Option value="cardio">{t('placeholders.services.cardiology')}</Option>
+                {services.map((service) => (
+                  <Option key={service.slug.current} value={service.slug.current}>
+                    {service.name.ru} {/* Adjust this to support localization */}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
 
-
             <Form.Item name="comment">
               <Input.TextArea
-                placeholder={t('placeholders.services.commentary')}
-                className="rounded-xl py-2 text-xl"
+                placeholder={t("placeholders.services.commentary")}
+                className="rounded-xl py-2 text-xl border border-gray-300 shadow-sm"
               />
             </Form.Item>
 
             <Button
               type="primary"
               htmlType="submit"
-              className="rounded-[100px] px-10 py-6 text-lg font-bold text-white bg-red-400 self-start"
+              loading={loading}
+              disabled={loading || !isValidPhone}
+              className="rounded-[100px] px-10 py-6 text-lg font-bold text-white bg-red-400 self-start hover:bg-red-500 transition-colors duration-200"
             >
-              {t('placeholders.services.request')}
+              {t("placeholders.services.request")}
             </Button>
           </Form>
         </div>

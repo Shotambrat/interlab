@@ -17,7 +17,7 @@ export default function ServiceList({ services, locale }) {
     return services.find((service) => service.category.slug.current === slug).category;
   });
 
-  const [activeCategory, setActiveCategory] = useState(categories[0].slug.current);
+  const [activeCategory, setActiveCategory] = useState(categories[0]?.slug.current);
 
   const handleFilter = (categorySlug) => {
     setActiveCategory(categorySlug);

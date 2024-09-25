@@ -231,7 +231,7 @@ function Main({ params }) {
             ) : (
               <>
                 {/* Первая строка с 2 колонками, где 1 элемент шире другого */}
-                <div className="grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-[60%,_40%] gap-5 w-full mt-5">
+                <div className="grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-[60%,_40%] gap-5 w-full mt-5 lg:pr-4">
                   {serviceCategories.slice(0, 2).map((service, index) => (
                     <div key={service._id} className="w-full">
                       <ServiceCard

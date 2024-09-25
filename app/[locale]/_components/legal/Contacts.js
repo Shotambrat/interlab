@@ -32,7 +32,7 @@ export default function Contacts() {
         </div>
         <hr />
       </div>
-      <a href="tel:+99989898989" className="mdl:hidden">
+      <a href="tel:+99989898989" className="mdl:hidden self-start">
         <ButtonModalRedBg title={"Позвонить"} />
       </a>
     </div>
