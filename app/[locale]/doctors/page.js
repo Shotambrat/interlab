@@ -11,10 +11,12 @@ export default async function HomePage({ params }) {
     photo,
     position
   }`);
-  
+
+  console.log("DOCTORS", doctors)
+
   return (
     <div>
-      <DoctorsBanner />
+      <DoctorsBanner locale={params.locale} />
       <Filter doctors={doctors} locale={params.locale} />
     </div>
   );

@@ -15,6 +15,7 @@ function urlFor(source) {
 
 export default function Filter({ doctors, locale }) {
   const t = useTranslations()
+
   return (
     <div className="w-full h-auto bg-white max-mdl:px-4 py-24">
       <div className="w-full max-w-[1440px] mx-auto h-auto flex flex-wrap gap-10">

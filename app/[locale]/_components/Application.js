@@ -93,7 +93,7 @@ const Application = () => {
         height={1000}
         alt="Line Svg"
         quality={100}
-        className="w-auto max-slg:w-[200%] max-slg:h-full absolute -left-12 -bottom-8 h-1/2"
+        className="w-auto max-slg:w-[200%] max-slg:h-full absolute -left-12 -bottom-8 h-1/2 lg:max-h-[200px]"
       />
       <div className="relative z-10 flex lg:justify-around gap-5 max-slg:flex-col max-md:gap-0">
         <div className="flex flex-col w-[50%] lg:w-[50%] xl:w-[50%] max-md:ml-0 max-slg:w-full">

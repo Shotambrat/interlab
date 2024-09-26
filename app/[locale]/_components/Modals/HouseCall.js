@@ -2,37 +2,38 @@ import Image from "next/image";
 import closeicongray from "@/public/svg/closeicon-gray.svg";
 import houseCall from "@/public/images/house-call.png";
 import { useState, useEffect } from "react";
-import { client } from '@/sanity/lib/client'; // Sanity client to fetch services
 import { Form, Input, Button, Select, message } from "antd";
+import PhoneInput from "react-phone-input-2";
 import axios from "axios";
+import { client } from '@/sanity/lib/client'; // Sanity client to fetch tests
 
 const { Option } = Select;
 
-export default function ContactWithUs({ setState }) {
-  const [services, setServices] = useState([]); // State for services
-  const [phone, setPhone] = useState(''); // State for phone input
+export default function HouseCall({ setState }) {
+  const [phone, setPhone] = useState(""); // State for phone input
   const [isValidPhone, setIsValidPhone] = useState(false); // Phone validation state
   const [loading, setLoading] = useState(false); // State for form submission
+  const [tests, setTests] = useState([]); // State for fetched tests
 
-  // Fetch services from Sanity
+  // Fetch tests from Sanity
   useEffect(() => {
-    const fetchServices = async () => {
+    const fetchTests = async () => {
       try {
-        const query = `*[_type == "service"]{name, slug}`;
+        const query = `*[_type == "test"]{name, slug}`; // Query to get test name and slug
         const data = await client.fetch(query);
-        setServices(data);
+        setTests(data);
       } catch (error) {
-        console.error("Failed to fetch services", error);
+        console.error("Failed to fetch tests", error);
       }
     };
-    fetchServices();
+    fetchTests();
   }, []);
 
-  const handlePhoneChange = (e) => {
-    const phoneValue = e.target.value.replace(/\D/g, ""); // Remove non-digit characters
-    setPhone(phoneValue);
-    if (phoneValue.length >= 9) {
-      setIsValidPhone(true); // Simple validation for length
+  const handlePhoneChange = (value, country, e, formattedValue) => {
+    setPhone(value);
+    // Validate the phone number length based on the selected country
+    if (formattedValue.length === country.format.length) {
+      setIsValidPhone(true);
     } else {
       setIsValidPhone(false);
     }
@@ -44,23 +45,24 @@ export default function ContactWithUs({ setState }) {
       return;
     }
 
-    setLoading(true);
+    setLoading(true); // Start loading state
 
     const payload = {
       name: values.fullname,
       phone: phone,
-      service: values.service,
+      analysis: values.test, // Changed from 'service' to 'test'
       comment: values.comment,
     };
 
     try {
       const response = await axios.post(
-        "https://interlab.uz/api/application/onlayn-zapis",
+        "http://213.230.91.55:8100/api/application/home-call",
         payload
       );
 
       if (response.status === 200) {
         message.success("Заявка успешно отправлена!");
+        // Clear form after successful submission
         setPhone("");
         setLoading(false);
         form.resetFields();
@@ -69,8 +71,7 @@ export default function ContactWithUs({ setState }) {
       }
     } catch (error) {
       message.error("Произошла ошибка при отправке. Попробуйте позже.");
-      console.log(error);
-      setLoading(false);
+      setLoading(false); // Stop loading state
     }
   };
 
@@ -116,34 +117,37 @@ export default function ContactWithUs({ setState }) {
             >
               <Form.Item
                 name="fullname"
-                rules={[{ required: true, message: "Пожалуйста, введите ваше ФИО" }]}
+                rules={[{ required: true, message: "Введите ваше ФИО" }]}
               >
                 <Input
-                  placeholder="ФИО *"
-                  className="rounded-xl py-2 text-xl border border-gray-300 shadow-sm"
+                  placeholder="Введите ваше ФИО"
+                  className="rounded-xl input py-2 text-xl border border-gray-300 shadow-sm"
                 />
               </Form.Item>
 
               <Form.Item
                 name="phoneNumber"
-                rules={[{ required: true, message: "Введите номер телефона" }]}
+                rules={[{ required: true, message: "Введите ваш номер телефона" }]}
               >
-                <Input
+                <PhoneInput
+                  country={"uz"}
                   value={phone}
                   onChange={handlePhoneChange}
-                  placeholder="+998(__)-___-__-__"
-                  className="rounded-xl py-2 text-xl w-full border border-gray-300 shadow-sm"
+                  inputClass="rounded-xl input py-2 pl-2 text-xl w-full border border-gray-300 shadow-sm"
+                  placeholder="+998"
+                  isValid={isValidPhone}
+                  containerClass="phone-input w-full"
                 />
               </Form.Item>
 
-              <Form.Item name="service" rules={[{ required: true, message: "Выберите услугу" }]}>
+              <Form.Item name="test" rules={[{ required: true, message: "Выберите анализ" }]}>
                 <Select
-                  placeholder="Интересующая услуга"
-                  className="rounded-xl h-12 border border-gray-300 shadow-sm"
+                  placeholder="Выберите анализ"
+                  className="rounded-xl h-14 border border-gray-300 shadow-sm"
                 >
-                  {services.map((service) => (
-                    <Option key={service.slug.current} value={service.slug.current}>
-                      {service.name.ru}
+                  {tests.map((test) => (
+                    <Option key={test.slug.current} value={test.name.ru}>
+                      {test.name.ru} {/* Display the test name in Russian */}
                     </Option>
                   ))}
                 </Select>
@@ -151,8 +155,8 @@ export default function ContactWithUs({ setState }) {
 
               <Form.Item name="comment">
                 <Input.TextArea
-                  placeholder="Ваш комментарий"
-                  className="rounded-xl py-2 text-xl border border-gray-300 shadow-sm"
+                  placeholder="Введите комментарий"
+                  className="rounded-xl py-2 text-xl border textarea border-gray-300 shadow-sm"
                 />
               </Form.Item>
 
@@ -163,7 +167,7 @@ export default function ContactWithUs({ setState }) {
                 disabled={loading || !isValidPhone}
                 className="rounded-[100px] px-10 py-6 text-lg font-bold text-white bg-red-400 self-start hover:bg-red-500 transition-colors duration-200"
               >
-                Оставить заявку
+                Отправить заявку
               </Button>
             </Form>
           </div>

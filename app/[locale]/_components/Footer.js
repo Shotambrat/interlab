@@ -89,7 +89,7 @@ function Footer({ locale }) {
               </div>
             </div>
 
-            <div className="flex w-full lg:w-2/3 gap-5 max-mdx:flex-col">
+            <div className="flex w-full lg:w-1/2 gap-5 max-mdx:flex-col">
               <FooterSection
                 locale={locale}
                 links={[
