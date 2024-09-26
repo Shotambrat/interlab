@@ -136,11 +136,9 @@ const Application = () => {
                 inputProps={{
                   name: "phoneNumber",
                   required: true,
-                  autoFocus: true,
                 }}
                 placeholder="+998"
                 isValid={isValidPhone}
-                specialLabel=""
                 containerClass="phone-input w-full" // Apply custom class here
               />
             </Form.Item>
