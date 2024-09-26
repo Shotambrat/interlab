@@ -9,7 +9,16 @@ import list from "@/public/svg/list.svg";
 import tgbot from "@/public/svg/tgbot.svg";
 import closeicon from "@/public/svg/closeicon.svg";
 
-const ContactButton = ({ href, onClick, icon, bgColor, borderColor, textColor, text, rightIcon }) => (
+const ContactButton = ({
+  href,
+  onClick,
+  icon,
+  bgColor,
+  borderColor,
+  textColor,
+  text,
+  rightIcon,
+}) => (
   <a
     href={href}
     onClick={onClick}
@@ -17,13 +26,27 @@ const ContactButton = ({ href, onClick, icon, bgColor, borderColor, textColor, t
   >
     <div className="flex items-center font-bold">
       <div className="mr-4">
-        <Image priority className="w-6 h-6" src={icon} width={100} height={100} alt={text} />
+        <Image
+          priority
+          className="w-6 h-6"
+          src={icon}
+          width={100}
+          height={100}
+          alt={text}
+        />
       </div>
       {/* <p className={`${textColor} font-semibold text-lg`}>{text}</p> */}
       {text}
     </div>
     <div>
-      <Image priority className="w-4 h-4" src={rightIcon} width={100} height={100} alt={text} />
+      <Image
+        priority
+        className="w-4 h-4"
+        src={rightIcon}
+        width={100}
+        height={100}
+        alt={text}
+      />
     </div>
   </a>
 );
@@ -52,6 +75,19 @@ export default function ContactWithUs({ setState }) {
         </div>
         <div className="mt-5 flex flex-col gap-4">
           <ContactButton
+            onClick={async () => {
+              try {
+                let response = await fetch(
+                  "https://interlab.uz/api/count?button=call",
+                  {
+                    method: "POST",
+                  }
+                );
+                console.log("Response Of CALLL Count ", response.json());
+              } catch (error) {
+                console.log("error to counter fetching", error);
+              }
+            }}
             href="tel:+9998998989"
             icon={redcallcontact}
             bgColor="bg-rose-100"

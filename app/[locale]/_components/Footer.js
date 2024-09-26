@@ -1,3 +1,4 @@
+"use client"
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,15 +6,28 @@ import resultLogo from "@/public/svg/result-logo.svg";
 import LiveClock from "./LiveClock";
 import WeatherDisplay from "./WeatherDisplay";
 
-const SocialIcon = ({ src, linkUrl }) => (
-  <a target="_blank" href={linkUrl} rel="noopener noreferrer">
-    <img
-      loading="lazy"
-      src={src}
-      className="shrink-0 aspect-square w-[45px] hover:opacity-80 transition-opacity"
-      alt="Social media icon"
-    />
-  </a>
+const fetchToCount = async (counter) => {
+  try {
+    let response = await fetch(counter, {
+      method: "POST",
+    });
+    console.log("Response Of Count", response.json());
+  } catch (error) {
+    console.log("error to counter fetching", error);
+  }
+};
+
+const SocialIcon = ({ src, linkUrl, counter }) => (
+  <button onClick={() => fetchToCount(counter)}>
+    <a target="_blank" href={linkUrl} rel="noopener noreferrer">
+      <img
+        loading="lazy"
+        src={src}
+        className="shrink-0 aspect-square w-[45px] hover:opacity-80 transition-opacity"
+        alt="Social media icon"
+      />
+    </a>
+  </button>
 );
 
 const FooterLink = ({ text }) => (
@@ -53,23 +67,26 @@ function Footer({ locale }) {
                 />
                 <div className="flex gap-3 mt-8">
                   <SocialIcon
+                    counter={"https://interlab.uz/api/count?button=facebook"}
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/9c71bc10c400533dd9fbac412ae42426654bb0fef5b1493037ca61e6bc831a43?apiKey=e791e0f42eab4556ac944da69358f29b&"
                     linkUrl={"https://www.facebook.com/intermeduz/"}
                   />
                   <SocialIcon
+                    counter={"https://interlab.uz/api/count?button=instagram"}
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/b8103f6fceeb51d89439e1b44b26a2540f94da390091b4ea7611417d4e44da97?apiKey=e791e0f42eab4556ac944da69358f29b&"
                     linkUrl={"https://www.instagram.com/intermed.centre/"}
                   />
                   <SocialIcon
+                    counter={"https://interlab.uz/api/count?button=call"}
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/9936081e82166164b2f73874d6ae5898bda1496a1b28684a3a9060ca27906cc3?apiKey=e791e0f42eab4556ac944da69358f29b&"
                     linkUrl={"https://t.me/intermed_innovation_uz"}
                   />
                 </div>
               </div>
               <div className="flex lg:hidden flex-col items-center gap-2">
-              <LiveClock />
-              <WeatherDisplay />
-            </div>
+                <LiveClock />
+                <WeatherDisplay />
+              </div>
             </div>
 
             <div className="flex w-full lg:w-2/3 gap-5 max-mdx:flex-col">

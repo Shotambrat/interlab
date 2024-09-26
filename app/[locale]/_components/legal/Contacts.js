@@ -1,38 +1,101 @@
+"use client";
 import ButtonModalRedBg from "../buttons/ButtonModalRedBg";
 import { useTranslations } from "next-intl";
 
 export default function Contacts() {
-  const t = useTranslations('Legal.contacts')
+  const t = useTranslations("Legal.contacts");
   return (
     <div className="flex w-full max-mdl:flex-col max-w-[1440px] px-2 mx-auto max-mdl:gap-5">
       <div className="flex-1 flex flex-col gap-6">
-        <h3 className="text-4xl max-mdx:text-3xl font-bold">
-          {t('title')}
-        </h3>
+        <h3 className="text-4xl max-mdx:text-3xl font-bold">{t("title")}</h3>
         <p className="text-neutral-400 w-full max-w-[400px]">
-          {t('description')}
+          {t("description")}
         </p>
-        <a href="tel:+99989898989" className="max-mdl:hidden self-start">
-          <ButtonModalRedBg title={t('call')} />
+        <a
+          onClick={async () => {
+            try {
+              let response = await fetch(
+                "https://interlab.uz/api/count?button=call",
+                {
+                  method: "POST",
+                }
+              );
+              console.log("Response Of Count", response.json());
+            } catch (error) {
+              console.log("error to counter fetching", error);
+            }
+          }}
+          href="tel:+99989898989"
+          className="max-mdl:hidden self-start"
+        >
+          <ButtonModalRedBg title={t("call")} />
         </a>
       </div>
       <div className="flex-1 flex flex-col gap-4">
         <div className="flex flex-col gap-2 max-mdl:flex-1">
-          <a className="text-2xl font-medium" href="tel:+998971504747">
+          <a
+            onClick={async () => {
+              try {
+                let response = await fetch(
+                  "https://interlab.uz/api/count?button=call",
+                  {
+                    method: "POST",
+                  }
+                );
+                console.log("Response Of Count", response.json());
+              } catch (error) {
+                console.log("error to counter fetching", error);
+              }
+            }}
+            className="text-2xl font-medium"
+            href="tel:+998971504747"
+          >
             +998 (97) 150 47 47
           </a>
-          <p className="text-neutral-400">{t('phone-for-call')} 1</p>
+          <p className="text-neutral-400">{t("phone-for-call")} 1</p>
         </div>
         <hr />
         <div className="flex flex-col gap-2 max-mdl:flex-1">
-          <a className="text-2xl font-medium" href="tel:+998971504747">
+          <a
+            onClick={async () => {
+              try {
+                let response = await fetch(
+                  "https://interlab.uz/api/count?button=call",
+                  {
+                    method: "POST",
+                  }
+                );
+                console.log("Response Of Count", response.json());
+              } catch (error) {
+                console.log("error to counter fetching", error);
+              }
+            }}
+            className="text-2xl font-medium"
+            href="tel:+998971504747"
+          >
             +998 (97) 150 47 47
           </a>
-          <p className="text-neutral-400">{t('phone-for-call')} 2</p>
+          <p className="text-neutral-400">{t("phone-for-call")} 2</p>
         </div>
         <hr />
       </div>
-      <a href="tel:+99989898989" className="mdl:hidden self-start">
+      <a
+        onClick={async () => {
+          try {
+            let response = await fetch(
+              "https://interlab.uz/api/count?button=call",
+              {
+                method: "POST",
+              }
+            );
+            console.log("Response Of Count", response.json());
+          } catch (error) {
+            console.log("error to counter fetching", error);
+          }
+        }}
+        href="tel:+99989898989"
+        className="mdl:hidden self-start"
+      >
         <ButtonModalRedBg title={"Позвонить"} />
       </a>
     </div>

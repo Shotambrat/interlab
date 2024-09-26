@@ -4,6 +4,7 @@ import houseCall from "@/public/images/house-call.png";
 import { useState, useEffect } from "react";
 import { client } from '@/sanity/lib/client'; // Sanity client to fetch services
 import { Form, Input, Button, Select, message } from "antd";
+import axios from "axios";
 
 const { Option } = Select;
 
@@ -68,6 +69,7 @@ export default function ContactWithUs({ setState }) {
       }
     } catch (error) {
       message.error("Произошла ошибка при отправке. Попробуйте позже.");
+      console.log(error);
       setLoading(false);
     }
   };

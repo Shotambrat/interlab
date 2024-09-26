@@ -7,7 +7,7 @@ import Application from "../_components/Application";
 
 export default function page() {
   return (
-    <div className="w-full flex flex-col gap-48 bg-white">
+    <div className="w-full flex flex-col gap-48 bg-white pb-48">
       <Banner />
       <div className="w-full max-w-[1440px] mx-auto">
         <section className="max-md:mt-10 w-full">
@@ -65,7 +65,10 @@ export default function page() {
       <Profits />
       <PriceCut />
       <Calculator />
+      <div className="w-full max-w-[1440px] mx-auto">
       <Application />
+
+      </div>
     </div>
   );
 }

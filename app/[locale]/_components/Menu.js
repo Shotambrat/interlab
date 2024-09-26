@@ -132,6 +132,16 @@ const Menu = ({ menu, closeMenu, navOptions, toggleDropdown, isOpen, availableLo
                     <Search />
                   </button>
                   <a
+                  onClick={async () => {
+                    try {
+                      let response = await fetch("https://interlab.uz/api/count?button=call", {
+                        method: "POST",
+                      });
+                      console.log("Response Of Count", response.json());
+                    } catch (error) {
+                      console.log("error to counter fetching", error);
+                    }
+                  }}
                     className="block border p-[7px] rounded-full"
                     href="tel:1156"
                   >

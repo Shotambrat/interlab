@@ -105,7 +105,7 @@ function Main({ params }) {
     <>
       {contactWithUs ? <ContactWithUs setState={setContactWithUs} /> : <></>}
       {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
-      
+
       {/* <HouseCallSuccess /> */}
       {/* <HouseCall /> */}
       <div className="flex flex-col bg-white gap-12 lg:gap-24 px-2 lg:px-16 overflow-x-hidden">
@@ -149,6 +149,19 @@ function Main({ params }) {
                   </div>
                   <div className="hidden slg:flex gap-5 mt-11 max-w-full text-base font-bold text-center w-[466px] max-md:flex-wrap max-md:mt-10">
                     <a
+                      onClick={async () => {
+                        try {
+                          let response = await fetch(
+                            "https://interlab.uz/api/count?button=call",
+                            {
+                              method: "POST",
+                            }
+                          );
+                          console.log("Response Of Count", response.json());
+                        } catch (error) {
+                          console.log("error to counter fetching", error);
+                        }
+                      }}
                       href="tel:+998781482288"
                       className="justify-center items-center self-start px-16 py-3 text-white whitespace-nowrap bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px] max-md:px-5"
                     >
@@ -167,10 +180,46 @@ function Main({ params }) {
                 <div className="flex flex-col justify-between grow max-md:mt-5 max-md:max-w-full">
                   <div className="flex flex-col pt-1.5 max-md:max-w-full mb-2">
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
-                      1) <a href="tel:1156">1156</a>
+                      1){" "}
+                      <a
+                        onClick={async () => {
+                          try {
+                            let response = await fetch(
+                              "https://interlab.uz/api/count?button=call",
+                              {
+                                method: "POST",
+                              }
+                            );
+                            console.log("Response Of Count", response.json());
+                          } catch (error) {
+                            console.log("error to counter fetching", error);
+                          }
+                        }}
+                        href="tel:1156"
+                      >
+                        1156
+                      </a>
                     </div>
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
-                      2) <a href="tel:+998781482288">998 (78) 148 22 88</a>
+                      2){" "}
+                      <a
+                        onClick={async () => {
+                          try {
+                            let response = await fetch(
+                              "https://interlab.uz/api/count?button=call",
+                              {
+                                method: "POST",
+                              }
+                            );
+                            console.log("Response Of Count", response.json());
+                          } catch (error) {
+                            console.log("error to counter fetching", error);
+                          }
+                        }}
+                        href="tel:+998781482288"
+                      >
+                        998 (78) 148 22 88
+                      </a>
                     </div>
                     <div className="md:text-xl text-sm text-zinc-500 max-md:max-w-full">
                       {t("Main.ContactUs.phone-for-call")}
@@ -282,8 +331,9 @@ function Main({ params }) {
                   height={100}
                   width={100}
                   alt="Down Icon Red"
-                  className={`w-4 h-4 transition-transform duration-300 ${servicesOpen ? "rotate-180" : "rotate-0"
-                    }`}
+                  className={`w-4 h-4 transition-transform duration-300 ${
+                    servicesOpen ? "rotate-180" : "rotate-0"
+                  }`}
                 />
               </button>
             </div>
@@ -366,7 +416,6 @@ function Main({ params }) {
           </a>
           <div className="mt-24">
             <PopularAnalyze params={params} />
-
           </div>
           <div className="mt-52 max-md:mt-24">
             <Instruction locale={locale} />

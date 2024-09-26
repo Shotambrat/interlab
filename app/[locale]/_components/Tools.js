@@ -84,8 +84,17 @@ export default function Tools({ navOptions, locale }) {
             <Search />
           </button>
         </div>
-
-        <a className="hidden mdx:block" href="tel:1156">
+ 
+        <a onClick={ async() => {
+            try {
+              let response = await fetch("https://interlab.uz/api/count?button=call", {
+                method: "POST",
+              });
+              console.log("Response Of Count", response.json());
+            } catch (error) {
+              console.log("error to counter fetching", error);
+            }
+        }} className="hidden mdx:block" href="tel:1156">
           <Image priority src={phone} width={25} height={25} alt="Phone icon" quality={100} />
         </a>
       </div>
