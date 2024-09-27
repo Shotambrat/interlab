@@ -372,6 +372,10 @@
       }
     }
   },
+  "search": {
+    "noResults": "Нет результатов",
+    "moreDetails": "Подробнее"
+  },
   "connect": "Связаться",
   "online-application": "Онлайн запись",
   "call": "Позвонить",

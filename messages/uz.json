@@ -372,6 +372,10 @@
       }
     }
   },
+  "search": {
+    "noResults": "Нет результатов",
+    "moreDetails": "Подробнее"
+  },
   "connect": "Aloqa",
   "online-application": "Onlayn yozilish",
   "call": "Qo'ng'iroq qilish",

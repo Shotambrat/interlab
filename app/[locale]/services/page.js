@@ -6,8 +6,8 @@ export default async function ServicePage({ params }) {
   const { locale } = params;
 
   // Fetch the services from Sanity
-  const services = await client.fetch(`
-    *[_type == "service"]{
+  const services = await client.fetch(
+    `*[_type == "service"]{
       name,
       slug,
       description,
@@ -16,8 +16,8 @@ export default async function ServicePage({ params }) {
         name,
         slug
       }
-    }
-  `);
+    }`
+  );
 
   return (
     <div>
