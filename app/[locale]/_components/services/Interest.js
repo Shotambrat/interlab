@@ -1,4 +1,3 @@
-import ServiceItems from './ServiceItem';
 import { client } from '@/sanity/lib/client';
 import InterestClient from './InterestClient'; // клиентский компонент
 

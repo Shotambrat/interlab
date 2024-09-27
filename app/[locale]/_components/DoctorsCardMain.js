@@ -16,7 +16,7 @@ const DoctorCardMain = ({ name, specialty, imageSrc, slug, locale }) => (
           height={300}
           quality={100}
         />
-        <LinkYakor slug={slug} />
+        {/* <LinkYakor slug={slug} /> */}
       </div>
       <div className="flex flex-col mx-5 mt-5 max-md:mx-2.5">
         <h3 className="text-2xl font-bold text-neutral-900">{name}</h3>

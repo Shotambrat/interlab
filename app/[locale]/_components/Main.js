@@ -426,11 +426,12 @@ function Main({ params }) {
                 {t("Main.About.title")}
               </h2>
               <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/62066623c2a9b716467d4a21bdfcc3f05d9aaddc81efd8d3850593ff5e45864b?apiKey=e791e0f42eab4556ac944da69358f29b&"
-                  className="grow w-full aspect-[1.2] max-md:mt-7 mdl:h-[500px]  rounded-3xl object-cover max-md:max-w-full"
-                  alt="Modern medical center"
+                <Image
+                  src='/images/interlab-logo.jpg'
+                  width={1000}
+                  height={1000}
+                  alt="Interlab logo"
+                  className="w-full h-full rounded-[45px]"
                 />
               </div>
               <div className="flex flex-col justify-between ml-5 lg:w-6/12 max-md:ml-0 w-full">

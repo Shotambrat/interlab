@@ -23,8 +23,20 @@ export default {
     },
     {
       name: "description",
-      type: "blockContent",
+      type: "object",
       title: "Описание сервиса",
+      fields: [
+        {
+          name: "ru",
+          type: "blockContent",
+          title: "Описание на русском",
+        },
+        {
+          name: "uz",
+          type: "blockContent",
+          title: "Описание на узбекском",
+        },
+      ],
     },
     {
       name: "category",

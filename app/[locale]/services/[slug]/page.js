@@ -16,7 +16,7 @@ export default async function ServiceDetailPage({ params }) {
       description,
       details,
       icon,
-      category->{
+      categoryName->{
         name,
         slug
       }
