@@ -1,5 +1,5 @@
-// app/[locale]/_components/doctors/Filter.js
 "use client";
+import { useState, useEffect } from "react";
 import DoctorCard from "@/app/[locale]/_components/doctors/DoctorCard";
 import Application from "@/app/[locale]/_components/Application";
 import Blog from "@/app/[locale]/_components/Blog";
@@ -15,28 +15,53 @@ function urlFor(source) {
 
 export default function Filter({ doctors, locale }) {
   const t = useTranslations();
+  const [query, setQuery] = useState(""); // State to store the search query
+  const [filteredDoctors, setFilteredDoctors] = useState(doctors); // State to store filtered doctors
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    const value = e.target.value.toLowerCase();
+    setQuery(value);
+
+    // Filter doctors based on the search query
+    if (value) {
+      const filtered = doctors.filter((doctor) =>
+        doctor.name[locale].toLowerCase().includes(value) ||
+        doctor.position[locale].join(", ").toLowerCase().includes(value)
+      );
+      setFilteredDoctors(filtered);
+    } else {
+      setFilteredDoctors(doctors); // Reset to the original list when query is empty
+    }
+  };
 
   return (
     <div className="w-full h-auto bg-white max-mdl:px-4 py-24">
       <div className="w-full max-w-[1440px] mx-auto h-auto flex flex-col gap-10">
         <div className="w-full max-w-[1440px] mx-auto my-12">
-          <SearchComp />
+          <SearchComp query={query} onChange={handleSearchChange} />
         </div>
         <div className="w-full max-w-[1440px] mx-auto grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-4 gap-5">
-          {doctors.map((doctor, index) => (
-            <div key={index} className=" flex justify-center">
-              <DoctorCard
-                locale={locale}
-                name={doctor.name[locale] || doctor.name.ru}
-                specialty={
-                  doctor.position[locale].join(", ") ||
-                  doctor.position.ru.join(", ")
-                }
-                imageSrc={urlFor(doctor.photo).url()}
-                slug={doctor.slug.current}
-              />
-            </div>
-          ))}
+          {filteredDoctors.length > 0 ? (
+            filteredDoctors.map((doctor, index) => (
+              <div key={index} className=" flex justify-center">
+                <DoctorCard
+                  locale={locale}
+                  name={doctor.name[locale] || doctor.name.ru}
+                  specialty={
+                    doctor.position[locale].join(", ") ||
+                    doctor.position.ru.join(", ")
+                  }
+                  imageSrc={urlFor(doctor.photo).url()}
+                  slug={doctor.slug.current}
+                />
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-neutral-500">
+              {t("No results found")}
+            </p>
+          )}
         </div>
       </div>
       <div className="w-full max-w-[1440px] mx-auto">

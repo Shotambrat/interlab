@@ -5,9 +5,9 @@ import search from "@/public/svg/search-white.svg";
 
 export default function SearchComp({ query, onChange }) {
   return (
-    <div className="flex items-center w-full p-1 border border-neutral-200 rounded-xl " style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', overflow: 'hidden' }}>
+    <div className="flex items-center w-full p-1 border border-neutral-200 rounded-xl" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', overflow: 'hidden' }}>
       <Input
-        placeholder="Введите название анализа"
+        placeholder="Введите имя врача или специальность"
         value={query}
         onChange={onChange}
         className="flex-1 rounded-xl"
