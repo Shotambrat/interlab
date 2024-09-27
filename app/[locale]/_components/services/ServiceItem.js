@@ -11,7 +11,7 @@ export default function ServiceItems({ title, description, url, locale }) {
         <div className="flex flex-col">
           <h2 className="font-bold text-2xl">{title}</h2>
           <p className="text-neutral-400">
-            {description ? description.slice(0, 100) + '...' : t('Services.noDescription')} {/* Ensure a limited description */}
+            {/* {description ? description : t('Services.noDescription')} Ensure a limited description */}
           </p>
         </div>
         <div

@@ -53,7 +53,7 @@ export default function ServiceList({ services, locale }) {
             <ServiceItems
               key={index}
               title={service.name[locale] || service.name.ru}
-              description={service.description[locale]?.join(' ') || service.description.ru?.join(' ')}
+              description={service.category.name}
               url={`/services/${service.slug.current}`}
               locale={locale}
             />
