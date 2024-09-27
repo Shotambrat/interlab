@@ -14,39 +14,42 @@ function urlFor(source) {
 }
 
 export default function Filter({ doctors, locale }) {
-  const t = useTranslations()
+  const t = useTranslations();
 
   return (
     <div className="w-full h-auto bg-white max-mdl:px-4 py-24">
-      <div className="w-full max-w-[1440px] mx-auto h-auto flex flex-wrap gap-10">
-      <div className="w-full max-w-[1440px] mx-auto my-12">
-        <SearchComp />
-      </div>
-        {doctors.map((doctor, index) => (
-          <DoctorCard
-            locale={locale}
-            key={index}
-            name={doctor.name[locale] || doctor.name.ru}
-            specialty={
-              doctor.position[locale].join(", ") ||
-              doctor.position.ru.join(", ")
-            }
-            imageSrc={urlFor(doctor.photo).url()}
-            slug={doctor.slug.current}
-          />
-        ))}
+      <div className="w-full max-w-[1440px] mx-auto h-auto flex flex-col gap-10">
+        <div className="w-full max-w-[1440px] mx-auto my-12">
+          <SearchComp />
+        </div>
+        <div className="w-full max-w-[1440px] mx-auto grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-4 gap-5">
+          {doctors.map((doctor, index) => (
+            <div key={index} className=" flex justify-center">
+              <DoctorCard
+                locale={locale}
+                name={doctor.name[locale] || doctor.name.ru}
+                specialty={
+                  doctor.position[locale].join(", ") ||
+                  doctor.position.ru.join(", ")
+                }
+                imageSrc={urlFor(doctor.photo).url()}
+                slug={doctor.slug.current}
+              />
+            </div>
+          ))}
+        </div>
       </div>
       <div className="w-full max-w-[1440px] mx-auto">
         <section className="flex flex-col justify-center mt-52 mb-52 rounded-[50px] max-md:mt-10 max-md:max-w-full">
           <Application />
         </section>
         <h2 className=" text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
-          {t('Blog.title')}
+          {t("Blog.title")}
         </h2>
         <Blog />
         <div className="w-full flex justify-center ">
           <button className="flex gap-2 justify-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
-            <span className="my-auto">{t('Blog.other')}</span>
+            <span className="my-auto">{t("Blog.other")}</span>
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"
