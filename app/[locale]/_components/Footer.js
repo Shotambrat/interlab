@@ -96,7 +96,7 @@ function Footer({ locale }) {
                   { title: t("Footer.about"), url: "about" },
                   { title: t("Footer.partners"), url: "partners" },
                   { title: t("Footer.sertificates"), url: "about/licences" },
-                  { title: t("Footer.equipments"), url: "" },
+                  // { title: t("Footer.equipments"), url: "" },
                   { title: t("Footer.pricelist"), url: "analyze" },
                 ]}
               />
@@ -105,7 +105,7 @@ function Footer({ locale }) {
                 links={[
                   { title: t("Footer.for-legal"), url: "legal" },
                   { title: t("Footer.preparation"), url: "instructions" },
-                  { title: t("Footer.feedback"), url: "" },
+                  // { title: t("Footer.feedback"), url: "" },
                   { title: t("Footer.vacancy"), url: "vacancies" },
                 ]}
               />
