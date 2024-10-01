@@ -32,6 +32,7 @@ export default function AboutBanner() {
               src={aboutBanner}
               width={1500}
               height={1500}
+              quality={100}
               alt="About Banner"
               className="h-full w-full max-slg:rounded-3xl rounded-bl-3xl object-cover max-lg:rounded-[30px]"
             />

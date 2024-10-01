@@ -230,9 +230,9 @@ function Main({ params }) {
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
                       {t("Main.ContactUs.addresses")}
                     </div>
-                    <div className="md:text-xl text-sm text-red-400 max-md:max-w-full">
+                    <a href="https://yandex.uz/maps/10335/tashkent/house/YkAYdA5gQUwDQFprfX90cXRnZw==/?ll=69.290894%2C41.350844&z=17" target="_blank" className="md:text-xl text-sm text-red-400 max-md:max-w-full">
                       {t("Main.ContactUs.open-in-ya")}
-                    </div>
+                    </a>
                   </div>
                   <hr />
                   <div className="flex flex-col max-md:max-w-full pt-4">
