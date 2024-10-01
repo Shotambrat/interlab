@@ -5,7 +5,7 @@ import Link from "next/link";
 const DoctorCardMain = ({ name, specialty, imageSrc, slug, locale }) => (
   <Link href={`/${locale}/doctors/${slug}`}>
   <article className="flex flex-col grow pb-2 max-md:mt-5">
-    <div className="flex h-full flex-col pb-5 bg-white shadow-lg md:shadow-2xl rounded-[30px]">
+    <div className="flex h-full flex-col pb-5 bg-white shadow-custom-doctor rounded-[30px]">
       <div className="flex overflow-hidden relative flex-col rounded-3xl items-end px-16 pt-20 pb-3 w-full aspect-[0.84] max-md:pl-5">
         <Image
           src={imageSrc}

@@ -13,7 +13,7 @@ const DoctorCardMain = ({ name, specialty, imageSrc, slug, locale }) => {
   return (
     <article className="flex flex-col w-full max-w-[320px] grow pb-2 max-md:mt-5 h-full">
       {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
-      <div className="flex justify-between h-full flex-col pb-5 bg-white shadow-lg md:shadow-2xl rounded-[30px]">
+      <div className="flex justify-between h-full flex-col pb-5 bg-white shadow-custom-doctor rounded-[30px]">
         <div>
           {/* Оборачиваем только изображение и текст ссылкой */}
           <Link href={`/${locale}/doctors/${slug}`} className="block">

@@ -1,6 +1,12 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-export default function FilterAnalyzeItems({ title, shortDescription, price, slug, locale }) {
+export default function FilterAnalyzeItems({
+  title,
+  shortDescription,
+  price,
+  slug,
+  locale,
+}) {
   return (
     <Link href={`analyze/${slug}`} className="w-full flex flex-col gap-5">
       <div className="flex justify-between items-start">
@@ -12,15 +18,16 @@ export default function FilterAnalyzeItems({ title, shortDescription, price, slu
             <p>Описание отсутствует</p>
           )}
         </div>
-        <p className="whitespace-nowrap text-red-500 font-bold text-lg">
-          {price} сум
-        </p>
+        {price != null && (
+          <p className="whitespace-nowrap text-red-500 font-bold text-lg">
+            {price} сум
+          </p>
+        )}
       </div>
       <hr />
     </Link>
   );
 }
-
 
 // import PortableText from '@sanity/block-content-to-react';
 // import Link from 'next/link';

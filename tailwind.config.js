@@ -27,6 +27,7 @@ module.exports = {
       boxShadow: {
         '3xl': '0 20px 100px -10px rgba(0, 0, 0, 0.1)',
         'custom': '-1px 2px 16px 0px rgba(189, 189, 189, 1)', // Custom shadow
+        'custom-doctor': '-1px 2px 30px 20px rgba(189, 189, 189, 0.2)', // Custom shadow
       },
       height: {
         'screen-90': 'calc(100vh - 90px)', // Custom h-screen-90px

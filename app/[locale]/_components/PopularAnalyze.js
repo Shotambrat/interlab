@@ -27,6 +27,7 @@ export default function PopularAnalyze({ params }) {
     };
     fetchPopularTests();
   }, []);
+console.log("PopularTest",popularTests)
 
   if (!popularTests) {
     return <p>Загрузка...</p>;
