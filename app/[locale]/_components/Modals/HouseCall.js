@@ -1,33 +1,16 @@
 import Image from "next/image";
 import closeicongray from "@/public/svg/closeicon-gray.svg";
 import houseCall from "@/public/images/house-call.png";
-import { useState, useEffect } from "react";
-import { Form, Input, Button, Select, message } from "antd";
+import { useState } from "react";
+import { Form, Input, Button, DatePicker, message } from "antd";
 import PhoneInput from "react-phone-input-2";
 import axios from "axios";
-import { client } from '@/sanity/lib/client'; // Sanity client to fetch tests
-
-const { Option } = Select;
+import moment from "moment"; // Import moment to handle date formatting
 
 export default function HouseCall({ setState }) {
   const [phone, setPhone] = useState(""); // State for phone input
   const [isValidPhone, setIsValidPhone] = useState(false); // Phone validation state
   const [loading, setLoading] = useState(false); // State for form submission
-  const [tests, setTests] = useState([]); // State for fetched tests
-
-  // Fetch tests from Sanity
-  useEffect(() => {
-    const fetchTests = async () => {
-      try {
-        const query = `*[_type == "test"]{name, slug}`; // Query to get test name and slug
-        const data = await client.fetch(query);
-        setTests(data);
-      } catch (error) {
-        console.error("Failed to fetch tests", error);
-      }
-    };
-    fetchTests();
-  }, []);
 
   const handlePhoneChange = (value, country, e, formattedValue) => {
     setPhone(value);
@@ -50,7 +33,7 @@ export default function HouseCall({ setState }) {
     const payload = {
       name: values.fullname,
       phone: phone,
-      analysis: values.test, // Changed from 'service' to 'test'
+      birthDate: values.birthDate.format("DD.MM.YYYY"), // Date of birth
       comment: values.comment,
     };
 
@@ -62,7 +45,6 @@ export default function HouseCall({ setState }) {
 
       if (response.status === 200) {
         message.success("Заявка успешно отправлена!");
-        // Clear form after successful submission
         setPhone("");
         setLoading(false);
         form.resetFields();
@@ -140,17 +122,16 @@ export default function HouseCall({ setState }) {
                 />
               </Form.Item>
 
-              <Form.Item name="test" rules={[{ required: true, message: "Выберите анализ" }]}>
-                <Select
-                  placeholder="Выберите анализ"
-                  className="rounded-xl h-14 border border-gray-300 shadow-sm"
-                >
-                  {tests.map((test) => (
-                    <Option key={test.slug.current} value={test.name.ru}>
-                      {test.name.ru} {/* Display the test name in Russian */}
-                    </Option>
-                  ))}
-                </Select>
+              {/* Date of birth picker */}
+              <Form.Item
+                name="birthDate"
+                rules={[{ required: true, message: "Выберите дату рождения" }]}
+              >
+                <DatePicker
+                  placeholder="Выберите дату рождения"
+                  format="DD.MM.YYYY"
+                  className="rounded-xl input py-2 text-xl w-full border border-gray-300 shadow-sm"
+                />
               </Form.Item>
 
               <Form.Item name="comment">

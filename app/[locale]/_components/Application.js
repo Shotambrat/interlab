@@ -4,35 +4,17 @@ import Image from "next/image";
 import lineForm from "@/public/svg/application/illustration.svg";
 import Arrow_down from "@/public/svg/arrow-down.svg";
 import { useTranslations } from "next-intl";
-import { Form, Input, Button, Select, message } from "antd";
-import { useState, useEffect } from "react";
+import { Form, Input, Button, DatePicker, message } from "antd";
+import { useState } from "react";
 import axios from "axios";
 import PhoneInput from "react-phone-input-2";
-import { client } from '@/sanity/lib/client'; // Import the Sanity client
-
-const { Option } = Select;
+import moment from "moment"; // Import moment to handle date formatting
 
 const Application = () => {
   const t = useTranslations("Application");
   const [phone, setPhone] = useState("");
   const [isValidPhone, setIsValidPhone] = useState(false); // State for phone validity
   const [loading, setLoading] = useState(false); // State for button loading
-  const [services, setServices] = useState([]); // State to store the services from Sanity
-
-  // Fetch services from Sanity
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const query = `*[_type == "service"]{name, slug}`; // Adjust the query if needed
-        const data = await client.fetch(query);
-        setServices(data);
-      } catch (error) {
-        console.error("Failed to fetch services", error);
-      }
-    };
-    
-    fetchServices();
-  }, []);
 
   const handlePhoneChange = (value, country, e, formattedValue) => {
     setPhone(value);
@@ -56,7 +38,7 @@ const Application = () => {
     const payload = {
       name: values.fullname,
       phone: phone,
-      service: values.service,
+      birthDate: values.birthDate.format("DD.MM.YYYY"), // Format date as DD.MM.YYYY
       comment: values.comment,
     };
 
@@ -93,7 +75,7 @@ const Application = () => {
         height={1000}
         alt="Line Svg"
         quality={100}
-        className="w-auto max-slg:w-[200%] max-slg:h-full absolute -left-12 -bottom-8 h-1/2 lg:max-h-[200px]"
+        className="w-auto max-slg:w-[200%] max-slg:h-full absolute -left-12 -bottom-8 h-1/2 lg:max-h-[150px]"
       />
       <div className="relative z-10 flex lg:justify-around gap-5 max-slg:flex-col max-md:gap-0">
         <div className="flex flex-col w-[50%] lg:w-[50%] xl:w-[50%] max-md:ml-0 max-slg:w-full">
@@ -143,27 +125,16 @@ const Application = () => {
               />
             </Form.Item>
 
-            <Form.Item name="service" rules={[{ required: true }]}>
-              <Select
-                placeholder={t("placeholders.services.default")}
-                className="rounded-xl h-14 border border-gray-300 shadow-sm"
-                suffixIcon={
-                  <Image
-                    src={Arrow_down}
-                    width={100}
-                    height={100}
-                    alt="Arrow Icon"
-                    quality={100}
-                    className="w-auto h-auto"
-                  />
-                }
-              >
-                {services.map((service) => (
-                  <Option key={service.slug.current} value={service.slug.current}>
-                    {service.name.ru} {/* Adjust this to support localization */}
-                  </Option>
-                ))}
-              </Select>
+            {/* Birth Date Picker */}
+            <Form.Item
+              name="birthDate"
+              rules={[{ required: true, message: "Выберите дату рождения" }]}
+            >
+              <DatePicker
+                placeholder="Выберите дату"
+                format="DD.MM.YYYY"
+                className="rounded-xl input py-2 text-xl w-full border border-gray-300 shadow-sm"
+              />
             </Form.Item>
 
             <Form.Item name="comment">

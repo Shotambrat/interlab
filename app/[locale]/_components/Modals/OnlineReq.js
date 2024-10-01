@@ -1,35 +1,19 @@
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { Form, Input, Button, Select, message } from "antd";
+import { useState } from "react";
+import { Form, Input, Button, DatePicker, message } from "antd";
 import PhoneInput from "react-phone-input-2";
 import axios from "axios";
 import closeicongray from "@/public/svg/closeicon-gray.svg";
-import { client } from '@/sanity/lib/client'; // Sanity client to fetch services
+import moment from "moment"; // Import moment to handle date formatting
 
 const { TextArea } = Input;
-const { Option } = Select;
 
 export default function ContactWithUs({ setState }) {
   const [phone, setPhone] = useState("");
   const [isValidPhone, setIsValidPhone] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [services, setServices] = useState([]); // State to hold fetched services
 
   const [form] = Form.useForm();
-
-  // Fetch services from Sanity
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const query = `*[_type == "service"]{name, slug}`; // Fetch service name and slug
-        const data = await client.fetch(query);
-        setServices(data); // Update state with fetched services
-      } catch (error) {
-        console.error("Failed to fetch services", error);
-      }
-    };
-    fetchServices();
-  }, []);
 
   const handlePhoneChange = (value, country, e, formattedValue) => {
     setPhone(value);
@@ -51,7 +35,7 @@ export default function ContactWithUs({ setState }) {
     const payload = {
       name: values.fullName,
       phone: phone,
-      service: values.service,
+      birthDate: values.birthDate.format("DD.MM.YYYY"), // Date of birth
       comment: values.comment || "",
     };
 
@@ -133,18 +117,16 @@ export default function ContactWithUs({ setState }) {
                 />
               </Form.Item>
 
+              {/* Date of birth picker */}
               <Form.Item
-                name="service"
-                rules={[{ required: true, message: "Выберите услугу" }]}
-                className="text-lg"
+                name="birthDate"
+                rules={[{ required: true, message: "Выберите дату рождения" }]}
               >
-                <Select placeholder="Интересующая услуга" className="h-14 rounded-xl text-lg">
-                  {services.map((service) => (
-                    <Option key={service.slug.current} value={service.name.ru}>
-                      {service.name.ru} {/* Display service name in Russian */}
-                    </Option>
-                  ))}
-                </Select>
+                <DatePicker
+                  placeholder="Выберите дату рождения"
+                  format="DD.MM.YYYY"
+                  className="rounded-xl input py-2 text-xl w-full border border-gray-300 shadow-sm"
+                />
               </Form.Item>
 
               <Form.Item name="comment">

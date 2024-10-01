@@ -76,7 +76,7 @@
         "MRI": "MRT",
         "UZI": "UZI",
         "cardiology": "Kardiologiya",
-        "commentary": "Sizning izohingiz",
+        "commentary": "Sizni qiziqtirgan xizmatni yozing",
         "request": "Ariza qoldirish"
       }
     }
@@ -375,6 +375,9 @@
   "search": {
     "noResults": "Нет результатов",
     "moreDetails": "Подробнее"
+  },
+  "ckdl": {
+
   },
   "connect": "Aloqa",
   "online-application": "Onlayn yozilish",

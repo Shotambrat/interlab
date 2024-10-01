@@ -11,11 +11,7 @@ export default async function ServicePage({ params }) {
       name,
       slug,
       description,
-      icon,
-      category->{
-        name,
-        slug
-      }
+      icon
     }`
   );
 
