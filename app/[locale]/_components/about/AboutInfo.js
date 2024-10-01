@@ -1,5 +1,8 @@
 import Image from "next/image";
 import aboutFirstImage from "@/public/images/about-first-image.png";
+import aboutSecondImage from "@/public/images/about/second.png";
+import aboutThirdImage from "@/public/images/about/third.png";
+import aboutFourthImage from "@/public/images/about/four.png";
 import { useTranslations } from "next-intl";
 
 function AboutInfo() {
@@ -26,8 +29,8 @@ function AboutInfo() {
             <Image
               src={aboutFirstImage}
               alt="Image 1"
-              quality={100}
               height={1000}
+              quality={100}
               width={1000}
               className="w-full h-full object-cover rounded-3xl"
               style={{ aspectRatio: '1 / 1' }}
@@ -35,7 +38,7 @@ function AboutInfo() {
           </div>
           <div>
             <Image
-              src={aboutFirstImage}
+              src={aboutSecondImage}
               alt="Image 2"
               quality={100}
               height={1000}
@@ -46,7 +49,7 @@ function AboutInfo() {
           </div>
           <div className="col-start-2 row-start-2">
             <Image
-              src={aboutFirstImage}
+              src={aboutThirdImage}
               alt="Image 3"
               quality={100}
               height={1000}
@@ -57,7 +60,7 @@ function AboutInfo() {
           </div>
           <div className="row-span-2 col-start-3 row-start-1">
             <Image
-              src={aboutFirstImage}
+              src={aboutFourthImage}
               alt="Image 4"
               quality={100}
               height={1000}
