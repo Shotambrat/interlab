@@ -8,7 +8,7 @@ export default function AboutBanner() {
         <div className="lg:grid lg:grid-cols-2 lg:items-center">
           <div className="px-[16px] 2xl:ml-[15%] max-slg:pt-12">
             <span className="text-red-400 font-semibold">точность и забота рядом с вами</span>
-            <h1 className="text-[27px] leading-tight md:text-[48px] lh lg:text-[55px] font-bold mt-2">
+            <h1 className="text-[27px] leading-tight md:text-[48px] lh lg:text-[40px] font-bold mt-2">
               Центральная Клинико
               <br /> Диагностическая
               <br /> Лаборатория от

@@ -53,7 +53,7 @@ const AboutLicense = ({ locale }) => {
   };
 
   return (
-    <motion.div className="w-full max-w-[1440px] mx-auto mt-24">
+    <motion.div className="w-full max-w-[1440px] mx-auto">
       <motion.h2 className="text-left text-3xl font-bold my-4 mx-2">
         {t("About.licences")}
       </motion.h2>

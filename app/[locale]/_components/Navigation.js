@@ -3,12 +3,16 @@ import Link from "next/link";
 
 export default function Navigation({ locale, navOptions }) {
   return (
-    <nav className="z-10 text-xl hidden lg:flex flex-grow justify-center transition-all duration-150">
-      <ul className="flex gap-1 justify-between self-stretch my-auto text-lg text-neutral-900 max-md:flex-wrap w-full max-w-[630px] transition-all duration-150">
+    <nav className="z-10 text-xl hidden lg:flex flex-grow justify-center items-center h-full">
+      <ul className="flex items-center text-lg pt-4 text-neutral-900 space-x-2 h-full">
         {navOptions.map((option) => (
-          <a href={`/${locale}${option.url}`} className="flex items-center gap-1 z-10 transition-all duration-300 hover:text-red-400 rounded-xl p-1 w-full text-center max-w-full justify-center" key={option.id}>
-            <li className="cursor-pointer">{option.name}</li>
-          </a>
+          <li key={option.id} className="list-none h-full flex items-center">
+            <Link href={`/${locale}${option.url}`}>
+              <div className="px-4 py-2 transition-all duration-300 text-xl hover:text-red-400 rounded-xl">
+                {option.name}
+              </div>
+            </Link>
+          </li>
         ))}
       </ul>
     </nav>

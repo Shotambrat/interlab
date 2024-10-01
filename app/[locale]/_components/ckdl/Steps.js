@@ -52,9 +52,9 @@ const steps = [
 
 export default function Steps() {
   return (
-    <div className="flex flex-col lg:flex-row w-full max-w-[1440px] mx-auto">
+    <div className="flex flex-col lg:flex-row w-full max-w-[1440px] relative mx-auto">
       {/* Left side - title and description */}
-      <div className="w-full lg:w-1/2 pr-8">
+      <div className="w-full lg:w-1/2 pr-4 lg:h-[200px] lg:sticky top-4">
         <h2 className="text-3xl font-bold mb-4">Порядок проведения анализов</h2>
         <p className="text-lg mb-8">
           ЦКДЛ Intermed Innovation гарантирует высокое качество обслуживания и
@@ -90,3 +90,4 @@ export default function Steps() {
     </div>
   );
 }
+

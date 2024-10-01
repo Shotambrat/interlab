@@ -75,7 +75,7 @@ export default function Page({ params }) {
         </div>
         <div className="flex flex-col gap-10">
           <h2 className="text-4xl max-mdx:text-3xl font-bold">{t('Blog.other')}</h2>
-          <Blog />
+          <Blog locale={params.locale} />
           <div className="w-full flex justify-center">
             <Link href={`/${params.locale}/blogs`}>
               <ButtonLinkBorder title={t('Main.Blogs.more')} />

@@ -19,7 +19,7 @@ export default function page({params}) {
       <Other />
       <div className="w-full max-w-[1440px] px-2 mx-auto flex flex-col gap-8">
         <h2 className="text-4xl font-semibold">Блоги</h2>
-        <Blog />
+        <Blog locale={params.locale} />
         <div className="w-full flex justify-center">
           <Link
             href={`/${params.locale}/blogs`}

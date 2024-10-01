@@ -22,7 +22,7 @@ export default function AboutPage({ params }) {
         <h2 className="mt-52 text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
           {t('Blog.title')}
         </h2>
-        <Blog />
+        <Blog locale={params.locale} />
         <div className="w-full flex justify-center">
           <button className="flex gap-2 justify-center self-center px-16 py-3.5 mt-8 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px]">
             <span className="my-auto">{t('Blog.other')}</span>

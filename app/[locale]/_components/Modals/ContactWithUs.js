@@ -102,7 +102,7 @@ export default function ContactWithUs({ setState }) {
             rightIcon={redIcon}
           />
           <ContactButton
-            href="https://t.me/Intermeduz_bot"
+            href="https://t.me/interlabreception"
             icon={telegram}
             bgColor="bg-blue-100"
             borderColor="border-blue-500"

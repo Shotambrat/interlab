@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 export default function HomePage({params}) {
   const t = useTranslations()
   return (
-    <div className="flex flex-col gap-24 slg:gap-48 bg-white max-mdx:px-2 pb-24 slg:pb-48">
+    <div className="flex flex-col gap-24 slg:gap-48 bg-white px-2 pb-24 slg:pb-48">
       <AboutBanner />
       <WhyWe />
       <AboutLicense />

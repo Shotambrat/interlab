@@ -1,4 +1,3 @@
-import LinkYakor from "@/app/[locale]/_components/LinkYakor";
 import Link from "next/link";
 
 const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
@@ -12,13 +11,12 @@ const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
             className="object-cover absolute inset-0 size-full rounded-3xl"
             alt={title}
           />
-          {/* <LinkYakor slug={slug} /> */}
         </div>
-        <div className="flex flex-col mt-3">
-          <h3 className="text-xl mdx:text-3xl font-bold text-neutral-900 leading-4">
+        <div className="flex flex-col mt-4"> {/* Уменьшаем отступ сверху */}
+          <p className="text-xl mdx:text-2xl font-bold text-neutral-900"> {/* leading-tight уменьшает высоту строки */}
             {title}
-          </h3>
-          <p className="mt-1 text-md text-ellipsis leading-4 text-zinc-500 line-clamp-2">
+          </p>
+          <p className="text-md text-ellipsis leading-5 text-zinc-500 line-clamp-2">
             {excerpt}
           </p>
         </div>

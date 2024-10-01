@@ -17,7 +17,7 @@ export default function HomePage({ params }) {
       <div className="w-full bg-white">
         <div className="w-full max-w-[1440px] mx-auto py-12 flex flex-col gap-5">
           <h2 className="text-4xl font-semibold mb-0">{t('title')}</h2>
-          <Blog />
+          <Blog locale={params.locale} />
           <a href={`/${params.locale}/blogs`} className="w-full flex justify-center">
             <button className="flex gap-3 px-10 py-[10px] rounded-full font-semibold text-sm items-center border text-red-400 border-red-400">
               {t('more')}

@@ -53,6 +53,7 @@ const BlogPagination = ({ locale }) => {
               excerpt={blog.excerpt}
               slug={`blogs/${blog.slug.current}`}
               imageSrc={blog.imageSrc}
+              locale={locale}
             />
           </div>
         ))}

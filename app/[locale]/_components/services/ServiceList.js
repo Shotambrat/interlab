@@ -16,11 +16,11 @@ export default function ServiceList({ services, locale }) {
         
         {/* Display all services */}
         <div className="w-full grid max-mdx:grid-cols-1 max-lg:grid-cols-2 grid-cols-3 gap-3">
-          {services.map((service, index) => (
+        {services.map((service, index) => (
             <ServiceItems
               key={index}
               title={service.name[locale] || service.name.ru} // Display name in the correct locale
-              // description={service.description[locale]?.substring(0, 100) || service.description.ru?.substring(0, 100)} // Display short description
+              category={service.category.name[locale] || service.category.name.ru} // Display category name in correct locale
               url={`/services/${service.slug.current}`} // URL based on slug
               locale={locale}
             />
@@ -36,7 +36,7 @@ export default function ServiceList({ services, locale }) {
         <h2 className="text-4xl font-bold text-neutral-900 max-md:mt-10 max-md:max-w-full">
           {t('Licencies.blogs')}
         </h2>
-        <Blog />
+        <Blog locale={locale} />
         <button className="flex gap-2 justify-center items-center self-center px-10 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-5">
           <span className="my-auto">{t('Blog.other')}</span>
           <Image

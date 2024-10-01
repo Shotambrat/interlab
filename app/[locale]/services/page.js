@@ -5,13 +5,14 @@ import ServiceList from "@/app/[locale]/_components/services/ServiceList";
 export default async function ServicePage({ params }) {
   const { locale } = params;
 
-  // Fetch the services from Sanity
+  // Fetch the services from Sanity with category info
   const services = await client.fetch(
     `*[_type == "service"]{
       name,
       slug,
-      description,
-      icon
+      category->{
+        name
+      }
     }`
   );
 
