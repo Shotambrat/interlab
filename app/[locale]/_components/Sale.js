@@ -113,9 +113,9 @@ const OffersSlider = ({ locale }) => {
                     className="h-full w-full object-cover rounded-3xl"
                   />
                 )}
-                <div>
+                {/* <div>
                   <LinkYakor />
-                </div>
+                </div> */}
               </div>
               <div className="flex flex-col gap-1">
                 <h2 className="text-xl font-bold line-clamp-2">

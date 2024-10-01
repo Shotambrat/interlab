@@ -12,7 +12,7 @@ const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
             className="object-cover absolute inset-0 size-full rounded-3xl"
             alt={title}
           />
-          <LinkYakor slug={slug} />
+          {/* <LinkYakor slug={slug} /> */}
         </div>
         <div className="flex flex-col mt-3">
           <h3 className="text-xl mdx:text-3xl font-bold text-neutral-900 leading-4">
