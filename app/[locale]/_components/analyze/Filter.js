@@ -81,7 +81,7 @@ export default function Filter({ params }) {
               title={test.name[locale]}
               shortDescription={test.shortDescription[locale]}
               price={test.price}
-              slug={test.slug.current}
+              slug={test.slug?.current}
             />
           ))}
         </div>

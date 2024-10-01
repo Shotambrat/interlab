@@ -3,11 +3,11 @@ import { Input, Button } from 'antd';
 import Image from 'next/image';
 import search from "@/public/svg/search-white.svg";
 
-export default function SearchComp({ query, onChange }) {
+export default function SearchComp({ query, onChange, placeholder }) {
   return (
     <div className="flex items-center w-full p-1 border border-neutral-200 rounded-xl" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', overflow: 'hidden' }}>
       <Input
-        placeholder="Введите имя врача или специальность"
+        placeholder={placeholder}
         value={query}
         onChange={onChange}
         className="flex-1 rounded-xl"

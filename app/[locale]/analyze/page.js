@@ -10,7 +10,7 @@ export default function HomePage({ params }) {
     <div>
       <AnalyzeBanner />
       <div className="w-full max-w-[1440px] mx-auto my-11 px-[10px]">
-        <SearchComp />
+        <SearchComp placeholder={'Введите название анализа'} />
       </div>
       <Filter params={params} />
       <div className="w-full bg-white py-52 px-[10px]">

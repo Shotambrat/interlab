@@ -39,7 +39,7 @@ export default function Filter({ doctors, locale }) {
     <div className="w-full h-auto bg-white max-mdl:px-4 py-24">
       <div className="w-full max-w-[1440px] mx-auto h-auto flex flex-col gap-10">
         <div className="w-full max-w-[1440px] mx-auto my-12">
-          <SearchComp query={query} onChange={handleSearchChange} />
+          <SearchComp query={query} onChange={handleSearchChange} placeholder={'Введите имя или фамилию врача'} />
         </div>
         <div className="w-full max-w-[1440px] mx-auto grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-4 gap-5">
           {filteredDoctors.length > 0 ? (
