@@ -1,3 +1,5 @@
+'use client'
+import { useState } from "react";
 import Image from "next/image";
 import redIcon from "@/public/svg/right-contact-red.svg";
 import blueIcon from "@/public/svg/right-contact-blue.svg";
@@ -8,6 +10,7 @@ import telegram from "@/public/svg/telegram.svg";
 import list from "@/public/svg/list.svg";
 import tgbot from "@/public/svg/tgbot.svg";
 import closeicon from "@/public/svg/closeicon.svg";
+import OnlineReq from "@/app/[locale]/_components/Modals/OnlineReq";
 
 const ContactButton = ({
   href,
@@ -52,8 +55,10 @@ const ContactButton = ({
 );
 
 export default function ContactWithUs({ setState }) {
+  const [onlineReq, setOnlineReq] = useState(false);
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-50">
+      {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
       <div className="bg-white max-md:p-4 p-8 rounded-3xl shadow-lg max-mdx:w-[90%] w-[450px]">
         <div className="flex w-full justify-between items-center">
           <h1 className="text-2xl font-semibold">Связаться с нами</h1>
@@ -88,7 +93,7 @@ export default function ContactWithUs({ setState }) {
                 console.log("error to counter fetching", error);
               }
             }}
-            href="tel:+9998998989"
+            href="tel:1156"
             icon={redcallcontact}
             bgColor="bg-rose-100"
             borderColor="border-rose-500"
@@ -97,7 +102,7 @@ export default function ContactWithUs({ setState }) {
             rightIcon={redIcon}
           />
           <ContactButton
-            href="https://telegraph.com"
+            href="https://t.me/Intermeduz_bot"
             icon={telegram}
             bgColor="bg-blue-100"
             borderColor="border-blue-500"
@@ -106,7 +111,7 @@ export default function ContactWithUs({ setState }) {
             rightIcon={blueIcon}
           />
           <ContactButton
-            onClick={() => alert("Оставить заявку")}
+            onClick={() =>  setOnlineReq(true)}
             icon={list}
             bgColor="bg-indigo-100"
             borderColor="border-indigo-500"
@@ -115,6 +120,7 @@ export default function ContactWithUs({ setState }) {
             rightIcon={indigoIcon}
           />
           <ContactButton
+          href={'https://t.me/Intermeduz_bot'}
             onClick={() => alert("TG-бот")}
             icon={tgbot}
             bgColor="bg-emerald-100"
