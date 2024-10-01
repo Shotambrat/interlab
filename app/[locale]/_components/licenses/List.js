@@ -12,11 +12,13 @@ export default function List() {
   useEffect(() => {
     const fetchLicenses = async () => {
       try {
-        const data = await client.fetch(`*[_type == 'license']{
-          title,
-          description,
-          photo
-        }`);
+        const data = await client.fetch(`
+          *[_type == 'license']{
+            title,
+            description,
+            photo
+          }
+        `);
         setLicenses(data);
       } catch (error) {
         console.error("Ошибка при загрузке лицензий:", error);

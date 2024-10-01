@@ -102,7 +102,7 @@ const Application = () => {
             >
               <Input
                 placeholder={t("placeholders.fullname")}
-                className="rounded-xl input py-2 text-xl border border-gray-300 shadow-sm"
+                className="rounded-xl input py-2 text-xl border-none shadow-sm"
               />
             </Form.Item>
 
@@ -114,7 +114,7 @@ const Application = () => {
                 country={"uz"}
                 value={phone}
                 onChange={handlePhoneChange}
-                inputClass="rounded-xl input py-2 pl-2 text-xl w-full border border-gray-300 shadow-sm"
+                inputClass="rounded-xl input py-2 pl-2 text-xl w-full border-none shadow-sm"
                 inputProps={{
                   name: "phoneNumber",
                   required: true,
@@ -133,14 +133,14 @@ const Application = () => {
               <DatePicker
                 placeholder="Выберите дату"
                 format="DD.MM.YYYY"
-                className="rounded-xl input py-2 text-xl w-full border border-gray-300 shadow-sm"
+                className="rounded-xl input py-2 text-xl w-full border-none shadow-sm"
               />
             </Form.Item>
 
             <Form.Item name="comment">
               <Input.TextArea
                 placeholder={t("placeholders.services.commentary")}
-                className="rounded-xl py-2 text-xl border textarea border-gray-300 shadow-sm"
+                className="rounded-xl py-2 text-xl border-none textarea shadow-sm"
               />
             </Form.Item>
 

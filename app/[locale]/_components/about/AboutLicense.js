@@ -9,11 +9,13 @@ import { client } from "@/sanity/lib/client";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
-import license from "@/sanity/schema/license";
+import LicenseModal from "../Modals/LicenseModal";
 
 const AboutLicense = ({ locale }) => {
   const t = useTranslations();
   const [licenses, setLicenses] = useState(null);
+  const [modal, setModal] = useState(false);
+  const [selectedLicense, setSelectedLicense] = useState(null);
 
   useEffect(() => {
     const fetchLicenses = async () => {
@@ -25,6 +27,7 @@ const AboutLicense = ({ locale }) => {
           photo
         }`);
         setLicenses(data);
+        console.log("Fetched Licenses:", data); // Log the fetched data
       } catch (error) {
         console.error("Ошибка при загрузке лицензий:", error);
       }
@@ -32,12 +35,20 @@ const AboutLicense = ({ locale }) => {
     fetchLicenses();
   }, []);
 
-  console.log("License:", licenses)
+  const openModal = (license) => {
+    setSelectedLicense(license);
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+    setSelectedLicense(null);
+  };
 
   if (!licenses) return <p>Загрузка...</p>;
 
   const settings = {
-    arrows:false,
+    arrows: false,
     dots: false,
     infinite: true,
     speed: 500,
@@ -57,20 +68,30 @@ const AboutLicense = ({ locale }) => {
       <motion.h2 className="text-left text-3xl font-bold my-4 mx-2">
         {t("About.licences")}
       </motion.h2>
+
       <Slider {...settings}>
         {licenses.map((license, index) => (
-          <div key={index} className="slide-item">
+          <div key={index} className="slide-item" onClick={() => openModal(license)}>
             <Image
               width={1000}
               height={1000}
               src={license.photo?.asset?.url || "/placeholder.jpg"}
               alt={`License ${index + 1}`}
               className="w-full max-w-[100%] rounded-lg shadow-xl"
+              onError={() => console.log("Error loading image: ", license.photo?.asset?.url)} // Log image loading errors
             />
             <p className="text-center">{license.title[locale]}</p>
           </div>
         ))}
       </Slider>
+
+      {modal && selectedLicense && (
+        <LicenseModal
+          data={selectedLicense}
+          close={closeModal}
+        />
+      )}
+
       <Link href={`/${locale}/about/licences`} className="w-full flex justify-center">
         <motion.button className="flex gap-2 justify-center px-16 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 rounded-[100px]">
           <span>{t("Main.Banner.more")}</span>
