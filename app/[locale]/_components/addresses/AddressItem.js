@@ -3,7 +3,6 @@ import Image from "next/image";
 import arrowRight from "@/public/svg/arrow-right-gray.svg"
 
 export default function AddressItem({
-  key,
   title,
   address,
   graphic,
@@ -12,7 +11,6 @@ export default function AddressItem({
 }) {
   return (
     <div
-      key={key}
       className="p-4 border rounded-2xl shadow-lg flex flex-col gap-8"
     >
       <div className="flex flex-col gap-2">

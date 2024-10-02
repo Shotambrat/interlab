@@ -1,9 +1,46 @@
+"use client";
+import { useEffect } from "react";
+import Script from "next/script";
 import AddressItem from "@/app/[locale]/_components/addresses/AddressItem";
 import arrowRightRed from "@/public/svg/arrow-right.svg";
 import Image from "next/image";
 
-
 export default function Map() {
+  const apiKey = process.env.NEXT_PUBLIC_YANDEX_MAP_API_KEY;
+
+  useEffect(() => {
+    // Инициализация карты после загрузки скрипта
+    const initMap = async () => {
+      if (typeof window !== "undefined" && window.ymaps3) {
+        await window.ymaps3.ready;
+
+        const { YMap, YMapDefaultSchemeLayer, YMapDefaultMarker } = window.ymaps3;
+
+        const map = new YMap(document.getElementById("map"), {
+          location: {
+            center: [37.588144, 55.733842],
+            zoom: 10,
+          },
+        });
+
+        map.addChild(new YMapDefaultSchemeLayer());
+
+        // Пример добавления маркера
+        map.addChild(
+          new YMapDefaultMarker({
+            coordinates: [37.588144, 55.733842],
+            title: "Hello World!",
+            subtitle: "Kind and bright",
+            color: "blue",
+          })
+        );
+      }
+    };
+
+    initMap();
+  }, []);
+
+
   const data = [
     {
       title: "Intermed Медецинский центр",
@@ -86,6 +123,7 @@ export default function Map() {
 
   return (
     <div className="w-full relative mt-24">
+       <Script src={`https://api-maps.yandex.ru/v3/?apikey=${apiKey}&lang=ru_RU`}/>
       <div className="w-full max-w-[1440px] relative mx-auto flex flex-col gap-8">
         <h1 className="text-3xl font-semibold">Карта пунктов</h1>
         <div className="relative w-full flex gap-5">
@@ -107,17 +145,7 @@ export default function Map() {
             <button className="rounded-full px-4 py-3 bg-red-400 w-[320px] text-white shadow-md shadow-red-400 absolute top-4 left-4 z-10">
               Поиск ближайшей поликлиники
             </button>
-            <div className="w-full h-full absolute top-0 left-0 z-0 rounded-xl">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23974.90094303543!2d69.26711311926405!3d41.31185219550986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b2931f41f23%3A0x81095e06b654b845!2z0KHQutCy0LXRgCDQkNC80LjRgNCwINCi0LXQvNGD0YDQsA!5e0!3m2!1sru!2s!4v1720602412212!5m2!1sru!2s"
-                width="100%"
-                height="100%"
-                style={{ border: 0, borderRadius: '30px' }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
+            <div className="w-full h-full absolute top-0 left-0 z-0 rounded-xl" id="map" style={{ height: '100%', borderRadius: '30px' }}></div>
           </div>
         </div>
         <div className="w-full flex justify-center">

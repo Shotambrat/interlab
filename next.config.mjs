@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['213.230.91.55', 'cdn.sanity.io'], // Добавьте 'cdn.sanity.io' в список разрешенных доменов
+    domains: ['213.230.91.55', 'cdn.sanity.io'], // Add 'cdn.sanity.io' to allowed image domains
   },
 };
 

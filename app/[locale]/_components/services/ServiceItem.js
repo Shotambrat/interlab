@@ -7,7 +7,7 @@ export default function ServiceItems({ title, category, url, locale }) {
   const t = useTranslations();
 
   return (
-    <Link href={`/${locale}${url}`} className="w-full h-[200px] slg:h-[200px] rounded-3xl pl-6 py-6 bg-slate-100">
+    <Link href={`/${locale}/${url}`} className="w-full h-[200px] slg:h-[200px] rounded-3xl pl-6 py-6 bg-slate-100">
       <div className="flex flex-col h-full justify-between items-start">
         <div className="flex flex-col">
           <h2 className="font-bold text-xl slg:text-2xl break-words">{title}</h2>

@@ -49,7 +49,7 @@ const data = [
   },
 ];
 
-export default function List() {
+export default function List({locale}) {
   const t = useTranslations('Instructions')
   return (
     <div className="w-full max-w-[1440px] mx-auto px-2 flex flex-col gap-8">
@@ -62,6 +62,7 @@ export default function List() {
               title={item.title}
               description={item.description}
               url={item.url}
+              locale={locale}
             />
           );
         })}
