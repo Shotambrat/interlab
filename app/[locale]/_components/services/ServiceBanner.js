@@ -17,14 +17,14 @@ export default function ServiceBanner({ locale }) {
             {t("Services.title")}{" "}
             <span className="text-red-400">{t("Services.subtitle")}</span>
           </h1>
-          <p className="text-neutral-600 leading-4 text-lg xl:leading-6 text-center xl:text-left">
+          <p className="text-neutral-600 leading-6 slg:leading-4 text-lg xl:leading-6 text-center xl:text-left">
             {t("Services.description")}
           </p>
         </div>
-        <div className="w-full xl:max-w-[450px] mr-24">
+        <div className="w-full xl:max-w-[450px] lg:mr-24 flex justify-center">
           <Image
             priority
-            className="h-full w-full"
+            className="h-full max-slg:max-w-[400px] w-full"
             src={servicebanner}
             width={1000}
             height={1000}
