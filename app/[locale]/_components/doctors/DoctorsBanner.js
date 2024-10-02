@@ -68,7 +68,7 @@ export default function ServiceBanner({ locale }) {
             </a>
             <button
               onClick={() => setOnlineReq(true)}
-              className="flex justify-center border-2 uppercase border-black text-white"
+              className="flex justify-center uppercase text-white"
             >
               <div className="flex justify-center items-center px-5 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-full h-[90px] w-[90px] max-md:px-5">
                 {t("online-application")}
