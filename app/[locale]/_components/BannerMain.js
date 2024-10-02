@@ -44,7 +44,7 @@ const Slider = ({ params }) => {
     if (banners.length > 1) {
       const interval = setInterval(() => {
         nextSlide();
-      }, 5000);
+      }, 8000);
       return () => clearInterval(interval);
     }
   }, [currentSlide, banners]);

@@ -84,7 +84,7 @@ function AboutInfo() {
           </div>
           <div className="row-span-2">
             <Image
-              src={aboutFirstImage}
+              src={aboutSecondImage}
               alt="Image 2"
               height={1000}
               width={1000}
@@ -93,7 +93,7 @@ function AboutInfo() {
           </div>
           <div className="row-span-2 col-start-1 row-start-4">
             <Image
-              src={aboutFirstImage}
+              src={aboutThirdImage}
               alt="Image 3"
               height={1000}
               width={1000}
@@ -102,7 +102,7 @@ function AboutInfo() {
           </div>
           <div className="row-span-3 col-start-2 row-start-3">
             <Image
-              src={aboutFirstImage}
+              src={aboutFourthImage}
               alt="Image 4"
               height={1000}
               width={1000}
@@ -124,7 +124,7 @@ function AboutInfo() {
           </div>
           <div className="row-span-2 row-start-4">
             <Image
-              src={aboutFirstImage}
+              src={aboutSecondImage}
               alt="Image 2"
               height={1000}
               quality={100}
@@ -134,7 +134,7 @@ function AboutInfo() {
           </div>
           <div className="row-span-3 row-start-6">
             <Image
-              src={aboutFirstImage}
+              src={aboutThirdImage}
               alt="Image 3"
               quality={100}
               height={1000}
@@ -144,7 +144,7 @@ function AboutInfo() {
           </div>
           <div className="row-span-2 row-start-9">
             <Image
-              src={aboutFirstImage}
+              src={aboutFourthImage}
               alt="Image 4"
               quality={100}
               height={1000}
