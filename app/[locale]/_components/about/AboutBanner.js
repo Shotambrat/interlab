@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import aboutBanner from "@/public/images/about-banner.png";
+import aboutBanner from "@/public/images/interlab-logo.jpg";
 import Image from "next/image";
 import OnlineReq from "@/app/[locale]/_components/Modals/OnlineReq"
 import ContactWithUs from "@/app/[locale]/_components/Modals/ContactWithUs"

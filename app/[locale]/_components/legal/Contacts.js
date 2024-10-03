@@ -25,7 +25,7 @@ export default function Contacts() {
               console.log("error to counter fetching", error);
             }
           }}
-          href="tel:+99989898989"
+          href="tel:+998971504747"
           className="max-mdl:hidden self-start"
         >
           <ButtonModalRedBg title={t("call")} />
@@ -71,9 +71,9 @@ export default function Contacts() {
               }
             }}
             className="text-2xl font-medium"
-            href="tel:+998971504747"
+            href="tel:+998909662368"
           >
-            +998 (97) 150 47 47
+            +998 (90) 966 23 68
           </a>
           <p className="text-neutral-400">{t("phone-for-call")} 2</p>
         </div>
