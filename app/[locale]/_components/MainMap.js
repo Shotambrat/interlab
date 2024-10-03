@@ -155,8 +155,8 @@ export default function Map() {
     <div className="w-full relative mt-24">
       <div className="w-full max-w-[1440px] relative mx-auto flex flex-col gap-8">
         <h1 className="text-3xl font-semibold">Карта пунктов</h1>
-        <div className="relative w-full flex gap-5">
-          <div className="flex flex-col gap-4 overflow-y-scroll h-[725px] w-1/3 max-xl:hidden">
+        <div className="relative w-full flex max-xl:flex-col-reverse gap-5">
+          <div className="flex flex-col gap-4 overflow-y-scroll h-[725px] max-xl:h-[200px] max-xl:flex-row max-xl:w-full w-1/3">
             {sortedClinics.length === 0 ? (
               <p>Найдите ближайшие поликлиники, нажав кнопку поиска.</p>
             ) : (
