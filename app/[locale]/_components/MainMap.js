@@ -150,7 +150,7 @@ export default function Map() {
     ]
   : [...clinics].reverse(); // Use a copy of the array to reverse it
 
-  
+
   return (
     <div className="w-full relative mt-24">
       <div className="w-full max-w-[1440px] relative mx-auto flex flex-col gap-8">
@@ -186,8 +186,8 @@ export default function Map() {
           </div>
         </div>
         <div className="w-full flex justify-center">
-          <div className="py-3 px-6 font-semibold border-red-400 text-red-400 border rounded-full flex gap-2">
-            <p>Посмотреть все</p>
+          <div className="py-3 px-6 font-semibold border-red-400 text-red-400 border rounded-full flex items-center cursor-pointer gap-2">
+            Посмотреть все
             <Image
               src={arrowRightRed}
               width={100}

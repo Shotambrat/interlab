@@ -41,8 +41,8 @@ export default function AddressItem({
               {tel}
             </a>
           </div>
-          <a href={url} className="flex gap-3 items-center">
-             <p className="text-neutral-400">Подробнее</p>
+          <a href={url} className="flex gap-3 items-center text-neutral-400">
+             Подробнее
              <Image
              src={arrowRight}
              width={100}
