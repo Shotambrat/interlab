@@ -18,12 +18,12 @@ export default function Map() {
 
   useEffect(() => {
     if (!mapInstance) {
-      initMap([41.311158, 69.279737]);
+      initMap([41.311158, 69.279737], '/images/maps/geolocation.png');
     }
   }, [mapInstance]);
 
   // Initialize the map and add a default user icon in the center of Tashkent
-  const initMap = (location) => {
+  const initMap = (location, locIcon) => {
     const mapElement = document.getElementById("map");
 
     if (!mapElement._leaflet_id) {
@@ -37,13 +37,13 @@ export default function Map() {
 
       // Add the user icon in the center of Tashkent by default
       const userIcon = L.icon({
-        iconUrl: '/images/maps/geolocation.png',
-        iconSize: [30, 42],
-        iconAnchor: [15, 42]
+        iconUrl: locIcon,
+        iconSize: [50, 50],
+        iconAnchor: [25, 30]
       });
 
       const marker = L.marker(location, { icon: userIcon }).addTo(map)
-        .bindPopup("Вы здесь!").openPopup();
+        
       setUserMarker(marker);
     }
   };
@@ -96,11 +96,11 @@ export default function Map() {
     clinicData.forEach(clinic => {
       const clinicIcon = L.divIcon({
         className: 'custom-clinic-icon',
-        html: `<svg width="44" height="57" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+        html: `<svg width="40" height="40" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
         </svg>`,
-        iconSize: [44, 57],
-        iconAnchor: [22, 57]
+        iconSize: [20, 20],
+        iconAnchor: [25, 30]
       });
 
       const clinicMarker = L.marker(clinic.coords, { icon: clinicIcon }).addTo(mapInstance)
@@ -113,40 +113,56 @@ export default function Map() {
   };
 
   // Build route and highlight active clinic
-  const buildRoute = (start, end, clinicId) => {
-    // Remove the previous route if it exists
-    if (routeControl) {
-      routeControl.getPlan().setWaypoints([]);
-      mapInstance.removeControl(routeControl);
+const buildRoute = (start, end, clinicId) => {
+  // Remove the previous route if it exists
+  if (routeControl) {
+    routeControl.getPlan().setWaypoints([]);
+    mapInstance.removeControl(routeControl);
+  }
+
+  // Custom clinic icon
+  const clinicIcon = L.divIcon({
+    className: 'custom-clinic-icon',
+    html: `<svg width="40" height="40" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
+    </svg>`,
+    iconSize: [44, 57],
+    iconAnchor: [25, 30]
+  });
+
+  // Create a new route with an 'X' button to close it
+  const newRouteControl = L.Routing.control({
+    waypoints: [
+      L.latLng(start),
+      L.latLng(end)
+    ],
+    routeWhileDragging: true,
+    createMarker: function(i, wp) {
+      return L.marker(wp.latLng, {
+        icon: i === 0 ? userMarker.options.icon : clinicIcon
+      });
+    },
+    lineOptions: {
+      styles: [{ color: 'red', opacity: 0.7, weight: 4 }]
     }
+  }).on('routesfound', function(e) {
+    // Add a close button to the route instructions
+    const container = document.querySelector('.leaflet-routing-container');
+    if (container) {
+      const closeButton = document.createElement('button');
+      closeButton.innerHTML = 'X';
+      closeButton.className = 'close-button';
+      closeButton.style = 'position: absolute; top: 10px; right: 10px; background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;';
+      closeButton.onclick = () => {
+        mapInstance.removeControl(newRouteControl); // Remove the route
+      };
+      container.appendChild(closeButton);
+    }
+  }).addTo(mapInstance);
 
-    // Custom clinic icon
-    const clinicIcon = L.divIcon({
-      className: 'custom-clinic-icon',
-      html: `<svg width="44" height="57" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
-      </svg>`,
-      iconSize: [44, 57],
-      iconAnchor: [22, 57]
-    });
-
-    // Create a new route
-    const newRouteControl = L.Routing.control({
-      waypoints: [
-        L.latLng(start),
-        L.latLng(end)
-      ],
-      routeWhileDragging: true,
-      createMarker: function(i, wp) {
-        return L.marker(wp.latLng, {
-          icon: i === 0 ? userMarker.options.icon : clinicIcon
-        });
-      }
-    }).addTo(mapInstance);
-
-    setRouteControl(newRouteControl);
-    setActiveClinic(clinicId); // Set the clicked clinic as active
-  };
+  setRouteControl(newRouteControl);
+  setActiveClinic(clinicId); // Set the clicked clinic as active
+};
 
   // Update clinic list to highlight active clinic
   const sortedClinics = activeClinic
