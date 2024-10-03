@@ -339,7 +339,7 @@ function Main({ params }) {
             </div>
           </div>
 
-          {/* <MainMap /> */}
+          <MainMap />
 
           <h2 className="mt-24 text-3xl font-bold text-neutral-900 max-md:max-w-full">
             {t("Main.Sales.title")}

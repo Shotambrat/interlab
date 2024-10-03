@@ -1,136 +1,171 @@
 "use client";
 import { useEffect, useState } from "react";
-import Script from 'next/script';
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import "leaflet-routing-machine"; // Import the routing machine
+import "leaflet-routing-machine/dist/leaflet-routing-machine.css"; // Import its CSS
 import AddressItem from "@/app/[locale]/_components/addresses/AddressItem";
 import arrowRightRed from "@/public/svg/arrow-right.svg";
 import Image from "next/image";
-import { gsap } from "gsap";
 
 export default function Map() {
-  const apiKey = process.env.NEXT_PUBLIC_YANDEX_MAP_API_KEY;
-  const [clinics, setClinics] = useState([]); // Список ближайших поликлиник
+  const [clinics, setClinics] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
   const [mapInstance, setMapInstance] = useState(null);
-  const [userMarker, setUserMarker] = useState(null); // Маркер пользователя
+  const [userMarker, setUserMarker] = useState(null);
+  const [routeControl, setRouteControl] = useState(null); // Route control state
+  const [activeClinic, setActiveClinic] = useState(null); // Active clinic
 
   useEffect(() => {
-    // Инициализация карты с центром на Ташкент
-    initMap([41.311158, 69.279737]);
-  }, []);
+    if (!mapInstance) {
+      initMap([41.311158, 69.279737]);
+    }
+  }, [mapInstance]);
 
+  // Initialize the map and add a default user icon in the center of Tashkent
+  const initMap = (location) => {
+    const mapElement = document.getElementById("map");
+
+    if (!mapElement._leaflet_id) {
+      const map = L.map("map").setView(location, 13);
+      setMapInstance(map);
+
+      // Adding OpenStreetMap tiles
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Add the user icon in the center of Tashkent by default
+      const userIcon = L.icon({
+        iconUrl: '/images/maps/geolocation.png',
+        iconSize: [30, 42],
+        iconAnchor: [15, 42]
+      });
+
+      const marker = L.marker(location, { icon: userIcon }).addTo(map)
+        .bindPopup("Вы здесь!").openPopup();
+      setUserMarker(marker);
+    }
+  };
+
+  // Handle searching clinics and add icons for each clinic
   const handleSearchClinics = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
         setUserLocation([latitude, longitude]);
-        updateMapToUserLocation([latitude, longitude]); // Обновляем карту на геолокацию пользователя
-        searchNearbyClinics([latitude, longitude]); // Поиск ближайших поликлиник в радиусе 5 км
+        updateMapToUserLocation([latitude, longitude]);
+        searchNearbyClinics([latitude, longitude]);
       });
     } else {
       alert("Геолокация не поддерживается вашим браузером.");
     }
   };
 
-  const initMap = (location) => {
-    if (window.ymaps) {
-      window.ymaps.ready(() => {
-        const map = new window.ymaps.Map("map", {
-          center: location,
-          zoom: 12,
-        });
-        setMapInstance(map);
-
-        // Маркер на центре Ташкента (по умолчанию)
-        const defaultMarker = new window.ymaps.Placemark(location, {
-          hintContent: "Центр Ташкента",
-          balloonContent: "Вы находитесь в центре Ташкента",
-        });
-        map.geoObjects.add(defaultMarker);
-      });
-    }
-  };
-
   const updateMapToUserLocation = (location) => {
     if (mapInstance) {
-      // Обновляем центр карты на местоположение пользователя
-      mapInstance.setCenter(location, 14);
-
+      mapInstance.flyTo(location, 14);
       if (userMarker) {
-        // Если маркер пользователя уже существует, просто перемещаем его
-        userMarker.geometry.setCoordinates(location);
-      } else {
-        // Создаем новый маркер пользователя с кастомной иконкой
-        const marker = new window.ymaps.Placemark(location, {
-          hintContent: 'Ваше местоположение',
-          balloonContent: 'Вы здесь!',
-        }, {
-          iconLayout: 'default#image',
-          iconImageHref: 'https://cdn-icons-png.flaticon.com/512/64/64113.png', // Иконка для пользователя
-          iconImageSize: [30, 42],
-          iconImageOffset: [-15, -42],
-        });
-        setUserMarker(marker);
-        mapInstance.geoObjects.add(marker); // Добавляем маркер пользователя на карту
+        userMarker.setLatLng(location);
       }
     }
   };
 
-  const searchNearbyClinics = (userCoords) => {
-    const radius = 5000; // Радиус в метрах (5 км)
-    
-    // Ищем ближайшие объекты (поликлиники) на карте
-    const searchControl = new window.ymaps.control.SearchControl({
-      options: {
-        provider: 'yandex#search',
-        noPlacemark: true, // Не добавляем маркеры автоматически, мы это сделаем сами
-        boundedBy: mapInstance.getBounds(), // Ограничиваем поиск областью карты
-      }
-    });
+  const searchNearbyClinics = async (userCoords) => {
+    const radius = 3000;
 
-    searchControl.search('поликлиника').then(() => {
-      const foundClinics = searchControl.getResultsArray().filter(result => {
-        const distance = window.ymaps.coordSystem.geo.getDistance(userCoords, result.geometry.getCoordinates());
-        return distance <= radius; // Оставляем только те, что находятся в радиусе 5 км
+    // Fetch clinics from Overpass API
+    const query = `
+      [out:json];
+      node["amenity"="clinic"](around:${radius},${userCoords[0]},${userCoords[1]});
+      out body;
+    `;
+    const response = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
+    const data = await response.json();
+
+    const clinicData = data.elements.map(clinic => ({
+      id: clinic.id,
+      name: clinic.tags.name || "Не указано",
+      address: clinic.tags.address || "Не указано",
+      coords: [clinic.lat, clinic.lon]
+    }));
+
+    setClinics(clinicData);
+
+    // Add clinic markers on the map
+    clinicData.forEach(clinic => {
+      const clinicIcon = L.divIcon({
+        className: 'custom-clinic-icon',
+        html: `<svg width="44" height="57" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
+        </svg>`,
+        iconSize: [44, 57],
+        iconAnchor: [22, 57]
       });
 
-      const clinicData = foundClinics.map(clinic => ({
-        name: clinic.properties.get('name') || 'Не указано',
-        address: clinic.properties.get('text') || 'Не указано',
-        coords: clinic.geometry.getCoordinates(),
-      }));
+      const clinicMarker = L.marker(clinic.coords, { icon: clinicIcon }).addTo(mapInstance)
+        .bindPopup(`<b>${clinic.name}</b><br>${clinic.address}`);
 
-      setClinics(clinicData); // Обновляем список найденных поликлиник
-
-      // Добавляем маркеры для найденных поликлиник с кастомной иконкой
-      clinicData.forEach(clinic => {
-        const clinicMarker = new window.ymaps.Placemark(clinic.coords, {
-          hintContent: clinic.name,
-          balloonContent: clinic.address,
-        }, {
-          iconLayout: 'default#image',
-          iconImageHref: 'https://cdn-icons-png.flaticon.com/512/69/69524.png', // Иконка для поликлиник
-          iconImageSize: [30, 42],
-          iconImageOffset: [-15, -42],
-        });
-        mapInstance.geoObjects.add(clinicMarker);
+      clinicMarker.on('click', () => {
+        buildRoute(userCoords, clinic.coords, clinic.id); // Build route on click
       });
     });
   };
+
+  // Build route and highlight active clinic
+  const buildRoute = (start, end, clinicId) => {
+    // Remove the previous route if it exists
+    if (routeControl) {
+      routeControl.getPlan().setWaypoints([]);
+      mapInstance.removeControl(routeControl);
+    }
+
+    // Custom clinic icon
+    const clinicIcon = L.divIcon({
+      className: 'custom-clinic-icon',
+      html: `<svg width="44" height="57" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
+      </svg>`,
+      iconSize: [44, 57],
+      iconAnchor: [22, 57]
+    });
+
+    // Create a new route
+    const newRouteControl = L.Routing.control({
+      waypoints: [
+        L.latLng(start),
+        L.latLng(end)
+      ],
+      routeWhileDragging: true,
+      createMarker: function(i, wp) {
+        return L.marker(wp.latLng, {
+          icon: i === 0 ? userMarker.options.icon : clinicIcon
+        });
+      }
+    }).addTo(mapInstance);
+
+    setRouteControl(newRouteControl);
+    setActiveClinic(clinicId); // Set the clicked clinic as active
+  };
+
+  // Update clinic list to highlight active clinic
+  const sortedClinics = activeClinic
+    ? [
+        clinics.find(clinic => clinic.id === activeClinic), // Move active clinic to the top
+        ...clinics.filter(clinic => clinic.id !== activeClinic)
+      ]
+    : clinics;
 
   return (
     <div className="w-full relative mt-24">
-      <Script
-        src={`https://api-maps.yandex.ru/2.1/?apikey=${apiKey}&lang=ru_RU`}
-        strategy="beforeInteractive"
-      />
       <div className="w-full max-w-[1440px] relative mx-auto flex flex-col gap-8">
         <h1 className="text-3xl font-semibold">Карта пунктов</h1>
         <div className="relative w-full flex gap-5">
           <div className="flex flex-col gap-4 overflow-y-scroll h-[725px] w-1/3 max-xl:hidden">
-            {clinics.length === 0 ? (
+            {sortedClinics.length === 0 ? (
               <p>Найдите ближайшие поликлиники, нажав кнопку поиска.</p>
             ) : (
-              clinics.map((clinic, index) => (
+              sortedClinics.map((clinic, index) => (
                 <AddressItem
                   key={index}
                   title={clinic.name}
@@ -138,12 +173,13 @@ export default function Map() {
                   graphic={["Часы работы: Не указано"]}
                   tel="1156"
                   url="/"
+                  className={clinic.id === activeClinic ? "bg-red-100" : ""} // Highlight active clinic
                 />
               ))
             )}
           </div>
           <div className="relative w-2/3 max-xl:w-full max-xl:h-[725px]">
-            <button 
+            <button
               onClick={handleSearchClinics}
               className="rounded-full px-4 py-3 bg-red-400 w-[320px] text-white shadow-md shadow-red-400 absolute top-4 left-4 z-10"
             >
