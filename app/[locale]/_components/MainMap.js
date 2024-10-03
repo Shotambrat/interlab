@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "leaflet-routing-machine"; // Import the routing machine
-import "leaflet-routing-machine/dist/leaflet-routing-machine.css"; // Import its CSS
+import "leaflet-routing-machine";
+import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import AddressItem from "@/app/[locale]/_components/addresses/AddressItem";
 import arrowRightRed from "@/public/svg/arrow-right.svg";
 import Image from "next/image";
@@ -11,16 +11,16 @@ import Image from "next/image";
 export default function Map() {
   const [clinics, setClinics] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
-  const [mapInstance, setMapInstance] = useState(null);
-  const [userMarker, setUserMarker] = useState(null);
-  const [routeControl, setRouteControl] = useState(null); // Route control state
-  const [activeClinic, setActiveClinic] = useState(null); // Active clinic
+  const mapInstanceRef = useRef(null); // Store map instance as ref to avoid re-renders
+  const userMarkerRef = useRef(null); // Store user marker ref
+  const activeRouteRef = useRef(null); // Store active route as a ref (non-react state)
+  const [activeClinic, setActiveClinic] = useState(null); // Active clinic state for UI highlight
 
   useEffect(() => {
-    if (!mapInstance) {
+    if (!mapInstanceRef.current) {
       initMap([41.311158, 69.279737], '/images/maps/geolocation.png');
     }
-  }, [mapInstance]);
+  }, []);
 
   // Initialize the map and add a default user icon in the center of Tashkent
   const initMap = (location, locIcon) => {
@@ -28,23 +28,22 @@ export default function Map() {
 
     if (!mapElement._leaflet_id) {
       const map = L.map("map").setView(location, 13);
-      setMapInstance(map);
+      mapInstanceRef.current = map;
 
       // Adding OpenStreetMap tiles
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
       // Add the user icon in the center of Tashkent by default
       const userIcon = L.icon({
         iconUrl: locIcon,
         iconSize: [50, 50],
-        iconAnchor: [25, 30]
+        iconAnchor: [25, 30],
       });
 
-      const marker = L.marker(location, { icon: userIcon }).addTo(map)
-        
-      setUserMarker(marker);
+      const marker = L.marker(location, { icon: userIcon }).addTo(map);
+      userMarkerRef.current = marker;
     }
   };
 
@@ -63,10 +62,10 @@ export default function Map() {
   };
 
   const updateMapToUserLocation = (location) => {
-    if (mapInstance) {
-      mapInstance.flyTo(location, 14);
-      if (userMarker) {
-        userMarker.setLatLng(location);
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.flyTo(location, 14);
+      if (userMarkerRef.current) {
+        userMarkerRef.current.setLatLng(location);
       }
     }
   };
@@ -83,28 +82,28 @@ export default function Map() {
     const response = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
     const data = await response.json();
 
-    const clinicData = data.elements.map(clinic => ({
+    const clinicData = data.elements.map((clinic) => ({
       id: clinic.id,
       name: clinic.tags.name || "Не указано",
       address: clinic.tags.address || "Не указано",
-      coords: [clinic.lat, clinic.lon]
+      coords: [clinic.lat, clinic.lon],
     }));
 
     setClinics(clinicData);
 
     // Add clinic markers on the map
-    clinicData.forEach(clinic => {
+    clinicData.forEach((clinic) => {
       const clinicIcon = L.divIcon({
         className: 'custom-clinic-icon',
-        html: `<svg width="40" height="40" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+        html: `<svg width="44" height="57" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
         </svg>`,
-        iconSize: [20, 20],
-        iconAnchor: [25, 30]
+        iconSize: [44, 57],
+        iconAnchor: [22, 57],
       });
 
-      const clinicMarker = L.marker(clinic.coords, { icon: clinicIcon }).addTo(mapInstance)
-        .bindPopup(`<b>${clinic.name}</b><br>${clinic.address}`);
+      const clinicMarker = L.marker(clinic.coords, { icon: clinicIcon }).addTo(mapInstanceRef.current)
+        .bindPopup(`<b>${clinic.name}</b>`);
 
       clinicMarker.on('click', () => {
         buildRoute(userCoords, clinic.coords, clinic.id); // Build route on click
@@ -113,65 +112,45 @@ export default function Map() {
   };
 
   // Build route and highlight active clinic
-const buildRoute = (start, end, clinicId) => {
-  // Remove the previous route if it exists
-  if (routeControl) {
-    routeControl.getPlan().setWaypoints([]);
-    mapInstance.removeControl(routeControl);
-  }
-
-  // Custom clinic icon
-  const clinicIcon = L.divIcon({
-    className: 'custom-clinic-icon',
-    html: `<svg width="40" height="40" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
-    </svg>`,
-    iconSize: [44, 57],
-    iconAnchor: [25, 30]
-  });
-
-  // Create a new route with an 'X' button to close it
-  const newRouteControl = L.Routing.control({
-    waypoints: [
-      L.latLng(start),
-      L.latLng(end)
-    ],
-    routeWhileDragging: true,
-    createMarker: function(i, wp) {
-      return L.marker(wp.latLng, {
-        icon: i === 0 ? userMarker.options.icon : clinicIcon
-      });
-    },
-    lineOptions: {
-      styles: [{ color: 'red', opacity: 0.7, weight: 4 }]
+  const buildRoute = (start, end, clinicId) => {
+    // Clear any previous route if it exists
+    if (activeRouteRef.current) {
+      mapInstanceRef.current.removeControl(activeRouteRef.current);
     }
-  }).on('routesfound', function(e) {
-    // Add a close button to the route instructions
-    const container = document.querySelector('.leaflet-routing-container');
-    if (container) {
-      const closeButton = document.createElement('button');
-      closeButton.innerHTML = 'X';
-      closeButton.className = 'close-button';
-      closeButton.style = 'position: absolute; top: 10px; right: 10px; background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;';
-      closeButton.onclick = () => {
-        mapInstance.removeControl(newRouteControl); // Remove the route
-      };
-      container.appendChild(closeButton);
-    }
-  }).addTo(mapInstance);
 
-  setRouteControl(newRouteControl);
-  setActiveClinic(clinicId); // Set the clicked clinic as active
-};
+    // Create a new route control
+    const newRouteControl = L.Routing.control({
+      waypoints: [
+        L.latLng(start),
+        L.latLng(end),
+      ],
+      routeWhileDragging: true,
+      createMarker: function (i, wp) {
+        return L.marker(wp.latLng, {
+          icon: i === 0 ? userMarkerRef.current.options.icon : userMarkerRef.current.options.icon, // Use user icon for the first marker
+        });
+      },
+      lineOptions: {
+        styles: [{ color: 'red', opacity: 0.7, weight: 4 }],
+      },
+    }).on('routesfound', function () {
+      // Handle any additional logic when the route is found
+    }).addTo(mapInstanceRef.current);
+
+    // Set the new route control as active
+    activeRouteRef.current = newRouteControl;
+    setActiveClinic(clinicId); // Set the clicked clinic as active
+  };
 
   // Update clinic list to highlight active clinic
   const sortedClinics = activeClinic
-    ? [
-        clinics.find(clinic => clinic.id === activeClinic), // Move active clinic to the top
-        ...clinics.filter(clinic => clinic.id !== activeClinic)
-      ]
-    : clinics;
+  ? [
+      clinics.find((clinic) => clinic.id === activeClinic), // Move active clinic to the top
+      ...[...clinics].reverse().filter((clinic) => clinic.id !== activeClinic), // Use a copy of the array to reverse it
+    ]
+  : [...clinics].reverse(); // Use a copy of the array to reverse it
 
+  
   return (
     <div className="w-full relative mt-24">
       <div className="w-full max-w-[1440px] relative mx-auto flex flex-col gap-8">
