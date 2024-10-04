@@ -58,9 +58,6 @@ export default {
         name: 'photo',
         type: 'image',
         title: 'Изображение баннера',
-        options: {
-          hotspot: true,
-        },
       },
       {
         name: 'navigateToUrl',
