@@ -1,3 +1,4 @@
+
 import React from "react";
 import Banner from "../_components/Partners/Banner";
 import Profits from "../_components/Partners/Profits";
@@ -7,7 +8,7 @@ import Application from "../_components/Application";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
-export default function page({params}) {
+export default function Page({params}) {
   const t = useTranslations("");
   return (
     <div className="w-full flex flex-col gap-48 bg-white pb-48">
