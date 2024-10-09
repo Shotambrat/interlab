@@ -12,7 +12,7 @@ export default function Blog({locale}) {
     const fetchBlogs = async () => {
       try {
         const data = await client.fetch(`
-          *[_type == "news"]{
+          *[_type == "news"] | order(_createdAt desc)[0...4]{
             title,
             slug,
             shortDescription,

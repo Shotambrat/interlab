@@ -5,13 +5,13 @@ export default function LicenseModal({ data, close }) {
     <div className="fixed top-0 left-0 z-10 w-full h-screen bg-black bg-opacity-20 flex justify-center items-center px-2 overflow-y-scroll">
       <div className="w-full max-w-[1000px] rounded-3xl bg-white px-8 py-8 flex flex-col lg:flex-row gap-4 relative">
         <div className="flex flex-col lg:flex-row gap-4 w-full overflow-y-auto max-h-[90vh] lg:max-h-[60vh]">
-          <div className="lg:sticky top-0">
+          <div className="lg:sticky top-0 flex-1">
             <Image
               src={data.photo?.asset?.url || "/placeholder.jpg"}
               width={500}
               height={500}
               alt="Image of Licence"
-              className="h-full w-full lg:w-auto rounded-xl"
+              className="h-full w-full lg:w-auto rounded-xl object-contain"
             />
           </div>
           <div className="flex flex-col gap-7 flex-1 overflow-y-auto p-4">

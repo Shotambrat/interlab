@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { client } from "@/sanity/lib/client";
 import LicenseModal from "../Modals/LicenseModal";
 
-export default function List() {
+export default function List({ locale }) {
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
   const [licenses, setLicenses] = useState(null);
@@ -13,10 +13,14 @@ export default function List() {
     const fetchLicenses = async () => {
       try {
         const data = await client.fetch(`
-          *[_type == 'license']{
+          *[_type == 'license' && isActive == true]{
             title,
             description,
-            photo
+            photo{
+              asset->{
+                url
+              }
+            }
           }
         `);
         setLicenses(data);
@@ -44,6 +48,7 @@ export default function List() {
             width={500}
             height={500}
             alt={`License Image ${i}`}
+            className="w-full h-auto object-cover"
           />
           <button
             onClick={() => handleOpenModal(license)}

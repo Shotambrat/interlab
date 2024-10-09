@@ -1,3 +1,6 @@
+// Импортируем библиотеку slugify для транслитерации
+import slugify from 'slugify';
+
 export default {
   name: "vacancy",
   type: "document",
@@ -13,14 +16,31 @@ export default {
       ],
     },
     {
+      name: "subtitle",
+      type: "object",
+      title: "Подзаголовок",
+      fields: [
+        { name: "ru", type: "string", title: "Русский" },
+        { name: "uz", type: "string", title: "Узбекский" },
+      ],
+    },
+    {
+      name: "description",
+      type: "object",
+      title: "Описание",
+      fields: [
+        { name: "ru", type: "text", title: "Русский" },
+        { name: "uz", type: "text", title: "Узбекский" },
+      ],
+    },
+    {
       name: "slug",
       type: "slug",
       title: "Slug",
       options: {
-        source: "title.ru",
+        source: "title.ru", // Берем заголовок на русском
         maxLength: 96,
-        slugify: (input) =>
-          input.toLowerCase().replace(/\s+/g, "-").slice(0, 96),
+        slugify: (input) => slugify(input, { lower: true, strict: true, locale: 'ru' }), // Применяем slugify для кириллического текста
       },
     },
     {
@@ -30,15 +50,13 @@ export default {
       fields: [
         {
           name: "ru",
-          type: "array",
+          type: "blockContent",
           title: "Русский",
-          of: [{ type: "string" }],
         },
         {
           name: "uz",
-          type: "array",
+          type: "blockContent",
           title: "Узбекский",
-          of: [{ type: "string" }],
         },
       ],
     },
@@ -49,15 +67,13 @@ export default {
       fields: [
         {
           name: "ru",
-          type: "array",
+          type: "blockContent",
           title: "Русский",
-          of: [{ type: "string" }],
         },
         {
           name: "uz",
-          type: "array",
+          type: "blockContent",
           title: "Узбекский",
-          of: [{ type: "string" }],
         },
       ],
     },
@@ -68,15 +84,13 @@ export default {
       fields: [
         {
           name: "ru",
-          type: "array",
+          type: "blockContent",
           title: "Русский",
-          of: [{ type: "string" }],
         },
         {
           name: "uz",
-          type: "array",
+          type: "blockContent",
           title: "Узбекский",
-          of: [{ type: "string" }],
         },
       ],
     },

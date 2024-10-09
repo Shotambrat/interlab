@@ -20,12 +20,18 @@ const AboutLicense = ({ locale }) => {
   useEffect(() => {
     const fetchLicenses = async () => {
       try {
-        const data = await client.fetch(`*[_type == 'license']{
-          title,
-          slug,
-          description,
-          photo
-        }`);
+        const data = await client.fetch(`
+          *[_type == 'license']{
+            title,
+            slug,
+            description,
+            photo{
+              asset->{
+                url
+              }
+            }
+          }
+        `);
         setLicenses(data);
         console.log("Fetched Licenses:", data); // Log the fetched data
       } catch (error) {
@@ -72,15 +78,28 @@ const AboutLicense = ({ locale }) => {
       <Slider {...settings}>
         {licenses.map((license, index) => (
           <div key={index} className="slide-item" onClick={() => openModal(license)}>
-            <Image
-              width={1000}
-              height={1000}
-              src={license.photo?.asset?.url || "/placeholder.jpg"}
-              alt={`License ${index + 1}`}
-              className="w-full max-w-[100%] rounded-lg shadow-xl"
-              onError={() => console.log("Error loading image: ", license.photo?.asset?.url)} // Log image loading errors
-            />
-            <p className="text-center">{license.title[locale]}</p>
+            {/* Проверяем, есть ли URL изображения */}
+            {license.photo?.asset?.url ? (
+              <Image
+                width={1000}
+                height={1000}
+                src={license.photo.asset.url} // Используем URL изображения
+                alt={`License ${index + 1}`}
+                className="w-full max-w-[100%] rounded-lg shadow-xl"
+                onError={(e) => {
+                  console.error("Error loading image:", e);
+                  e.target.src = "/placeholder.jpg"; // Если ошибка загрузки изображения
+                }}
+              />
+            ) : (
+              <Image
+                width={1000}
+                height={1000}
+                src="/placeholder.jpg" // Плейсхолдер если нет изображения
+                alt="Placeholder image"
+                className="w-full max-w-[100%] rounded-lg shadow-xl"
+              />
+            )}
           </div>
         ))}
       </Slider>

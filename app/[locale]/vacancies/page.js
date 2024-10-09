@@ -11,7 +11,7 @@ export default function Page({ params }) {
     <div className="w-full flex flex-col gap-48 bg-white pb-48">
       <Banner />
       <WhyIntermed />
-      <Other />
+      <Other locale={params.locale} />
       <div className="w-full max-w-[1440px] px-2 mx-auto flex flex-col gap-8">
         <h2 className="text-4xl font-semibold">{t('title')}</h2>
         <Blog locale={params.locale} />

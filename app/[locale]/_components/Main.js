@@ -472,7 +472,7 @@ function Main({ params }) {
           </h2>
           <Blog locale={params.locale} />
           <a
-            href="/blogs"
+            href={`${params.locale}/blogs`}
             className="flex gap-2 justify-center self-center px-16 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-[52px]"
           >
             <span className="my-auto">{t("Main.Blogs.more")}</span>
