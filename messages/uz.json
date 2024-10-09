@@ -333,51 +333,114 @@
     "all": "Barchasini ko'rish"
   },
   "Partners": {
-    "title": "Laboratoriya xizmatlarini outsourcing qilish",
-    "subtitle": "Intermed Innovation",
-    "description": "Yuqori sifat, iqtisodiy foyda va tahlillarni tezkor qayta ishlash",
-    "solve": "Tejamni hisoblang",
-    "benefits": {
-      "title": "Afzalliklar",
-      "data": [
+    "about": {
+      "heading": "Interlab – Toshkentdagi zamonaviy tibbiyot markazi",
+      "description": "«INTERMED Leasing» – bu kompleks diagnostika va aniq tashxis qo'yish uchun yuqori aniqlikdagi ekspert sinf tibbiy uskunalari bilan jihozlangan zamonaviy tibbiyot markazi...",
+      "moreAboutUs": "Biz haqimizda batafsil",
+      "licenses": "Litsenziyalar",
+      "imageAlt": "Zamonaviy tibbiyot markazi"
+    },
+    "banner": {
+      "title": "Laboratoriya xizmatlari autsorsingi -",
+      "subtitle": "Yuqori sifat, iqtisodiy foyda va tahlillarni tezkor qayta ishlash",
+      "button": "Tejamni hisoblash"
+    },
+    "profits": {
+      "heading": "Afzalliklar",
+      "items": [
         "Iqtisodiy samaradorlik",
         "Sifat va aniqlik",
-        "Xizmatlarning keng qamrovi",
-        "Moslashuvchanlik va kengaytiriluvchanlik"
+        "Xizmatlarning keng doirasi",
+        "Moslashuvchanlik va kengayish imkoniyati"
       ]
     },
-    "price": {
+    "priceCut": {
       "title": "Narxlar va tariflar so'rov bo'yicha mavjud",
-      "description": "Hamkorlik tafsilotlarini muhokama qilish va foydali hamkorlikni boshlash uchun biz bilan bog'laning"
+      "description": "Tafsilotlarni muhokama qilish va samarali hamkorlikni boshlash uchun biz bilan bog'laning",
+      "button": "Bog'lanish"
     },
-    "solve-block": {
-      "title": "Tejamni hisoblang",
-      "placeholders": {
-        "title1": "Hozirgi laboratoriya xizmatlari xarajatlari (oyiga)",
-        "input1": "Xarajatlar / oy.",
-        "title2": "Oyiga o'tkazilgan tahlillar soni",
-        "input2": "Tahlillar soni / oy."
-      },
-      "button": "Hisoblash",
-      "info": {
-        "title1": "~ 15 mln so'm",
-        "description1": "Tejangan mablag'",
-        "title2": "~ 30%",
-        "description2": "Yillik tejash"
-      },
-      "reviews": {
-        "title": "Hamkorlarimizning sharhlari",
-        "all": "Barcha sharhlar",
-        "full": "To'liq sharh"
-      }
+    "calculator": {
+      "heading": "Tejamni hisoblang",
+      "currentCosts": "Laboratoriya xizmatlari uchun joriy xarajatlar (oyiga)",
+      "calculate": "Hisoblash",
+      "savedMoney": "~ 15 mln so'm",
+      "savedPercentage": "~ 30%",
+      "savedText": "Tejangan pul"
     }
   },
   "search": {
     "noResults": "Нет результатов",
     "moreDetails": "Подробнее"
   },
-  "ckdl": {
-
+  "CKDL": {
+    "about": {
+      "title": "Intermed Innovation Markaziy Klinik-Diagnostika Laboratoriyasi",
+      "subtitle": "aniqlik va g'amxo'rlik sizning yoningizda",
+      "description": "Intermed Innovation Markaziy Klinik-Diagnostika Laboratoriyasi (CKDL) Toshkentda yuqori sifatli laborator va diagnostika xizmatlarini taqdim etadi. Biz shaharning har bir fuqarosi uchun aniq va ishonchli tibbiy diagnostikadan foydalanishni ta'minlashga intilamiz, keng ko'lamli tahlil va diagnostika protseduralarini taklif etamiz."
+    },
+    "whyWe": {
+      "heading": "Minglab odamlar bizni tanlashadi",
+      "advantages": {
+        "modernEquipment": {
+          "title": "Zamonaviy uskunalar",
+          "description": "Aniq natijalar uchun ilg'or texnologiyalarni qo'llash"
+        },
+        "accessibility": {
+          "title": "Qulay joylashuv",
+          "description": "Bizning punktlarimiz shahar bo'ylab sizga qulay bo'lgan joylarda joylashgan"
+        },
+        "fastResults": {
+          "title": "Tez natijalar",
+          "description": "Optimallashtirilgan jarayonlar orqali kutish vaqtini qisqartirish"
+        },
+        "qualifiedSpecialists": {
+          "title": "Yuqori malakali mutaxassislar",
+          "description": "Bizning xodimlarimiz katta tajribaga va yuqori malakaga ega"
+        },
+        "interlab": {
+          "title": "INTERLAB",
+          "description": "aniqlik va g'amxo'rlik"
+        }
+      }
+    },
+    "steps": {
+      "heading": "Tahlillar o'tkazish tartibi",
+      "description": "Intermed Innovation CKDL yuqori sifatli xizmat ko'rsatish va har bir bemorga individual yondashuvni kafolatlaydi. Biz diagnostika va davolashni siz uchun maksimal darajada qulay va mavjud qilish uchun ishlaymiz.",
+      "list": [
+        {
+          "title": "Biomaterialni topshirish",
+          "description": "Siz yaqin atrofdagi oilaviy poliklinikada biomaterialni topshirasiz."
+        },
+        {
+          "title": "Ma'lumotlarni ro'yxatga olish va markalash",
+          "description": "Sizning ma'lumotlaringiz yozib olinadi, biomaterial esa aniqlik bilan kuzatish uchun markalanadi."
+        },
+        {
+          "title": "Transportirovka",
+          "description": "Biomaterial termopak sumkasiga joylashtiriladi va laboratoriyaga maxsus refrejiratorda yetkaziladi."
+        },
+        {
+          "title": "Preanalitika",
+          "description": "Biomaterial tahlilga tayyorlash uchun oldindan ishlovdan o'tkaziladi."
+        },
+        {
+          "title": "Laboratoriya tahlili",
+          "description": "Laboratoriyada biomaterial zamonaviy uskunalardan foydalanib, chuqur tahlil qilinadi."
+        },
+        {
+          "title": "Natijalarni tekshirish",
+          "description": "Tahlil natijalari malakali mutaxassislar tomonidan tekshiriladi."
+        },
+        {
+          "title": "Natijalarni yetkazish",
+          "description": "Tahlil natijalari sizga qulay bo'lgan kanal orqali yetkaziladi."
+        },
+        {
+          "title": "Maslahat",
+          "description": "Zarurat bo'lsa, siz mutaxassislarning maslahatini olishingiz mumkin."
+        }
+      ]
+    }
   },
   "connect": "Aloqa",
   "online-application": "Onlayn yozilish",

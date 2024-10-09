@@ -13,7 +13,7 @@ const BlogCard = ({ title, excerpt, imageSrc, slug }) => (
           />
         </div>
         <div className="flex flex-col mt-4"> {/* Уменьшаем отступ сверху */}
-          <p className="text-xl mdx:text-2xl font-bold text-neutral-900"> {/* leading-tight уменьшает высоту строки */}
+          <p className="text-xl mdx:text-2xl font-bold text-neutral-900 line-clamp-3"> {/* leading-tight уменьшает высоту строки */}
             {title}
           </p>
           <p className="text-md text-ellipsis leading-5 text-zinc-500 line-clamp-2">

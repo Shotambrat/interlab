@@ -4,7 +4,7 @@ import { client } from '@/sanity/lib/client';
 import BlogCard from '@/app/[locale]/_components/BlogCard';
 import { useEffect, useState } from 'react';
 
-export default function Blog({locale}) {
+export default function Blog({ locale }) {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
@@ -43,8 +43,9 @@ export default function Blog({locale}) {
           <BlogCard
             key={index}
             slug={`/${locale}/blogs/${blog.slug.current}`}
-            title={blog.title.ru}
-            excerpt={blog.shortDescription.ru}
+            // Выбор заголовка и описания в зависимости от локали
+            title={locale === 'ru' ? blog.title.ru : blog.title.uz}
+            excerpt={locale === 'ru' ? blog.shortDescription.ru : blog.shortDescription.uz}
             imageSrc={blog.photo?.asset?.url}
           />
         ))}

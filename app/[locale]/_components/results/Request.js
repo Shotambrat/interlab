@@ -1,122 +1,70 @@
 "use client";
-import Image from 'next/image';
+import Image from "next/image";
+import warning from "@/public/svg/warning.svg";
 import { useState, useEffect } from "react";
 import { Input, Select, Button, Form, Alert } from "antd";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import axios from "axios";
-import { parseStringPromise } from "xml2js"; // Для парсинга SOAP-ответа
-import warning from "@/public/svg/warning.svg";
-import Arrow_down from '@/public/svg/arrow-down.svg';
+
 // Функция для кодирования строки в Base64
+const toBase64 = (str) => {
+  return Buffer.from(str).toString("base64");
+};
 
 const { Option } = Select;
 
 export default function Request() {
   const t = useTranslations("Results");
 
+  // Стейты для пользовательского ввода
   const [medNumber, setMedNumber] = useState("");
   const [signNumber, setSignNumber] = useState("");
   const [language, setLanguage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [files, setFiles] = useState([]);
 
+  // Сохраняем выбранный язык в сессии, если изменился
   useEffect(() => {
-    const savedLanguage = sessionStorage.getItem('selectedLanguage');
+    if (language) {
+      sessionStorage.setItem("selectedLanguage", language);
+    }
+  }, [language]);
+
+  // При первой загрузке проверяем, есть ли сохраненный язык
+  useEffect(() => {
+    const savedLanguage = sessionStorage.getItem("selectedLanguage");
     if (savedLanguage) {
       setLanguage(savedLanguage);
     }
   }, []);
 
-  const handleGenerateLink = async () => {
+  // Функция для генерации и редиректа
+  const handleGenerateLink = () => {
     if (!medNumber || !signNumber || !language) {
+      // Проверяем все обязательные поля
       let error = "";
       if (!medNumber) error += t("placeholders.card") + " ";
       if (!signNumber) error += t("placeholders.sign") + " ";
       if (!language) error += t("placeholders.choose-lang");
       setErrorMessage(`${t("error")} ${error}`);
     } else {
-      try {
-        const soapBody = `
-          <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-            <soap:Body>
-              <ResultReportRequest xmlns="http://tempuri.org/">
-                <userName>website</userName>
-                <password>website</password>
-                <hisFileNumber>${medNumber}</hisFileNumber>
-                <lisProtocolNumber>${signNumber}</lisProtocolNumber>
-                <lang>${language.toUpperCase()}</lang>
-              </ResultReportRequest>
-            </soap:Body>
-          </soap:Envelope>
-        `;
-
-        const response = await axios.post(
-          "http://result.interlab.uz/alisresult/alissonucws.asmx",
-          soapBody,
-          {
-            headers: {
-              "Content-Type": "text/xml",
-            },
-          }
-        );
-
-        const parsedResponse = await parseStringPromise(response.data);
-
-        const result =
-          parsedResponse["soap:Envelope"]["soap:Body"][0]
-            .ResultReportRequestResponse[0].ResultReportRequestResult[0];
-
-        if (result.Success[0] !== "true") {
-          setErrorMessage(t("error") + ": " + t("failed_to_get_result"));
-          return;
-        }
-
-        // Если запрос успешен, получаем файлы
-        const mainFileContent = result.ResutFile[0].File[0];
-        const additionalFiles = result.AdditionalFiles[0].ResultFile || [];
-
-        const allFiles = [
-          { content: mainFileContent, name: `${medNumber}-${signNumber}.pdf` },
-        ];
-
-        additionalFiles.forEach((file, index) => {
-          allFiles.push({
-            content: file.File[0],
-            name: `${medNumber}-${signNumber}-additional-${index + 1}.pdf`,
-          });
-        });
-
-        setFiles(allFiles);
-        setErrorMessage("");
-
-        // Открываем файл в новой вкладке (пример)
-        allFiles.forEach((file) => {
-          const link = document.createElement("a");
-          link.href = `data:application/pdf;base64,${file.content}`;
-          link.download = file.name;
-          link.click();
-        });
-      } catch (error) {
-        setErrorMessage(t("error") + ": " + t("failed_to_get_result"));
-      }
+      const encodedMedNumber = toBase64(medNumber);
+      const encodedSignNumber = toBase64(signNumber);
+      // Генерация ссылки с параметрами
+      const link = `http://result.interlab.uz/ALISRESULT/HASTASONUC_HASTA.ASPX?OP=${encodedSignNumber}&HDN=${encodedMedNumber}&lang=${language}`;
+      // Открываем ссылку в новой вкладке
+      window.open(link, "_blank");
+      setErrorMessage(""); // Очищаем ошибку, если все прошло успешно
     }
   };
 
   return (
     <div className="w-full bg-white py-14 px-2">
       <div className="w-full max-w-[1440px] flex flex-col gap-10 mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full flex flex-col gap-5"
-        >
+        <div className="w-full flex flex-col gap-5">
           <Form
-            className="grid lg:grid-cols-3 w-full gap-2 grid-cols-1"
+            className="grid lg:grid-cols-3 w-full gap-5 grid-cols-1"
             layout="vertical"
           >
-
             <Form.Item
               name="mednumber"
               rules={[{ required: true, message: t("placeholders.card") }]}
@@ -124,7 +72,7 @@ export default function Request() {
               <Input
                 type="number"
                 placeholder={`№ ${t("placeholders.card")}`}
-                className="border-neutral-300 rounded-xl py-4 h-[60px]"  // Increased height to 60px
+                className="border-neutral-300 rounded-xl py-3"
                 value={medNumber}
                 onChange={(e) => setMedNumber(e.target.value)}
               />
@@ -137,7 +85,7 @@ export default function Request() {
               <Input
                 type="number"
                 placeholder={`№ ${t("placeholders.sign")}`}
-                className="border-neutral-300 rounded-xl py-4 h-[60px]"  // Increased height to 60px
+                className="border-neutral-300 rounded-xl py-3"
                 value={signNumber}
                 onChange={(e) => setSignNumber(e.target.value)}
               />
@@ -145,29 +93,18 @@ export default function Request() {
 
             <Form.Item name="language" rules={[{ required: true }]}>
               <Select
-                className="rounded-xl h-[80px]"  // Увеличенная высота до 80px
+                className="rounded-xl"
                 placeholder={t("placeholders.choose-lang")}
                 size="large"
                 value={language}
                 onChange={(value) => setLanguage(value)}
-                suffixIcon={
-                  <Image
-                    src={Arrow_down}
-                    width={100}
-                    height={100}
-                    alt="Arrow Icon"
-                    quality={100}
-                    className="w-auto h-auto"
-                  />
-                }
-                style={{ height: '60px', lineHeight: '80px' }}  // Увеличиваем высоту и выравниваем текст по центру
               >
                 <Option value="ru">Русский</Option>
                 <Option value="en">English</Option>
               </Select>
             </Form.Item>
-
           </Form>
+
           {errorMessage && (
             <Alert
               message={t("error")}
@@ -188,13 +125,12 @@ export default function Request() {
               src={warning}
               width={27}
               height={27}
-              alt="Search Icon"
-              className='w-auto h-full'
+              alt="Warning Icon"
+              className="w-auto h-full"
             />
             {t("warning")}
           </motion.div>
-
-        </motion.div>
+        </div>
 
         <div className="w-full flex justify-center">
           <motion.div

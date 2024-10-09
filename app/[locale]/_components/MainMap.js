@@ -173,7 +173,7 @@ export default function Map() {
               ))
             )}
           </div>
-          <div className="relative w-2/3 max-xl:w-full max-xl:h-[725px]">
+          <div className="relative w-2/3 max-xl:w-full max-xl:h-[450px]">
             <button
               onClick={handleSearchClinics}
               className="rounded-full px-4 py-3 bg-red-400 w-[320px] text-white shadow-md shadow-red-400 absolute top-4 left-4 z-10"
