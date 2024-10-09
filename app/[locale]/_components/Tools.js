@@ -87,7 +87,7 @@ export default function Tools({ navOptions, locale }) {
  
         <a onClick={ async() => {
             try {
-              let response = await fetch("https://interlab.uz/api/count?button=call", {
+              let response = await fetch("https://interlab.mrjtrade.uz/api/count?button=call", {
                 method: "POST",
               });
               console.log("Response Of Count", response.json());

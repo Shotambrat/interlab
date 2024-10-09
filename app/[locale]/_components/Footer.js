@@ -67,17 +67,17 @@ function Footer({ locale }) {
                 />
                 <div className="flex gap-3 mt-8">
                   <SocialIcon
-                    counter={"https://interlab.uz/api/count?button=facebook"}
+                    counter={"https://interlab.mrjtrade.uz/api/count?button=facebook"}
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/9c71bc10c400533dd9fbac412ae42426654bb0fef5b1493037ca61e6bc831a43?apiKey=e791e0f42eab4556ac944da69358f29b&"
                     linkUrl={"https://www.facebook.com/intermeduz/"}
                   />
                   <SocialIcon
-                    counter={"https://interlab.uz/api/count?button=instagram"}
+                    counter={"https://interlab.mrjtrade.uz/api/count?button=instagram"}
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/b8103f6fceeb51d89439e1b44b26a2540f94da390091b4ea7611417d4e44da97?apiKey=e791e0f42eab4556ac944da69358f29b&"
                     linkUrl={"https://www.instagram.com/intermed.centre/"}
                   />
                   <SocialIcon
-                    counter={"https://interlab.uz/api/count?button=call"}
+                    counter={"https://interlab.mrjtrade.uz/api/count?button=call"}
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/9936081e82166164b2f73874d6ae5898bda1496a1b28684a3a9060ca27906cc3?apiKey=e791e0f42eab4556ac944da69358f29b&"
                     linkUrl={"https://t.me/intermed_innovation_uz"}
                   />

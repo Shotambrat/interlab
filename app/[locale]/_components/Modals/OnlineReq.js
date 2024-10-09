@@ -41,7 +41,7 @@ export default function ContactWithUs({ setState }) {
 
     try {
       const response = await axios.post(
-        "https://interlab.uz/api/application/onlayn-zapis",
+        "https://interlab.mrjtrade.uz/api/application/onlayn-zapis",
         payload
       );
 

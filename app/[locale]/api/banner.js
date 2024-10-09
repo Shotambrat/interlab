@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://interlab.uz/api/banner";
+const API_URL = "https://interlab.mrjtrade.uz/api/banner";
 
 // Получение всех баннеров
 export const getBanners = async () => {

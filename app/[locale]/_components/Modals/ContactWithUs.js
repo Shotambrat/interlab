@@ -83,7 +83,7 @@ export default function ContactWithUs({ setState }) {
             onClick={async () => {
               try {
                 let response = await fetch(
-                  "https://interlab.uz/api/count?button=call",
+                  "https://interlab.mrjtrade.uz/api/count?button=call",
                   {
                     method: "POST",
                   }
