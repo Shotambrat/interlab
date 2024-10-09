@@ -15,8 +15,8 @@ export default function AboutBanner() {
       {contactWithUs ? <ContactWithUs setState={setContactWithUs} /> : <></>}
       {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
       <div className="w-full h-screen-70 mdx:h-screen-90 relative max-slg:gap-5 flex flex-col pt-10">
-        <div className="absolute max-slg:relative slg:top-1/3 lg:left-[7%] flex flex-col px-4 2xl:left-[12%]">
-          <h1 className="text-5xl text-rose-400 font-bold">{t('About.title')}</h1>
+        <div className="absolute max-slg:relative slg:top-1/3 lg:left-[7%] flex flex-col px-4 2xl:left-[5%]">
+          <h1 className="text-5xl text-rose-400 font-bold w-full max-w-[560px]">{t('About.title')} <span className="text-black">{t('About.subtitle')}</span></h1>
           <p className="w-full max-w-[400px] leading-5">
           {t('About.description')}
           </p>
