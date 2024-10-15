@@ -23,13 +23,13 @@ const Slider = ({ params }) => {
     const fetchBanners = async () => {
       try {
         const banners =
-          await client.fetch(`*[_type == 'banner' && active == true] {
-          title,
-          subtitle,
-          description,
-          photo,
-          navigateToUrl
-        }`);
+          await client.fetch(`*[_type == 'banner' && active == true] | order(_updatedAt desc) {
+  title,
+  subtitle,
+  description,
+  photo,
+  navigateToUrl
+}`);
         setBanners(banners);
       } catch (error) {
         console.error("Ошибка при загрузке баннеров:", error);
