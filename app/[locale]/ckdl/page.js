@@ -4,6 +4,7 @@ import AboutBanner from "../_components/ckdl/About";
 import Steps from "../_components/ckdl/Steps";
 import WhyWe from "../_components/ckdl/WhyWe";
 import { useTranslations } from "next-intl";
+import Map from "../_components/MainMap";
 
 export default function HomePage({params}) {
   const t = useTranslations()
@@ -11,6 +12,7 @@ export default function HomePage({params}) {
     <div className="flex flex-col gap-24 slg:gap-48 bg-white px-2 pb-24 slg:pb-48">
       <AboutBanner />
       <WhyWe />
+      <Map />
       <AboutLicense />
       <Steps />
       <div className="w-full max-w-[1440px] mx-auto flex flex-col gap-4">

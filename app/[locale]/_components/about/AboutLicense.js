@@ -16,6 +16,7 @@ const AboutLicense = ({ locale }) => {
   const [licenses, setLicenses] = useState(null);
   const [modal, setModal] = useState(false);
   const [selectedLicense, setSelectedLicense] = useState(null);
+  const [autoPlay, setAutoPlay] = useState(false);
 
   useEffect(() => {
     const fetchLicenses = async () => {
@@ -32,8 +33,8 @@ const AboutLicense = ({ locale }) => {
             }
           }
         `);
+        data.length <= 4 ? null : setAutoPlay(true)
         setLicenses(data);
-        console.log("Fetched Licenses:", data); // Log the fetched data
       } catch (error) {
         console.error("Ошибка при загрузке лицензий:", error);
       }
@@ -60,7 +61,7 @@ const AboutLicense = ({ locale }) => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: autoPlay,
     autoplaySpeed: 2000,
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 3 } },

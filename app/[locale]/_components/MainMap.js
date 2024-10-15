@@ -12,14 +12,14 @@ export default function Map() {
   const [clinics, setClinics] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
   const [isSearchButtonVisible, setIsSearchButtonVisible] = useState(true); // Новое состояние для управления кнопкой
-  const mapInstanceRef = useRef(null); 
+  const mapInstanceRef = useRef(null);
   const userMarkerRef = useRef(null);
   const activeRouteRef = useRef(null);
   const [activeClinic, setActiveClinic] = useState(null);
 
   useEffect(() => {
     if (!mapInstanceRef.current) {
-      initMap([41.311158, 69.279737], '/images/maps/geolocation.png');
+      initMap([41.311158, 69.279737], "/images/maps/geolocation.png");
     }
   }, []);
 
@@ -30,7 +30,7 @@ export default function Map() {
       address: "г. Ташкент Алмазарская СП-14",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.329423, 69.234380]
+      coords: [41.329423, 69.23438],
     },
     {
       id: 2,
@@ -38,7 +38,7 @@ export default function Map() {
       address: "г. Ташкент Алмазарская СП-15",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.330729, 69.197235]
+      coords: [41.330729, 69.197235],
     },
     {
       id: 3,
@@ -46,7 +46,7 @@ export default function Map() {
       address: "г. Ташкент Алмазарская СП-16",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.362064, 69.182376]
+      coords: [41.362064, 69.182376],
     },
     {
       id: 4,
@@ -54,7 +54,7 @@ export default function Map() {
       address: "Алмазарский район, ул. Келес Йули, 226",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.343135, 69.228640]
+      coords: [41.343135, 69.22864],
     },
     {
       id: 5,
@@ -62,7 +62,7 @@ export default function Map() {
       address: "Алмазарский район, ул. Мирзы Галиба, 2Г",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.348878, 69.198580]
+      coords: [41.348878, 69.19858],
     },
     {
       id: 6,
@@ -70,7 +70,7 @@ export default function Map() {
       address: "ул. Заркайнар, 164",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.338697, 69.242543]
+      coords: [41.338697, 69.242543],
     },
     {
       id: 7,
@@ -78,7 +78,7 @@ export default function Map() {
       address: "Алмазарский район, ул. Келес Йули, 169",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.379633, 69.220096]
+      coords: [41.379633, 69.220096],
     },
     {
       id: 8,
@@ -86,7 +86,7 @@ export default function Map() {
       address: "Алмазарский район, массив Бешкурган, 2-й квартал, 10",
       graphic: "Пн - сб 7:00 - 19:00",
       tel: "1156",
-      coords: [41.366219, 69.199214]
+      coords: [41.366219, 69.199214],
     },
     {
       id: 9,
@@ -94,7 +94,7 @@ export default function Map() {
       address: "ул. Себзар, 19",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.333912, 69.251601]
+      coords: [41.333912, 69.251601],
     },
     {
       id: 10,
@@ -102,7 +102,7 @@ export default function Map() {
       address: "Ташкент, Бектемирский район, Йик-Ата",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.227775, 69.367925]
+      coords: [41.227775, 69.367925],
     },
     {
       id: 11,
@@ -110,7 +110,7 @@ export default function Map() {
       address: "Ташкент, Бектемирский район, населённый пункт Кипчак",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.216924, 69.326129]
+      coords: [41.216924, 69.326129],
     },
     {
       id: 12,
@@ -118,7 +118,7 @@ export default function Map() {
       address: "Бектемирский район, массив Сувсоз-2, 75",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.227597, 69.337094]
+      coords: [41.227597, 69.337094],
     },
     {
       id: 13,
@@ -126,7 +126,7 @@ export default function Map() {
       address: "ул. Фидокор, 6",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.298634, 69.279841]
+      coords: [41.298634, 69.279841],
     },
     {
       id: 14,
@@ -134,7 +134,7 @@ export default function Map() {
       address: "Мирабадский район, массив Куйлюк, 3-й квартал, 29Акабинет 2",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.251991, 69.312444]
+      coords: [41.251991, 69.312444],
     },
     {
       id: 15,
@@ -142,7 +142,7 @@ export default function Map() {
       address: "ул. Хамал, 31",
       graphic: "Пн - сб 8:00 - 15:00",
       tel: "1156",
-      coords: [41.282010, 69.298201]
+      coords: [41.28201, 69.298201],
     },
     {
       id: 16,
@@ -150,7 +150,7 @@ export default function Map() {
       address: "Мирабадский район, 8",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.304309, 69.279629]
+      coords: [41.304309, 69.279629],
     },
     {
       id: 17,
@@ -158,7 +158,7 @@ export default function Map() {
       address: "ул. Каландар, 2",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.331118, 69.325998]
+      coords: [41.331118, 69.325998],
     },
     {
       id: 18,
@@ -166,7 +166,7 @@ export default function Map() {
       address: "просп. Мустакиллик, 42",
       graphic: "8:00 - 19:00",
       tel: "1156",
-      coords: [41.316010, 69.291613]
+      coords: [41.31601, 69.291613],
     },
     {
       id: 19,
@@ -174,7 +174,7 @@ export default function Map() {
       address: "ул. Ахиллик, 10",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.353953, 69.384939]
+      coords: [41.353953, 69.384939],
     },
     {
       id: 20,
@@ -182,7 +182,7 @@ export default function Map() {
       address: "ул. Эргаша Отаханова, 218",
       graphic: "Пн - сб 7:00 - 19:00",
       tel: "1156",
-      coords: [41.348856, 69.337908]
+      coords: [41.348856, 69.337908],
     },
     {
       id: 21,
@@ -190,7 +190,7 @@ export default function Map() {
       address: "Мирзо-Улугбекский район, массив Карасу, 3-й квартал, 40",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.331152, 69.366006]
+      coords: [41.331152, 69.366006],
     },
     {
       id: 22,
@@ -198,15 +198,16 @@ export default function Map() {
       address: "Геологическая ул., 26",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.329285, 69.310412]
+      coords: [41.329285, 69.310412],
     },
     {
       id: 23,
       name: "РМО",
-      address: "Мирзо-Улугбекский район, массив Городок Тракторостроителей, 2-й квартал, 36",
+      address:
+        "Мирзо-Улугбекский район, массив Городок Тракторостроителей, 2-й квартал, 36",
       graphic: "не указан ",
       tel: "1156",
-      coords: [41.354147, 69.385808]
+      coords: [41.354147, 69.385808],
     },
     {
       id: 24,
@@ -214,7 +215,7 @@ export default function Map() {
       address: "ул. Шокирарык, 18",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.216934, 69.219786]
+      coords: [41.216934, 69.219786],
     },
     {
       id: 25,
@@ -222,7 +223,7 @@ export default function Map() {
       address: "ул. Чаштепа, 147",
       graphic: "Круглосуточно",
       tel: "1156",
-      coords: [41.241163, 69.198569]
+      coords: [41.241163, 69.198569],
     },
     {
       id: 26,
@@ -230,7 +231,7 @@ export default function Map() {
       address: "ул. Янги Куйлюк, 5",
       graphic: "Пн - сб 7:30 - 20:00",
       tel: "1156",
-      coords: [41.245685, 69.299480]
+      coords: [41.245685, 69.29948],
     },
     {
       id: 27,
@@ -238,7 +239,7 @@ export default function Map() {
       address: "Сергелийский район, массив Учувчилар Шахарчаси, 1",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.269570, 69.276808]
+      coords: [41.26957, 69.276808],
     },
     {
       id: 28,
@@ -246,15 +247,16 @@ export default function Map() {
       address: "Сергелийский район, массив Сергели-VIа, 24",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.230500, 69.207610]
+      coords: [41.2305, 69.20761],
     },
     {
       id: 29,
       name: "Семейная поликлиника № 68",
-      address: "Сергелийский район, населённый пункт Закиров, ул. Нурлихаёт, 129",
+      address:
+        "Сергелийский район, населённый пункт Закиров, ул. Нурлихаёт, 129",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.238766, 69.273982]
+      coords: [41.238766, 69.273982],
     },
     {
       id: 30,
@@ -262,7 +264,7 @@ export default function Map() {
       address: "Янгихаётский район, массив Йулдош, 5-й квартал, 24",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.197600, 69.214411]
+      coords: [41.1976, 69.214411],
     },
     {
       id: 31,
@@ -270,7 +272,7 @@ export default function Map() {
       address: "ул. Бешкайрагач, 233",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.315911, 69.165210]
+      coords: [41.315911, 69.16521],
     },
     {
       id: 32,
@@ -278,7 +280,7 @@ export default function Map() {
       address: "5-й пр. Юсуфа Саккоки, 4А",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.300602, 69.177783]
+      coords: [41.300602, 69.177783],
     },
     {
       id: 33,
@@ -286,7 +288,7 @@ export default function Map() {
       address: "Учтепинский район, массив Чиланзар, 12-й квартал, 57",
       graphic: "Пн - сб 7:00 - 19:00",
       tel: "1156",
-      coords: [41.279077, 69.185120]
+      coords: [41.279077, 69.18512],
     },
     {
       id: 34,
@@ -294,7 +296,7 @@ export default function Map() {
       address: "Учтепинский район, массив Чиланзар, 14-й квартал, 4",
       graphic: "Пн - сб 7:00 - 19:00",
       tel: "1156",
-      coords: [41.292184, 69.190904]
+      coords: [41.292184, 69.190904],
     },
     {
       id: 35,
@@ -302,7 +304,7 @@ export default function Map() {
       address: "ул. Мерганча, 14А",
       graphic: "Пн - сб 7:00 - 20:00",
       tel: "1156",
-      coords: [41.312010, 69.189851]
+      coords: [41.31201, 69.189851],
     },
     {
       id: 36,
@@ -310,7 +312,7 @@ export default function Map() {
       address: "Учтепинский район, массив Чиланзар, 31-й квартал, 50А",
       graphic: "Пн - сб 8:00 - 18:00",
       tel: "1156",
-      coords: [41.266650, 69.150637]
+      coords: [41.26665, 69.150637],
     },
     {
       id: 37,
@@ -318,7 +320,7 @@ export default function Map() {
       address: "Чиланзарский район, Малая кольцевая дорога, 7",
       graphic: "Пн - сб 8:00 - 18:00",
       tel: "1156",
-      coords: [41.270325, 69.211812]
+      coords: [41.270325, 69.211812],
     },
     {
       id: 38,
@@ -326,7 +328,7 @@ export default function Map() {
       address: "Чиланзарский район, массив Чиланзар, 2-й квартал, 2Б",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.280140, 69.222764]
+      coords: [41.28014, 69.222764],
     },
     {
       id: 39,
@@ -334,7 +336,7 @@ export default function Map() {
       address: "Чиланзарский район, массив Чиланзар, квартал 20Д, 4А",
       graphic: "Пн - сб 7:30 - 18:00",
       tel: "1156",
-      coords: [41.270601, 69.176124]
+      coords: [41.270601, 69.176124],
     },
     {
       id: 40,
@@ -342,7 +344,7 @@ export default function Map() {
       address: "ул. Мукими, 142",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.293641, 69.222536]
+      coords: [41.293641, 69.222536],
     },
     {
       id: 41,
@@ -350,7 +352,7 @@ export default function Map() {
       address: "ул. Арпапая, 12А",
       graphic: "Пн - сб 7:45 - 13:10",
       tel: "1156",
-      coords: [41.307106, 69.249050]
+      coords: [41.307106, 69.24905],
     },
     {
       id: 42,
@@ -358,7 +360,7 @@ export default function Map() {
       address: "Чиланзарский район, 1-й пр. Катартал, 1",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.294208, 69.211386]
+      coords: [41.294208, 69.211386],
     },
     {
       id: 43,
@@ -366,7 +368,7 @@ export default function Map() {
       address: "Чиланзарский район, массив Наккашлык, 7А",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.270514, 69.206500]
+      coords: [41.270514, 69.2065],
     },
     {
       id: 44,
@@ -374,7 +376,7 @@ export default function Map() {
       address: "Чиланзарский район, просп. Бунёдкор, 7А",
       graphic: "Пн - сб 7:30 - 20:00",
       tel: "1156",
-      coords: [41.286424, 69.215705]
+      coords: [41.286424, 69.215705],
     },
     {
       id: 45,
@@ -382,7 +384,7 @@ export default function Map() {
       address: "Шайхантахурский район, массив Ибн Сина-1, 13А",
       graphic: "Пн - сб 7:00 - 20:00",
       tel: "1156",
-      coords: [41.335596, 69.168358]
+      coords: [41.335596, 69.168358],
     },
     {
       id: 46,
@@ -390,7 +392,7 @@ export default function Map() {
       address: "1-я ул. Ипакчи, 60",
       graphic: "Пн - сб 8:00 - 17:00",
       tel: "1156",
-      coords: [41.329001, 69.190613]
+      coords: [41.329001, 69.190613],
     },
     {
       id: 47,
@@ -398,7 +400,7 @@ export default function Map() {
       address: "ул. Тахтапуль, 14A",
       graphic: "Пн - сб 8:00 - 17:00",
       tel: "1156",
-      coords: [41.339151, 69.262096]
+      coords: [41.339151, 69.262096],
     },
     {
       id: 48,
@@ -406,7 +408,7 @@ export default function Map() {
       address: "ул. Чукуркуприк, 73",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.306472, 69.198249]
+      coords: [41.306472, 69.198249],
     },
     {
       id: 49,
@@ -414,7 +416,7 @@ export default function Map() {
       address: "Шайхантахурский район, массив Богкуча, 13А",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.326443, 69.217869]
+      coords: [41.326443, 69.217869],
     },
     {
       id: 50,
@@ -422,7 +424,7 @@ export default function Map() {
       address: "ул. Хувайдо, 45А",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.339902, 69.199441]
+      coords: [41.339902, 69.199441],
     },
     {
       id: 51,
@@ -430,15 +432,16 @@ export default function Map() {
       address: "ул. Самарканд Дарвоза, 198",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.307851, 69.217951]
+      coords: [41.307851, 69.217951],
     },
     {
       id: 52,
       name: "Семейная поликлиника № 47",
-      address: "Ташкент, Шайхантахурский район, махаллинский сход граждан Чакар",
+      address:
+        "Ташкент, Шайхантахурский район, махаллинский сход граждан Чакар",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.318865, 69.240170]
+      coords: [41.318865, 69.24017],
     },
     {
       id: 53,
@@ -446,7 +449,7 @@ export default function Map() {
       address: "ул. Абая, 5А",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.323341, 69.254080]
+      coords: [41.323341, 69.25408],
     },
     {
       id: 54,
@@ -454,7 +457,7 @@ export default function Map() {
       address: "ул. Кукча Дарвоза, 305",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.321657, 69.215442]
+      coords: [41.321657, 69.215442],
     },
     {
       id: 55,
@@ -462,7 +465,7 @@ export default function Map() {
       address: "ул. Чинабад, 88",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.354153, 69.305698]
+      coords: [41.354153, 69.305698],
     },
     {
       id: 56,
@@ -470,7 +473,7 @@ export default function Map() {
       address: "Юнусабадский район, массив Минор, 120",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.329799, 69.282066]
+      coords: [41.329799, 69.282066],
     },
     {
       id: 57,
@@ -478,7 +481,7 @@ export default function Map() {
       address: "Юнусабадский район, просп. Амира Темура, 117Б",
       graphic: "Пн - сб 7:00 - 20:00",
       tel: "1156",
-      coords: [41.353244, 69.286085]
+      coords: [41.353244, 69.286085],
     },
     {
       id: 58,
@@ -486,7 +489,7 @@ export default function Map() {
       address: "Юнусабадский район, массив Юнусабад, 7-й квартал, 28А",
       graphic: "Пн - сб 7:00 - 18:00",
       tel: "1156",
-      coords: [41.370556, 69.272427]
+      coords: [41.370556, 69.272427],
     },
     {
       id: 59,
@@ -494,7 +497,7 @@ export default function Map() {
       address: "Юнусабадский район, массив Кашгар, 24A",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.320969, 69.276078]
+      coords: [41.320969, 69.276078],
     },
     {
       id: 60,
@@ -502,7 +505,7 @@ export default function Map() {
       address: "Юнусабадский район, 6-й пр. Янгишахар, 9",
       graphic: "Пн - сб 7:00 - 20:00",
       tel: "1156",
-      coords: [41.360191, 69.296060]
+      coords: [41.360191, 69.29606],
     },
     {
       id: 61,
@@ -510,7 +513,7 @@ export default function Map() {
       address: "Юнусабадский район, массив Юнусабад, 17-й квартал, 22А",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.367351, 69.311065]
+      coords: [41.367351, 69.311065],
     },
     {
       id: 62,
@@ -518,7 +521,7 @@ export default function Map() {
       address: "ул. Богишамол, 112Б",
       graphic: "Пн - сб 7:00 - 20:00",
       tel: "1156",
-      coords: [41.339148, 69.295377]
+      coords: [41.339148, 69.295377],
     },
     {
       id: 63,
@@ -526,7 +529,7 @@ export default function Map() {
       address: "Ташкент, Юнусабадский район, махалля Хасанбой",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.384938, 69.259235]
+      coords: [41.384938, 69.259235],
     },
     {
       id: 64,
@@ -534,7 +537,7 @@ export default function Map() {
       address: "ул. Юнусата, 2",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.370901, 69.311496]
+      coords: [41.370901, 69.311496],
     },
     {
       id: 65,
@@ -542,7 +545,7 @@ export default function Map() {
       address: "ул. Бабура, 16",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.293545, 69.250346]
+      coords: [41.293545, 69.250346],
     },
     {
       id: 66,
@@ -550,7 +553,7 @@ export default function Map() {
       address: "Яккасарайский район, ул. Абдуллы Каххара, 44",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.277267, 69.262511]
+      coords: [41.277267, 69.262511],
     },
     {
       id: 67,
@@ -558,7 +561,7 @@ export default function Map() {
       address: "ул. Шота Руставели, 75А",
       graphic: "Пн - сб 7:30 - 20:00",
       tel: "1156",
-      coords: [41.270900, 69.237954]
+      coords: [41.2709, 69.237954],
     },
     {
       id: 68,
@@ -566,7 +569,7 @@ export default function Map() {
       address: "ул. Шота Руставели, 32",
       graphic: "Пн - сб 8:00 - 19:00",
       tel: "1156",
-      coords: [41.291400, 69.259340]
+      coords: [41.2914, 69.25934],
     },
     {
       id: 69,
@@ -574,7 +577,7 @@ export default function Map() {
       address: "ул. Шота Руставели, 84",
       graphic: "Пн - сб 7:00 - 18:00",
       tel: "1156",
-      coords: [41.276655, 69.242565]
+      coords: [41.276655, 69.242565],
     },
     {
       id: 70,
@@ -582,7 +585,7 @@ export default function Map() {
       address: "Янгихаётский район, массив Янги Чаштепа, 65",
       graphic: "Пн - сб 7:00 - 20:00",
       tel: "1156",
-      coords: [41.233614, 69.192970]
+      coords: [41.233614, 69.19297],
     },
     {
       id: 71,
@@ -590,7 +593,7 @@ export default function Map() {
       address: "Ташкент, Янгихаётский район, махалля Мархамат",
       graphic: "Пн - сб 8:00 - 18:00",
       tel: "1156",
-      coords: [41.213622, 69.201417]
+      coords: [41.213622, 69.201417],
     },
     {
       id: 72,
@@ -598,7 +601,7 @@ export default function Map() {
       address: "ул. Джаркурган, 37",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.269812, 69.323514]
+      coords: [41.269812, 69.323514],
     },
     {
       id: 73,
@@ -606,7 +609,7 @@ export default function Map() {
       address: "ул. Шохсанам, 2",
       graphic: "не указан",
       tel: "1156",
-      coords: [41.268457, 69.364530]
+      coords: [41.268457, 69.36453],
     },
     {
       id: 74,
@@ -614,7 +617,7 @@ export default function Map() {
       address: "Фергана Йули, 1",
       graphic: "Пн - сб 7:30 - 20:00",
       tel: "1156",
-      coords: [41.241673, 69.330557]
+      coords: [41.241673, 69.330557],
     },
     {
       id: 75,
@@ -622,7 +625,7 @@ export default function Map() {
       address: "4-й пр. Бирлашган, 8",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.292171, 69.350910]
+      coords: [41.292171, 69.35091],
     },
     {
       id: 76,
@@ -630,7 +633,7 @@ export default function Map() {
       address: "Яшнободский район, массив Тузель, 1-й квартал, 40А",
       graphic: "Не указан",
       tel: "1156",
-      coords: [41.296800, 69.361865]
+      coords: [41.2968, 69.361865],
     },
     {
       id: 77,
@@ -638,7 +641,7 @@ export default function Map() {
       address: "ул. Ош, 26",
       graphic: "Пн - сб 8:00 - 20:00",
       tel: "1156",
-      coords: [41.287888, 69.316706]
+      coords: [41.287888, 69.316706],
     },
     {
       id: 78,
@@ -646,7 +649,7 @@ export default function Map() {
       address: "ул. Сокин, 196",
       graphic: "Пн - вт круглосуточно",
       tel: "1156",
-      coords: [41.282402, 69.369948]
+      coords: [41.282402, 69.369948],
     },
     {
       id: 79,
@@ -654,7 +657,7 @@ export default function Map() {
       address: "ул. Махтумкули, 2",
       graphic: "Пн - сб 8:00 - 17:00",
       tel: "1156",
-      coords: [41.305546, 69.305131]
+      coords: [41.305546, 69.305131],
     },
     // {
     //   id: 80,
@@ -664,7 +667,7 @@ export default function Map() {
     //   tel: "1156",
     //   coords: []
     // },
-  ] 
+  ];
 
   const initMap = (location, locIcon) => {
     const mapElement = document.getElementById("map");
@@ -674,7 +677,8 @@ export default function Map() {
       mapInstanceRef.current = map;
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
       const userIcon = L.icon({
@@ -715,7 +719,12 @@ export default function Map() {
     const R = 6371;
     const dLat = deg2rad(lat2 - lat1);
     const dLon = deg2rad(lon2 - lon1);
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
     return d;
@@ -728,8 +737,13 @@ export default function Map() {
   const searchNearbyClinics = (userCoords) => {
     const radius = 3;
 
-    const nearbyClinics = clinicsLocations.filter(clinic => {
-      const distance = getDistanceFromLatLonInKm(userCoords[0], userCoords[1], clinic.coords[0], clinic.coords[1]);
+    const nearbyClinics = clinicsLocations.filter((clinic) => {
+      const distance = getDistanceFromLatLonInKm(
+        userCoords[0],
+        userCoords[1],
+        clinic.coords[0],
+        clinic.coords[1]
+      );
       return distance <= radius;
     });
 
@@ -737,7 +751,7 @@ export default function Map() {
 
     nearbyClinics.forEach((clinic) => {
       const clinicIcon = L.divIcon({
-        className: 'custom-clinic-icon',
+        className: "custom-clinic-icon",
         html: `<svg width="44" height="57" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
         </svg>`,
@@ -745,10 +759,13 @@ export default function Map() {
         iconAnchor: [22, 57],
       });
 
-      const clinicMarker = L.marker(clinic.coords, { icon: clinicIcon }).addTo(mapInstanceRef.current)
-        .bindPopup(`<b>${clinic.name}</b><br>${clinic.address}<br>${clinic.graphic}`);
+      const clinicMarker = L.marker(clinic.coords, { icon: clinicIcon })
+        .addTo(mapInstanceRef.current)
+        .bindPopup(
+          `<b>${clinic.name}</b><br>${clinic.address}<br>${clinic.graphic}`
+        );
 
-      clinicMarker.on('click', () => {
+      clinicMarker.on("click", () => {
         buildRoute(userCoords, clinic.coords, clinic.id);
       });
     });
@@ -760,18 +777,18 @@ export default function Map() {
     }
 
     const newRouteControl = L.Routing.control({
-      waypoints: [
-        L.latLng(start),
-        L.latLng(end),
-      ],
+      waypoints: [L.latLng(start), L.latLng(end)],
       routeWhileDragging: true,
       createMarker: function (i, wp) {
         return L.marker(wp.latLng, {
-          icon: i === 0 ? userMarkerRef.current.options.icon : userMarkerRef.current.options.icon,
+          icon:
+            i === 0
+              ? userMarkerRef.current.options.icon
+              : userMarkerRef.current.options.icon,
         });
       },
       lineOptions: {
-        styles: [{ color: 'red', opacity: 0.7, weight: 4 }],
+        styles: [{ color: "red", opacity: 0.7, weight: 4 }],
       },
     }).addTo(mapInstanceRef.current);
 
@@ -780,12 +797,13 @@ export default function Map() {
   };
 
   const sortedClinics = activeClinic
-  ? [
-      clinics.find((clinic) => clinic.id === activeClinic),
-      ...[...clinics].reverse().filter((clinic) => clinic.id !== activeClinic),
-    ]
-  : [...clinics].reverse();
-
+    ? [
+        clinics.find((clinic) => clinic.id === activeClinic),
+        ...[...clinics]
+          .reverse()
+          .filter((clinic) => clinic.id !== activeClinic),
+      ]
+    : [...clinics].reverse();
 
   return (
     <div className="w-full relative mt-24">
@@ -793,21 +811,29 @@ export default function Map() {
         <h1 className="text-3xl font-semibold">Карта пунктов</h1>
         <div className="relative w-full flex max-xl:flex-col-reverse gap-5">
           <div className="flex flex-col gap-4 overflow-y-scroll h-[725px] max-xl:h-[200px] max-xl:flex-row max-xl:w-full w-1/3">
-            {sortedClinics.length === 0 ? (
-              <p>Найдите ближайшие поликлиники, нажав кнопку поиска.</p>
-            ) : (
-              sortedClinics.map((clinic, index) => (
-                <AddressItem
-                  key={index}
-                  title={clinic.name}
-                  address={clinic.address}
-                  graphic={[clinic.graphic]}
-                  tel={clinic.tel}
-                  url="/"
-                  className={clinic.id === activeClinic ? "bg-red-100" : ""}
-                />
-              ))
-            )}
+            {sortedClinics.length === 0
+              ? clinicsLocations.map((clinic, index) => (
+                  <AddressItem
+                    key={index}
+                    title={clinic.name}
+                    address={clinic.address}
+                    graphic={[clinic.graphic]}
+                    tel={clinic.tel}
+                    url="/"
+                    className={clinic.id === activeClinic ? "bg-red-100" : ""}
+                  />
+                ))
+              : sortedClinics.map((clinic, index) => (
+                  <AddressItem
+                    key={index}
+                    title={clinic.name}
+                    address={clinic.address}
+                    graphic={[clinic.graphic]}
+                    tel={clinic.tel}
+                    url="/"
+                    className={clinic.id === activeClinic ? "bg-red-100" : ""}
+                  />
+                ))}
           </div>
           <div className="relative w-2/3 max-xl:w-full max-xl:h-[450px]">
             {isSearchButtonVisible && (
