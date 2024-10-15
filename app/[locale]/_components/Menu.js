@@ -35,7 +35,7 @@ const Menu = ({ menu, closeMenu, navOptions, toggleDropdown, isOpen, availableLo
     <AnimatePresence>
       {menu && (
         <motion.div
-          className="fixed h-full flex justify-end z-10 w-full bg-modalBg inset-0"
+          className="fixed h-full flex justify-end z-[9999] w-full bg-modalBg inset-0"
           variants={backgroundVariants}
           initial="hidden"
           animate="visible"

@@ -1,20 +1,15 @@
 import callIcon from "@/public/svg/call-icon-red.svg";
 import Image from "next/image";
-import arrowRight from "@/public/svg/arrow-right-gray.svg"
+import arrowRight from "@/public/svg/arrow-right-gray.svg";
 
-export default function AddressItem({
-  title,
-  address,
-  graphic,
-  tel,
-  url,
-}) {
+export default function AddressItem({ title, address, graphic, tel, url }) {
+
   return (
-    <div
-      className="p-4 border rounded-2xl shadow-lg flex flex-col gap-8 max-xl:gap-0 justify-between flex-shrink-0 flex-grow-0 w-full mx-auto"
-    >
+    <div className="p-4 border rounded-2xl shadow-lg flex flex-col gap-8 max-xl:gap-0 justify-between flex-shrink-0 flex-grow-0 w-full mx-auto">
       <div className="flex flex-col gap-2 max-xl:gap-1">
-        <h3 className="text-2xl max-xl:text-xl text-rose-400 font-bold">{title}</h3>
+        <h3 className="text-2xl max-xl:text-xl text-rose-400 font-bold">
+          {title}
+        </h3>
         <p className="font-medium max-xl:hidden">{address}</p>
         <div className="flex flex-col">
           {graphic.map((item, index) => {
