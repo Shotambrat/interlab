@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Gulmira from "@/public/images/gulmira-doctor.png";
 import Instruction from "@/app/[locale]/_components/Instuction";
-import axios from "axios";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -17,7 +15,6 @@ import ContactWithUs from "@/app/[locale]/_components/Modals/ContactWithUs";
 import OnlineReq from "@/app/[locale]/_components/Modals/OnlineReq";
 import PopularAnalyze from "./PopularAnalyze";
 import BannerMain from "@/app/[locale]/_components/BannerMain";
-import arrowDownRed from "@/public/svg/arrow-down-red.svg";
 import MainMap from "@/app/[locale]/_components/MainMap";
 import ServiceCard from "@/app/[locale]/_components/ServiceCard";
 import imageUrlBuilder from "@sanity/image-url";
