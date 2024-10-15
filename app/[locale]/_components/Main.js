@@ -320,7 +320,7 @@ function Main({ params }) {
                 </div>
               </>
             )}
-            <div className="w-full flex justify-center mdl:hidden mt-12">
+            {/* <div className="w-full flex justify-center mdl:hidden mt-12">
               <button
                 onClick={() => setServicesOpen((prev) => !prev)}
                 className="text-rose-400 text-xl font-semibold flex gap-3 items-center"
@@ -336,7 +336,7 @@ function Main({ params }) {
                   }`}
                 />
               </button>
-            </div>
+            </div> */}
           </div>
 
           <MainMap />
