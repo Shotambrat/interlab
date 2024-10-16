@@ -5,7 +5,7 @@ import { client } from "@/sanity/lib/client";
 
 export default async function HomePage({ params }) {
   // Fetching doctor data from Sanity
-  const doctors = await client.fetch(`*[_type == "doctor"] {
+  const doctors = await client.fetch(`*[_type == "doctor" ] {
     name,
     slug,
     photo,
