@@ -4,8 +4,7 @@ import { client } from "@/sanity/lib/client";
 import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
 import Link from "next/link";
-import Marquee from "react-fast-marquee";
-import LinkYakor from "@/app/[locale]/_components/LinkYakor";
+import Carousel from "react-multi-carousel";
 
 const builder = imageUrlBuilder(client);
 
@@ -35,8 +34,27 @@ const OffersSlider = ({ locale }) => {
     fetchPromotions();
   }, []);
 
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 4000, min: 750 },
+      items: 5,
+      slidesToSlide: 1,
+    },
+    tablet: {
+      breakpoint: { max: 750, min: 650 },
+      items: 3,
+      slidesToSlide: 1,
+    },
+    mobile: {
+      breakpoint: { max: 650, min: 0 },
+      items: 1,
+      slidesToSlide: 1,
+    },
+  };
+
   const getIcon = (promotion) => promotion.icon[locale] || promotion.icon["ru"];
-  const getTitle = (promotion) => promotion.title[locale] || promotion.title["ru"];
+  const getTitle = (promotion) =>
+    promotion.title[locale] || promotion.title["ru"];
 
   if (promotions.length === 0) {
     return <p>Нет доступных акций</p>;
@@ -62,9 +80,6 @@ const OffersSlider = ({ locale }) => {
                     className="h-full w-full object-cover rounded-3xl"
                   />
                 )}
-                {/* <div>
-                  <LinkYakor />
-                </div> */}
               </div>
               <div className="flex flex-col gap-1">
                 <h2 className="text-xl font-bold line-clamp-2">
@@ -85,22 +100,19 @@ const OffersSlider = ({ locale }) => {
           </Link>
         ))}
       </div>
-    )
+    );
   }
+
+  console.log("Promotions", promotions)
 
   return (
     <div className="w-full">
-      <Marquee
-        gradient={false} // Remove gradient on the edges for a clean look
-        speed={40} // Control scroll speed
-        pauseOnHover={true} // Pause the scroll exactly where the user hovers
-        loop={0} // Infinite loop
-      >
-        {promotions.map((promotion, index) => (
+      <Carousel responsive={responsive} removeArrowOnDeviceType={[ "tablet", "desktop"] } infinite={true} autoPlay={true} autoPlaySpeed={9000}>
+      {promotions.map((promotion, index) => (
           <Link
             href={`/${locale}/sales/${promotion.slug.current}`}
             key={index}
-            className="inline-block"
+            className="w-full flex justify-center"
           >
             <div className="w-[250px] p-1 rounded-lg h-full flex flex-col gap-2 justify-between">
               <div className="relative w-full h-[250px]">
@@ -113,9 +125,6 @@ const OffersSlider = ({ locale }) => {
                     className="h-full w-full object-cover rounded-3xl"
                   />
                 )}
-                {/* <div>
-                  <LinkYakor />
-                </div> */}
               </div>
               <div className="flex flex-col gap-1">
                 <h2 className="text-xl font-bold line-clamp-2">
@@ -135,7 +144,7 @@ const OffersSlider = ({ locale }) => {
             </div>
           </Link>
         ))}
-      </Marquee>
+      </Carousel>
     </div>
   );
 };
