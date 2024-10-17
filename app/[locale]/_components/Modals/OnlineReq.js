@@ -63,7 +63,7 @@ export default function ContactWithUs({ setState }) {
 
   return createPortal (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-[9999]">
-      <div className="bg-white max-md:p-4 px-8 py-8 rounded-3xl max-mdx:h-[90%] overflow-y-scroll no-scrollbar shadow-lg max-mdx:w-[320px] w-[450px] relative">
+      <div className="bg-white max-md:p-4 px-8 py-8 rounded-3xl max-mdx:max-h-[90%] overflow-y-scroll no-scrollbar shadow-lg max-mdx:w-[320px] w-[450px] relative">
         <button
           className="absolute top-5 right-5"
           onClick={() => setState(false)}

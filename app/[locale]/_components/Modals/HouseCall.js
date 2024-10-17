@@ -65,7 +65,7 @@ export default function HouseCall({ setState }) {
 
   return createPortal (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-[9999]">
-      <div ref={modalRef} className="bg-white max-md:p-4 px-8 py-8 rounded-3xl shadow-lg max-mdx:h-[90%] no-scrollbar overflow-y-scroll max-mdx:w-[90%] w-[450px] relative">
+      <div ref={modalRef} className="bg-white max-md:p-4 px-8 py-8 rounded-3xl shadow-lg max-mdx:max-h-[90%] no-scrollbar overflow-y-scroll max-mdx:w-[90%] w-[450px] relative">
         <button
           className="absolute top-5 right-5"
           onClick={() => setState(false)}
