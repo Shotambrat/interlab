@@ -94,7 +94,20 @@ export default function Tools({ navOptions, locale }) {
             } catch (error) {
               console.log("error to counter fetching", error);
             }
-        }} className="block" href="tel:1156">
+        }} className="block max-mdx:mr-2" href="https://t.me/interlabreception">
+          <Image priority src={'/svg/telegram-svgrepo-com.svg'} width={30} height={30} alt="Phone icon" quality={100} />
+        </a>
+
+        <a onClick={ async() => {
+            try {
+              let response = await fetch("https://interlab.mrjtrade.uz/api/count?button=call", {
+                method: "POST",
+              });
+              console.log("Response Of Count", response.json());
+            } catch (error) {
+              console.log("error to counter fetching", error);
+            }
+        }} className="block max-mdx:mr-2" href="tel:1156">
           <Image priority src={phone} width={25} height={25} alt="Phone icon" quality={100} />
         </a>
       </div>
