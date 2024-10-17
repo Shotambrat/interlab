@@ -10,8 +10,12 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@formatjs/intl-localematcher": "^0.5.4",
     "@headlessui/react": "^2.1.1",
+    "@mui/icons-material": "^6.1.4",
+    "@mui/material": "^6.1.4",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.57.0",
