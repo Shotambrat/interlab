@@ -321,7 +321,7 @@ function Main({ params }) {
 
           <MainMap />
 
-          <h2 className="mt-24 text-3xl font-bold text-neutral-900 max-md:max-w-full">
+          {/* <h2 className="mt-24 text-3xl font-bold text-neutral-900 max-md:max-w-full">
             {t("Main.Sales.title")}
           </h2>
           <Sale locale={params.locale} />
@@ -336,7 +336,7 @@ function Main({ params }) {
               className="shrink-0 aspect-square w-[23px]"
               alt="Arrow icon"
             />
-          </a>
+          </a> */}
           <div className="flex flex-col mt-24 mdx:mt-52 max-w-full w-[588px]">
             <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full mb-0">
               {t("Main.Doctors.title")}

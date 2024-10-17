@@ -6,6 +6,7 @@ import { Form, Input, Button, DatePicker, message } from "antd";
 import PhoneInput from "react-phone-input-2";
 import axios from "axios";
 import useClickOutside from "@/hooks/useClickOutside";
+import { createPortal } from "react-dom";
 
 
 export default function HouseCall({ setState }) {
@@ -62,9 +63,9 @@ export default function HouseCall({ setState }) {
   const [form] = Form.useForm(); // Create form instance
   useClickOutside(modalRef, () => setState(false))
 
-  return (
-    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-50">
-      <div ref={modalRef} className="bg-white max-md:p-4 px-8 py-8 rounded-3xl shadow-lg max-mdx:w-[90%] w-[450px] relative">
+  return createPortal (
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-[9999]">
+      <div ref={modalRef} className="bg-white max-md:p-4 px-8 py-8 rounded-3xl shadow-lg max-mdx:h-[90%] no-scrollbar overflow-y-scroll max-mdx:w-[90%] w-[450px] relative">
         <button
           className="absolute top-5 right-5"
           onClick={() => setState(false)}
@@ -157,6 +158,7 @@ export default function HouseCall({ setState }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
