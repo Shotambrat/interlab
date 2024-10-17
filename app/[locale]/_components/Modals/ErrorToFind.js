@@ -1,11 +1,16 @@
+import { useRef } from "react";
 import errorIcon from "@/public/svg/error-result.svg"
 import Image from "next/image";
 import closeicongray from "@/public/svg/closeicon-gray.svg";
+import useClickOutside from "@/hooks/useClickOutside";
 
 export default function SuccessResult({ setState }) {
+  const modalRef = useRef(null)
+
+  useClickOutside(modalRef, () => setState(false))
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-50">
-      <div className="bg-white max-md:p-4 px-8 py-8 rounded-3xl shadow-lg max-mdx:w-[320px] w-[450px] relative">
+      <div ref={modalRef} className="bg-white max-md:p-4 px-8 py-8 rounded-3xl shadow-lg max-mdx:w-[320px] w-[450px] relative">
         <button
           className="absolute top-5 right-5"
         //   onClick={() => {

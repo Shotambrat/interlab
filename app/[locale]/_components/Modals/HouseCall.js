@@ -1,16 +1,18 @@
 import Image from "next/image";
 import closeicongray from "@/public/svg/closeicon-gray.svg";
 import houseCall from "@/public/images/house-call.png";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Form, Input, Button, DatePicker, message } from "antd";
 import PhoneInput from "react-phone-input-2";
 import axios from "axios";
-import moment from "moment"; // Import moment to handle date formatting
+import useClickOutside from "@/hooks/useClickOutside";
+
 
 export default function HouseCall({ setState }) {
   const [phone, setPhone] = useState(""); // State for phone input
   const [isValidPhone, setIsValidPhone] = useState(false); // Phone validation state
   const [loading, setLoading] = useState(false); // State for form submission
+  const modalRef = useRef(null)
 
   const handlePhoneChange = (value, country, e, formattedValue) => {
     setPhone(value);
@@ -58,10 +60,11 @@ export default function HouseCall({ setState }) {
   };
 
   const [form] = Form.useForm(); // Create form instance
+  useClickOutside(modalRef, () => setState(false))
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-50">
-      <div className="bg-white max-md:p-4 px-8 py-8 rounded-3xl shadow-lg max-mdx:w-[90%] w-[450px] relative">
+      <div ref={modalRef} className="bg-white max-md:p-4 px-8 py-8 rounded-3xl shadow-lg max-mdx:w-[90%] w-[450px] relative">
         <button
           className="absolute top-5 right-5"
           onClick={() => setState(false)}

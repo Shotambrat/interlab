@@ -1,9 +1,15 @@
 import Image from "next/image";
+import { useRef } from "react";
+import useClickOutside from "@/hooks/useClickOutside";
 
 export default function LicenseModal({ data, close }) {
+  const modalRef = useRef(null)
+
+  useClickOutside(modalRef, close)
+
   return (
     <div className="fixed top-0 left-0 z-10 w-full h-screen bg-black bg-opacity-20 flex justify-center items-center px-2 overflow-y-scroll">
-      <div className="w-full max-w-[1000px] rounded-3xl bg-white px-8 py-8 flex flex-col lg:flex-row gap-4 relative">
+      <div ref={modalRef} className="w-full max-w-[1000px] rounded-3xl bg-white px-8 py-8 flex flex-col lg:flex-row gap-4 relative">
         <div className="flex flex-col lg:flex-row gap-4 w-full overflow-y-auto max-h-[90vh] lg:max-h-[60vh]">
           <div className="lg:sticky top-0 flex-1">
             <Image
