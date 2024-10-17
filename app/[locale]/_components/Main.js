@@ -109,7 +109,7 @@ function Main({ params }) {
         <main className="flex flex-col justify-between relative self-center w-full max-w-[1414px] max-md:max-w-full  h-auto slg:h-screen-90">
           <BannerMain params={params} />
         </main>
-        <CallToAction locale={params.locale} />
+        {/* <CallToAction locale={params.locale} /> */}
 
         <div className="flex flex-col self-center mdx:px-5 max-mdx:mt-12 mt-24 w-full max-w-[1440px] max-md:max-w-full">
           <div className="max-md:max-w-full">

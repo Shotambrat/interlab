@@ -2,8 +2,8 @@
 import Search from "@/app/[locale]/_components/Search";
 import phone from "@/public/svg/phone.svg";
 import Image from "next/image";
-import Profile from "@/app/[locale]/_components/Profile";
-import backet from "@/public/svg/backet.svg";
+// import Profile from "@/app/[locale]/_components/Profile";
+// import backet from "@/public/svg/backet.svg";
 import MenuIcon from "@/app/[locale]/_components/MenuIcon";
 import Menu from "@/app/[locale]/_components/Menu";
 import { useState, useEffect } from "react";
@@ -55,7 +55,7 @@ export default function Tools({ navOptions, locale }) {
       </AnimatePresence>
 
       <div className="flex items-center gap-4 max-mdx:gap-1 my-auto">
-        <a href={`/${locale}/results`}>
+        <a className="max-mdx:hidden" href={`/${locale}/results`}>
           <button className="py-1 group  mdx:text-lg bg-[#FEE9E8] font-medium rounded-full hover:shadow-none hover:bg-white hover:text-black text-[#FB6A68] transition-all duration-300 flex items-center gap-2 border px-4 max-mdx:px-2">
             <div className="relative w-6 h-6 max-mdx:w-8 max-mdx:h-8">
               <Image
@@ -94,7 +94,7 @@ export default function Tools({ navOptions, locale }) {
             } catch (error) {
               console.log("error to counter fetching", error);
             }
-        }} className="hidden mdx:block" href="tel:1156">
+        }} className="block" href="tel:1156">
           <Image priority src={phone} width={25} height={25} alt="Phone icon" quality={100} />
         </a>
       </div>

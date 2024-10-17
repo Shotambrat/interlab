@@ -1,16 +1,11 @@
-"use client";
-import React, { useState } from "react";
 import doctorsBanner from "@/public/images/doctors-manner.png";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import OnlineReq from "@/app/[locale]/_components/Modals/OnlineReq";
 
 export default function ServiceBanner({ locale }) {
-  const [onlineReq, setOnlineReq] = useState(false);
   const t = useTranslations();
   return (
     <>
-      {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
       <div className="relative bg-rose-50 pt-10 px-2">
         <div className="relative mx-auto w-full h-full xl:pb-[100px] pb-[40px] max-w-[1440px] flex max-mdx:flex-col justify-between items-center">
           <div className="flex flex-col gap-5 w-full xl:w-2/5">
@@ -33,20 +28,6 @@ export default function ServiceBanner({ locale }) {
               quality={100}
             />
           </div>
-          <div className="absolute bottom-4 right-4 hidden xl:block">
-            <div className="flex gap-5 self-end mt-4 text-xs font-semibold text-center uppercase">
-              <a href={`/${locale}/results`} className="flex justify-center">
-                <div className="flex justify-center items-center px-3 bg-white rounded-full h-[90px] w-[90px] text-red-400 hover:text-red-600 hover:shadow-xl uppercase transition-all duration-300 shadow-lg">
-                  {t("get-result")}
-                </div>
-              </a>
-              <button onClick={() => setOnlineReq(true)} className="flex justify-center uppercase text-white">
-                <div className="flex justify-center items-center px-5 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-full h-[90px] w-[90px] max-md:px-5">
-                  {t("online-application")}
-                </div>
-              </button>
-            </div>
-          </div>
         </div>
         <div className="w-full xl:absolute xl:hidden right-0 bottom-0 relative">
           <Image
@@ -58,23 +39,6 @@ export default function ServiceBanner({ locale }) {
             alt="The Wild Oasis logo"
             quality={100}
           />
-        </div>
-        <div className="absolute bottom-4 right-4 xl:hidden">
-          <div className="flex gap-5 self-end mt-4 text-xs font-semibold text-center uppercase">
-            <a href={`/${locale}/results`} className="flex justify-center">
-              <div className="flex justify-center items-center px-3 bg-white rounded-full h-[90px] w-[90px] text-red-400 hover:text-red-600 hover:shadow-xl transition-all duration-300 shadow-lg">
-                {t("get-result")}
-              </div>
-            </a>
-            <button
-              onClick={() => setOnlineReq(true)}
-              className="flex justify-center uppercase text-white"
-            >
-              <div className="flex justify-center items-center px-5 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-full h-[90px] w-[90px] max-md:px-5">
-                {t("online-application")}
-              </div>
-            </button>
-          </div>
         </div>
       </div>
     </>

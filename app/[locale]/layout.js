@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import Header from "@/app/[locale]/_components/Header";
 import Footer from "@/app/[locale]/_components/Footer";
+import CallToAction from './_components/Modals/CallToAction';
 
 export const metadata = {
   title: {
@@ -27,6 +28,7 @@ export default async function LocaleLayout({ children, params }) {
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header locale={locale} />
+          <CallToAction locale={locale} />
           <main>{children}</main>
           <Footer locale={locale} />
         </NextIntlClientProvider>
