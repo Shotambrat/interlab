@@ -79,14 +79,14 @@ const Application = () => {
       />
       <div className="relative z-10 flex lg:justify-around gap-5 max-slg:flex-col max-md:gap-0">
         <div className="flex flex-col w-[50%] lg:w-[50%] xl:w-[50%] max-md:ml-0 max-slg:w-full">
-          <div className="flex flex-col grow max-slg:max-w-full">
-            <h2 className="justify-center self-end max-w-full max-md:max-w-full text-2xl mdx:text-4xl font-bold text-red-400">
+          <div className="flex flex-col grow w-full max-slg:max-w-full">
+            <h2 className="text-start max-w-full max-md:max-w-full text-3xl mdx:text-4xl font-bold text-red-400">
               {t("title")}
             </h2>
             <p className="text-lg text-neutral-400">{t("description")}</p>
-            <p className="px-6 py-3 rounded-3xl bg-red-400 self-start font-medium mt-4 text-white">
+            {/* <p className="px-6 py-3 rounded-3xl bg-red-400 self-start font-medium mt-4 text-white">
               {t("sale-info")}
-            </p>
+            </p> */}
           </div>
         </div>
         <div className="flex flex-col w-[32%] max-md:ml-0 max-slg:w-full">
