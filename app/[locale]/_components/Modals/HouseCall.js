@@ -129,10 +129,10 @@ export default function HouseCall({ setState }) {
               {/* Date of birth picker */}
               <Form.Item
                 name="birthDate"
-                rules={[{ required: true, message: "Выберите дату рождения" }]}
+                rules={[{ required: true, message: "К какой дате желаете вызов?" }]}
               >
                 <DatePicker
-                  placeholder="Выберите дату рождения"
+                  placeholder="К какой дате желаете вызов?"
                   format="DD.MM.YYYY"
                   className="rounded-xl input py-2 text-xl w-full border border-gray-300 shadow-sm"
                 />

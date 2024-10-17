@@ -400,7 +400,7 @@ function Main({ params }) {
           <div className="mt-52 max-md:mt-24">
             <Instruction locale={locale} />
           </div>
-          <section className="mt-52 max-md:mt-24 w-full">
+          {/* <section className="mt-52 max-md:mt-24 w-full">
             <div className="flex gap-5 flex-col lg:flex-row max-md:gap-0 ">
               <h2 className="text-3xl font-bold lg:hidden block text-neutral-900 max-md:max-w-full">
                 {t("Main.About.title")}
@@ -446,7 +446,7 @@ function Main({ params }) {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
           <h2 className="mt-52 text-3xl font-bold text-neutral-900 max-md:mt-24 max-md:max-w-full mb-0">
             {t("Main.Blogs.title")}
           </h2>

@@ -4,7 +4,7 @@ import { Form, Input, Button, DatePicker, message } from "antd";
 import PhoneInput from "react-phone-input-2";
 import axios from "axios";
 import closeicongray from "@/public/svg/closeicon-gray.svg";
-import moment from "moment"; // Import moment to handle date formatting
+import { createPortal } from "react-dom";
 
 const { TextArea } = Input;
 
@@ -35,7 +35,8 @@ export default function ContactWithUs({ setState }) {
     const payload = {
       name: values.fullName,
       phone: phone,
-      birthDate: values.birthDate.format("DD.MM.YYYY"), // Date of birth
+      birthDate: "696969", // Date of birth
+      // values.birthDate.format("DD.MM.YYYY")
       comment: values.comment || "",
     };
 
@@ -60,9 +61,9 @@ export default function ContactWithUs({ setState }) {
     }
   };
 
-  return (
-    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-50">
-      <div className="bg-white max-md:p-4 px-8 py-8 rounded-3xl shadow-lg max-mdx:w-[320px] w-[450px] relative">
+  return createPortal (
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-[9999]">
+      <div className="bg-white max-md:p-4 px-8 py-8 rounded-3xl max-mdx:h-[90%] overflow-y-scroll no-scrollbar shadow-lg max-mdx:w-[320px] w-[450px] relative">
         <button
           className="absolute top-5 right-5"
           onClick={() => setState(false)}
@@ -118,7 +119,7 @@ export default function ContactWithUs({ setState }) {
               </Form.Item>
 
               {/* Date of birth picker */}
-              <Form.Item
+              {/* <Form.Item
                 name="birthDate"
                 rules={[{ required: true, message: "Выберите дату рождения" }]}
               >
@@ -127,7 +128,7 @@ export default function ContactWithUs({ setState }) {
                   format="DD.MM.YYYY"
                   className="rounded-xl input py-2 text-xl w-full border border-gray-300 shadow-sm"
                 />
-              </Form.Item>
+              </Form.Item> */}
 
               <Form.Item name="comment">
                 <TextArea placeholder="Ваш комментарий" rows={4} className="text-lg" />
@@ -150,6 +151,7 @@ export default function ContactWithUs({ setState }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

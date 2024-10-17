@@ -9,11 +9,11 @@ export default function AnalyzeHead({ test, locale }) {
           <p className="text-neutral-400 text-sm w-full max-w-[600px]">
             {test.shortDescription[locale]}
           </p>
-          <div className="mdl:hidden">
+          {/* <div className="mdl:hidden">
             <h3 className="whitespace-nowrap text-3xl font-semibold text-red-400">
               {test.price} сум
             </h3>
-          </div>
+          </div> */}
           <div className="flex gap-3 flex-wrap text-sm">
             <button className="text-white bg-red-400 font-semibold rounded-full px-6 md:px-10 py-2">
               Сдать из дома
@@ -23,11 +23,11 @@ export default function AnalyzeHead({ test, locale }) {
             </button>
           </div>
         </div>
-        <div className="max-mdl:hidden">
+        {/* <div className="max-mdl:hidden">
           <h3 className="whitespace-nowrap text-3xl font-semibold text-red-400">
             {test.price} сум
           </h3>
-        </div>
+        </div> */}
       </div>
     </div>
   );
