@@ -11,10 +11,10 @@ export default function AddressItem({
 }) {
   return (
     <div
-      className="p-4 border rounded-2xl shadow-lg flex flex-col gap-8 max-xl:gap-0 justify-between flex-shrink-0 flex-grow-0 w-full max-w-[360px] mx-auto"
+      className="p-4 border rounded-2xl shadow-lg flex flex-col gap-4 max-xl:gap-0 justify-between flex-shrink-0 flex-grow-0 w-full max-w-[400px] mx-auto"
     >
-      <div className="flex flex-col gap-2 max-xl:gap-1">
-        <h3 className="text-2xl max-xl:text-xl text-rose-400 font-bold">{title}</h3>
+      <div className="flex flex-col">
+        <h3 className="text-2xl max-xl:text-xl text-rose-400 font-bold line-clamp-3">{title}</h3>
         <p className="font-medium max-xl:hidden">{address}</p>
         <div className="flex flex-col">
           {graphic.map((item, index) => {
