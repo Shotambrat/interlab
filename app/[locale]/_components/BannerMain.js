@@ -194,7 +194,7 @@ const Slider = ({ params }) => {
           </div>
         </div>
 
-        <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
+        <div className="flex max-mdx:hidden flex-col lg:w-6/12 max-md:ml-0 w-full">
           {/* Если баннеров больше 1, используем анимацию для изображений */}
           {banners.length > 1 ? (
             <AnimatePresence mode="wait">

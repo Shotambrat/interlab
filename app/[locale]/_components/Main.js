@@ -21,6 +21,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/lib/client";
 import { useTranslations } from "next-intl";
 import Sale from "@/app/[locale]/_components/Sale";
+import CallToAction from "./Modals/CallToAction";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -106,27 +107,10 @@ function Main({ params }) {
       {/* <HouseCallSuccess /> */}
       {/* <HouseCall /> */}
       <div className="flex flex-col bg-white gap-12 lg:gap-24 px-2 lg:px-16 overflow-x-hidden">
-        <main className="flex flex-col justify-between relative self-center w-full max-w-[1414px] max-md:max-w-full  h-screen-70 slg:h-screen-90">
+        <main className="flex flex-col justify-between relative self-center w-full max-w-[1414px] max-md:max-w-full  h-auto slg:h-screen-90">
           <BannerMain params={params} />
-          <div className="flex gap-5 absolute bottom-4 self-end text-xs font-semibold text-center uppercase">
-            <button
-              onClick={() => setContactWithUs(true)}
-              className="flex justify-center"
-            >
-              <div className="flex justify-center items-center px-3 uppercase bg-white rounded-full h-[90px] w-[90px] text-red-400 hover:text-red-600 hover:shadow-xl transition-all duration-300 shadow-lg">
-                {t("connect")}
-              </div>
-            </button>
-            <button
-              onClick={() => setOnlineReq(true)}
-              className="flex justify-center text-white"
-            >
-              <div className="flex justify-center items-center uppercase px-5 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-full h-[90px] w-[90px] max-md:px-5">
-                {t("online-application")}
-              </div>
-            </button>
-          </div>
         </main>
+        <CallToAction />
 
         <div className="flex flex-col self-center mdx:px-5 mt-24 w-full max-w-[1440px] max-md:max-w-full">
           <div className="max-md:max-w-full">
