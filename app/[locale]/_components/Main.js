@@ -12,7 +12,7 @@ import Application from "@/app/[locale]/_components/Application";
 import Blog from "@/app/[locale]/_components/Blog";
 import DoctorCard from "@/app/[locale]/_components/DoctorsCardMain";
 import ContactWithUs from "@/app/[locale]/_components/Modals/ContactWithUs";
-import OnlineReq from "@/app/[locale]/_components/Modals/OnlineReq";
+
 import PopularAnalyze from "./PopularAnalyze";
 import BannerMain from "@/app/[locale]/_components/BannerMain";
 import MainMap from "@/app/[locale]/_components/MainMap";
@@ -34,7 +34,7 @@ function urlFor(source) {
 function Main({ params }) {
   const [serviceCategories, setServiceCategories] = useState([]);
   const [contactWithUs, setContactWithUs] = useState(false);
-  const [onlineReq, setOnlineReq] = useState(false);
+
   const [servicesOpen, setServicesOpen] = useState(false);
   const [doctors, setDoctors] = useState([]);
   const t = useTranslations();
@@ -102,7 +102,6 @@ function Main({ params }) {
   return (
     <>
       {contactWithUs ? <ContactWithUs setState={setContactWithUs} /> : <></>}
-      {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
 
       {/* <HouseCallSuccess /> */}
       {/* <HouseCall /> */}
@@ -110,9 +109,9 @@ function Main({ params }) {
         <main className="flex flex-col justify-between relative self-center w-full max-w-[1414px] max-md:max-w-full  h-auto slg:h-screen-90">
           <BannerMain params={params} />
         </main>
-        <CallToAction />
+        <CallToAction locale={params.locale} />
 
-        <div className="flex flex-col self-center mdx:px-5 mt-24 w-full max-w-[1440px] max-md:max-w-full">
+        <div className="flex flex-col self-center mdx:px-5 max-mdx:mt-12 mt-24 w-full max-w-[1440px] max-md:max-w-full">
           <div className="max-md:max-w-full">
             <div className="flex slg:gap-20 flex-col slg:flex-row gap-0">
               <div className="flex flex-col w-full slg:w-2/5 max-md:ml-0 max-md:w-full">

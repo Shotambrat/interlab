@@ -1,39 +1,82 @@
-import * as React from 'react';
+import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
+import PhoneIcon from '@mui/icons-material/Phone';
+import ContactsIcon from '@mui/icons-material/Contacts';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import OnlineReq from "@/app/[locale]/_components/Modals/OnlineReq";
 
-const actions = [
-  { icon: <FileCopyIcon />, name: 'Copy' },
-  { icon: <SaveIcon />, name: 'Save' },
-  { icon: <PrintIcon />, name: 'Print' },
-  { icon: <ShareIcon />, name: 'Share' },
-];
+export default function CallToAction({locale}) {
+  const [onlineReq, setOnlineReq] = useState(false);
 
-export default function CallToAction () {
+  const handlePhoneClick = () => {
+    window.location.href = "tel:1156";
+  };
+
+  const handleLocationClick = () => {
+    window.location.href = `${locale}/addresses`;
+  };
+
+  const handleContactsClick = () => {
+    setOnlineReq(true);
+  };
+
   return (
-    <div className='fixed bottom-0 right-0 z-[9999]'>
-    <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
-      <SpeedDial
-        ariaLabel="SpeedDial basic example"
-        sx={{ position: 'absolute', bottom: 16, right: 16}}
-        icon={<SpeedDialIcon />}
-      >
-        {actions.map((action) => (
+    <div className="fixed bottom-0 right-0 mdx:bottom-8 mdx:right-4 z-[9999]">
+      {onlineReq && <OnlineReq setState={setOnlineReq} />}
+      <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+        <SpeedDial
+          ariaLabel="SpeedDial basic example"
+          sx={{ position: 'absolute', bottom: 16, right: 16 }}
+          icon={<PhoneIcon sx={{ color: 'white' }} />}
+          FabProps={{
+            sx: {
+              backgroundColor: '#FB6A68',
+              '&:hover': {
+                backgroundColor: '#FB6A68',
+              },
+            },
+          }}
+        >
           <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
+            icon={<PhoneIcon sx={{ color: 'white' }} />}
+            onClick={handlePhoneClick}
+            FabProps={{
+              sx: {
+                backgroundColor: '#FB6A68',
+                '&:hover': {
+                  backgroundColor: '#FB6A68',
+                },
+              },
+            }}
           />
-        ))}
-      </SpeedDial>
-    </Box>
-
+          <SpeedDialAction
+            icon={<LocationOnIcon sx={{ color: 'white' }} />}
+            onClick={handleLocationClick}
+            FabProps={{
+              sx: {
+                backgroundColor: '#FB6A68',
+                '&:hover': {
+                  backgroundColor: '#FB6A68',
+                },
+              },
+            }}
+          />
+          <SpeedDialAction
+            icon={<ContactsIcon sx={{ color: 'white' }} />}
+            onClick={handleContactsClick}
+            FabProps={{
+              sx: {
+                backgroundColor: '#FB6A68',
+                '&:hover': {
+                  backgroundColor: '#FB6A68',
+                },
+              },
+            }}
+          />
+        </SpeedDial>
+      </Box>
     </div>
   );
 }
