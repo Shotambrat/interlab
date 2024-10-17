@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import redIcon from "@/public/svg/right-contact-red.svg";
 import blueIcon from "@/public/svg/right-contact-blue.svg";
@@ -11,6 +11,7 @@ import list from "@/public/svg/list.svg";
 import tgbot from "@/public/svg/tgbot.svg";
 import closeicon from "@/public/svg/closeicon.svg";
 import OnlineReq from "@/app/[locale]/_components/Modals/OnlineReq";
+import useClickOutside from "@/hooks/useClickOutside";
 
 const ContactButton = ({
   href,
@@ -25,7 +26,7 @@ const ContactButton = ({
   <a
     href={href}
     onClick={onClick}
-    className={`px-4 border ${borderColor} ${bgColor} py-4 rounded-lg flex justify-between items-center`}
+    className={`px-4 border ${borderColor} ${bgColor} cursor-pointer py-4 rounded-lg flex justify-between items-center`}
   >
     <div className="flex items-center font-bold">
       <div className="mr-4">
@@ -56,10 +57,14 @@ const ContactButton = ({
 
 export default function ContactWithUs({ setState }) {
   const [onlineReq, setOnlineReq] = useState(false);
+  const modalRef = useRef(null)
+
+  useClickOutside(modalRef, () => setState(false))
+
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-50">
       {onlineReq ? <OnlineReq setState={setOnlineReq} /> : <></>}
-      <div className="bg-white max-md:p-4 p-8 rounded-3xl shadow-lg max-mdx:w-[90%] w-[450px]">
+      <div ref={modalRef} className="bg-white max-md:p-4 p-8 rounded-3xl shadow-lg max-mdx:w-[90%] w-[450px]">
         <div className="flex w-full justify-between items-center">
           <h1 className="text-2xl font-semibold">Связаться с нами</h1>
           <button
