@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Allow: /
+Sitemap: https://interlab.uz/sitemap.xml
