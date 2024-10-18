@@ -42,7 +42,7 @@ export default function HouseCall({ setState }) {
 
     try {
       const response = await axios.post(
-        "http://213.230.91.55:8100/api/application/home-call",
+        "https://interlab.mrjtrade.uz/api/application/home-call",
         payload
       );
 
