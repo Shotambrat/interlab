@@ -7,6 +7,7 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import AddressItem from "@/app/[locale]/_components/addresses/AddressItem";
 import arrowRightRed from "@/public/svg/arrow-right.svg";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Map() {
   const [clinics, setClinics] = useState([]);
@@ -16,6 +17,7 @@ export default function Map() {
   const userMarkerRef = useRef(null);
   const activeRouteRef = useRef(null);
   const [activeClinic, setActiveClinic] = useState(null);
+  const [isMap, setIsMap] = useState(true);
 
   useEffect(() => {
     if (!mapInstanceRef.current) {
@@ -809,8 +811,45 @@ export default function Map() {
     <div className="w-full relative mt-24">
       <div className="w-full max-w-[1440px] relative mx-auto flex flex-col gap-8">
         <h1 className="text-3xl font-semibold">Карта пунктов</h1>
+        <div className="w-full py-1 px-1 bg-slate-100 flex relative rounded-2xl">
+          <motion.div
+            initial={false}
+            animate={{ x: isMap ? 0 : "100%" }}
+            transition={{
+              type: "spring",
+              stiffness: 500,
+              damping: 30,
+              bounce: 0.25,
+            }}
+            className="relative py-6 h-full w-1/2 bg-white rounded-xl"
+          ></motion.div>
+          <button
+            onClick={() => setIsMap(true)}
+            className="absolute top-0 left-0 h-full w-1/2 flex items-center justify-center rounded-xl"
+          >
+            <p
+              className={`z-10 h-full text-xl absolute top-0 w-full flex items-center justify-center transition-colors duration-300 ease-in-out ${
+                isMap ? "text-red-400 font-semibold " : "text-neutral-400"
+              }`}
+            >
+              Карта
+            </p>
+          </button>
+          <button
+            onClick={() => setIsMap(false)}
+            className="absolute top-0 right-0 h-full w-1/2 flex items-center justify-center rounded-xl"
+          >
+            <p
+              className={`z-10 h-full text-xl absolute top-0 w-full flex items-center justify-center transition-colors duration-300 ease-in-out ${
+                !isMap ? "text-red-400 font-semibold " : "text-neutral-400"
+              }`}
+            >
+              Список
+            </p>
+          </button>
+        </div>
         <div className="relative w-full flex max-xl:flex-col-reverse gap-5">
-          <div className="flex flex-col gap-4 overflow-y-scroll max-mdx:overflow-y-hidden h-[725px] max-xl:h-[200px] max-xl:flex-row max-xl:w-full w-1/3">
+          <div className="flex flex-col gap-4 max-xl:hidden overflow-y-scroll max-mdx:overflow-y-hidden h-[725px] max-xl:h-[200px] max-xl:flex-row max-xl:w-full w-1/3">
             {sortedClinics.length === 0
               ? clinicsLocations.map((clinic, index) => (
                   <AddressItem

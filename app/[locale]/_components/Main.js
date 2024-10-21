@@ -22,6 +22,7 @@ import { client } from "@/sanity/lib/client";
 import { useTranslations } from "next-intl";
 import Sale from "@/app/[locale]/_components/Sale";
 import CallToAction from "./Modals/CallToAction";
+import About from "./About";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -105,14 +106,14 @@ function Main({ params }) {
 
       {/* <HouseCallSuccess /> */}
       {/* <HouseCall /> */}
-      <div className="flex flex-col bg-white gap-12 lg:gap-24 px-2 lg:px-16 overflow-x-hidden">
-        <main className="flex flex-col justify-between relative self-center w-full max-w-[1414px] max-md:max-w-full  h-auto slg:h-screen-90">
+      <div className="flex flex-col bg-white gap-12 lg:gap-24 overflow-x-hidden">
+        <main className="flex flex-col justify-between relative self-center w-full px-2 max-w-[1414px] max-md:max-w-full h-auto slg:h-screen-90">
           <BannerMain params={params} />
         </main>
         {/* <CallToAction locale={params.locale} /> */}
 
-        <div className="flex flex-col self-center mdx:px-5 max-mdx:mt-12 mt-24 w-full max-w-[1440px] max-md:max-w-full">
-          <div className="max-md:max-w-full">
+        <div className="flex flex-col self-center max-mdx:mt-12 mt-24 w-full">
+          <div className="max-md:max-w-full max-w-[1440px] px-2 mx-auto">
             <div className="flex slg:gap-20 flex-col slg:flex-row gap-0">
               <div className="flex flex-col w-full slg:w-2/5 max-md:ml-0 max-md:w-full">
                 <div className="flex flex-col max-md:mt-5 max-md:max-w-full">
@@ -210,7 +211,11 @@ function Main({ params }) {
                     <div className="md:text-2xl text-lg text-neutral-900 font-medium max-md:max-w-full">
                       {t("Main.ContactUs.addresses")}
                     </div>
-                    <a href="https://yandex.uz/maps/10335/tashkent/house/YkAYdA5gQUwDQFprfX90cXRnZw==/?ll=69.290894%2C41.350844&z=17" target="_blank" className="md:text-xl text-sm text-red-400 max-md:max-w-full">
+                    <a
+                      href="https://yandex.uz/maps/10335/tashkent/house/YkAYdA5gQUwDQFprfX90cXRnZw==/?ll=69.290894%2C41.350844&z=17"
+                      target="_blank"
+                      className="md:text-xl text-sm text-red-400 max-md:max-w-full"
+                    >
                       {t("Main.ContactUs.open-in-ya")}
                     </a>
                   </div>
@@ -247,60 +252,60 @@ function Main({ params }) {
               </div>
             </div>
           </div>
+          <div className="max-w-[1440px] px-2 mx-auto w-full">
+            <a href="/services" className="">
+              <h2 className="lg:mt-52 mt-24 text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
+                {t("Main.Services.title")}
+              </h2>
+            </a>
 
-          <a href="/services">
-            <h2 className="lg:mt-52 mt-24 text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full">
-              {t("Main.Services.title")}
-            </h2>
-          </a>
+            <div className="flex flex-col items-center mdx:mt-10 w-full px-0">
+              {serviceCategories.length === 0 ? (
+                <p>Нет доступных категорий услуг</p>
+              ) : (
+                <>
+                  {/* Первая строка с 2 колонками, где 1 элемент шире другого */}
+                  <div className="grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-[60%,_40%] gap-5 w-full mt-5 lg:pr-4">
+                    {serviceCategories.slice(0, 2).map((service, index) => (
+                      <div key={service._id} className="w-full">
+                        <ServiceCard
+                          locale={params.locale}
+                          title={service.name[locale]}
+                          description={service.description[locale]}
+                          imageSrc={urlFor(service.icon).url()}
+                          bgColor={
+                            service.colourCode
+                              ? service.colourCode
+                              : getRandomColor()
+                          }
+                          slug={service.slug.current}
+                        />
+                      </div>
+                    ))}
+                  </div>
 
-          <div className="flex flex-col items-center mdx:mt-10 w-full px-0">
-            {serviceCategories.length === 0 ? (
-              <p>Нет доступных категорий услуг</p>
-            ) : (
-              <>
-                {/* Первая строка с 2 колонками, где 1 элемент шире другого */}
-                <div className="grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-[60%,_40%] gap-5 w-full mt-5 lg:pr-4">
-                  {serviceCategories.slice(0, 2).map((service, index) => (
-                    <div key={service._id} className="w-full">
-                      <ServiceCard
-                        locale={params.locale}
-                        title={service.name[locale]}
-                        description={service.description[locale]}
-                        imageSrc={urlFor(service.icon).url()}
-                        bgColor={
-                          service.colourCode
-                            ? service.colourCode
-                            : getRandomColor()
-                        }
-                        slug={service.slug.current}
-                      />
-                    </div>
-                  ))}
-                </div>
-
-                {/* Вторая и последующие строки с 3 колонками */}
-                <div className="grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-3 gap-5 w-full mt-5">
-                  {serviceCategories.slice(2).map((service) => (
-                    <div key={service._id} className="w-full">
-                      <ServiceCard
-                        locale={params.locale}
-                        title={service.name[locale]}
-                        description={service.description[locale]}
-                        imageSrc={urlFor(service.icon).url()}
-                        bgColor={
-                          service.colourCode
-                            ? service.colourCode
-                            : getRandomColor()
-                        }
-                        slug={service.slug.current}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-            {/* <div className="w-full flex justify-center mdl:hidden mt-12">
+                  {/* Вторая и последующие строки с 3 колонками */}
+                  <div className="grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-3 gap-5 w-full mt-5">
+                    {serviceCategories.slice(2).map((service) => (
+                      <div key={service._id} className="w-full">
+                        <ServiceCard
+                          locale={params.locale}
+                          title={service.name[locale]}
+                          description={service.description[locale]}
+                          imageSrc={urlFor(service.icon).url()}
+                          bgColor={
+                            service.colourCode
+                              ? service.colourCode
+                              : getRandomColor()
+                          }
+                          slug={service.slug.current}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+              {/* <div className="w-full flex justify-center mdl:hidden mt-12">
               <button
                 onClick={() => setServicesOpen((prev) => !prev)}
                 className="text-rose-400 text-xl font-semibold flex gap-3 items-center"
@@ -317,9 +322,13 @@ function Main({ params }) {
                 />
               </button>
             </div> */}
+            </div>
           </div>
 
+                <div className="px-2">
           <MainMap />
+
+                </div>
 
           {/* <h2 className="mt-24 text-3xl font-bold text-neutral-900 max-md:max-w-full">
             {t("Main.Sales.title")}
@@ -337,69 +346,79 @@ function Main({ params }) {
               alt="Arrow icon"
             />
           </a> */}
-          <div className="flex flex-col mt-24 mdx:mt-52 max-w-full w-[588px]">
-            <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full mb-0">
-              {t("Main.Doctors.title")}
-            </h2>
-            <p className="mt-3 text-sm mdx:text-lg text-neutral-400 w-full leading-4">
-              {t("Main.Doctors.description")}
-            </p>
-          </div>
-          <div className="mt-4 max-md:max-w-full">
-            <div className="hidden mdx:grid gap-5 grid-cols-4 max-lg:grid-cols-3 max-slg:grid-cols-2">
-              {doctors.map((doctor, index) => (
-                <DoctorCard
-                  locale={params.locale}
-                  key={index}
-                  name={doctor.name[locale] || doctor.name.ru}
-                  specialty={doctor.position[locale] || doctor.position.ru}
-                  imageSrc={urlFor(doctor.photo).url()}
-                  slug={doctor.slug.current}
-                />
-              ))}
+          <div className="max-w-[1440px] mx-auto px-2 w-full">
+            <div className="flex flex-col mt-24 mdx:mt-52 max-w-full w-[588px]">
+              <h2 className="text-3xl mdx:text-4xl font-bold text-neutral-900 max-md:max-w-full mb-0">
+                {t("Main.Doctors.title")}
+              </h2>
+              <p className="mt-3 text-sm mdx:text-lg text-neutral-400 w-full leading-4">
+                {t("Main.Doctors.description")}
+              </p>
             </div>
-
-            <div className="mdx:hidden">
-              <Swiper
-                slidesPerView={1.2}
-                centeredSlides={true}
-                spaceBetween={20}
-                pagination={{
-                  clickable: true,
-                }}
-              >
+            <div className="mt-4 max-md:max-w-full">
+              <div className="hidden mdx:grid gap-5 grid-cols-4 max-lg:grid-cols-3 max-slg:grid-cols-2">
                 {doctors.map((doctor, index) => (
-                  <SwiperSlide key={index}>
-                    <DoctorCard
-                      locale={params.locale}
-                      name={doctor.name[locale] || doctor.name.ru}
-                      specialty={doctor.position[locale] || doctor.position.ru}
-                      imageSrc={urlFor(doctor.photo).url()}
-                      slug={doctor.slug.current}
-                    />
-                  </SwiperSlide>
+                  <DoctorCard
+                    locale={params.locale}
+                    key={index}
+                    name={doctor.name[locale] || doctor.name.ru}
+                    specialty={doctor.position[locale] || doctor.position.ru}
+                    imageSrc={urlFor(doctor.photo).url()}
+                    slug={doctor.slug.current}
+                  />
                 ))}
-              </Swiper>
+              </div>
+
+              <div className="mdx:hidden">
+                <Swiper
+                  slidesPerView={1.2}
+                  centeredSlides={true}
+                  spaceBetween={20}
+                  pagination={{
+                    clickable: true,
+                  }}
+                >
+                  {doctors.map((doctor, index) => (
+                    <SwiperSlide key={index}>
+                      <DoctorCard
+                        locale={params.locale}
+                        name={doctor.name[locale] || doctor.name.ru}
+                        specialty={
+                          doctor.position[locale] || doctor.position.ru
+                        }
+                        imageSrc={urlFor(doctor.photo).url()}
+                        slug={doctor.slug.current}
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </div>
+            <div className="w-full flex justify-center">
+              <a
+                href={`/${params.locale}/doctors`}
+                className="flex gap-2 justify-center self-center px-16 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px]"
+              >
+                <span className="my-auto">{t("Main.Doctors.all")}</span>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"
+                  className="shrink-0 aspect-square w-[23px]"
+                  alt="Arrow icon"
+                />
+              </a>
             </div>
           </div>
-          <a
-            href={`/${params.locale}/doctors`}
-            className="flex gap-2 justify-center self-center px-16 py-3.5 mt-10 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px]"
-          >
-            <span className="my-auto">{t("Main.Doctors.all")}</span>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"
-              className="shrink-0 aspect-square w-[23px]"
-              alt="Arrow icon"
-            />
-          </a>
-          <div className="mt-24">
+          <div className="mt-24 w-full px-2 max-w-[1440px] mx-auto">
             <PopularAnalyze params={params} />
           </div>
-          <div className="mt-52 max-md:mt-24">
+          <div className="mt-52 max-md:mt-24 px-2 w-full max-w-[1440px] mx-auto">
             <Instruction locale={locale} />
           </div>
+          <div className="w-full pt-24">
+            <About />
+          </div>
+
           {/* <section className="mt-52 max-md:mt-24 w-full">
             <div className="flex gap-5 flex-col lg:flex-row max-md:gap-0 ">
               <h2 className="text-3xl font-bold lg:hidden block text-neutral-900 max-md:max-w-full">
@@ -447,23 +466,27 @@ function Main({ params }) {
               </div>
             </div>
           </section> */}
-          <h2 className="mt-52 text-3xl font-bold text-neutral-900 max-md:mt-24 max-md:max-w-full mb-0">
-            {t("Main.Blogs.title")}
-          </h2>
-          <Blog locale={params.locale} />
-          <a
-            href={`${params.locale}/blogs`}
-            className="flex gap-2 justify-center self-center px-16 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-[52px]"
-          >
-            <span className="my-auto">{t("Main.Blogs.more")}</span>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"
-              className="shrink-0 aspect-square w-[23px]"
-              alt="Arrow icon"
-            />
-          </a>
-          <section className="flex flex-col justify-center mt-52 mb-52 rounded-[50px] max-md:mt-24 max-md:max-w-full">
+          <div className="max-w-[1440px] px-2 mx-auto w-full">
+            <h2 className="mt-52 text-3xl font-bold text-neutral-900 max-md:mt-24 max-md:max-w-full mb-0">
+              {t("Main.Blogs.title")}
+            </h2>
+            <Blog locale={params.locale} />
+            <div className="w-full flex justify-center">
+              <a
+                href={`${params.locale}/blogs`}
+                className="flex gap-2 justify-center self-center px-16 py-3.5 mt-9 text-base font-bold text-center text-red-400 border border-red-400 border-solid rounded-[100px] max-md:px-[52px]"
+              >
+                <span className="my-auto">{t("Main.Blogs.more")}</span>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d858dea97bb716ac0dba9d09749ab621dbd0b3df5fbd758926ae17f2daf60f0?apiKey=e791e0f42eab4556ac944da69358f29b&"
+                  className="shrink-0 aspect-square w-[23px]"
+                  alt="Arrow icon"
+                />
+              </a>
+            </div>
+          </div>
+          <section className="flex flex-col w-full max-w-[1440px] px-2 mx-auto justify-center mt-52 mb-52 rounded-[50px] max-md:mt-24 max-md:max-w-full">
             <Application />
           </section>
         </div>

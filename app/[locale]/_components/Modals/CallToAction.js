@@ -1,14 +1,15 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import PhoneIcon from '@mui/icons-material/Phone';
+import ChatIcon from '@mui/icons-material/Chat';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import OnlineReq from "@/app/[locale]/_components/Modals/OnlineReq";
+import PhoneIcon from '@mui/icons-material/Phone';
 
-export default function CallToAction({locale}) {
+export default function CallToAction({ locale }) {
   const [onlineReq, setOnlineReq] = useState(false);
 
   const handlePhoneClick = () => {
@@ -30,7 +31,7 @@ export default function CallToAction({locale}) {
         <SpeedDial
           ariaLabel="SpeedDial basic example"
           sx={{ position: 'absolute', bottom: 16, right: 16 }}
-          icon={<PhoneIcon sx={{ color: 'white' }} />}
+          icon={<ChatIcon sx={{ color: 'white' }} />}
           FabProps={{
             sx: {
               backgroundColor: '#FB6A68',

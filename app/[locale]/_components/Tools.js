@@ -55,29 +55,6 @@ export default function Tools({ navOptions, locale }) {
       </AnimatePresence>
 
       <div className="flex items-center gap-4 max-mdx:gap-1 my-auto">
-        <a className="max-mdx:hidden" href={`/${locale}/results`}>
-          <button className="py-1 group  mdx:text-lg bg-[#FEE9E8] font-medium rounded-full hover:shadow-none hover:bg-white hover:text-black text-[#FB6A68] transition-all duration-300 flex items-center gap-2 border px-4 max-mdx:px-2">
-            <div className="relative w-6 h-6 max-mdx:w-8 max-mdx:h-8">
-              <Image
-                src={resultsRed}
-                layout="fill"
-                objectFit="contain"
-                quality={100}
-                alt="Results Icon"
-                className="transition-opacity duration-300 ease-in-out opacity-100 group-hover:opacity-0"
-              />
-              <Image
-                src={resultsHover}
-                layout="fill"
-                objectFit="contain"
-                quality={100}
-                alt="Results Hover Icon"
-                className="absolute top-0 left-0 transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100"
-              />
-            </div>
-            {t("Header.results")}
-          </button>
-        </a>
 
         <div className="max-mdx:hidden">
           <button onClick={() => setSearch(true)} className="flex items-center gap-4">
@@ -112,7 +89,7 @@ export default function Tools({ navOptions, locale }) {
         </a>
       </div>
 
-      <div className="flex gap-2 text-base whitespace-nowrap my-1">
+      <div className="flex gap-2 text-base whitespace-nowrap my-1 items-center">
         <div className="flex max-mdx:hidden gap-0 justify-center px-2 mdx:px-3 py-2 mdx:py-2 border border-solid border-neutral-200 rounded-[100px] text-neutral-900">
           <div className="relative inline-block text-left">
             <div>
@@ -156,6 +133,31 @@ export default function Tools({ navOptions, locale }) {
             )}
           </div>
         </div>
+
+
+        <a className="max-mdx:hidden" href={`/${locale}/results`}>
+          <button className="py-1 group  mdx:text-lg bg-[#FEE9E8] font-medium rounded-full hover:shadow-none hover:bg-white hover:text-black text-[#FB6A68] transition-all duration-300 flex items-center gap-2 border px-4 max-mdx:px-2">
+            <div className="relative w-6 h-6 max-mdx:w-8 max-mdx:h-8">
+              <Image
+                src={resultsRed}
+                layout="fill"
+                objectFit="contain"
+                quality={100}
+                alt="Results Icon"
+                className="transition-opacity duration-300 ease-in-out opacity-100 group-hover:opacity-0"
+              />
+              <Image
+                src={resultsHover}
+                layout="fill"
+                objectFit="contain"
+                quality={100}
+                alt="Results Hover Icon"
+                className="absolute top-0 left-0 transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100"
+              />
+            </div>
+            {t("Header.results")}
+          </button>
+        </a>
 
         <div onClick={handleOpenMenu} className="block lg:hidden">
           <MenuIcon />
