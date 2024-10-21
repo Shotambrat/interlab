@@ -8,6 +8,7 @@ import AddressItem from "@/app/[locale]/_components/addresses/AddressItem";
 import arrowRightRed from "@/public/svg/arrow-right.svg";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "@/i18n/routing";
 
 export default function Map() {
   const [clinics, setClinics] = useState([]);
@@ -23,7 +24,7 @@ export default function Map() {
     if (!mapInstanceRef.current) {
       initMap([41.311158, 69.279737], "/images/maps/geolocation.png");
     }
-  }, []);
+  }, [isMap]);
 
   const clinicsLocations = [
     {
@@ -874,21 +875,50 @@ export default function Map() {
                   />
                 ))}
           </div>
-          <div className="relative w-2/3 max-xl:w-full max-xl:h-[450px]">
-            {isSearchButtonVisible && (
-              <button
-                onClick={handleSearchClinics}
-                className="rounded-full px-4 py-3 bg-red-400 w-[320px] text-white shadow-md shadow-red-400 absolute top-4 left-4 z-10"
-              >
-                Поиск ближайшей поликлиники
-              </button>
-            )}
-            <div className="w-full h-full absolute top-0 left-0 z-0 rounded-xl">
-              <div id="map" className="w-full h-full rounded-xl"></div>
+              <div className={`relative w-2/3  max-xl:w-full max-xl:h-[450px] ${isMap ? '': "hidden"}`}>
+              {isSearchButtonVisible && (
+                <button
+                  onClick={handleSearchClinics}
+                  className="rounded-full px-4 py-3 bg-red-400 w-[320px] text-white shadow-md shadow-red-400 absolute top-4 left-4 z-10"
+                >
+                  Поиск ближайшей поликлиники
+                </button>
+              )}
+              <div className="w-full h-full absolute top-0 left-0 z-0 rounded-xl">
+                <div id="map" className="w-full h-full rounded-xl"></div>
+              </div>
             </div>
-          </div>
+          {
+            !isMap && (
+              <div className="w-full grid grid-cols-1 mdx:grid-cols-2 gap-4">
+              {sortedClinics.length === 0
+                ? clinicsLocations.slice(0, 6).map((clinic, index) => (
+                    <AddressItem
+                      key={index}
+                      title={clinic.name}
+                      address={clinic.address}
+                      graphic={[clinic.graphic]}
+                      tel={clinic.tel}
+                      url="/"
+                      className={clinic.id === activeClinic ? "bg-red-100" : ""}
+                    />
+                  ))
+                : sortedClinics.slice(0, 6).map((clinic, index) => (
+                    <AddressItem
+                      key={index}
+                      title={clinic.name}
+                      address={clinic.address}
+                      graphic={[clinic.graphic]}
+                      tel={clinic.tel}
+                      url="/"
+                      className={clinic.id === activeClinic ? "bg-red-100" : ""}
+                    />
+                  ))}
+            </div>
+            )
+          }
         </div>
-        <div className="w-full flex justify-center">
+        <Link href={'/addresses'} className="w-full flex justify-center">
           <div className="py-3 px-6 font-semibold border-red-400 text-red-400 border rounded-full flex items-center cursor-pointer gap-2">
             Посмотреть все
             <Image
@@ -899,7 +929,7 @@ export default function Map() {
               className="w-6 h-6"
             />
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );
