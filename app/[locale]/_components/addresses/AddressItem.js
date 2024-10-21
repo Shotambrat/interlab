@@ -26,7 +26,7 @@ export default function AddressItem({
           })}
         </div>
       </div>
-      <div className="w-full flex flex-col gap-3 max-xl:gap-1">
+      <div className="w-full flex flex-col gap-3 mt-6 max-xl:gap-3">
         <hr />
         <div className="w-full flex justify-between flex-wrap">
           <div className="flex gap-3">

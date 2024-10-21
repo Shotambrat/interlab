@@ -57,7 +57,7 @@ export default function PopularAnalyze({ params }) {
       </div>
       <div className="w-full grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-3 gap-4">
         <Link
-          href={`/`}
+          href={`/analyze`}
           className="w-full flex flex-col justify-between bg-[#FFEFEF] p-4 rounded-3xl"
         >
           <div>
