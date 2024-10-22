@@ -33,7 +33,7 @@ export default function Social() {
       <h3 className="text-4xl font-semibold">О нас пишут в СМИ</h3>
       <div className="grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-4 gap-4">
         {data.map((item) => (
-          <a href={item.link} className="flex flex-col gap-4">
+          <a key={item.id} href={item.link} className="flex flex-col gap-4">
             <div className="w-full">
               <Image
                 src={item.image}
