@@ -136,3 +136,12 @@ button:disabled {
   background-color: #f5f5f5 !important;
   cursor: not-allowed;
 }
+
+.custom-select-dropdown .ant-select-item {
+  padding: 10px; /* Отступы внутри элементов списка */
+}
+
+.custom-select-dropdown .ant-select-item-option-selected {
+  background-color: #FB6A68 !important; /* Красный фон для выбранного элемента */
+  color: white !important; /* Белый текст для выбранного элемента */
+}

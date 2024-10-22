@@ -11,7 +11,7 @@ export default function ServiceCard({
 }) {
   return (
     <Link
-      href={`${locale}/services/`}
+      href={`/${locale}/services/`}
       style={{
         backgroundColor: bgColor,
       }}

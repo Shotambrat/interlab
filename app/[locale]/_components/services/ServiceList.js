@@ -1,27 +1,91 @@
-"use client";
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
 import ServiceItems from './ServiceItem';
 import Application from '@/app/[locale]/_components/Application';
 import Blog from '@/app/[locale]/_components/Blog';
 import Image from 'next/image';
 import arrowRightRed from "@/public/svg/arrow-right-red.svg";
+import { Select } from 'antd';
 import { useTranslations } from 'next-intl';
+import { DownOutlined } from '@ant-design/icons';
 
-export default function ServiceList({ services, locale }) {
+export default function ServiceList({ services, categories, locale }) {
   const t = useTranslations();
+  
+  const [selectedCategory, setSelectedCategory] = useState(null); // Default to "All services"
+  
+  const mobileCategory = [
+    { value: "null", label: "Все услуги" }, // Опция "Все услуги"
+    ...categories.map(category => ({
+      value: category._id,
+      label: category.name[locale] || category.name.ru
+    }))
+  ];
+
+  // Filter services based on selected category
+  const filteredServices = selectedCategory
+    ? services.filter(service => service.category._id === selectedCategory)
+    : services;
 
   return (
     <div className="h-auto w-full px-4 bg-white">
       <div className="flex flex-col h-full w-full max-w-[1440px] mx-auto py-36 gap-5">
         
-        {/* Display all services */}
+        {/* Tabs for categories (Desktop) */}
+        <div className="flex gap-4 mb-6 flex-wrap max-mdx:hidden">
+          <button
+            className={`px-4 py-3 rounded-full  ${!selectedCategory ? 'bg-[#FB6A68] text-white' : 'border border-[#E4E4E4]'}`}
+            onClick={() => setSelectedCategory(null)}
+          >
+            Все услуги
+          </button>
+
+          {categories.map(category => (
+            <button
+              key={category._id}
+              className={`px-4 py-3 rounded-full ${selectedCategory === category._id ? 'bg-[#FB6A68] text-white' : 'border border-[#E4E4E4]'}`}
+              onClick={() => setSelectedCategory(category._id)}
+            >
+              {category.name[locale] || category.name.ru}
+            </button>
+          ))}
+        </div>
+
+        {/* Select for categories (Mobile) */}
+        <div className='mdx:hidden'>
+          <Select
+            defaultValue="null"
+            className='custom-select'
+            options={mobileCategory}
+            onChange={value => setSelectedCategory(value)}
+            suffixIcon={<DownOutlined style={{ color: 'white' }} />} // Белая стрелка
+            style={{
+              backgroundColor: '#FB6A68', // Красный фон
+              color: 'white', // Белый текст
+              borderRadius: '50px', // Закругленные края
+              height: '48px', // Высота кнопки
+              fontSize: '18px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            status='error'
+            dropdownStyle={{
+              backgroundColor: '#fff', // Белый фон для выпадающего списка
+              borderRadius: '10px', // Закругление краев выпадающего списка
+            }}
+            popupClassName="custom-select-dropdown" // Класс для стилизации выпадающего списка
+          />
+        </div>
+
+        {/* Display filtered services */}
         <div className="w-full grid max-mdx:grid-cols-1 max-lg:grid-cols-2 grid-cols-3 gap-3">
-        {services.map((service, index) => (
+          {filteredServices.map((service, index) => (
             <ServiceItems
               key={index}
-              title={service.name[locale] || service.name.ru} // Display name in the correct locale
-              category={service.category.name[locale] || service.category.name.ru} // Display category name in correct locale
-              url={`/services/${service.slug.current}`} // URL based on slug
+              title={service.name[locale] || service.name.ru}
+              category={service.category.name[locale] || service.category.name.ru}
+              url={`/services/${service.slug.current}`}
               locale={locale}
             />
           ))}

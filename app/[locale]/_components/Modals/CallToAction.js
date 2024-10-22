@@ -17,7 +17,7 @@ export default function CallToAction({ locale }) {
   };
 
   const handleLocationClick = () => {
-    window.location.href = `${locale}/addresses`;
+    window.location.href = `/${locale}/addresses`;
   };
 
   const handleContactsClick = () => {

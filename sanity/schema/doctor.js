@@ -31,12 +31,10 @@ export default {
             Ч: 'Ch', Ш: 'Sh', Щ: 'Shch', Ы: 'Y', Э: 'E', Ю: 'Yu', Я: 'Ya',
           };
 
-          // Функция транслитерации кириллицы в латиницу
           const transliterate = (text) => {
             return text.split('').map((char) => map[char] || char).join('');
           };
 
-          // Применение транслитерации и генерация slug
           return transliterate(input)
             .toLowerCase()
             .replace(/\s+/g, '-')
@@ -132,6 +130,14 @@ export default {
       type: 'boolean',
       title: 'Активен',
       initialValue: true,
+    },
+    // Новое поле для выбора услуг
+    {
+      name: 'services',
+      type: 'array',
+      title: 'Услуги',
+      of: [{ type: 'reference', to: [{ type: 'service' }] }],
+      description: 'Выберите услуги, которые предоставляет врач',
     },
   ],
 };
