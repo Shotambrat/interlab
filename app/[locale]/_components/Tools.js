@@ -75,6 +75,10 @@ export default function Tools({ navOptions, locale }) {
           <Image priority src={'/svg/telegram-svgrepo-com.svg'} width={30} height={30} alt="Phone icon" quality={100} />
         </a>
 
+        {/* <Link className="block max-mdx:mr-2" href={`/backet`}>
+          <Image priority src={backet} width={30} height={30} alt="Phone icon" quality={100} />
+        </Link> */}
+
         <a onClick={ async() => {
             try {
               let response = await fetch("https://interlab.mrjtrade.uz/api/count?button=call", {

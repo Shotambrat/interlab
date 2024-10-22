@@ -198,7 +198,7 @@ const Slider = ({ params }) => {
               </div>
             )}
 
-            <a href={banners[currentSlide].navigateToUrl}>
+            <a href={banners[currentSlide].navigateToUrl[locale]}>
               <button className="flex flex-col justify-center relative -top-8 mdx:-top-16 mt-3 max-w-full text-base font-bold text-center text-white whitespace-nowrap w-[236px]">
                 <div className="justify-center items-center px-16 py-3 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px]">
                   {

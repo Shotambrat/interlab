@@ -1,29 +1,45 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import "leaflet-routing-machine";
-import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import AddressItem from "@/app/[locale]/_components/addresses/AddressItem";
 import arrowRightRed from "@/public/svg/arrow-right.svg";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "@/i18n/routing";
 
 export default function Map() {
+  const YANDEX_API_KEY = process.env.NEXT_PUBLIC_YANDEX_API_KEY;
   const [clinics, setClinics] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
-  const [isSearchButtonVisible, setIsSearchButtonVisible] = useState(true); // Новое состояние для управления кнопкой
+  const [isSearchButtonVisible, setIsSearchButtonVisible] = useState(true);
   const mapInstanceRef = useRef(null);
   const userMarkerRef = useRef(null);
   const activeRouteRef = useRef(null);
   const [activeClinic, setActiveClinic] = useState(null);
   const [isMap, setIsMap] = useState(true);
+  const clinicMarkersRef = useRef([]);
+
+  // Функция для смены порядка координат
+  const swapCoords = (coords) => [coords[1], coords[0]]; // [широта, долгота] => [долгота, широта]
 
   useEffect(() => {
-    if (!mapInstanceRef.current) {
+    const loadYMaps = () => {
+      return new Promise((resolve) => {
+        if (window.ymaps) {
+          resolve(window.ymaps);
+        } else {
+          const script = document.createElement("script");
+          script.src = `https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=${YANDEX_API_KEY}`;
+          script.onload = () => {
+            window.ymaps.ready(() => resolve(window.ymaps));
+          };
+          document.head.appendChild(script);
+        }
+      });
+    };
+
+    loadYMaps().then(() => {
       initMap([41.311158, 69.279737], "/images/maps/geolocation.png");
-    }
+    });
   }, [isMap]);
 
   const clinicsLocations = [
@@ -673,25 +689,26 @@ export default function Map() {
   ];
 
   const initMap = (location, locIcon) => {
-    const mapElement = document.getElementById("map");
-
-    if (!mapElement._leaflet_id) {
-      const map = L.map("map").setView(location, 13);
+    if (!mapInstanceRef.current) {
+      const map = new ymaps.Map("map", {
+        center: swapCoords(location),
+        zoom: 13,
+      });
       mapInstanceRef.current = map;
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
+      const userPlacemark = new ymaps.Placemark(
+        swapCoords(location),
+        {},
+        {
+          iconLayout: "default#image",
+          iconImageHref: locIcon,
+          iconImageSize: [50, 50],
+          iconImageOffset: [-25, -30],
+        }
+      );
 
-      const userIcon = L.icon({
-        iconUrl: locIcon,
-        iconSize: [50, 50],
-        iconAnchor: [25, 30],
-      });
-
-      const marker = L.marker(location, { icon: userIcon }).addTo(map);
-      userMarkerRef.current = marker;
+      map.geoObjects.add(userPlacemark);
+      userMarkerRef.current = userPlacemark;
     }
   };
 
@@ -699,10 +716,11 @@ export default function Map() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        setUserLocation([latitude, longitude]);
-        updateMapToUserLocation([latitude, longitude]);
-        searchNearbyClinics([latitude, longitude]);
-        setIsSearchButtonVisible(false); // Скрыть кнопку после поиска
+        const userCoords = [latitude, longitude];
+        setUserLocation(userCoords);
+        updateMapToUserLocation(userCoords);
+        searchNearbyClinics(userCoords);
+        setIsSearchButtonVisible(false);
       });
     } else {
       alert("Геолокация не поддерживается вашим браузером.");
@@ -711,26 +729,24 @@ export default function Map() {
 
   const updateMapToUserLocation = (location) => {
     if (mapInstanceRef.current) {
-      mapInstanceRef.current.flyTo(location, 14);
+      mapInstanceRef.current.setCenter(swapCoords(location), 14);
       if (userMarkerRef.current) {
-        userMarkerRef.current.setLatLng(location);
+        userMarkerRef.current.geometry.setCoordinates(swapCoords(location));
       }
     }
   };
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
-    const R = 6371;
+    const R = 6371; // Радиус Земли в километрах
     const dLat = deg2rad(lat2 - lat1);
     const dLon = deg2rad(lon2 - lon1);
     const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.sin(dLat / 2) ** 2 +
       Math.cos(deg2rad(lat1)) *
         Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+        Math.sin(dLon / 2) ** 2;
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const d = R * c;
-    return d;
+    return R * c;
   };
 
   const deg2rad = (deg) => {
@@ -738,7 +754,7 @@ export default function Map() {
   };
 
   const searchNearbyClinics = (userCoords) => {
-    const radius = 3;
+    const radius = 3; // Радиус в километрах
 
     const nearbyClinics = clinicsLocations.filter((clinic) => {
       const distance = getDistanceFromLatLonInKm(
@@ -752,61 +768,71 @@ export default function Map() {
 
     setClinics(nearbyClinics);
 
+    // Удаляем предыдущие маркеры клиник
+    clinicMarkersRef.current.forEach((marker) => {
+      mapInstanceRef.current.geoObjects.remove(marker);
+    });
+    clinicMarkersRef.current = [];
+
     nearbyClinics.forEach((clinic) => {
-      const clinicIcon = L.divIcon({
-        className: "custom-clinic-icon",
-        html: `<svg width="44" height="57" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
-        </svg>`,
-        iconSize: [44, 57],
-        iconAnchor: [22, 57],
-      });
+      const clinicCoords = swapCoords(clinic.coords);
 
-      const clinicMarker = L.marker(clinic.coords, { icon: clinicIcon })
-        .addTo(mapInstanceRef.current)
-        .bindPopup(
-          `<b>${clinic.name}</b><br>${clinic.address}<br>${clinic.graphic}`
-        );
+      // Создаем кастомный значок клиники
+      const ClinicIconLayout = ymaps.templateLayoutFactory.createClass(
+        `<svg width="44" height="57" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
+        </svg>`
+      );
 
-      clinicMarker.on("click", () => {
+      const placemark = new ymaps.Placemark(
+        clinicCoords,
+        {
+          balloonContent: `<b>${clinic.name}</b><br>${clinic.address}<br>${clinic.graphic}`,
+        },
+        {
+          iconLayout: "default#imageWithContent",
+          iconImageSize: [44, 57],
+          iconImageOffset: [-22, -57],
+          iconContentLayout: ClinicIconLayout,
+        }
+      );
+
+      placemark.events.add("click", () => {
         buildRoute(userCoords, clinic.coords, clinic.id);
       });
+
+      mapInstanceRef.current.geoObjects.add(placemark);
+      clinicMarkersRef.current.push(placemark);
     });
   };
 
   const buildRoute = (start, end, clinicId) => {
     if (activeRouteRef.current) {
-      mapInstanceRef.current.removeControl(activeRouteRef.current);
+      mapInstanceRef.current.geoObjects.remove(activeRouteRef.current);
     }
 
-    const newRouteControl = L.Routing.control({
-      waypoints: [L.latLng(start), L.latLng(end)],
-      routeWhileDragging: true,
-      createMarker: function (i, wp) {
-        return L.marker(wp.latLng, {
-          icon:
-            i === 0
-              ? userMarkerRef.current.options.icon
-              : userMarkerRef.current.options.icon,
-        });
-      },
-      lineOptions: {
-        styles: [{ color: "red", opacity: 0.7, weight: 4 }],
-      },
-    }).addTo(mapInstanceRef.current);
+    const startCoords = swapCoords(start);
+    const endCoords = swapCoords(end);
 
-    activeRouteRef.current = newRouteControl;
-    setActiveClinic(clinicId);
+    ymaps.route([startCoords, endCoords]).then((route) => {
+      route.getPaths().options.set({
+        strokeColor: "red",
+        opacity: 0.7,
+        strokeWidth: 4,
+      });
+
+      mapInstanceRef.current.geoObjects.add(route);
+      activeRouteRef.current = route;
+      setActiveClinic(clinicId);
+    });
   };
 
   const sortedClinics = activeClinic
     ? [
         clinics.find((clinic) => clinic.id === activeClinic),
-        ...[...clinics]
-          .reverse()
-          .filter((clinic) => clinic.id !== activeClinic),
+        ...clinics.filter((clinic) => clinic.id !== activeClinic),
       ]
-    : [...clinics].reverse();
+    : clinics;
 
   return (
     <div className="w-full relative mt-24">
@@ -852,9 +878,9 @@ export default function Map() {
         <div className="relative w-full flex max-lg:flex-col-reverse gap-5">
           <div className="flex flex-col gap-4 max-lg:hidden overflow-y-scroll max-mdx:overflow-y-hidden h-[725px] max-lg:h-[200px] max-lg:flex-row max-lg:w-full w-1/3">
             {sortedClinics.length === 0
-              ? clinicsLocations.map((clinic, index) => (
+              ? clinicsLocations.map((clinic) => (
                   <AddressItem
-                    key={index}
+                    key={clinic.id}
                     title={clinic.name}
                     address={clinic.address}
                     graphic={[clinic.graphic]}
@@ -863,9 +889,9 @@ export default function Map() {
                     className={clinic.id === activeClinic ? "bg-red-100" : ""}
                   />
                 ))
-              : sortedClinics.map((clinic, index) => (
+              : sortedClinics.map((clinic) => (
                   <AddressItem
-                    key={index}
+                    key={clinic.id}
                     title={clinic.name}
                     address={clinic.address}
                     graphic={[clinic.graphic]}
@@ -875,50 +901,56 @@ export default function Map() {
                   />
                 ))}
           </div>
-              <div className={`relative w-2/3  max-lg:w-full max-lgу:h-[450px] ${isMap ? '': "hidden"}`}>
-              {isSearchButtonVisible && (
-                <button
-                  onClick={handleSearchClinics}
-                  className="rounded-full px-4 py-3 bg-red-400 w-[320px] text-white shadow-md shadow-red-400 absolute top-4 left-4 z-10"
-                >
-                  Поиск ближайшей поликлиники
-                </button>
-              )}
-              <div className="w-full h-full absolute top-0 left-0 z-0 rounded-xl">
-                <div id="map" className="w-full h-full rounded-xl"></div>
-              </div>
+          <div
+            className={`relative w-2/3 max-lg:w-full max-lg:h-[450px] ${
+              isMap ? "" : "hidden"
+            }`}
+          >
+            {isSearchButtonVisible && (
+              <button
+                onClick={handleSearchClinics}
+                className="rounded-full px-4 py-3 bg-red-400 w-[320px] text-white shadow-md shadow-red-400 absolute top-4 left-4 z-10"
+              >
+                Поиск ближайшей поликлиники
+              </button>
+            )}
+            <div className="w-full h-full absolute top-0 left-0 z-0 rounded-xl">
+              <div id="map" className="w-full h-full rounded-xl"></div>
             </div>
-          {
-            !isMap && (
-              <div className="w-full grid grid-cols-1 mdx:grid-cols-2 gap-4">
+          </div>
+          {!isMap && (
+            <div className="w-full grid grid-cols-1 mdx:grid-cols-2 gap-4">
               {sortedClinics.length === 0
-                ? clinicsLocations.slice(0, 6).map((clinic, index) => (
+                ? clinicsLocations.slice(0, 6).map((clinic) => (
                     <AddressItem
-                      key={index}
+                      key={clinic.id}
                       title={clinic.name}
                       address={clinic.address}
                       graphic={[clinic.graphic]}
                       tel={clinic.tel}
                       url="/"
-                      className={clinic.id === activeClinic ? "bg-red-100" : ""}
+                      className={
+                        clinic.id === activeClinic ? "bg-red-100" : ""
+                      }
                     />
                   ))
-                : sortedClinics.slice(0, 6).map((clinic, index) => (
+                : sortedClinics.slice(0, 6).map((clinic) => (
                     <AddressItem
-                      key={index}
+                      key={clinic.id}
                       title={clinic.name}
                       address={clinic.address}
                       graphic={[clinic.graphic]}
                       tel={clinic.tel}
                       url="/"
-                      className={clinic.id === activeClinic ? "bg-red-100" : ""}
+                      className={
+                        clinic.id === activeClinic ? "bg-red-100" : ""
+                      }
                     />
                   ))}
             </div>
-            )
-          }
+          )}
         </div>
-        <Link href={'/addresses'} className="w-full flex justify-center">
+        <Link href={"/addresses"} className="w-full flex justify-center">
           <div className="py-3 px-6 font-semibold border-red-400 text-red-400 border rounded-full flex items-center cursor-pointer gap-2">
             Посмотреть все
             <Image
