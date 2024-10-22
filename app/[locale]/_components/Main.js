@@ -107,7 +107,7 @@ function Main({ params }) {
       {/* <HouseCallSuccess /> */}
       {/* <HouseCall /> */}
       <div className="flex flex-col bg-white gap-12 lg:gap-24 overflow-x-hidden">
-        <main className="flex flex-col justify-between relative self-center w-full px-2 max-w-[1414px] max-md:max-w-full h-auto slg:h-screen-90">
+        <main className="flex flex-col justify-between relative self-center w-full max-md:max-w-full h-auto slg:h-screen-90">
           <BannerMain params={params} />
         </main>
         {/* <CallToAction locale={params.locale} /> */}

@@ -812,7 +812,7 @@ export default function Map() {
     <div className="w-full relative mt-24">
       <div className="w-full max-w-[1440px] relative mx-auto flex flex-col gap-8">
         <h1 className="text-3xl font-semibold">Карта пунктов</h1>
-        <div className="w-full py-1 px-1 xl:hidden bg-slate-100 flex relative rounded-2xl">
+        <div className="w-full py-1 px-1 lg:hidden bg-slate-100 flex relative rounded-2xl">
           <motion.div
             initial={false}
             animate={{ x: isMap ? 0 : "100%" }}
@@ -849,8 +849,8 @@ export default function Map() {
             </p>
           </button>
         </div>
-        <div className="relative w-full flex max-xl:flex-col-reverse gap-5">
-          <div className="flex flex-col gap-4 max-xl:hidden overflow-y-scroll max-mdx:overflow-y-hidden h-[725px] max-xl:h-[200px] max-xl:flex-row max-xl:w-full w-1/3">
+        <div className="relative w-full flex max-lg:flex-col-reverse gap-5">
+          <div className="flex flex-col gap-4 max-lg:hidden overflow-y-scroll max-mdx:overflow-y-hidden h-[725px] max-lg:h-[200px] max-lg:flex-row max-lg:w-full w-1/3">
             {sortedClinics.length === 0
               ? clinicsLocations.map((clinic, index) => (
                   <AddressItem
@@ -875,7 +875,7 @@ export default function Map() {
                   />
                 ))}
           </div>
-              <div className={`relative w-2/3  max-xl:w-full max-xl:h-[450px] ${isMap ? '': "hidden"}`}>
+              <div className={`relative w-2/3  max-lg:w-full max-lgу:h-[450px] ${isMap ? '': "hidden"}`}>
               {isSearchButtonVisible && (
                 <button
                   onClick={handleSearchClinics}

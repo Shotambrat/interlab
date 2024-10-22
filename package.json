@@ -16,6 +16,7 @@
     "@headlessui/react": "^2.1.1",
     "@mui/icons-material": "^6.1.4",
     "@mui/material": "^6.1.4",
+    "@portabletext/react": "^3.1.0",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.57.0",

@@ -5,6 +5,7 @@ import { client } from "@/sanity/lib/client";
 import imageUrlBuilder from "@sanity/image-url";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { PortableText } from "@portabletext/react";
 
 // Создание builder для URL изображений
 const builder = imageUrlBuilder(client);
@@ -12,6 +13,14 @@ const builder = imageUrlBuilder(client);
 function urlFor(source) {
   return builder.image(source);
 }
+
+const components = {
+  marks: {
+    redText: ({ children }) => (
+      <span style={{ color: "#FB6A68" }}>{children}</span>
+    ),
+  },
+};
 
 const Slider = ({ params }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -23,13 +32,14 @@ const Slider = ({ params }) => {
     const fetchBanners = async () => {
       try {
         const banners =
-          await client.fetch(`*[_type == 'banner' && active == true] | order(_updatedAt desc) {
-  title,
-  subtitle,
-  description,
-  photo,
-  navigateToUrl
-}`);
+          await client.fetch(` *[_type == 'banner' && active == true] | order(_updatedAt desc) {
+            titleSubtitle,
+            description,
+            photo,
+            backgroundPhoto,
+            navigateToUrl,
+            buttonText
+          }`);
         setBanners(banners);
       } catch (error) {
         console.error("Ошибка при загрузке баннеров:", error);
@@ -112,9 +122,15 @@ const Slider = ({ params }) => {
   };
 
   return (
-    <section className="max-md:max-w-full" ref={slideRef}>
-      <div className="flex gap-5 flex-col mdl:flex-row max-md:gap-0 items-center">
-        <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
+    <section
+      style={{
+        backgroundImage: `url(${urlFor(banners[currentSlide].backgroundPhoto).url()})`,
+      }}
+      className="max-md:max-w-full"
+      ref={slideRef}
+    >
+      <div className="flex gap-5 flex-col justify-between mdl:flex-row max-md:gap-0 items-center">
+        <div className="flex flex-col lg:w-full lg:max-w-[750px] max-md:ml-0 w-full px-2 mdx:px-12">
           <div className="flex flex-col items-start mt-5 max-md:max-w-full">
             {banners.length > 1 && (
               <div className="flex justify-between items-center gap-3 mb-4">
@@ -145,17 +161,16 @@ const Slider = ({ params }) => {
                   exit="exit"
                   transition="transition"
                   variants={slideAnimation}
-                  className="flex flex-col self-stretch mt-2 mdl:mt-5 max-md:max-w-full"
+                  className="flex flex-col items-center self-stretch mt-2 mdl:mt-5 max-md:max-w-full"
                 >
-                  <h1 className="xl:text-6xl lg:text-5xl md:text-4xl text-3xl font-bold text-black max-md:max-w-full lg:leading-12">
-                    {banners[currentSlide].title?.[locale]}
-                    <br />
-                    <span className="text-rose-400">
-                      {banners[currentSlide].subtitle?.[locale]}
-                    </span>
-                  </h1>
+                  <h2 className="xl:text-6xl lg:text-5xl md:text-4xl text-3xl font-bold max-md:max-w-full lg:leading-12">
+                    <PortableText
+                      value={banners[currentSlide].titleSubtitle?.[locale]}
+                      components={components}
+                    />
+                  </h2>
                   <p
-                    className="mdl:mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full"
+                    className="text-sm relative w-full max-w-[full] -top-8 mdx:-top-16 mdx:text-lg text-zinc-600 max-md:max-w-full"
                     dangerouslySetInnerHTML={{
                       __html: formatText(
                         banners[currentSlide].description?.[locale]
@@ -165,16 +180,15 @@ const Slider = ({ params }) => {
                 </motion.div>
               </AnimatePresence>
             ) : (
-              <div className="flex flex-col self-stretch max-md:max-w-full">
-                <h1 className="xl:text-6xl lg:text-5xl md:text-4xl text-3xl font-bold text-black max-md:max-w-full lg:leading-12">
-                  {banners[currentSlide].title?.[locale]}
-                  <br />
-                  <span className="text-rose-400">
-                    {banners[currentSlide].subtitle?.[locale]}
-                  </span>
-                </h1>
+              <div className="flex flex-col justify-center self-stretch max-md:max-w-full">
+                <h2 className="xl:text-6xl lg:text-5xl md:text-4xl text-3xl font-bold max-md:max-w-full">
+                  <PortableText
+                    value={banners[currentSlide].titleSubtitle?.[locale]}
+                    components={components}
+                  />
+                </h2>
                 <p
-                  className="mdl:mt-3 text-sm mdx:text-lg text-zinc-600 max-md:max-w-full"
+                  className="text-sm mdx:text-lg relative w-full max-w-[400px] -top-8 mdx:-top-16 text-zinc-600 max-md:max-w-full"
                   dangerouslySetInnerHTML={{
                     __html: formatText(
                       banners[currentSlide].description?.[locale]
@@ -185,16 +199,18 @@ const Slider = ({ params }) => {
             )}
 
             <a href={banners[currentSlide].navigateToUrl}>
-              <button className="flex flex-col justify-center mt-3 max-w-full text-base font-bold text-center text-white whitespace-nowrap w-[236px]">
+              <button className="flex flex-col justify-center relative -top-8 mdx:-top-16 mt-3 max-w-full text-base font-bold text-center text-white whitespace-nowrap w-[236px]">
                 <div className="justify-center items-center px-16 py-3 bg-red-400 hover:bg-red-600 transition-all duration-300 rounded-[100px]">
-                  {t("Main.Banner.more")}
+                  {
+                    banners[currentSlide]?.buttonText[locale]
+                  }
                 </div>
               </button>
             </a>
           </div>
         </div>
 
-        <div className="flex max-mdx:hidden flex-col lg:w-6/12 max-md:ml-0 w-full">
+        <div className="flex flex-col lg:w-6/12 max-md:ml-0 w-full">
           {/* Если баннеров больше 1, используем анимацию для изображений */}
           {banners.length > 1 ? (
             <AnimatePresence mode="wait">
@@ -208,7 +224,7 @@ const Slider = ({ params }) => {
               >
                 <Image
                   src={urlFor(banners[currentSlide].photo).url()}
-                  className="grow w-full max-mdl:max-w-[500px] rounded-none aspect-[1.01] max-md:mt-10 max-md:max-w-full"
+                  className="grow w-full max-mdl:max-w-[500px] object-cover rounded-none aspect-[1.01] max-md:mt-10 max-md:max-w-full"
                   alt="Medical facility"
                   priority
                   width={1000}
