@@ -711,8 +711,8 @@ export default function Map() {
     if (!mapRef.current) {
       mapRef.current = new ymaps.Map("map", {
         center: center,
-        zoom: 13,
-        controls: ["zoomControl", "geolocationControl"],
+        zoom: 10,
+        controls: ["zoomControl"],
       });
 
       // Добавляем маркер в центре карты с иконкой геолокации
