@@ -285,7 +285,7 @@ function Main({ params }) {
                   </div>
 
                   {/* Вторая и последующие строки с 3 колонками */}
-                  <div className="grid grid-cols-1 mdx:grid-cols-2 lg:grid-cols-3 gap-5 w-full mt-5">
+                  <div className="grid grid-cols-1 mdx:grid-cols-2 max-mdx:hidden lg:grid-cols-3 gap-5 w-full mt-5">
                     {serviceCategories.slice(2).map((service) => (
                       <div key={service._id} className="w-full">
                         <ServiceCard
@@ -303,16 +303,51 @@ function Main({ params }) {
                       </div>
                     ))}
                   </div>
+                  <div className="grid grid-cols-1 mdx:grid-cols-2 mdx:hidden lg:grid-cols-3 gap-5 w-full mt-5">
+                    {!servicesOpen && serviceCategories.slice(2, 3).map((service) => (
+                      <div key={service._id} className="w-full">
+                        <ServiceCard
+                          locale={params.locale}
+                          title={service.name[locale]}
+                          description={service.description[locale]}
+                          imageSrc={urlFor(service.icon).url()}
+                          bgColor={
+                            service.colourCode
+                              ? service.colourCode
+                              : getRandomColor()
+                          }
+                          slug={service.slug.current}
+                        />
+                      </div>
+                    ))}
+                    {servicesOpen && serviceCategories.slice(2).map((service) => (
+                      <div key={service._id} className="w-full">
+                        <ServiceCard
+                          locale={params.locale}
+                          title={service.name[locale]}
+                          description={service.description[locale]}
+                          imageSrc={urlFor(service.icon).url()}
+                          bgColor={
+                            service.colourCode
+                              ? service.colourCode
+                              : getRandomColor()
+                          }
+                          slug={service.slug.current}
+                        />
+                      </div>
+                    ))}
+                    
+                  </div>
                 </>
               )}
-              {/* <div className="w-full flex justify-center mdl:hidden mt-12">
+              <div className="w-full flex justify-center mdx:hidden mt-12">
               <button
                 onClick={() => setServicesOpen((prev) => !prev)}
                 className="text-rose-400 text-xl font-semibold flex gap-3 items-center"
               >
                 {servicesOpen ? t("collapse") : t("Main.Services.all")}
                 <Image
-                  src={arrowDownRed}
+                  src={'/svg/arrow-down-red.svg'}
                   height={100}
                   width={100}
                   alt="Down Icon Red"
@@ -321,7 +356,7 @@ function Main({ params }) {
                   }`}
                 />
               </button>
-            </div> */}
+            </div>
             </div>
           </div>
 

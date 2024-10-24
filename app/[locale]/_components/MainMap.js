@@ -15,6 +15,9 @@ export default function Map() {
   const [isMap, setIsMap] = useState(true);
   const mapRef = useRef(null);
   const ymapsRef = useRef(null);
+  const userPlacemarkRef = useRef(null);
+  const routeRef = useRef(null);
+  const clinicsPlacemarksRef = useRef([]);
 
   const clinicsLocations = [
     {
@@ -686,11 +689,19 @@ export default function Map() {
     loadYMaps()
       .then((ymaps) => {
         ymapsRef.current = ymaps;
-        initMap([41.311158, 69.279737]);
+        initMap([41.311081, 69.279737]); // Координаты памятника Амира Темура
       })
       .catch((error) => {
         console.error("Ошибка загрузки Яндекс Карт:", error);
       });
+
+    // Очистка карты при размонтировании компонента
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.destroy();
+        mapRef.current = null;
+      }
+    };
   }, [isMap]);
 
   const initMap = (center) => {
@@ -701,7 +712,19 @@ export default function Map() {
       mapRef.current = new ymaps.Map("map", {
         center: center,
         zoom: 13,
+        controls: ["zoomControl", "geolocationControl"],
       });
+
+      // Добавляем маркер в центре карты с иконкой геолокации
+      const iconContent = {
+        iconLayout: "default#image",
+        iconImageHref: "/images/maps/geolocation.png",
+        iconImageSize: [50, 50],
+        iconImageOffset: [-25, -50],
+      };
+
+      const centerPlacemark = new ymaps.Placemark(center, {}, iconContent);
+      mapRef.current.geoObjects.add(centerPlacemark);
     } else {
       mapRef.current.setCenter(center, 13);
     }
@@ -731,15 +754,21 @@ export default function Map() {
     const ymaps = ymapsRef.current;
     if (!ymaps || !mapRef.current) return;
 
-    const userPlacemark = new ymaps.Placemark(
-      location,
-      {},
-      {
-        preset: "islands#blueCircleIcon",
-        iconColor: "#1E98FF",
-      }
-    );
+    // Удаляем предыдущий маркер пользователя, если он есть
+    if (userPlacemarkRef.current) {
+      mapRef.current.geoObjects.remove(userPlacemarkRef.current);
+    }
+
+    const iconContent = {
+      iconLayout: "default#image",
+      iconImageHref: "/images/maps/geolocation.png",
+      iconImageSize: [50, 50],
+      iconImageOffset: [-25, -50],
+    };
+
+    const userPlacemark = new ymaps.Placemark(location, {}, iconContent);
     mapRef.current.geoObjects.add(userPlacemark);
+    userPlacemarkRef.current = userPlacemark;
     mapRef.current.setCenter(location, 14);
   };
 
@@ -763,7 +792,20 @@ export default function Map() {
     const ymaps = ymapsRef.current;
     if (!ymaps || !mapRef.current) return;
 
+    // Удаляем предыдущие маркеры клиник
+    clinicsPlacemarksRef.current.forEach((placemark) => {
+      mapRef.current.geoObjects.remove(placemark);
+    });
+    clinicsPlacemarksRef.current = [];
+
     clinics.forEach((clinic) => {
+      // Создаём макет иконки из SVG
+      const clinicIconLayout = ymaps.templateLayoutFactory.createClass(`
+        <svg width="44" height="57" viewBox="0 0 44 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1226 56.0115C23.2785 56.0115 43.9327 34.1321 43.9327 22.1897C43.9327 10.2473 34.1679 0.56604 22.1226 0.56604C10.0772 0.56604 0.3125 10.2473 0.3125 22.1897C0.3125 34.1321 20.9667 56.0115 22.1226 56.0115ZM22.1226 33.0052C28.2296 33.0052 33.1804 28.0967 33.1804 22.0418C33.1804 15.987 28.2296 11.0786 22.1226 11.0786C16.0156 11.0786 11.0649 15.987 11.0649 22.0418C11.0649 28.0967 16.0156 33.0052 22.1226 33.0052Z" fill="#FB6A68"/>
+        </svg>
+      `);
+
       const placemark = new ymaps.Placemark(
         clinic.coords,
         {
@@ -771,7 +813,13 @@ export default function Map() {
           balloonContent: `<b>${clinic.name}</b><br>${clinic.address}<br>${clinic.graphic}`,
         },
         {
-          preset: "islands#redMedicalIcon",
+          iconLayout: clinicIconLayout,
+          iconShape: {
+            type: "Circle",
+            coordinates: [0, 0],
+            radius: 20,
+          },
+          iconOffset: [-22, -57],
         }
       );
 
@@ -780,12 +828,18 @@ export default function Map() {
       });
 
       mapRef.current.geoObjects.add(placemark);
+      clinicsPlacemarksRef.current.push(placemark);
     });
   };
 
   const buildRoute = (start, end, clinicId) => {
     const ymaps = ymapsRef.current;
     if (!ymaps || !mapRef.current) return;
+
+    // Удаляем предыдущий маршрут, если он есть
+    if (routeRef.current) {
+      mapRef.current.geoObjects.remove(routeRef.current);
+    }
 
     ymaps.route([start, end]).then(
       (route) => {
@@ -795,6 +849,7 @@ export default function Map() {
           strokeWidth: 4,
         });
         mapRef.current.geoObjects.add(route);
+        routeRef.current = route;
         setActiveClinic(clinicId);
       },
       (error) => {

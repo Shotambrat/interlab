@@ -383,7 +383,7 @@ export default function Instuction({locale}) {
             </div>
           </AccordionContent>
         </AccordionItem>
-        <Link href={`/${locale}/instructions`} className="flex flex-col justify-center py-px text-2xl text-red-400 border-т border-б border-solid border-neutral-200 max-md:max-w-full">
+        {/* <Link href={`/${locale}/instructions`} className="flex flex-col justify-center py-px text-2xl text-red-400 border-т border-б border-solid border-neutral-200 max-md:max-w-full">
           <div className="flex gap-3.5 py-7 pr-20 max-md:flex-wrap max-md:pr-5">
             <span>Посмотреть все</span>
             <img
@@ -393,7 +393,7 @@ export default function Instuction({locale}) {
               alt="View all icon"
             />
           </div>
-        </Link>
+        </Link> */}
       </div>
     </section>
   );
