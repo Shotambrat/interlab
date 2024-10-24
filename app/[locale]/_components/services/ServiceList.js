@@ -17,7 +17,7 @@ export default function ServiceList({ services, categories, locale }) {
   const [selectedCategory, setSelectedCategory] = useState(null); // Default to "All services"
 
   const mobileCategory = [
-    { value: "null", label: "Все услуги" }, // Опция "Все услуги"
+    { value: null, label: "Все услуги" }, // Опция "Все услуги"
     ...categories.map((category) => ({
       value: category._id,
       label: category.name[locale] || category.name.ru,
@@ -25,7 +25,7 @@ export default function ServiceList({ services, categories, locale }) {
   ];
 
   // Filter services based on selected category
-  const filteredServices = selectedCategory
+  const filteredServices = selectedCategory || selectedCategory == "null"
     ? services.filter((service) => service.category._id === selectedCategory)
     : services;
 
@@ -55,10 +55,12 @@ export default function ServiceList({ services, categories, locale }) {
         {/* Select for categories (Mobile) */}
         <div className="mdx:hidden">
           <Select
-            defaultValue="null"
+            defaultValue={null}
             className="custom-select"
             options={mobileCategory}
-            onChange={(value) => setSelectedCategory(value)}
+            onChange={(value) => {
+              console.log(value);
+              setSelectedCategory(value)}}
             suffixIcon={<DownOutlined style={{ color: "white" }} />} // Белая стрелка
             style={{
               backgroundColor: "#FB6A68", // Красный фон
@@ -121,8 +123,8 @@ export default function ServiceList({ services, categories, locale }) {
                 />
               ))}
         </div>
-        {filteredServices >= 4 && (
-          <div className="w-full flex justify-center mdx:hidden mt-12">
+        {filteredServices.length >= 4 && (
+          <div className="w-full flex justify-center mdx:hidden">
             <button
               onClick={() => setServicesOpen((prev) => !prev)}
               className="text-rose-400 text-xl font-semibold flex gap-3 items-center"
