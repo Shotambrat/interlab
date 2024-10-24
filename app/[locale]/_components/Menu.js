@@ -11,7 +11,7 @@ import { Link, usePathname } from "@/i18n/routing";
 import resultsRed from "@/public/svg/results/results-red.svg";
 import resultsHover from "@/public/svg/results/results-hover.svg";
 import FocusLock from "react-focus-lock";
-import { createPortal } from "react-dom"; 
+import { createPortal } from "react-dom";
 
 const Menu = ({
   menu,
@@ -44,7 +44,7 @@ const Menu = ({
 
   const pathname = usePathname();
 
-  return createPortal (
+  return createPortal(
     <AnimatePresence>
       {menu && (
         <FocusLock>
@@ -174,7 +174,19 @@ const Menu = ({
               </div>
 
               <nav className="flex flex-col font-semibold">
-                {navOptions.map((option) => (
+                <a
+                  href={navOptions[0].url}
+                  onClick={closeMenu}
+                  passHref
+                >
+                  <div className="py-6 border-b">
+                    <div className="flex justify-between mx-4">
+                      {navOptions[0].name}
+                      <RightIcon />
+                    </div>
+                  </div>
+                </a>
+                {navOptions.slice(1).map((option) => (
                   <a
                     key={option.id}
                     href={`/${locale}${option.url}`}

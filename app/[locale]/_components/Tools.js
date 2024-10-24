@@ -167,7 +167,7 @@ export default function Tools({ navOptions, locale }) {
           <MenuIcon />
         </div>
       </div>
-
+      
       <AnimatePresence>
         {menu && (
           <Menu

@@ -898,9 +898,7 @@ export default function Map() {
                     graphic={[clinic.graphic]}
                     tel={clinic.tel}
                     url="/"
-                    className={
-                      clinic.id === activeClinic ? "bg-red-100" : ""
-                    }
+                    className={clinic.id === activeClinic ? "bg-red-100" : ""}
                   />
                 ))
               : sortedClinics.map((clinic) => (
@@ -911,9 +909,7 @@ export default function Map() {
                     graphic={[clinic.graphic]}
                     tel={clinic.tel}
                     url="/"
-                    className={
-                      clinic.id === activeClinic ? "bg-red-100" : ""
-                    }
+                    className={clinic.id === activeClinic ? "bg-red-100" : ""}
                   />
                 ))}
           </div>
@@ -937,32 +933,36 @@ export default function Map() {
           {!isMap && (
             <div className="w-full grid grid-cols-1 mdx:grid-cols-2 gap-4">
               {sortedClinics.length === 0
-                ? clinicsLocations.slice(0, 6).map((clinic) => (
-                    <AddressItem
-                      key={clinic.id}
-                      title={clinic.name}
-                      address={clinic.address}
-                      graphic={[clinic.graphic]}
-                      tel={clinic.tel}
-                      url="/"
-                      className={
-                        clinic.id === activeClinic ? "bg-red-100" : ""
-                      }
-                    />
-                  ))
-                : sortedClinics.slice(0, 6).map((clinic) => (
-                    <AddressItem
-                      key={clinic.id}
-                      title={clinic.name}
-                      address={clinic.address}
-                      graphic={[clinic.graphic]}
-                      tel={clinic.tel}
-                      url="/"
-                      className={
-                        clinic.id === activeClinic ? "bg-red-100" : ""
-                      }
-                    />
-                  ))}
+                ? clinicsLocations
+                    .slice(0, 6)
+                    .map((clinic) => (
+                      <AddressItem
+                        key={clinic.id}
+                        title={clinic.name}
+                        address={clinic.address}
+                        graphic={[clinic.graphic]}
+                        tel={clinic.tel}
+                        url="/"
+                        className={
+                          clinic.id === activeClinic ? "bg-red-100" : ""
+                        }
+                      />
+                    ))
+                : sortedClinics
+                    .slice(0, 6)
+                    .map((clinic) => (
+                      <AddressItem
+                        key={clinic.id}
+                        title={clinic.name}
+                        address={clinic.address}
+                        graphic={[clinic.graphic]}
+                        tel={clinic.tel}
+                        url="/"
+                        className={
+                          clinic.id === activeClinic ? "bg-red-100" : ""
+                        }
+                      />
+                    ))}
             </div>
           )}
         </div>
