@@ -720,7 +720,7 @@ export default function Map() {
         iconLayout: "default#image",
         iconImageHref: "/images/maps/geolocation.png",
         iconImageSize: [50, 50],
-        iconImageOffset: [-25, -50],
+        iconImageOffset: [-25, -27],
       };
 
       const centerPlacemark = new ymaps.Placemark(center, {}, iconContent);
@@ -755,6 +755,7 @@ export default function Map() {
     if (!ymaps || !mapRef.current) return;
 
     // Удаляем предыдущий маркер пользователя, если он есть
+    console.log("USerPlaceMark", userPlacemarkRef)
     if (userPlacemarkRef.current) {
       mapRef.current.geoObjects.remove(userPlacemarkRef.current);
     }
@@ -763,7 +764,7 @@ export default function Map() {
       iconLayout: "default#image",
       iconImageHref: "/images/maps/geolocation.png",
       iconImageSize: [50, 50],
-      iconImageOffset: [-25, -50],
+      iconImageOffset: [-25, -27],
     };
 
     const userPlacemark = new ymaps.Placemark(location, {}, iconContent);
@@ -817,9 +818,9 @@ export default function Map() {
           iconShape: {
             type: "Circle",
             coordinates: [0, 0],
-            radius: 20,
+            radius: 40,
           },
-          iconOffset: [-22, -57],
+          iconOffset: [-20, -57],
         }
       );
 
