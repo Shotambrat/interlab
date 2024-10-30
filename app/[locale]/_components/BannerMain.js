@@ -39,7 +39,7 @@ const Slider = ({ params }) => {
             backgroundPhoto,
             navigateToUrl,
             buttonText
-          }`);
+          }`, );
         setBanners(banners);
       } catch (error) {
         console.error("Ошибка при загрузке баннеров:", error);
